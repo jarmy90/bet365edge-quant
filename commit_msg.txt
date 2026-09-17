@@ -1,8 +1,0 @@
-Validacion del workflow: respaldo en la rama dataset robusto
-
-- Paso 5b: se descartan los cambios de la captura (git reset --hard) antes de
-  cambiar de rama; antes git abortaba con 'Your local changes would be
-  overwritten by checkout' y tumbaba la ejecucion.
-- Paso 5b marcado como continue-on-error: la web se alimenta del gist (paso 5a),
-  asi que un fallo del respaldo avisa pero no invalida la captura.
-- Verificado en la nube: paso 7 (captura con Chrome) y paso 8 (gist publico) OK.
