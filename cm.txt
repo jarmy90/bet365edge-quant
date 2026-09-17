@@ -1,0 +1,21 @@
+﻿Modo gratis + informacion legal + fin del falso edge (v7.6)
+
+Fase de lanzamiento gratuito:
+- Interruptor ACCESO_LIBRE inyectado en el navegador: toda la web visible sin
+  pagar, sin email ni codigo. El boton de la barra pasa a Ver los mejores picks
+  y la pasarela de Stripe queda oculta (sigue en el codigo).
+- Seccion LOS MEJORES PICKS DE HOY; el estado vacio ya no promete edge.
+
+Informacion legal:
+- Pagina /legal con alias (/aviso-legal, /privacidad, /cookies, /terminos,
+  /juego-responsable) y pie en la portada y en /live: aviso legal, privacidad
+  RGPD, cookies, terminos, juego responsable, aviso +18, 900 200 225, RGIAJ.
+- Deja claro que NO es un operador de juego. Titular marcado como [PENDIENTE]:
+  mejor un hueco visible que un dato falso. No sustituye a revision legal.
+
+Honestidad del dato (motivo medido):
+- El tip de ratingbet es un espejo del precio (tipProbPct == probCasaPct en las
+  403 lineas): comparar el precio consigo mismo nunca puede dar edge. La UI deja
+  de llamarlo estimada y lo etiqueta Prob. casa (ratingbet) o Prob. IA.
+
+Tests: nuevo test_acceso_libre.js (37 comprobaciones). Suite: 7 OK / 2 SKIP / 0 FALLO.

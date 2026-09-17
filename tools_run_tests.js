@@ -20,6 +20,7 @@ const SUITES = [
     { fichero: 'test_parlays_riesgo.js', que: 'combinadas por nivel de riesgo' },
     { fichero: 'test_dataset_remoto.js', que: 'carga del dataset remoto (nube)' },
     { fichero: 'test_client_render.js', que: 'render del cliente (sin null%)' },
+    { fichero: 'test_acceso_libre.js', que: 'acceso libre + pagina legal (+18, privacidad, cookies)' },
     { fichero: 'test_temporal_validation.js', que: 'validacion temporal (motor v3)' },
     { fichero: 'test_health_endpoint.js', que: '/api/health (contrato v3)' },
     { fichero: 'test_frontend_validation.js', que: 'validacion del frontend' }

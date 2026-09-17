@@ -43,7 +43,96 @@ import {
 } from './ratingbet_pipeline.js';
 import datasetLocal from './ratingbet_fixtures_data.js';
 
-const BUILD_ID = 'ratingbet-v7.5-2026-09-17';
+const BUILD_ID = 'ratingbet-v7.6-2026-09-17';
+
+// =============================================================================
+// ACCESO_LIBRE: modo gratuito (fase de captacion de trafico).
+// -----------------------------------------------------------------------------
+// Con true:
+//   - toda la web es visible: picks, combinadas por riesgo y tabla completa
+//   - el boton de la barra pasa a "Ver los mejores picks" y no abre la promo
+//   - no se pide email, ni codigo, ni pago
+//   - la pasarela de Stripe SIGUE en el codigo, solo se oculta en la interfaz
+// Para volver a cobrar: poner false (y, antes de cobrar de verdad, cerrar la
+// puerta en el SERVIDOR: hoy /api/verify-access acepta cualquier email y los
+// endpoints de datos son publicos).
+// =============================================================================
+const ACCESO_LIBRE = true;
+
+// =============================================================================
+// PAGINA LEGAL (aviso legal, privacidad, cookies, terminos y juego responsable)
+// -----------------------------------------------------------------------------
+// REQUISITO antes de abrir al publico: sustituir los campos [PENDIENTE] por los
+// datos reales del titular. Es preferible un hueco visible que un texto falso.
+// Esta plantilla cubre lo minimo razonable (LSSI: aviso legal, RGPD/LOPDGDD:
+// privacidad y cookies, aviso +18 y juego responsable), pero NO sustituye al
+// asesoramiento legal profesional.
+// =============================================================================
+function paginaLegal() {
+    const estilo = 'font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif;background:#06070a;color:#e2e8f0;margin:0;padding:0;line-height:1.75;';
+    const caja = 'max-width:900px;margin:0 auto;padding:2rem 1.2rem 3rem;';
+    const h2 = 'color:#0df2a6;font-size:1.15rem;margin:2.2rem 0 0.6rem;';
+    const nota = 'background:rgba(245,158,11,0.1);border:1px solid rgba(245,158,11,0.4);border-radius:10px;padding:12px 14px;color:#fbbf24;font-weight:600;';
+    return '<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8">'
+        + '<meta name="viewport" content="width=device-width, initial-scale=1.0">'
+        + '<meta name="robots" content="index, follow">'
+        + '<title>Informacion legal | BET365EDGE</title><style>'
+        + 'body{' + estilo + '}a{color:#00d4ff;}ul{padding-left:1.2rem;}li{margin-bottom:0.5rem;}'
+        + 'h1{font-size:1.6rem;} code{background:#11151f;padding:1px 5px;border-radius:4px;}'
+        + '</style></head><body><div style="' + caja + '">'
+        + '<p><a href="/">&#8592; Volver a la web</a></p>'
+        + '<h1>Informacion legal</h1>'
+        + '<p style="color:#94a3b8;font-size:0.9rem;">Ultima actualizacion: 17 de septiembre de 2026.</p>'
+        + '<p style="' + nota + '">Aviso: los datos del titular marcados como [PENDIENTE] deben completarse antes de promocionar esta web al publico.</p>'
+        + '<p style="color:#94a3b8;font-size:0.85rem;">Esta version es un borrador operativo: describe exactamente lo que hace el sitio hoy.</p>'
+        + '<h2 style="' + h2 + '" id="aviso">1. Aviso legal</h2>'
+        + '<ul>'
+        + '<li><strong>Titular del sitio:</strong> [PENDIENTE: nombre o razon social], NIF [PENDIENTE], domicilio [PENDIENTE].</li>'
+        + '<li><strong>Contacto:</strong> [PENDIENTE: correo electronico de contacto].</li>'
+        + '<li><strong>Actividad:</strong> este sitio ofrece informacion estadistica y analisis de cuotas de futbol (Over/Under) recogidas de fuentes publicas. <strong>No es un operador de juego</strong>, no acepta apuestas, no custodia dinero de jugadores ni actua como intermediario de ninguna casa de apuestas.</li>'
+        + '<li><strong>Edad minima:</strong> contenido dirigido exclusivamente a mayores de 18 anos.</li>'
+        + '<li><strong>Propiedad intelectual:</strong> el diseno, el codigo y los analisis son del titular. Las cuotas y nombres de equipos pertenecen a sus fuentes originales y se muestran con finalidad informativa. Si eres titular de derechos y quieres que retiremos un contenido, escribenos y lo haremos.</li>'
+        + '<li><strong>Responsabilidad:</strong> la informacion se ofrece &laquo;tal cual&raquo;, sin garantia de exactitud, disponibilidad ni resultados. Verifica siempre las cuotas y condiciones en la casa de apuestas antes de jugar.</li>'
+        + '</ul>'
+        + '<h2 style="' + h2 + '" id="privacidad">2. Politica de privacidad</h2>'
+        + '<ul>'
+        + '<li><strong>Responsable:</strong> el titular indicado arriba.</li>'
+        + '<li><strong>Que datos tratamos:</strong> en esta version de acceso libre no se pide registro. Si nos escribes por correo, trataremos tu direccion y el contenido del mensaje.</li>'
+        + '<li><strong>Para que:</strong> atender tu consulta o incidencia.</li>'
+        + '<li><strong>Base juridica:</strong> tu consentimiento (art. 6.1.a RGPD) y el interes legitimo en responder consultas.</li>'
+        + '<li><strong>Cuanto tiempo:</strong> solo el necesario para atender la consulta y los plazos legales aplicables.</li>'
+        + '<li><strong>Destinatarios:</strong> no cedemos datos a terceros, salvo obligacion legal. El sitio se aloja en Vercel (servidor en la UE) y el analisis de partidos usa un proveedor de IA que recibe unicamente datos publicos de partidos (nunca datos personales).</li>'
+        + '<li><strong>Derechos:</strong> puedes ejercer acceso, rectificacion, supresion, oposicion, limitacion y portabilidad escribiendo al contacto indicado. Tambien puedes reclamar ante la Agencia Espanola de Proteccion de Datos (aepd.es).</li>'
+        + '<li><strong>No hay decisiones automatizadas</strong> que te afecten como persona: los analisis son sobre partidos, no sobre usuarios.</li>'
+        + '</ul>'
+        + '<h2 style="' + h2 + '" id="cookies">3. Politica de cookies</h2>'
+        + '<ul>'
+        + '<li><strong>Que usamos hoy:</strong> unicamente almacenamiento tecnico propio (<code>localStorage</code> y una cookie de acceso) para recordar el estado de la interfaz en tu navegador. No instalamos cookies de publicidad, de perfilado ni de terceros con fines de seguimiento.</li>'
+        + '<li><strong>Base legal:</strong> las cookies tecnicas necesarias estan exentas de consentimiento previo (art. 22.2 LSSI).</li>'
+        + '<li><strong>Como desactivarlas:</strong> puedes borrar el almacenamiento local y las cookies desde la configuracion de tu navegador; la web seguira funcionando.</li>'
+        + '<li><strong>Analitica:</strong> si en el futuro se anaden herramientas de medicion, se pedira consentimiento previo mediante un banner y se detallara aqui.</li>'
+        + '</ul>'
+        + '<h2 style="' + h2 + '" id="terminos">4. Terminos de uso</h2>'
+        + '<ul>'
+        + '<li>Debes ser <strong>mayor de 18 anos</strong> para usar este sitio.</li>'
+        + '<li>El uso es <strong>personal y no comercial</strong>. No se permite la reventa, la reproduccion masiva ni la redistribucion de los analisis sin autorizacion escrita.</li>'
+        + '<li><strong>No hay garantia de resultados.</strong> Ninguna prediccion implica ganancias: apostar puede hacerte perder todo el dinero que arriesgues.</li>'
+        + '<li>El sitio puede cambiar, suspenderse o dejar de ser gratuito. Cuando exista una version de pago, sus condiciones se mostraran antes de contratar.</li>'
+        + '<li><strong>Limitacion de responsabilidad:</strong> el titular no responde de decisiones de apuesta, de errores en los datos de terceros ni de interrupciones del servicio.</li>'
+        + '<li><strong>Ley aplicable:</strong> legislacion espanola. Para cualquier controversia, seran competentes los juzgados del domicilio del titular (salvo norma imperativa en contrario).</li>'
+        + '</ul>'
+        + '<h2 style="' + h2 + '" id="juego">5. Juego responsable</h2>'
+        + '<ul>'
+        + '<li>Este sitio <strong>no fomenta apostar</strong>: publica analisis estadisticos y avisa cuando no encuentra valor. Buena parte de los dias el resultado es &laquo;sin ventaja&raquo;.</li>'
+        + '<li><strong>Nunca apuestes dinero que necesites.</strong> Fija limites de deposito y tiempo antes de empezar y respetalos.</li>'
+        + '<li>Si el juego deja de ser un entretenimiento: <strong>900 200 225</strong> (FEJAR, 24 h) y <strong>jugarbien.es</strong>.</li>'
+        + '<li>Puedes inscribirte en el <strong>Registro General de Interdicciones de Acceso al Juego (RGIAJ)</strong> de la Direccion General de Ordenacion del Juego para bloquear tu acceso a todas las casas con licencia en Espana.</li>'
+        + '<li>Solo se puede apostar legalmente en Espana en operadores con licencia de la DGOJ. Este sitio no es uno de ellos.</li>'
+        + '</ul>'
+        + '<p style="margin-top:2.5rem;color:#64748b;font-size:0.8rem;">Documento base pendiente de revision por un profesional del derecho antes de su publicacion definitiva. Titular: [PENDIENTE].</p>'
+        + '<p><a href="/">&#8592; Volver a la web</a></p>'
+        + '</div></body></html>';
+}
 
 // Procedencia del catalogo de fixtures publicado por la API publica.
 const FIXTURES_SOURCE = RATINGBET_FUENTE;
@@ -1574,7 +1663,7 @@ export default {
                     <span id="navStatusTxt">Suscripción: Inactiva</span>
                 </span>
                 <button id="btnNavLogin" onclick="openEmailLoginModal()" style="background:none; border:none; color:var(--text-secondary); font-size:0.82rem; font-weight:600; cursor:pointer; text-decoration:underline; text-underline-offset:3px;">¿Ya eres cliente?</button>
-                <button id="btnNavUpgrade" class="btn-ghost" onclick="openPromoModal()">Desbloquear</button>
+                <button id="btnNavUpgrade" class="btn-ghost" onclick="handleMainEdgeClick()">Ver los mejores picks</button>
             </div>
         </nav>
 
@@ -1729,15 +1818,15 @@ export default {
         </section>
 
 
-        <!-- SECCIÓN DESBLOQUEADA DE APUESTAS CON EDGE (Sólo visible para usuarios con acceso) -->
+        <!-- SECCIÓN DE PICKS: acceso libre (fase de lanzamiento, sin gate) -->
         <section id="unlockedEdgeSection" class="bento-card col-12">
             <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid var(--border-subtle); padding-bottom:1.2rem; margin-bottom:1.2rem; flex-wrap:wrap; gap:10px;">
                 <div class="card-title-group">
                     <div class="card-title" style="color:var(--neon-emerald);">
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                        APUESTAS DE HOY CON EDGE DESBLOQUEADAS
+                        LOS MEJORES PICKS DE HOY
                     </div>
-                    <div id="unlockedSubtitle" class="card-subtitle">Combinada generada con algoritmo para cuota objetivo</div>
+                    <div id="unlockedSubtitle" class="card-subtitle">Partidos reales de ratingbet con sus cuotas. Si no hay ventaja, se dice: no se inventa nada.</div>
                 </div>
                 <div style="display:flex; align-items:center; gap:8px;">
                     <span id="parlayTotalBadge" class="badge-quant" style="background:rgba(13,242,166,0.1); color:var(--neon-emerald); font-size:0.95rem; padding:6px 14px;">
@@ -1998,8 +2087,11 @@ export default {
 
 
     <script>
-        // ESTADO DE SUSCRIPCIÓN DEL USUARIO (LocalStorage + Cookie check)
-        let isUserSubscribed = localStorage.getItem('bet365edge_paid') === 'true' || (document.cookie || '').includes('bet365edge_auth=active_vip');
+        // ESTADO DE ACCESO
+        // ACCESO_LIBRE lo inyecta el servidor (const ACCESO_LIBRE del worker):
+        // en fase de lanzamiento es true y todo el contenido es visible gratis.
+        const ACCESO_LIBRE = ${ACCESO_LIBRE ? 'true' : 'false'};
+        let isUserSubscribed = ACCESO_LIBRE || localStorage.getItem('bet365edge_paid') === 'true' || (document.cookie || '').includes('bet365edge_auth=active_vip');
         let currentSelectedRisk = 'medio';
 
         // LOGIN VIP: ya cliente (clave Stripe) + codigo maestro autor
@@ -2222,6 +2314,25 @@ export default {
             const lockIcon = document.getElementById('lockIconContainer');
             const unlockedSection = document.getElementById('unlockedEdgeSection');
 
+            // --- MODO GRATIS: todo visible, sin pedir nada ---
+            if (ACCESO_LIBRE) {
+                if (navStatus) {
+                    navStatus.innerText = 'Acceso: gratis (lanzamiento)';
+                    navStatus.style.color = 'var(--neon-emerald)';
+                }
+                if (navBtn) {
+                    navBtn.innerText = 'Ver los mejores picks';
+                    navBtn.style.borderColor = 'rgba(13,242,166,0.3)';
+                    navBtn.style.color = 'var(--neon-emerald)';
+                }
+                // Sin login VIP ni promo de pago en esta fase
+                var nbLogin = document.getElementById('btnNavLogin'); if (nbLogin) nbLogin.style.display = 'none';
+                if (lockIcon) lockIcon.innerHTML = '<span style="color:var(--neon-emerald); font-weight:bold;">&#10003;</span>';
+                if (unlockedSection) unlockedSection.style.display = 'flex';
+                loadParlayForRisk(currentSelectedRisk);
+                return;
+            }
+
             if (isUserSubscribed) {
                 navStatus.innerText = 'Suscripción: VIP Activa';
                 navStatus.style.color = 'var(--neon-emerald)';
@@ -2246,6 +2357,8 @@ export default {
         // ACCIÓN DEL BOTÓN PRINCIPAL "Apuestas de hoy con Edge"
         // =========================================================================
         function handleMainEdgeClick() {
+            // MODO GRATIS: el boton muestra los mejores picks, nunca la promo de pago
+            if (ACCESO_LIBRE) { mostrarMejoresPicks(); return; }
             if (!isUserSubscribed) {
                 // Si no tiene acceso activo -> Abre modal con la promo de 25€ y Stripe Checkout
                 openPromoModal();
@@ -2255,6 +2368,18 @@ export default {
                 el.style.display = 'flex';
                 el.scrollIntoView({ behavior: 'smooth', block: 'center' });
             }
+        }
+
+        // Muestra la seccion de picks: la hace visible, recarga la combinada del
+        // riesgo seleccionado y baja hasta ella. Es lo que dispara el boton
+        // "Ver los mejores picks" de la barra superior.
+        function mostrarMejoresPicks() {
+            const el = document.getElementById('unlockedEdgeSection');
+            if (el) {
+                el.style.display = 'flex';
+                el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+            loadParlayForRisk(currentSelectedRisk);
         }
 
         function openPromoModal() {
@@ -2405,7 +2530,7 @@ export default {
                     head.style.cssText = 'grid-column:1/-1; width:100%; padding:12px 14px; background:linear-gradient(135deg, rgba(245,158,11,0.12), rgba(0,212,255,0.05)); border:1px solid rgba(245,158,11,0.3); border-radius:12px;';
                     head.innerHTML =
                         '<div style="font-size:0.78rem; color:#f59e0b; font-weight:800; letter-spacing:1.5px;">⭐ PARTIDOS DESTACADOS DEL DÍA</div>' +
-                        '<div style="font-size:0.85rem; color:var(--text-secondary); margin-top:4px;">Sin combinada con Edge positivo (+EV) para la cuota (' + (data.descripcionRiesgo || 'este riesgo') + ') hoy. Te mostramos los partidos sueltos con más valor:</div>';
+                        '<div style="font-size:0.85rem; color:var(--text-secondary); margin-top:4px;">Hoy no hay combinada con ventaja clara para esta banda (' + (data.descripcionRiesgo || 'este riesgo') + '). Te mostramos los partidos más destacados del día, ordenados por probabilidad:</div>';
                 }
                 container.appendChild(head);
 
@@ -2414,7 +2539,9 @@ export default {
                     var card = document.createElement('div');
                     card.className = 'bet-card';
                     var cuotaModelo = (Number.isFinite(p.probPct) && p.probPct > 0) ? (100 / p.probPct).toFixed(2) : null;
-                    var probEst = Number.isFinite(p.probPct) ? ('Prob. estimada: ' + Math.round(p.probPct) + '%') : 'Prob. n/d';
+                    var probEst = Number.isFinite(p.probPct)
+                        ? ((p.probBase === 'modelo-ia' ? 'Prob. IA: ' : 'Prob. casa (ratingbet): ') + Math.round(p.probPct) + '%')
+                        : 'Prob. n/d';
                     var edgeVal = Number.isFinite(p.edgePuntos) ? p.edgePuntos : (cuotaModelo ? Math.round((p.cuota - Number(cuotaModelo)) * 100) : null);
                     var edgeHtml = Number.isFinite(edgeVal) ?
                         (edgeVal >= 0 ? '<strong style="color:var(--neon-emerald);">+' + edgeVal.toFixed(1) + '%</strong>'
@@ -2799,6 +2926,22 @@ export default {
         });
 
     </script>
+
+    <!-- PIE: informacion legal, aviso de edad y juego responsable -->
+    <footer style="max-width:1400px; margin:2rem auto 1.5rem; padding:1.6rem 1rem 0; border-top:1px solid var(--border-subtle); font-size:0.78rem; color:var(--text-muted); line-height:1.7;">
+        <div style="display:flex; flex-wrap:wrap; gap:14px; align-items:center; margin-bottom:12px;">
+            <span style="font-weight:800; color:#f59e0b; border:1px solid rgba(245,158,11,0.5); border-radius:6px; padding:2px 8px;">+18</span>
+            <strong style="color:var(--text-secondary);">Solo para mayores de 18 años</strong>
+            <a href="/legal#aviso" style="color:var(--neon-cyan); text-decoration:none;">Aviso legal</a>
+            <a href="/legal#privacidad" style="color:var(--neon-cyan); text-decoration:none;">Privacidad</a>
+            <a href="/legal#cookies" style="color:var(--neon-cyan); text-decoration:none;">Cookies</a>
+            <a href="/legal#terminos" style="color:var(--neon-cyan); text-decoration:none;">Términos de uso</a>
+            <a href="/legal#juego" style="color:var(--neon-cyan); text-decoration:none;">Juego responsable</a>
+        </div>
+        <div>Esta web es un <strong>servicio de información y análisis estadístico</strong>. <strong>No es un operador de juego</strong>: no acepta apuestas ni custodia dinero de jugadores. Las cuotas se recogen de fuentes públicas y pueden contener errores u omisiones; comprueba siempre el precio y las condiciones en la casa de apuestas antes de jugar. No garantizamos resultados ni ganancias.</div>
+        <div style="margin-top:8px;">Jugar conlleva riesgo de perder dinero. Si el juego es un problema para ti o para alguien de tu entorno, pide ayuda: <strong>900 200 225</strong> (FEJAR, atención 24 h) o visita <strong>jugarbien.es</strong>. Puedes solicitar tu autoexclusión en el RGIAJ (Ordenación del Juego).</div>
+        <div style="margin-top:8px;">Titular: <strong>[PENDIENTE: nombre o razón social, NIF y domicilio]</strong> · Contacto: <strong>[PENDIENTE: correo de contacto]</strong></div>
+    </footer>
 </body>
 </html>`;
 
@@ -3578,9 +3721,41 @@ window.addEventListener("DOMContentLoaded",function(){
         })();
 
     </script>
+
+    <!-- PIE: informacion legal, aviso de edad y juego responsable -->
+    <footer style="max-width:1400px; margin:2rem auto 1.5rem; padding:1.6rem 1rem 0; border-top:1px solid var(--border-subtle); font-size:0.78rem; color:var(--text-muted); line-height:1.7;">
+        <div style="display:flex; flex-wrap:wrap; gap:14px; align-items:center; margin-bottom:12px;">
+            <span style="font-weight:800; color:#f59e0b; border:1px solid rgba(245,158,11,0.5); border-radius:6px; padding:2px 8px;">+18</span>
+            <strong style="color:var(--text-secondary);">Solo para mayores de 18 años</strong>
+            <a href="/legal#aviso" style="color:var(--neon-cyan); text-decoration:none;">Aviso legal</a>
+            <a href="/legal#privacidad" style="color:var(--neon-cyan); text-decoration:none;">Privacidad</a>
+            <a href="/legal#cookies" style="color:var(--neon-cyan); text-decoration:none;">Cookies</a>
+            <a href="/legal#terminos" style="color:var(--neon-cyan); text-decoration:none;">Términos de uso</a>
+            <a href="/legal#juego" style="color:var(--neon-cyan); text-decoration:none;">Juego responsable</a>
+        </div>
+        <div>Esta web es un <strong>servicio de información y análisis estadístico</strong>. <strong>No es un operador de juego</strong>: no acepta apuestas ni custodia dinero de jugadores. Las cuotas se recogen de fuentes públicas y pueden contener errores u omisiones; comprueba siempre el precio y las condiciones en la casa de apuestas antes de jugar. No garantizamos resultados ni ganancias.</div>
+        <div style="margin-top:8px;">Jugar conlleva riesgo de perder dinero. Si el juego es un problema para ti o para alguien de tu entorno, pide ayuda: <strong>900 200 225</strong> (FEJAR, atención 24 h) o visita <strong>jugarbien.es</strong>. Puedes solicitar tu autoexclusión en el RGIAJ (Ordenación del Juego).</div>
+        <div style="margin-top:8px;">Titular: <strong>[PENDIENTE: nombre o razón social, NIF y domicilio]</strong> · Contacto: <strong>[PENDIENTE: correo de contacto]</strong></div>
+    </footer>
 </body>
 </html>`;
             return new Response(liveHtml, {
+                headers: { ...corsHeaders, 'Content-Type': 'text/html; charset=utf-8' }
+            });
+        }
+
+        // ---------------------------------------------------------------------
+        // PAGINA LEGAL: aviso legal, privacidad, cookies, terminos y juego
+        // responsable. Se sirve en /legal (y alias) para poder enlazarla desde el
+        // pie y desde cualquier texto legal externo.
+        // ---------------------------------------------------------------------
+        if (url.pathname === '/legal'
+            || url.pathname === '/aviso-legal'
+            || url.pathname === '/privacidad'
+            || url.pathname === '/cookies'
+            || url.pathname === '/terminos'
+            || url.pathname === '/juego-responsable') {
+            return new Response(paginaLegal(), {
                 headers: { ...corsHeaders, 'Content-Type': 'text/html; charset=utf-8' }
             });
         }
