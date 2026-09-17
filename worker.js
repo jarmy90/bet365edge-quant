@@ -43,7 +43,7 @@ import {
 } from './ratingbet_pipeline.js';
 import datasetLocal from './ratingbet_fixtures_data.js';
 
-const BUILD_ID = 'ratingbet-v7.4-2026-09-17';
+const BUILD_ID = 'ratingbet-v7.5-2026-09-17';
 
 // Procedencia del catalogo de fixtures publicado por la API publica.
 const FIXTURES_SOURCE = RATINGBET_FUENTE;
@@ -635,7 +635,18 @@ export default {
                             try {
                                 const r = await fetch(endpoint, {
                                     method: 'POST',
-                                    signal: AbortSignal.timeout(6000),
+                                    // MEDIDO el 17/09/2026 con el prompt real (8 partidos,
+                                    // 4.545 tokens de entrada): la respuesta completa ocupa
+                                    // ~1.880 tokens y tarda ~9 s. Con max_tokens=450 el modelo
+                                    // devolvia finish_reason='length' (JSON truncado ->
+                                    // 'json-no-parseable') y con 6 s de timeout se abortaba.
+                                    // Resultado: la IA NUNCA emitia veredictos y la web salia
+                                    // sin edge y sin combinadas.
+                                    // El abort se fija en 20 s (mas del doble de lo medido y por
+                                    // debajo del limite de la funcion en Vercel): si la IA tarda
+                                    // mas, se aborta y el pipeline degrada a 'solo-cuotas-reales'
+                                    // de forma honesta, en vez de devolver un error de plataforma.
+                                    signal: AbortSignal.timeout(20000),
                                     headers: {
                                         'Authorization': 'Bearer ' + apiKey,
                                         'Content-Type': 'application/json',
@@ -645,7 +656,7 @@ export default {
                                     body: JSON.stringify({
                                         model: m,
                                         temperature: 0.15,
-                                        max_tokens: 450,
+                                        max_tokens: 2000,
                                         messages: [
                                             { role: 'system', content: system },
                                             { role: 'user',   content: user   }
@@ -841,7 +852,11 @@ export default {
             let pool = [];
             try { pool = (await getFutureMatchesPool()) || []; } catch (e) { pool = []; }
             const pasadosPublicados = pool.filter(function (f) { return f.matchTimestamp < nowMs; }).length;
-            const sinKickoffReal = pool.filter(function (f) { return !f.matchTimestamp || !f.kickoffIsoUtc; }).length;
+            // Los fixtures publicados usan kickoffIsoUtc + kickoffMs: si se exigia
+            // 'matchTimestamp' (que ya no existe) el aviso CRITICO saltaba SIEMPRE,
+            // aunque el kickoff fuera real y verificado. Un CRITICO fijo inutiliza
+            // el monitoreo, asi que se comprueba el campo que si existe.
+            const sinKickoffReal = pool.filter(function (f) { return !f.kickoffIsoUtc && !f.kickoffMs; }).length;
 
             const integridadTemporal = {
                 validacionTemporal: true,
