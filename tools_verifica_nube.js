@@ -20,9 +20,22 @@ const arg = (nombre, porDefecto) => {
     return hit ? hit.split('=').slice(1).join('=') : porDefecto;
 };
 
-const URL_DATASET = arg('url', process.env.RATINGBET_DATASET_URL || '');
+const URL_DATASET_CFG = arg('url', process.env.RATINGBET_DATASET_URL || '');
 const TOKEN = process.env.RATINGBET_DATASET_TOKEN || process.env.DATASET_TOKEN || '';
 const API_VERSION = arg('api', 'https://bet365edge-quant.vercel.app/api/version');
+
+// Si no se pasa URL, se DESCUBRE la que usa realmente la API desplegada: asi el
+// verificador funciona sin argumentos y comprueba exactamente lo que ve el
+// usuario, no una URL escrita a mano que podria estar desactualizada.
+async function urlDesdeApi() {
+    try {
+        const j = await fetch(API_VERSION, { headers: { 'Accept': 'application/json' } }).then(r => r.json());
+        const dd = (j.diagnosticoFuente && j.diagnosticoFuente.diagDataset) || j.diagDataset || null;
+        return (dd && dd.url) || '';
+    } catch (e) {
+        return '';
+    }
+}
 
 // Umbral de aviso del pipeline (ratingbet_pipeline.js: MAX_ANTIGUEDAD_MIN)
 const AVISO_MIN = 180;
@@ -47,8 +60,13 @@ function edadDesdeCaptura(payload) {
 
 async function comprobarDataset() {
     console.log('\n=== 1) DATASET PUBLICADO ===');
+    let URL_DATASET = URL_DATASET_CFG;
     if (!URL_DATASET) {
-        linea(false, 'No hay URL: define RATINGBET_DATASET_URL o usa --url=');
+        URL_DATASET = await urlDesdeApi();
+        if (URL_DATASET) console.log(' URL descubierta desde /api/version: ' + URL_DATASET);
+    }
+    if (!URL_DATASET) {
+        linea(false, 'No hay URL: la API no declara dataset remoto. Define RATINGBET_DATASET_URL o usa --url=');
         return null;
     }
     console.log(' URL: ' + URL_DATASET);

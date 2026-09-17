@@ -105,3 +105,42 @@ servidor**: nunca puede capturar. Si los partidos no cambian, mira en este orden
 - **v7.4** (17/09/2026): soporte de `RATINGBET_DATASET_TOKEN`, cache-buster en la
   lectura remota, respaldo base64 para la API de contenidos de GitHub, emojis de
   `BANDAS_RIESGO` reparados y `tools_run_tests.js` con código de salida real.
+
+## Estado del montaje (17/09/2026)
+
+| Pieza | Valor |
+|---|---|
+| Repositorio (privado) | https://github.com/jarmy90/bet365edge-quant |
+| Workflow | `Captura ratingbet` — cron `23 */3 * * *` (UTC) + lanzamiento manual |
+| Gist público (lo que lee la web) | https://gist.github.com/jarmy90/9494dab5740e8efb6dc84f38ff85c6cf |
+| `RATINGBET_DATASET_URL` en Vercel | `https://gist.githubusercontent.com/jarmy90/9494dab5740e8efb6dc84f38ff85c6cf/raw/ratingbet_fixtures.json` |
+| `RATINGBET_MAX_ANTIGUEDAD_MIN` en Vercel | `300` (captura cada 3 h → nunca sale el aviso) |
+| Build en producción | `ratingbet-v7.4-2026-09-17` |
+| Secretos del repo | `RATINGBET_GITHUB_TOKEN` (PAT con permiso `gist`), `RATINGBET_GIST_ID` |
+| Rama de respaldo | `dataset` (solo el JSON; la comitea el bot en cada captura) |
+
+Verificado el 17/09 a las 21:33 Madrid: el workflow completo en verde
+(captura con Chrome real desde GitHub → gist público → rama `dataset` →
+verificación) y la API sirviendo **214 partidos con 2 minutos de antigüedad**
+(antes: 0 partidos y dataset de 55 h).
+
+### Mantenimiento: el PAT caduca
+
+El gist lo actualiza GitHub Actions con `RATINGBET_GITHUB_TOKEN`. Cuando ese PAT
+caduque o se revoque:
+
+1. El paso 8 avisará (`::warning::No se ha podido publicar en el gist`) y dejará de actualizarse.
+2. La web seguirá mostrando la última captura; a las 48 h la puerta de frescura bloquea y avisa.
+3. Solución: crear un PAT nuevo (solo permiso `gist`) y actualizarlo en
+   `Settings > Secrets and variables > Actions > RATINGBET_GITHUB_TOKEN`.
+
+Alternativa más robusta: usar una cuenta/organización de servicio con su propio
+PAT de larga duración, para no depender del token personal.
+
+### Qué NO hay que hacer ya
+
+- No hace falta programar la tarea de Windows (`tools_programar_captura.ps1`):
+  la nube se encarga cada 3 h. Queda solo como plan B si GitHub Actions se
+  bloqueara.
+- No hace falta `vercel --prod` para actualizar partidos: el dataset va por URL
+  remota. Solo hay que desplegar si cambia el CÓDIGO.
