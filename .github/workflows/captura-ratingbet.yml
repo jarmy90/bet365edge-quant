@@ -146,13 +146,22 @@ jobs:
       #     No necesita secretos: usa el GITHUB_TOKEN por defecto. Mantiene el
       #     historial de capturas y, de paso, el repositorio "activo" (evita que
       #     GitHub suspenda el cron por 60 dias sin actividad).
+      #     La web NO depende de esta rama: si fallara, solo se avisa (la fuente
+      #     de verdad para Vercel es el gist del paso 5a, que se verifica en 6).
       # ----------------------------------------------------------------------
       - name: Publicar el dataset en la rama 'dataset'
+        continue-on-error: true
         run: |
           set -euo pipefail
           git config user.name  'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+
+          # La captura ha modificado ficheros versionados (fixtures.json y
+          # fixtures_data.js). Se guarda el JSON y se descartan esos cambios ANTES
+          # de cambiar de rama: si no, git aborta con
+          # "Your local changes ... would be overwritten by checkout".
           cp ratingbet_fixtures.json "$RUNNER_TEMP/dataset.json"
+          git reset --hard HEAD
 
           git fetch origin dataset --depth=1
           git checkout dataset

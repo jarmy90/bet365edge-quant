@@ -19,6 +19,18 @@ salida_test.txt
 herramientas_salida.txt
 out_client.txt
 env_ls.txt
+# Salidas temporales de las herramientas de diagnostico/publicacion
+scrape*.txt
+gist*.txt
+run*_logs.txt
+deploy_out.txt
+cr_out.txt
+sec_out.txt
+p_out.txt
+v_out.txt
+health_out*.txt
+push_err.txt
+commit_msg.txt
 
 # --- Copias de seguridad / ficheros corruptos ---
 *.bak

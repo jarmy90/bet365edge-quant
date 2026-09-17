@@ -1,11 +1,8 @@
-Arregla el resumen del scraper y ancla el reloj del test al dataset
+Validacion del workflow: respaldo en la rama dataset robusto
 
-- scrape_ratingbet.js: usaba 'p.horaMadrid' (campo inexistente: el real es
-  'p.hora') y lanzaba TypeError al imprimir el resumen, abortando la publicacion
-  aunque el JSON ya estuviera escrito. Ahora el formateo es a prueba de campos
-  ausentes.
-- scrape_ratingbet.js: la constante PUBLICAR no existia y provocaba
-  'ReferenceError: PUBLICAR is not defined' al final de cada captura.
-- test_client_render.js: el reloj simulado se ancla al primer kickoff del
-  dataset real en lugar de a una fecha fija (el test ya no caduca cada dia).
-- dataset: captura fresca del 17/09 21:25 Madrid (206 partidos).
+- Paso 5b: se descartan los cambios de la captura (git reset --hard) antes de
+  cambiar de rama; antes git abortaba con 'Your local changes would be
+  overwritten by checkout' y tumbaba la ejecucion.
+- Paso 5b marcado como continue-on-error: la web se alimenta del gist (paso 5a),
+  asi que un fallo del respaldo avisa pero no invalida la captura.
+- Verificado en la nube: paso 7 (captura con Chrome) y paso 8 (gist publico) OK.
