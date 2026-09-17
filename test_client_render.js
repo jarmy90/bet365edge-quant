@@ -2,14 +2,31 @@
 // Ejecutar: node test_client_render.js
 import assert from 'node:assert';
 import vm from 'node:vm';
+import dataset from './ratingbet_fixtures_data.js';
 
 const RealDate = Date;
-const fixedMs = new RealDate('2026-09-14T06:00:00Z').getTime(); // 08:00 en Madrid
+
+// El dataset es REAL y se recaptura cada 3 h, asi que los dias concretos cambian.
+// El reloj simulado se ANCLA al primer kickoff del propio dataset (3 h antes) en
+// lugar de a una fecha fija: asi las etiquetas "Hoy"/"Manana" siguen teniendo
+// sentido con cualquier captura y el test no hay que editarlo cada dia.
+function relojAncladoAlDataset() {
+    const kickoffs = (dataset.PARTIDOS || [])
+        .map(p => Date.parse(p.kickoffIsoUtc))
+        .filter(t => Number.isFinite(t));
+    if (!kickoffs.length) return new RealDate('2026-09-14T06:00:00Z').getTime(); // respaldo
+    return Math.min.apply(null, kickoffs) - 3 * 3600 * 1000;
+}
+
+const fixedMs = relojAncladoAlDataset();
 class FakeDate extends RealDate {
     constructor(...args) { if (args.length === 0) super(fixedMs); else super(...args); }
     static now() { return fixedMs; }
 }
 globalThis.Date = FakeDate;
+
+console.log('Reloj simulado: ' + new RealDate(fixedMs).toISOString()
+    + ' (primer kickoff del dataset - 3 h)');
 
 const mod = await import('./worker.js?client=1');
 const worker = mod.default;

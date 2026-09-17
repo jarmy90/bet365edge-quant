@@ -1,0 +1,11 @@
+Arregla el resumen del scraper y ancla el reloj del test al dataset
+
+- scrape_ratingbet.js: usaba 'p.horaMadrid' (campo inexistente: el real es
+  'p.hora') y lanzaba TypeError al imprimir el resumen, abortando la publicacion
+  aunque el JSON ya estuviera escrito. Ahora el formateo es a prueba de campos
+  ausentes.
+- scrape_ratingbet.js: la constante PUBLICAR no existia y provocaba
+  'ReferenceError: PUBLICAR is not defined' al final de cada captura.
+- test_client_render.js: el reloj simulado se ancla al primer kickoff del
+  dataset real en lugar de a una fecha fija (el test ya no caduca cada dia).
+- dataset: captura fresca del 17/09 21:25 Madrid (206 partidos).

@@ -63,6 +63,13 @@ const DIAS = parseInt(arg('dias', '2'), 10);
 const MARGEN_MIN = parseInt(arg('margen', '30'), 10);
 const MAX_DIAS_VENTANA = parseInt(arg('ventana', '14'), 10);
 const HEADED = flag('headed');
+// --publicar: sube el dataset al destino remoto al terminar (gist o URL), usando
+// GITHUB_TOKEN + RATINGBET_GIST_ID / RATINGBET_PUBLISH_URL del entorno. Sin esta
+// bandera el scraper solo escribe los ficheros locales.
+// NOTA: esta constante faltaba y provocaba "ReferenceError: PUBLICAR is not
+// defined" al final de cada captura (el JSON ya estaba escrito, pero el proceso
+// salia con codigo 1 y el CI lo interpretaba como fallo total).
+const PUBLICAR = flag('publicar');
 const SALIDA_JS = arg('salida', 'ratingbet_fixtures_data.js');
 const SALIDA_JSON = arg('auditoria', 'ratingbet_fixtures.json');
 
@@ -396,15 +403,25 @@ async function main() {
 
     console.log('\n PROXIMOS 15 PARTIDOS:');
     console.log(' ' + 'KICKOFF MADRID'.padEnd(18) + 'LIGA'.padEnd(24) + 'PARTIDO'.padEnd(42) + 'O1.5   U1.5   O2.5   U2.5   TIP');
+    // Formateo a prueba de campos ausentes: antes se leia 'p.horaMadrid' (campo
+    // que NO existe: el real es 'p.hora'), lo que lanzaba
+    // "TypeError: Cannot read properties of undefined (reading 'padEnd')" y
+    // abortaba la publicacion del dataset aunque el JSON ya estuviera escrito.
+    const texto = (v, porDefecto) => (v === null || v === undefined || v === '' ? (porDefecto || 'n/d') : String(v));
+    const ancho = (v, n, porDefecto) => texto(v, porDefecto).slice(0, n).padEnd(n);
     v.aceptados.slice(0, 15).forEach(p => {
-        const l15 = p.lineas['1.5'] || {}, l25 = p.lineas['2.5'] || {};
+        const lineas = p.lineas || {};
+        const l15 = lineas['1.5'] || {}, l25 = lineas['2.5'] || {};
         const col = (x) => (x === null || x === undefined ? '-' : String(x)).padEnd(7);
-        const partido = (p.local + ' - ' + p.visitante).slice(0, 40);
-        const tip = (p.lineas['1.5'] && p.lineas['1.5'].tip) || (p.lineas['2.5'] && p.lineas['2.5'].tip) || '-';
-        console.log(' ' + p.horaMadrid.padEnd(18) + String(p.liga).slice(0, 22).padEnd(24) + partido.padEnd(42)
-            + col(l15.cuotaOver) + col(l15.cuotaUnder) + col(l25.cuotaOver) + col(l25.cuotaUnder) + tip);
+        const partido = texto(p.local, '?') + ' - ' + texto(p.visitante, '?');
+        const tip = l15.tip || l25.tip || '-';
+        console.log(' ' + ancho(p.hora || p.horaMadrid, 18) + ancho(p.liga, 24) + ancho(partido, 42)
+            + col(l15.cuotaOver) + col(l15.cuotaUnder) + col(l25.cuotaOver) + col(l25.cuotaUnder) + texto(tip, '-'));
     });
-    console.log('\n Inicio (UTC): ' + v.aceptados[0].kickoffIsoUtc + ' | Fin: ' + v.aceptados[v.aceptados.length - 1].kickoffIsoUtc);
+    if (v.aceptados.length) {
+        console.log('\n Inicio (UTC): ' + v.aceptados[0].kickoffIsoUtc
+            + ' | Fin: ' + v.aceptados[v.aceptados.length - 1].kickoffIsoUtc);
+    }
 
     const sospechosos = v.aceptados.filter(p => p.ordenDomCoincideSlug === false).length;
     console.log(' Filas donde el DOM venia invertido respecto al slug (corregidas): ' + sospechosos);
