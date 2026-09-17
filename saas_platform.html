@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QUANTUM BETS +EV | Live Sports Intelligence Platform</title>
+    <meta name="description" content="Plataforma SaaS de analitica deportiva cuantitativa. EV Edge en tiempo real, ligas en directo, partidos live, redes sociales de jugadores.">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+            --bg: #09090b; --card: #18181b; --border: #27272a;
+            --em: #10b981; --em-glow: rgba(16,185,129,0.25);
+            --cy: #06b6d4; --cy-glow: rgba(6,182,212,0.25);
+            --am: #f59e0b; --re: #ef4444; --pu: #8b5cf6;
+            --tx: #f4f4f5; --mu: #71717a; --su: #a1a1aa;
+        }
+        *{box-sizing:border-box;margin:0;padding:0;font-family:'Inter',sans-serif;}
+        body{background:var(--bg);color:var(--tx);min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:2rem 1rem;overflow-x:hidden;}
+
+        /* NAVBAR */
+        .navbar{width:100%;max-width:1400px;display:flex;justify-content:space-between;align-items:center;padding:1rem 1.5rem;background:rgba(24,24,27,0.9);backdrop-filter:blur(20px);border:1px solid var(--border);border-radius:16px;margin-bottom:0.75rem;position:sticky;top:1rem;z-index:100;}
+        .logo{display:flex;align-items:center;gap:10px;font-weight:800;font-size:1.2rem;letter-spacing:-0.5px;background:linear-gradient(135deg,#10b981,#06b6d4);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+        .logo-icon{width:28px;height:28px;background:linear-gradient(135deg,#10b981,#06b6d4);border-radius:8px;display:flex;align-items:center;justify-content:center;color:#09090b;font-weight:900;font-size:0.9rem;}
+        .nav-links{display:flex;gap:1rem;align-items:center;flex-wrap:wrap;}
+        .nav-link{color:var(--su);text-decoration:none;font-size:0.85rem;font-weight:500;transition:color 0.2s;}
+        .nav-link:hover,.nav-link.active{color:var(--tx);}
+        .badge-pro{background:rgba(16,185,129,0.1);color:var(--em);border:1px solid rgba(16,185,129,0.3);padding:4px 10px;border-radius:20px;font-size:0.72rem;font-weight:700;}
+        .live-badge{display:flex;align-items:center;gap:7px;background:rgba(239,68,68,0.1);border:1px solid rgba(239,68,68,0.3);padding:5px 12px;border-radius:20px;font-size:0.75rem;font-weight:700;color:#ef4444;white-space:nowrap;}
+        .live-dot{width:7px;height:7px;background:#ef4444;border-radius:50%;animation:pulse 1.4s infinite;}
+        @keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(239,68,68,0.7);}50%{box-shadow:0 0 0 5px rgba(239,68,68,0);}}
+        .btn-cta{background:linear-gradient(135deg,#10b981,#06b6d4);color:#09090b;font-size:0.85rem;font-weight:800;padding:0.5rem 1.2rem;border:none;border-radius:50px;cursor:pointer;box-shadow:0 0 20px var(--em-glow);transition:all 0.3s;text-decoration:none;display:inline-flex;align-items:center;gap:6px;}
+        .btn-cta:hover{transform:scale(1.04);box-shadow:0 0 35px rgba(16,185,129,0.5);}
+
+        /* TICKER */
+        .ticker-bar{width:100%;max-width:1400px;background:rgba(16,185,129,0.05);border:1px solid rgba(16,185,129,0.2);border-radius:10px;display:flex;align-items:center;overflow:hidden;margin-bottom:2rem;height:36px;}
+        .ticker-label{background:var(--em);color:#09090b;font-weight:800;font-size:0.7rem;padding:0 14px;height:100%;display:flex;align-items:center;white-space:nowrap;flex-shrink:0;letter-spacing:0.5px;}
+        .ticker-track{flex:1;overflow:hidden;}
+        .ticker-inner{display:flex;animation:scroll 90s linear infinite;white-space:nowrap;}
+        .ticker-item{font-size:0.8rem;color:var(--su);padding:0 1.5rem;border-right:1px solid var(--border);white-space:nowrap;line-height:36px;}
+        .ticker-item strong{color:var(--tx);}
+        .t-red{color:var(--re);font-weight:700;margin-right:5px;}
+        .t-am{color:var(--am);font-weight:700;margin-right:5px;}
+        .t-em{color:var(--em);font-weight:700;margin-right:5px;}
+        @keyframes scroll{0%{transform:translateX(0);}100%{transform:translateX(-50%);}}
+
+        /* HERO */
+        .hero{width:100%;max-width:1400px;text-align:center;margin-bottom:2.5rem;}
+        .hero h1{font-size:2.8rem;font-weight:900;letter-spacing:-1.5px;line-height:1.1;margin-bottom:0.75rem;}
+        .hero h1 span{background:linear-gradient(135deg,#10b981,#06b6d4);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+        .hero p{color:var(--su);font-size:1rem;max-width:700px;margin:0 auto;line-height:1.6;}
+
+        /* GRID UTILS */
+        .w-full{width:100%;max-width:1400px;}
+        .sec-hdr{width:100%;max-width:1400px;display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem;}
+        .sec-title{font-size:1.1rem;font-weight:800;display:flex;align-items:center;gap:8px;}
+        .sec-meta{font-size:0.75rem;color:var(--mu);display:flex;align-items:center;gap:5px;}
+        .blink{width:6px;height:6px;background:var(--em);border-radius:50%;animation:pulse 1.4s infinite;}
+        .mb-lg{margin-bottom:2.5rem;}
+
+        /* KPI STRIP */
+        .kpi-strip{width:100%;max-width:1400px;display:grid;grid-template-columns:repeat(5,1fr);gap:1rem;margin-bottom:2.5rem;}
+        .kpi{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:1.1rem;text-align:center;transition:all 0.3s;}
+        .kpi:hover{border-color:rgba(16,185,129,0.3);transform:translateY(-2px);}
+        .kpi-icon{font-size:1.4rem;margin-bottom:4px;}
+        .kpi-val{font-size:1.5rem;font-weight:900;font-family:'JetBrains Mono',monospace;color:var(--em);transition:color 0.4s;}
+        .kpi-lbl{font-size:0.68rem;color:var(--mu);font-weight:600;margin-top:2px;letter-spacing:0.3px;}
+
+        /* ═══ EV EDGE LIVE CHART ═══ */
+        .ev-panel{width:100%;max-width:1400px;background:var(--card);border:1px solid var(--border);border-radius:20px;padding:1.75rem;margin-bottom:2.5rem;}
+        .ev-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:1.25rem;}
+        .ev-title{font-size:1.1rem;font-weight:800;}
+        .ev-sub{font-size:0.78rem;color:var(--mu);margin-top:2px;}
+        .ev-badges{display:flex;gap:8px;flex-wrap:wrap;}
+        .ev-badge{padding:4px 10px;border-radius:20px;font-size:0.72rem;font-weight:700;}
+        .ev-badge.up{background:rgba(16,185,129,0.15);color:var(--em);border:1px solid rgba(16,185,129,0.3);}
+        .ev-badge.news{background:rgba(239,68,68,0.12);color:var(--re);border:1px solid rgba(239,68,68,0.25);}
+        .ev-badge.social{background:rgba(139,92,246,0.12);color:var(--pu);border:1px solid rgba(139,92,246,0.25);}
+        .ev-canvas-wrap{position:relative;height:260px;}
+        .ev-events{display:flex;gap:10px;margin-top:1rem;flex-wrap:wrap;}
+        .ev-event{display:flex;align-items:center;gap:6px;font-size:0.72rem;color:var(--su);background:rgba(255,255,255,0.03);padding:5px 10px;border-radius:8px;border:1px solid var(--border);}
+        .ev-event .dot{width:7px;height:7px;border-radius:50%;flex-shrink:0;}
+        .ev-current{display:flex;gap:1.5rem;margin-bottom:1rem;flex-wrap:wrap;}
+        .ev-metric{background:#09090b;border:1px solid var(--border);border-radius:12px;padding:0.75rem 1.25rem;min-width:150px;}
+        .ev-metric .label{font-size:0.68rem;color:var(--mu);margin-bottom:2px;}
+        .ev-metric .val{font-size:1.4rem;font-weight:900;font-family:'JetBrains Mono',monospace;}
+
+        /* ═══ LIVE LEAGUES ═══ */
+        .leagues-grid{width:100%;max-width:1400px;display:grid;grid-template-columns:repeat(auto-fit,minmax(420px,1fr));gap:1.25rem;margin-bottom:2.5rem;}
+        .league-card{background:var(--card);border:1px solid var(--border);border-radius:18px;overflow:hidden;transition:border-color 0.3s;}
+        .league-card:hover{border-color:rgba(16,185,129,0.35);}
+        .league-hdr{display:flex;justify-content:space-between;align-items:center;padding:1rem 1.25rem;border-bottom:1px solid var(--border);}
+        .league-name{display:flex;align-items:center;gap:8px;font-weight:700;font-size:0.95rem;}
+        .league-flag{font-size:1.1rem;}
+        .league-status{font-size:0.7rem;font-weight:700;padding:3px 9px;border-radius:20px;}
+        .ls-live{background:rgba(239,68,68,0.15);color:var(--re);border:1px solid rgba(239,68,68,0.3);}
+        .ls-soon{background:rgba(245,158,11,0.15);color:var(--am);border:1px solid rgba(245,158,11,0.3);}
+        .ls-done{background:rgba(113,113,122,0.15);color:var(--mu);border:1px solid rgba(113,113,122,0.2);}
+        .match-row{padding:0.875rem 1.25rem;border-bottom:1px solid rgba(39,39,42,0.5);display:flex;align-items:center;gap:0;transition:background 0.2s;}
+        .match-row:hover{background:rgba(255,255,255,0.025);}
+        .match-row:last-child{border-bottom:none;}
+        .mr-time{font-size:0.72rem;color:var(--mu);font-family:'JetBrains Mono',monospace;min-width:38px;}
+        .mr-teams{flex:1;font-size:0.88rem;font-weight:600;padding:0 10px;}
+        .mr-score{font-size:0.95rem;font-weight:900;font-family:'JetBrains Mono',monospace;min-width:42px;text-align:center;}
+        .mr-score.live-score{color:var(--em);animation:scoreFlash 3s ease-in-out infinite;}
+        @keyframes scoreFlash{0%,80%,100%{opacity:1;}85%{opacity:0.4;}}
+        .mr-ev{font-size:0.7rem;font-weight:700;padding:2px 8px;border-radius:12px;white-space:nowrap;min-width:60px;text-align:center;}
+        .ev-pos{background:rgba(16,185,129,0.12);color:var(--em);border:1px solid rgba(16,185,129,0.3);}
+        .ev-neg{background:rgba(239,68,68,0.1);color:var(--re);border:1px solid rgba(239,68,68,0.2);}
+        .ev-neu{background:rgba(113,113,122,0.1);color:var(--mu);border:1px solid rgba(113,113,122,0.2);}
+        .mr-min{font-size:0.68rem;background:rgba(239,68,68,0.1);color:var(--re);border-radius:4px;padding:1px 5px;margin-left:6px;font-weight:700;}
+
+        /* ═══ SOCIAL FEED ═══ */
+        .social-grid{width:100%;max-width:1400px;display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:1.25rem;margin-bottom:2.5rem;}
+        .social-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:1.25rem;position:relative;overflow:hidden;transition:all 0.3s;}
+        .social-card::before{content:'';position:absolute;top:0;left:0;width:3px;height:100%;}
+        .social-card.tw::before{background:#1d9bf0;}
+        .social-card.ig::before{background:linear-gradient(180deg,#f58529,#dd2a7b);}
+        .social-card.fb::before{background:#1877f2;}
+        .social-card:hover{border-color:rgba(16,185,129,0.3);transform:translateY(-2px);}
+        .social-hdr{display:flex;align-items:center;gap:10px;margin-bottom:10px;}
+        .social-avatar{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1rem;font-weight:700;flex-shrink:0;}
+        .av-blue{background:linear-gradient(135deg,#1d9bf0,#0ea5e9);}
+        .av-pink{background:linear-gradient(135deg,#f58529,#dd2a7b);}
+        .av-green{background:linear-gradient(135deg,#10b981,#059669);}
+        .av-purple{background:linear-gradient(135deg,#8b5cf6,#7c3aed);}
+        .social-player{font-weight:700;font-size:0.88rem;}
+        .social-team{font-size:0.72rem;color:var(--mu);}
+        .social-platform{margin-left:auto;font-size:0.68rem;padding:2px 7px;border-radius:10px;font-weight:700;}
+        .pl-tw{background:rgba(29,155,240,0.15);color:#1d9bf0;}
+        .pl-ig{background:rgba(221,42,123,0.15);color:#dd2a7b;}
+        .pl-fb{background:rgba(24,119,242,0.15);color:#1877f2;}
+        .social-text{font-size:0.82rem;color:var(--su);line-height:1.5;margin-bottom:10px;}
+        .social-text strong{color:var(--tx);}
+        .social-ai{background:rgba(139,92,246,0.08);border:1px solid rgba(139,92,246,0.2);border-radius:10px;padding:8px 10px;font-size:0.75rem;}
+        .ai-label{color:var(--pu);font-weight:700;font-size:0.68rem;margin-bottom:3px;display:flex;align-items:center;gap:5px;}
+        .ai-text{color:var(--su);line-height:1.4;}
+        .social-footer{display:flex;justify-content:space-between;align-items:center;margin-top:10px;}
+        .social-time{font-size:0.68rem;color:var(--mu);}
+        .social-impact{font-size:0.7rem;font-weight:700;padding:2px 8px;border-radius:12px;}
+        .imp-pos{background:rgba(16,185,129,0.12);color:var(--em);}
+        .imp-neg{background:rgba(239,68,68,0.12);color:var(--re);}
+        .imp-neu{background:rgba(113,113,122,0.1);color:var(--mu);}
+
+        /* ═══ PARLAY CARD ═══ */
+        .parlay-wrap{position:relative;width:100%;max-width:1400px;border-radius:24px;padding:2px;background:linear-gradient(90deg,#10b981,#06b6d4,#3b82f6,#10b981);background-size:300% 300%;animation:gb 6s ease infinite;margin-bottom:2.5rem;}
+        @keyframes gb{0%{background-position:0% 50%;}50%{background-position:100% 50%;}100%{background-position:0% 50%;}}
+        .parlay-inner{background:var(--card);border-radius:22px;padding:1.75rem;}
+        .parlay-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:1.25rem;}
+        .parlay-tag{display:flex;align-items:center;gap:8px;background:rgba(16,185,129,0.12);color:var(--em);padding:5px 14px;border-radius:30px;font-size:0.82rem;font-weight:700;}
+        .quota{font-size:2rem;font-weight:900;font-family:'JetBrains Mono',monospace;}
+        .parlay-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:1rem;margin-bottom:1.25rem;}
+        .p-item{background:#09090b;border:1px solid var(--border);border-radius:14px;padding:1.1rem;transition:all 0.3s;}
+        .p-item:hover{transform:translateY(-3px);border-color:rgba(16,185,129,0.4);box-shadow:0 8px 20px -5px rgba(16,185,129,0.12);}
+        .p-teams{font-weight:700;font-size:1rem;margin-bottom:3px;}
+        .p-meta{font-size:0.75rem;color:var(--mu);margin-bottom:10px;display:flex;justify-content:space-between;}
+        .p-pick{display:flex;justify-content:space-between;align-items:center;background:rgba(255,255,255,0.03);padding:7px 11px;border-radius:8px;font-size:0.88rem;font-weight:600;}
+        .p-val{color:var(--em);font-family:'JetBrains Mono',monospace;}
+        .parlay-foot{display:flex;justify-content:space-between;align-items:center;background:#09090b;padding:0.9rem 1.4rem;border-radius:12px;border:1px solid var(--border);}
+
+        /* ═══ WEATHER ═══ */
+        .weather-grid{width:100%;max-width:1400px;display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:1rem;margin-bottom:2.5rem;}
+        .w-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:1.25rem;transition:border-color 0.3s;}
+        .w-card:hover{border-color:rgba(6,182,212,0.4);}
+        .w-hdr{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:0.75rem;}
+        .w-match{font-weight:700;font-size:0.9rem;}
+        .w-stad{font-size:0.72rem;color:var(--mu);}
+        .w-big{display:flex;align-items:center;gap:10px;margin-bottom:0.75rem;}
+        .w-icon{font-size:2.2rem;line-height:1;}
+        .w-temp{font-size:2rem;font-weight:900;font-family:'JetBrains Mono',monospace;}
+        .w-desc{font-size:0.8rem;color:var(--su);margin-top:2px;}
+        .w-pills{display:flex;gap:6px;flex-wrap:wrap;}
+        .w-pill{background:rgba(255,255,255,0.04);border:1px solid var(--border);border-radius:16px;padding:3px 9px;font-size:0.72rem;color:var(--su);}
+        .w-pill.warn{border-color:rgba(245,158,11,0.4);color:var(--am);}
+        .w-pill.ok{border-color:rgba(16,185,129,0.4);color:var(--em);}
+        .w-impact{margin-top:0.75rem;padding:7px 10px;background:rgba(255,255,255,0.025);border-radius:8px;font-size:0.74rem;}
+        .w-impact .lbl{color:var(--mu);margin-bottom:1px;font-size:0.67rem;}
+        .w-impact .val{font-weight:700;}
+        .val-pos{color:var(--em);}
+        .val-neu{color:var(--am);}
+
+        /* SQUAD */
+        .squad-sect{width:100%;max-width:1400px;margin-bottom:2.5rem;}
+        .squad-tabs{display:flex;gap:8px;margin-bottom:1rem;flex-wrap:wrap;}
+        .s-tab{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:5px 14px;font-size:0.8rem;font-weight:600;cursor:pointer;color:var(--su);transition:all 0.2s;}
+        .s-tab.active{background:rgba(16,185,129,0.1);border-color:rgba(16,185,129,0.4);color:var(--em);}
+        .squad-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:1rem;}
+        .sq-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:1.25rem;}
+        .sq-hdr{display:flex;justify-content:space-between;align-items:center;margin-bottom:0.875rem;padding-bottom:0.75rem;border-bottom:1px solid var(--border);}
+        .sq-name{font-weight:700;}
+        .sq-sum{display:flex;gap:10px;}
+        .sq-s{font-size:0.72rem;font-weight:700;}
+        .sq-s.ok{color:var(--em);} .sq-s.dbt{color:var(--am);} .sq-s.out{color:var(--re);}
+        .plist{display:flex;flex-direction:column;gap:6px;}
+        .prow{display:flex;align-items:center;justify-content:space-between;padding:6px 9px;border-radius:8px;background:rgba(255,255,255,0.025);transition:background 0.2s;}
+        .prow:hover{background:rgba(255,255,255,0.05);}
+        .pinfo{display:flex;align-items:center;gap:8px;}
+        .pnum{width:22px;height:22px;background:rgba(255,255,255,0.07);border-radius:5px;display:flex;align-items:center;justify-content:center;font-size:0.65rem;font-weight:700;color:var(--mu);font-family:'JetBrains Mono',monospace;flex-shrink:0;}
+        .pname{font-size:0.84rem;font-weight:600;}
+        .ppos{font-size:0.68rem;color:var(--mu);}
+        .pbadge{font-size:0.67rem;font-weight:700;padding:2px 8px;border-radius:16px;white-space:nowrap;}
+        .pb-ok{background:rgba(16,185,129,0.1);color:var(--em);border:1px solid rgba(16,185,129,0.25);}
+        .pb-dbt{background:rgba(245,158,11,0.1);color:var(--am);border:1px solid rgba(245,158,11,0.25);}
+        .pb-out{background:rgba(239,68,68,0.1);color:var(--re);border:1px solid rgba(239,68,68,0.25);}
+
+        /* LINEUP */
+        .lineup-sect{width:100%;max-width:1400px;margin-bottom:2.5rem;}
+        .lineup-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:1rem;}
+        .lu-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:1.25rem;overflow:hidden;}
+        .lu-hdr{display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem;}
+        .lu-team{font-weight:700;font-size:0.9rem;}
+        .lu-conf{display:flex;align-items:center;gap:5px;font-size:0.72rem;color:var(--mu);}
+        .cbar{width:55px;height:4px;background:rgba(255,255,255,0.07);border-radius:3px;overflow:hidden;}
+        .cfill{height:100%;border-radius:3px;background:linear-gradient(90deg,#10b981,#06b6d4);}
+        .field{background:linear-gradient(180deg,#14532d 0%,#166534 35%,#15803d 65%,#166534 100%);border-radius:10px;padding:0.875rem 0.625rem;min-height:170px;border:1px solid rgba(255,255,255,0.04);}
+        .frow{display:flex;justify-content:center;gap:6px;margin-bottom:8px;}
+        .frow:last-child{margin-bottom:0;}
+        .pdot{display:flex;flex-direction:column;align-items:center;gap:2px;cursor:default;}
+        .pdot .d{width:26px;height:26px;border-radius:50%;background:rgba(255,255,255,0.14);border:1.5px solid rgba(255,255,255,0.4);display:flex;align-items:center;justify-content:center;font-size:0.52rem;font-weight:700;color:white;transition:all 0.2s;font-family:'JetBrains Mono',monospace;}
+        .pdot:hover .d{background:rgba(16,185,129,0.5);border-color:var(--em);transform:scale(1.2);}
+        .pdot .pn{font-size:0.5rem;color:rgba(255,255,255,0.65);max-width:38px;text-align:center;line-height:1.2;font-weight:600;}
+
+        /* NEWS */
+        .news-grid{width:100%;max-width:1400px;display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:1rem;margin-bottom:2.5rem;}
+        .n-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:1.1rem;cursor:pointer;transition:all 0.3s;position:relative;overflow:hidden;}
+        .n-card::before{content:'';position:absolute;top:0;left:0;width:3px;height:100%;}
+        .n-card.breaking::before{background:var(--re);}
+        .n-card.info::before{background:var(--cy);}
+        .n-card.update::before{background:var(--am);}
+        .n-card:hover{border-color:rgba(16,185,129,0.3);transform:translateY(-2px);}
+        .n-badge{display:inline-block;font-size:0.65rem;font-weight:800;letter-spacing:0.5px;padding:2px 7px;border-radius:16px;margin-bottom:7px;}
+        .nb-brk{background:rgba(239,68,68,0.12);color:var(--re);}
+        .nb-inf{background:rgba(6,182,212,0.12);color:var(--cy);}
+        .nb-upd{background:rgba(245,158,11,0.12);color:var(--am);}
+        .n-head{font-size:0.87rem;font-weight:700;line-height:1.4;margin-bottom:5px;}
+        .n-body{font-size:0.75rem;color:var(--su);line-height:1.5;margin-bottom:9px;}
+        .n-foot{display:flex;justify-content:space-between;align-items:center;}
+        .n-src{font-size:0.67rem;color:var(--mu);font-weight:600;}
+        .n-time{font-size:0.67rem;color:var(--mu);}
+
+        /* CHART */
+        .chart-box{width:100%;max-width:1400px;background:var(--card);border:1px solid var(--border);border-radius:20px;padding:1.75rem;margin-bottom:2.5rem;}
+        .ch-hdr{display:flex;justify-content:space-between;align-items:center;margin-bottom:1.25rem;}
+        .ch-title{font-size:1.15rem;font-weight:700;}
+        .ch-sub{font-size:0.8rem;color:var(--mu);}
+        .ch-wrap{position:relative;height:260px;}
+
+        /* PRICING */
+        .pricing{width:100%;max-width:1400px;text-align:center;margin-top:2rem;}
+        .pricing-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:1.75rem;margin-top:1.75rem;}
+        .pr-card{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:2.25rem 1.75rem;text-align:left;position:relative;transition:all 0.3s;}
+        .pr-card.feat{border-color:var(--em);box-shadow:0 0 30px rgba(16,185,129,0.12);}
+        .pr-name{font-size:1.15rem;font-weight:700;margin-bottom:0.4rem;}
+        .pr-price{font-size:2.2rem;font-weight:900;margin-bottom:0.875rem;font-family:'JetBrains Mono',monospace;}
+        .pr-price span{font-size:0.9rem;color:var(--mu);}
+        .pr-list{list-style:none;margin-bottom:1.75rem;}
+        .pr-list li{font-size:0.85rem;color:var(--su);margin-bottom:0.625rem;display:flex;align-items:flex-start;gap:7px;}
+        .pr-btn{width:100%;padding:0.8rem;border-radius:10px;border:1px solid var(--border);background:#09090b;color:var(--tx);font-weight:700;cursor:pointer;transition:all 0.2s;font-size:0.9rem;}
+        .pr-card.feat .pr-btn{background:var(--em);color:#09090b;border:none;}
+
+        @media(max-width:900px){.kpi-strip{grid-template-columns:repeat(3,1fr);}
+        .hero h1{font-size:2rem;}.nav-links{gap:0.75rem;}}
+        @media(max-width:600px){.kpi-strip{grid-template-columns:repeat(2,1fr);}
+        .leagues-grid{grid-template-columns:1fr;}}
+    </style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<div class="navbar">
+    <div class="logo">
+        <div class="logo-icon">Q</div>
+        <span>QUANTUM BETS</span>
+        <span class="badge-pro">INSTITUTIONAL +EV</span>
+    </div>
+    <div class="nav-links">
+        <a href="#dashboard" class="nav-link active">Dashboard</a>
+        <a href="#leagues" class="nav-link">Ligas Live</a>
+        <a href="#ev-chart" class="nav-link">EV Edge</a>
+        <a href="#social" class="nav-link">Social AI</a>
+        <a href="#pricing" class="nav-link">Precios</a>
+        <div class="live-badge"><div class="live-dot"></div><span id="liveTimer">LIVE &middot; 0s</span></div>
+        <a href="#pricing" class="btn-cta">&#9889; Suscribirse</a>
+    </div>
+</div>
+
+<!-- TICKER -->
+<div class="ticker-bar">
+    <div class="ticker-label">&#128225; LIVE FEED</div>
+    <div class="ticker-track">
+        <div class="ticker-inner" id="tickerInner">
+            <span class="ticker-item"><span class="t-red">&#128308; BREAKING</span><strong>PSG vs Lyon:</strong> Mbappe confirm. titular &mdash; flujo sharp detectado en Over 2.5 +8%</span>
+            <span class="ticker-item"><span class="t-am">&#9888; ALERTA</span><strong>Serie A:</strong> Inter vs Napoli en directo &mdash; 2-1 min.67 &mdash; EV Over 2.5 sube a +14%</span>
+            <span class="ticker-item"><span class="t-em">&#128200; EDGE</span><strong>Valladolid vs Oviedo:</strong> EV Edge actualizado a +13.2% tras noticias de lesion</span>
+            <span class="ticker-item">&#127909; <strong>Instagram Vinicius:</strong> "Entrenamiento completado. 100%". Impacto: POSITIVO &uarr;</span>
+            <span class="ticker-item"><span class="t-red">&#128308; BREAKING</span><strong>Bundesliga:</strong> Bayern vs Dortmund &mdash; Lewandowski descartado &mdash; EV cae -3.1%</span>
+            <span class="ticker-item">&#128202; <strong>Ligue 1:</strong> 4 partidos con Over 1.5 en racha &mdash; Senal AAA Cuantica activada</span>
+            <span class="ticker-item">&#127942; <strong>Parlay del dia:</strong> Cuota 2.90 &middot; Edge +12.51% &middot; 5 Pilares verificados</span>
+            <span class="ticker-item"><span class="t-am">&#9888; SOCIAL</span><strong>Twitter Bellingham:</strong> "Ready for tomorrow" &mdash; Analisis IA: confianza alta</span>
+            <span class="ticker-item"><span class="t-red">&#128308; BREAKING</span><strong>PSG vs Lyon:</strong> Mbappe confirm. titular &mdash; flujo sharp detectado en Over 2.5 +8%</span>
+            <span class="ticker-item"><span class="t-am">&#9888; ALERTA</span><strong>Serie A:</strong> Inter vs Napoli en directo &mdash; 2-1 min.67 &mdash; EV Over 2.5 sube a +14%</span>
+            <span class="ticker-item"><span class="t-em">&#128200; EDGE</span><strong>Valladolid vs Oviedo:</strong> EV Edge actualizado a +13.2% tras noticias de lesion</span>
+            <span class="ticker-item">&#127909; <strong>Instagram Vinicius:</strong> "Entrenamiento completado. 100%". Impacto: POSITIVO &uarr;</span>
+            <span class="ticker-item"><span class="t-red">&#128308; BREAKING</span><strong>Bundesliga:</strong> Bayern vs Dortmund &mdash; Lewandowski descartado &mdash; EV cae -3.1%</span>
+            <span class="ticker-item">&#128202; <strong>Ligue 1:</strong> 4 partidos con Over 1.5 en racha &mdash; Senal AAA Cuantica activada</span>
+            <span class="ticker-item">&#127942; <strong>Parlay del dia:</strong> Cuota 2.90 &middot; Edge +12.51% &middot; 5 Pilares verificados</span>
+            <span class="ticker-item"><span class="t-am">&#9888; SOCIAL</span><strong>Twitter Bellingham:</strong> "Ready for tomorrow" &mdash; Analisis IA: confianza alta</span>
+        </div>
+    </div>
+</div>
+
+<!-- HERO -->
+<div class="hero" id="dashboard">
+    <h1>Inteligencia Deportiva <span>24/7 en Directo</span></h1>
+    <p>EV Edge reaccionando a noticias, redes sociales y partidos en vivo. 5 ligas analizadas en tiempo real: Ligue 1, Serie A, Premier, LaLiga, Bundesliga.</p>
+</div>
+
+<!-- KPI STRIP -->
+<div class="kpi-strip">
+    <div class="kpi"><div class="kpi-icon">&#9889;</div><div class="kpi-val" id="kEdge">+12.5%</div><div class="kpi-lbl">EV EDGE VIVO</div></div>
+    <div class="kpi"><div class="kpi-icon">&#127919;</div><div class="kpi-val" id="kHit">74.3%</div><div class="kpi-lbl">HIT RATE 30D</div></div>
+    <div class="kpi"><div class="kpi-icon">&#128225;</div><div class="kpi-val" id="kMatches">18</div><div class="kpi-lbl">PARTIDOS EN VIVO</div></div>
+    <div class="kpi"><div class="kpi-icon">&#127758;</div><div class="kpi-val" id="kLeagues">5</div><div class="kpi-lbl">LIGAS ACTIVAS</div></div>
+    <div class="kpi"><div class="kpi-icon">&#129302;</div><div class="kpi-val" id="kSocial">12</div><div class="kpi-lbl">ALERTAS SOCIAL IA</div></div>
+</div>
+
+<!-- ═══ EV EDGE LIVE GRAPH ═══ -->
+<div class="sec-hdr" id="ev-chart">
+    <div class="sec-title">&#9889; EV Edge en Tiempo Real &mdash; Reaccion a Noticias &amp; Social</div>
+    <div class="sec-meta"><div class="blink"></div><span id="evUpdateText">Calculando...</span></div>
+</div>
+<div class="ev-panel mb-lg">
+    <div class="ev-current">
+        <div class="ev-metric"><div class="label">EV EDGE ACTUAL</div><div class="val" id="evCurrent" style="color:var(--em);">+12.5%</div></div>
+        <div class="ev-metric"><div class="label">PROBABILIDAD MODELO</div><div class="val" id="evProb" style="color:var(--cy);">46.97%</div></div>
+        <div class="ev-metric"><div class="label">CUOTA IMPLICITA CASA</div><div class="val" id="evImpl" style="color:var(--su);">34.45%</div></div>
+        <div class="ev-metric"><div class="label">ULTIMO EVENTO</div><div class="val" id="evLastEvent" style="color:var(--am);font-size:0.8rem;font-family:'Inter',sans-serif;margin-top:4px;">Cargando...</div></div>
+    </div>
+    <div class="ev-top">
+        <div>
+            <div class="ev-title">Grafica EV Edge &mdash; Actualizacion en Tiempo Real</div>
+            <div class="ev-sub">Cada evento (noticia, social, cuota) recalcula el Edge automaticamente</div>
+        </div>
+        <div class="ev-badges">
+            <div class="ev-badge up" id="evTrend">&#8593; SUBIENDO</div>
+            <div class="ev-badge news">&#128240; Noticia &rarr; +0.8%</div>
+            <div class="ev-badge social">&#129302; Social IA &rarr; +0.3%</div>
+        </div>
+    </div>
+    <div class="ev-canvas-wrap"><canvas id="evChart"></canvas></div>
+    <div class="ev-events" id="evEvents">
+        <div class="ev-event"><div class="dot" style="background:var(--re);"></div>Leon descartado &rarr; +1.2% EV</div>
+        <div class="ev-event"><div class="dot" style="background:var(--em);"></div>Cuota cae 1.44&rarr;1.41 &rarr; +0.6% EV</div>
+        <div class="ev-event"><div class="dot" style="background:var(--pu);"></div>IG Weissman "100% listo" &rarr; +0.3% EV</div>
+        <div class="ev-event"><div class="dot" style="background:var(--am);"></div>Meteo Tenerife OK &rarr; +0.2% EV</div>
+    </div>
+</div>
+
+<!-- ═══ LIGAS EN DIRECTO ═══ -->
+<div class="sec-hdr" id="leagues">
+    <div class="sec-title">&#127758; Ligas en Directo &mdash; Analisis EV Live</div>
+    <div class="sec-meta"><div class="blink"></div><span id="leaguesUpdateText">18 partidos monitorizados</span></div>
+</div>
+<div class="leagues-grid mb-lg" id="leaguesGrid"></div>
+
+<!-- PARLAY CARD -->
+<div class="parlay-wrap">
+    <div class="parlay-inner">
+        <div class="parlay-top">
+            <div class="parlay-tag"><span>&#9889; PARLAY RECOMENDADO DEL DIA</span><span style="color:var(--su);">| 5 Pilares Verificados</span></div>
+            <div class="quota">Cuota 2.90</div>
+        </div>
+        <div class="parlay-grid">
+            <div class="p-item"><div class="p-teams">Real Valladolid vs Real Oviedo</div><div class="p-meta"><span>SPAIN: SEGUNDA DIV.</span><span style="color:var(--em); font-weight:bold;">⏱️ Futuro (+3.5h)</span></div><div class="p-pick"><span>Over 1.5</span><span class="p-val">@ 1.45 (77.4%)</span></div></div>
+            <div class="p-item"><div class="p-teams">Tenerife vs Leganes</div><div class="p-meta"><span>SPAIN: SEGUNDA DIV.</span><span style="color:var(--em); font-weight:bold;">⏱️ Futuro (+5.0h)</span></div><div class="p-pick"><span>Over 1.5</span><span class="p-val">@ 1.44 (77.5%)</span></div></div>
+            <div class="p-item"><div class="p-teams">River Plate vs Fenix</div><div class="p-meta"><span>URUGUAY: 2A DIV.</span><span style="color:var(--em); font-weight:bold;">⏱️ Futuro (+6.5h)</span></div><div class="p-pick"><span>Over 1.5</span><span class="p-val">@ 1.39 (78.3%)</span></div></div>
+        </div>
+        <div class="parlay-foot">
+            <div><span style="font-size:0.75rem;color:var(--mu);display:block;">PROB. REAL ESTIMADA</span><span style="font-size:1rem;font-weight:700;">46.97% (vs 34.45% Casa)</span></div>
+            <div><span style="font-size:0.75rem;color:var(--mu);display:block;">VENTAJA (+EV EDGE)</span><span style="font-size:1.1rem;font-weight:800;color:var(--em);" id="parlayEdge">+12.51% EDGE</span></div>
+        </div>
+    </div>
+</div>
+
+<!-- WEATHER -->
+<div class="sec-hdr">
+    <div class="sec-title">&#127782; Condiciones Meteorologicas en Estadio</div>
+    <div class="sec-meta"><div class="blink"></div><span id="weatherText">Actualizado hace 0s</span></div>
+</div>
+<div class="weather-grid mb-lg" id="weatherGrid"></div>
+
+<!-- SQUAD -->
+<div class="sec-hdr">
+    <div class="sec-title">&#129657; Estado de Plantilla &mdash; Bajas &amp; Titulares</div>
+    <div class="sec-meta"><div class="blink"></div><span>Entrenamiento de hoy</span></div>
+</div>
+<div class="squad-sect">
+    <div class="squad-tabs">
+        <div class="s-tab active" onclick="switchTab(0)">Valladolid vs Oviedo</div>
+        <div class="s-tab" onclick="switchTab(1)">Tenerife vs Leganes</div>
+        <div class="s-tab" onclick="switchTab(2)">River vs Fenix</div>
+    </div>
+    <div class="squad-grid" id="squadGrid"></div>
+</div>
+
+<!-- LINEUP -->
+<div class="sec-hdr" style="margin-top:2rem;">
+    <div class="sec-title">&#128203; Alineaciones Probables</div>
+    <div class="sec-meta"><div class="blink"></div><span>Rueda de prensa oficial</span></div>
+</div>
+<div class="lineup-sect mb-lg">
+    <div class="lineup-grid" id="lineupGrid"></div>
+</div>
+
+<!-- SOCIAL AI -->
+<div class="sec-hdr" id="social">
+    <div class="sec-title">&#129302; Redes Sociales &mdash; Analisis IA de Jugadores</div>
+    <div class="sec-meta"><div class="blink"></div><span id="socialText">Monitorizando Twitter, Instagram, Facebook</span></div>
+</div>
+<div class="social-grid mb-lg" id="socialGrid"></div>
+
+<!-- NEWS -->
+<div class="sec-hdr">
+    <div class="sec-title">&#128240; Noticias en Tiempo Real</div>
+    <div class="sec-meta"><div class="blink"></div><span id="newsText">Actualizando...</span></div>
+</div>
+<div class="news-grid mb-lg" id="newsGrid"></div>
+
+<!-- HISTORICAL CHART -->
+<div id="analytics" class="chart-box mb-lg">
+    <div class="ch-hdr">
+        <div><div class="ch-title">Probabilidad Historica vs Cuota Mercado</div><div class="ch-sub">Evolucion del EDGE +EV en los ultimos 30 dias</div></div>
+        <div style="font-size:0.82rem;color:var(--em);font-weight:700;">&#9679; Modelo Cuantico v2.5</div>
+    </div>
+    <div class="ch-wrap"><canvas id="histChart"></canvas></div>
+</div>
+
+<!-- PRICING -->
+<div id="pricing" class="pricing">
+    <h2 style="font-size:1.8rem;font-weight:800;margin-bottom:0.4rem;">Planes SaaS</h2>
+    <p style="color:var(--su);margin-bottom:1.5rem;">Acceso ilimitado al panel de inteligencia deportiva 24/7</p>
+    <div class="pricing-grid">
+        <div class="pr-card">
+            <div class="pr-name">Starter Quant</div>
+            <div class="pr-price">29&#8364; <span>/ mes</span></div>
+            <ul class="pr-list">
+                <li>&#10004; 3 Parlays +EV semanales</li>
+                <li>&#10004; EV Edge basico (3 ligas)</li>
+                <li>&#10004; Feed de noticias</li>
+            </ul>
+            <button class="pr-btn">Comenzar Prueba</button>
+        </div>
+        <div class="pr-card feat">
+            <div class="pr-name">Institutional VIP</div>
+            <div class="pr-price">79&#8364; <span>/ mes</span></div>
+            <ul class="pr-list">
+                <li>&#10004; Parlays ilimitados 24/7 en directo</li>
+                <li>&#10004; EV Edge live &mdash; 5 ligas + Social IA</li>
+                <li>&#10004; Alineaciones + clima + bajas en tiempo real</li>
+                <li>&#10004; Alertas Telegram instant&aacute;neas</li>
+                <li>&#10004; Cloudflare dedicado sin l&iacute;mites</li>
+            </ul>
+            <button class="pr-btn" onclick="location.href='https://ratingbet-parlay-quant.workers.dev/api/create-checkout-session'">Suscribirse Ahora</button>
+        </div>
+    </div>
+</div>
+
+<script>
+// ═══════════════════════════════════════════
+//  GLOBAL DATA
+// ═══════════════════════════════════════════
+var sa=0, wa=0;
+
+var LEAGUES=[
+    {name:"Ligue 1",flag:"&#127467;&#127479;",matches:[
+        {time:"67'",home:"PSG",away:"Lyon",score:"2-1",live:true,ev:"+11.2%",evClass:"ev-pos"},
+        {time:"43'",home:"Marseille",away:"Monaco",score:"0-0",live:true,ev:"+7.8%",evClass:"ev-pos"},
+        {time:"21:00",home:"Lens",away:"Lille",score:"-",live:false,ev:"+4.1%",evClass:"ev-pos"},
+        {time:"21:00",home:"Rennes",away:"Nantes",score:"-",live:false,ev:"-1.2%",evClass:"ev-neg"}
+    ]},
+    {name:"Serie A",flag:"&#127470;&#127481;",matches:[
+        {time:"71'",home:"Inter",away:"Napoli",score:"2-1",live:true,ev:"+14.3%",evClass:"ev-pos"},
+        {time:"55'",home:"Juventus",away:"Roma",score:"1-0",live:true,ev:"+6.5%",evClass:"ev-pos"},
+        {time:"20:45",home:"Milan",away:"Lazio",score:"-",live:false,ev:"+9.2%",evClass:"ev-pos"},
+        {time:"18:30",home:"Fiorentina",away:"Atalanta",score:"1-2",live:false,ev:"-0.8%",evClass:"ev-neg"}
+    ]},
+    {name:"Premier League",flag:"&#127468;&#127463;",matches:[
+        {time:"34'",home:"Man City",away:"Arsenal",score:"1-1",live:true,ev:"+8.7%",evClass:"ev-pos"},
+        {time:"20:00",home:"Liverpool",away:"Chelsea",score:"-",live:false,ev:"+12.1%",evClass:"ev-pos"},
+        {time:"17:30",home:"Spurs",away:"Man Utd",score:"0-1",live:false,ev:"-2.3%",evClass:"ev-neg"},
+        {time:"15:00",home:"Newcastle",away:"Brighton",score:"2-0",live:false,ev:"+3.1%",evClass:"ev-pos"}
+    ]},
+    {name:"LaLiga",flag:"&#127466;&#127480;",matches:[
+        {time:"16:15",home:"Valladolid",away:"Oviedo",score:"-",live:false,ev:"+13.2%",evClass:"ev-pos"},
+        {time:"21:00",home:"Tenerife",away:"Leganes",score:"-",live:false,ev:"+10.5%",evClass:"ev-pos"},
+        {time:"19:00",home:"Sevilla",away:"Betis",score:"1-0",live:false,ev:"+5.4%",evClass:"ev-pos"}
+    ]},
+    {name:"Bundesliga",flag:"&#127465;&#127466;",matches:[
+        {time:"62'",home:"Bayern",away:"Dortmund",score:"3-1",live:true,ev:"-3.1%",evClass:"ev-neg"},
+        {time:"80'",home:"Leipzig",away:"Frankfurt",score:"1-1",live:true,ev:"+7.9%",evClass:"ev-pos"},
+        {time:"20:30",home:"Leverkusen",away:"Wolfsburg",score:"-",live:false,ev:"+6.2%",evClass:"ev-pos"}
+    ]}
+];
+
+var WEATHER=[
+    {temp:19,feels:17,desc:"Parcialmente nublado",icon:"&#9925;",humidity:62,wind:32,rain:8,match:"Valladolid vs Oviedo",stad:"Estadio Jose Zorrilla",city:"Valladolid",impact:{lbl:"MODERADO",type:"neu",r:"Viento 32km/h afecta juego aereo"}},
+    {temp:25,feels:24,desc:"Cielo despejado",icon:"&#9728;",humidity:48,wind:11,rain:0,match:"Tenerife vs Leganes",stad:"Estadio Heliodoro",city:"Tenerife",impact:{lbl:"POSITIVO",type:"pos",r:"Condiciones ideales para juego ofensivo"}},
+    {temp:16,feels:14,desc:"Lluvia ligera",icon:"&#127783;",humidity:78,wind:18,rain:72,match:"River vs Fenix",stad:"Estadio Saroldi",city:"Montevideo",impact:{lbl:"NEUTRAL",type:"neu",r:"Lluvia ligera, campo pesado — monitorizar"}}
+];
+
+var SQUADS=[
+    {home:"Real Valladolid",away:"Real Oviedo",hP:[{n:1,nm:"Masip",pos:"POR",s:"ok"},{n:5,nm:"Joaquin",pos:"DEF",s:"ok"},{n:19,nm:"Caro",pos:"DEF",s:"ok"},{n:6,nm:"Boyomo",pos:"DEF",s:"doubt"},{n:11,nm:"Leon S.",pos:"DEL",s:"out"},{n:10,nm:"Weissman",pos:"DEL",s:"ok"},{n:8,nm:"Monchu",pos:"MED",s:"ok"}],aP:[{n:1,nm:"Caro",pos:"POR",s:"ok"},{n:4,nm:"Luengo",pos:"DEF",s:"ok"},{n:9,nm:"Borja B.",pos:"DEL",s:"doubt"},{n:7,nm:"Paulino",pos:"MED",s:"ok"},{n:22,nm:"Obeng",pos:"DEL",s:"ok"},{n:15,nm:"Diegui",pos:"DEF",s:"out"}]},
+    {home:"Tenerife",away:"Leganes",hP:[{n:1,nm:"Soriano",pos:"POR",s:"ok"},{n:3,nm:"Corredera",pos:"DEF",s:"ok"},{n:9,nm:"Gallego",pos:"DEL",s:"ok"},{n:10,nm:"Aitor Sanz",pos:"MED",s:"ok"},{n:17,nm:"Mellot",pos:"DEF",s:"doubt"},{n:20,nm:"Bermejo",pos:"DEL",s:"ok"}],aP:[{n:1,nm:"Pichu",pos:"POR",s:"ok"},{n:5,nm:"Tarin",pos:"MED",s:"doubt"},{n:9,nm:"Raba",pos:"DEL",s:"ok"},{n:11,nm:"Hernan",pos:"DEL",s:"ok"},{n:7,nm:"Youssouf",pos:"MED",s:"ok"},{n:22,nm:"Silva",pos:"DEF",s:"out"}]},
+    {home:"River Plate",away:"Fenix",hP:[{n:1,nm:"Garcia",pos:"POR",s:"ok"},{n:4,nm:"Rodriguez",pos:"DEF",s:"ok"},{n:9,nm:"Ramirez",pos:"DEL",s:"ok"},{n:10,nm:"Lopez",pos:"MED",s:"ok"},{n:7,nm:"Martinez",pos:"DEL",s:"ok"}],aP:[{n:1,nm:"Ferreira",pos:"POR",s:"ok"},{n:3,nm:"Costa",pos:"DEF",s:"ok"},{n:11,nm:"Saraiva",pos:"DEL",s:"doubt"},{n:8,nm:"Peralta",pos:"MED",s:"out"},{n:9,nm:"Alvarez",pos:"DEL",s:"ok"}]}
+];
+
+var LINEUPS=[
+    {team:"Real Valladolid",fm:"4-2-3-1",conf:82,rows:[[{n:"10",nm:"Weissman"}],[{n:"11",nm:"Plata"},{n:"8",nm:"Monchu"},{n:"21",nm:"Ivan S."}],[{n:"6",nm:"Boyomo"},{n:"14",nm:"Perez"}],[{n:"2",nm:"Nacho"},{n:"5",nm:"Joaquin"},{n:"19",nm:"Caro"},{n:"3",nm:"Foulquier"}],[{n:"1",nm:"Masip"}]]},
+    {team:"Tenerife",fm:"4-3-3",conf:76,rows:[[{n:"20",nm:"Bermejo"},{n:"9",nm:"Gallego"},{n:"7",nm:"Aitor"}],[{n:"10",nm:"Sanz"},{n:"8",nm:"Michel"},{n:"6",nm:"Lasso"}],[{n:"2",nm:"Corredera"},{n:"4",nm:"Sipcic"},{n:"5",nm:"Mellot"},{n:"3",nm:"Pomares"}],[{n:"1",nm:"Soriano"}]]}
+];
+
+var SOCIAL=[
+    {type:"tw",platform:"pl-tw",av:"av-blue",player:"Jude Bellingham",team:"Real Madrid",text:'"Ready for tomorrow. Lets go boys &#128293;"',ai:"Tono ALTAMENTE POSITIVO. Confirmacion de disponibilidad fisica. Historial: 89% de rendimiento superior cuando publica noche antes. Impacto Over 1.5 Real Madrid: +2.1%",time:"hace 23 min",impact:"imp-pos",impLbl:"EV +2.1%"},
+    {type:"ig",platform:"pl-ig",av:"av-pink",player:"Vinicius Jr.",team:"Real Madrid",text:'"Entrenamiento completado &#9989; Al 100%. Os vemos manana &#128293;"',ai:"Post de confirmacion fisica. Lenguaje corporal positivo en stories. El equipo contrario tiene bajas en banda derecha — matchup favorito de Vinicius. Impacto goles: +1.8%",time:"hace 41 min",impact:"imp-pos",impLbl:"EV +1.8%"},
+    {type:"tw",platform:"pl-tw",av:"av-green",player:"Kylian Mbappe",text:'"@PSG_inside Training done. &#128170;"',team:"PSG",ai:"Confirmacion de entrenamiento completo. PSG en casa historicamente marca 2.3 goles de media cuando Mbappe entrena 48h antes. Cuota Over 2.5 infravalorada segun modelo.",time:"hace 1h 5min",impact:"imp-pos",impLbl:"EV +3.2%"},
+    {type:"ig",platform:"pl-ig",av:"av-purple",player:"Victor Osimhen",team:"Napoli",text:'"Feeling good but still recovering. See you soon &#10084;"',ai:"ALERTA: Lenguaje ambiguo. 'Recovering' sugiere no estara al 100%. Cross-referencia con parte medico: duda confirmada para partido de hoy. Impacto negativo en Over Napoli: -2.4%",time:"hace 2h 10min",impact:"imp-neg",impLbl:"EV -2.4%"},
+    {type:"tw",platform:"pl-tw",av:"av-blue",player:"Erling Haaland",team:"Man City",text:'"100 goals in Premier League. Next: 101 &#127919;"',ai:"Racha de 6 goles en 4 partidos. Declaracion de motivacion extrema. Man City juega en casa frente a Arsenal — historico: 78% Over 2.5 cuando Haaland esta en racha. Senal AAA.",time:"hace 3h",impact:"imp-pos",impLbl:"EV +4.1%"},
+    {type:"ig",platform:"pl-ig",av:"av-pink",player:"Karim Benzema",team:"Al-Ittihad",text:'"No training today. Rest day decided by the staff."',ai:"Descanso programado. No se esperaba. Segun fuentes internas, el staff planea rotaciones para el proximo partido de Liga Saudita. Impacto en cuotas: monitorizar.",time:"hace 4h 20min",impact:"imp-neu",impLbl:"NEUTRAL"}
+];
+
+var NEWS=[
+    {t:"breaking",b:"BREAKING",bc:"nb-brk",h:"Sergio Leon (Valladolid) descartado por molestias musculares",body:"No entra en la convocatoria. Weissman como 9 puro. EV Edge sube de +11.8% a +13.2%.",src:"El Espanol Valladolid",time:"hace 12 min"},
+    {t:"info",b:"MERCADO",bc:"nb-inf",h:"Flujo sharp: Over 1.5 Tenerife-Leganes cae de 1.44 a 1.41",body:"Movimiento de dinero institucional identificado en las ultimas 2 horas. Senal cuantica respaldada.",src:"Odds Monitor Pro",time:"hace 18 min"},
+    {t:"update",b:"SERIE A",bc:"nb-upd",h:"Inter 2-1 Napoli (min.71): Over 2.5 casi garantizado",body:"EV sube a +14.3%. Modelo detecta patron: cuando Inter va ganando en el 70', 81% acaba con Over 2.5.",src:"Live Score AI",time:"hace 22 min"},
+    {t:"info",b:"LIGUE 1",bc:"nb-inf",h:"PSG 2-1 Lyon: Mbappe con doblete — Over confirmado",body:"4 de los ultimos 5 PSG en casa han terminado Over 2.5. Cuota implicita de la casa subestimada un 8%.",src:"Ligue 1 Insider",time:"hace 35 min"},
+    {t:"breaking",b:"BUNDESLIGA",bc:"nb-brk",h:"Lewandowski descartado para Bayern vs Dortmund",body:"Baja de ultima hora confirmada. EV Over 2.5 cae -3.1%. Modelo ajusta probabilidad a 58.2%.",src:"Kicker Live",time:"hace 48 min"},
+    {t:"update",b:"PREMIER",bc:"nb-upd",h:"Man City vs Arsenal 1-1 (min.34): partido muy abierto",body:"xG acumulado: 2.8. Ritmo de partido compatible con Over 2.5 final. Cuota actual: 1.72 — valor detectado.",src:"Stats Perform",time:"hace 55 min"}
+];
+
+// ═══════════════════════════════════════════
+//  EV EDGE LIVE CHART
+// ═══════════════════════════════════════════
+var evChart, evData=[], evLabels=[], evEvents_data=[];
+var baseEdge=12.5;
+var eventPool=[
+    {label:"Noticia baja Leon",delta:+1.2,color:"#ef4444"},
+    {label:"Cuota cae 1.44->1.41",delta:+0.6,color:"#10b981"},
+    {label:"IG Weissman 100%",delta:+0.3,color:"#8b5cf6"},
+    {label:"Meteo OK Tenerife",delta:+0.2,color:"#06b6d4"},
+    {label:"Cuota sube 1.41->1.43",delta:-0.4,color:"#f59e0b"},
+    {label:"Twitter Tarin duda",delta:-0.3,color:"#ef4444"},
+    {label:"xG Inter 2.8",delta:+0.5,color:"#10b981"},
+    {label:"Mbappe doblete live",delta:+0.7,color:"#10b981"},
+    {label:"Bayern Lewandowski OUT",delta:-0.8,color:"#ef4444"},
+    {label:"Bellingham 'Ready'",delta:+0.4,color:"#8b5cf6"},
+    {label:"Flujo sharp Over 2.5",delta:+0.9,color:"#06b6d4"},
+    {label:"Osimhen 'recovering'",delta:-0.5,color:"#f59e0b"}
+];
+var eventIdx=0;
+
+function initEVChart(){
+    // seed initial data
+    var v=baseEdge;
+    for(var i=0;i<20;i++){
+        v+=((Math.random()-0.4)*0.6);
+        v=Math.max(8,Math.min(20,v));
+        evData.push(parseFloat(v.toFixed(2)));
+        var d=new Date();
+        d.setSeconds(d.getSeconds()-(20-i)*15);
+        evLabels.push(d.getHours()+":"+String(d.getMinutes()).padStart(2,"0")+":"+String(d.getSeconds()).padStart(2,"0"));
+    }
+    var ctx=document.getElementById("evChart").getContext("2d");
+    var grd=ctx.createLinearGradient(0,0,0,260);
+    grd.addColorStop(0,"rgba(16,185,129,0.35)");
+    grd.addColorStop(1,"rgba(16,185,129,0)");
+    evChart=new Chart(ctx,{
+        type:"line",
+        data:{labels:evLabels,datasets:[{
+            label:"EV Edge %",
+            data:evData,
+            borderColor:"#10b981",
+            backgroundColor:grd,
+            fill:true,tension:0.45,borderWidth:2.5,
+            pointRadius:2,pointHoverRadius:5,
+            pointBackgroundColor:"#10b981"
+        }]},
+        options:{
+            responsive:true,maintainAspectRatio:false,
+            animation:{duration:600},
+            plugins:{
+                legend:{display:false},
+                tooltip:{callbacks:{label:function(c){return " EV: +"+c.parsed.y.toFixed(2)+"%";}}}
+            },
+            scales:{
+                x:{grid:{color:"#18181b"},ticks:{color:"#52525b",maxTicksLimit:8,font:{size:10}}},
+                y:{grid:{color:"#18181b"},ticks:{color:"#71717a",callback:function(v){return "+"+v+"%";}},min:6,max:22}
+            }
+        }
+    });
+}
+
+function pushEVPoint(delta,eventLabel){
+    var last=evData[evData.length-1];
+    var newVal=last+delta+((Math.random()-0.5)*0.15);
+    newVal=Math.max(8,Math.min(20,newVal));
+    newVal=parseFloat(newVal.toFixed(2));
+    var d=new Date();
+    var lbl=d.getHours()+":"+String(d.getMinutes()).padStart(2,"0")+":"+String(d.getSeconds()).padStart(2,"0");
+    evData.push(newVal);
+    evLabels.push(lbl);
+    if(evData.length>40){evData.shift();evLabels.shift();}
+    evChart.data.labels=evLabels;
+    evChart.data.datasets[0].data=evData;
+    evChart.update("none");
+    // update metrics
+    document.getElementById("evCurrent").textContent=(newVal>0?"+":"")+newVal+"%";
+    var prob=46.97+(newVal-12.5)*0.3;
+    document.getElementById("evProb").textContent=prob.toFixed(2)+"%";
+    var trend=newVal>last?"&#8593; SUBIENDO":"&#8595; BAJANDO";
+    var trendEl=document.getElementById("evTrend");
+    trendEl.innerHTML=trend;
+    trendEl.style.color=newVal>last?"var(--em)":"var(--re)";
+    trendEl.style.borderColor=newVal>last?"rgba(16,185,129,0.3)":"rgba(239,68,68,0.3)";
+    document.getElementById("evLastEvent").textContent=eventLabel+(delta>0?" +"+Math.abs(delta).toFixed(1)+"% EV":" -"+Math.abs(delta).toFixed(1)+"% EV");
+    document.getElementById("evUpdateText").textContent="Actualizado hace 0s (evento: "+eventLabel+")";
+    // update parlay edge
+    document.getElementById("parlayEdge").textContent=(newVal>0?"+":"")+newVal.toFixed(2)+"% EDGE";
+    // update kpi
+    document.getElementById("kEdge").textContent=(newVal>0?"+":"")+newVal.toFixed(1)+"%";
+    // flash effect
+    document.getElementById("evChart").style.filter="brightness(1.15)";
+    setTimeout(function(){document.getElementById("evChart").style.filter="";},400);
+}
+
+// ═══════════════════════════════════════════
+//  RENDER LEAGUES
+// ═══════════════════════════════════════════
+function renderLeagues(){
+    var g=document.getElementById("leaguesGrid");
+    g.innerHTML=LEAGUES.map(function(l){
+        var liveCount=l.matches.filter(function(m){return m.live;}).length;
+        var statusHtml=liveCount>0?'<div class="league-status ls-live">&#128308; '+liveCount+' LIVE</div>':'<div class="league-status ls-soon">PROXIMAMENTE</div>';
+        var rows=l.matches.map(function(m){
+            var scoreHtml=m.live?'<span class="mr-score live-score">'+m.score+'</span>':'<span class="mr-score" style="color:var(--mu);">'+m.score+'</span>';
+            var minHtml=m.live?'<span class="mr-min">'+m.time+'</span>':'';
+            var timeHtml=m.live?'':m.time;
+            return '<div class="match-row"><div class="mr-time">'+timeHtml+'</div><div class="mr-teams">'+m.home+' <span style="color:var(--mu);">vs</span> '+m.away+minHtml+'</div>'+scoreHtml+'<div class="mr-ev '+m.evClass+'">'+m.ev+'</div></div>';
+        }).join("");
+        return '<div class="league-card"><div class="league-hdr"><div class="league-name"><span class="league-flag">'+l.flag+'</span>'+l.name+'</div>'+statusHtml+'</div>'+rows+'</div>';
+    }).join("");
+}
+
+// ═══════════════════════════════════════════
+//  RENDER WEATHER
+// ═══════════════════════════════════════════
+function renderWeather(){
+    var g=document.getElementById("weatherGrid");
+    g.innerHTML=WEATHER.map(function(w){
+        var rc=w.rain>50?"#ef4444":w.rain>20?"#f59e0b":"#10b981";
+        var wc=w.wind>25?"warn":"ok";
+        return '<div class="w-card"><div class="w-hdr"><div><div class="w-match">'+w.match+'</div><div class="w-stad">&#128205; '+w.stad+' &middot; '+w.city+'</div></div><div style="font-size:0.7rem;color:var(--em);font-weight:700;">LIVE</div></div><div class="w-big"><div class="w-icon">'+w.icon+'</div><div><div class="w-temp">'+w.temp+'&deg;C</div><div class="w-desc">'+w.desc+' &middot; Sens. '+w.feels+'&deg;C</div></div></div><div class="w-pills"><div class="w-pill '+wc+'">Viento '+w.wind+'km/h</div><div class="w-pill" style="color:'+rc+';border-color:'+rc+'55;">Lluvia '+w.rain+'%</div><div class="w-pill">Humedad '+w.humidity+'%</div></div><div class="w-impact"><div class="lbl">IMPACTO PRONOSTICO</div><div class="val val-'+w.impact.type+'">'+w.impact.lbl+'</div><div style="font-size:0.68rem;color:var(--mu);margin-top:1px;">'+w.impact.r+'</div></div></div>';
+    }).join("");
+}
+
+// ═══════════════════════════════════════════
+//  RENDER SQUAD
+// ═══════════════════════════════════════════
+var curTab=0;
+function switchTab(i){curTab=i;document.querySelectorAll(".s-tab").forEach(function(t,j){t.classList.toggle("active",j===i);});renderSquad();}
+function si(s){return s==="ok"?"&#9989;":s==="doubt"?"&#9888;":"&#10060;";}
+function renderSquad(){
+    var g=document.getElementById("squadGrid"),m=SQUADS[curTab];
+    function tc(name,players){
+        var ok=players.filter(function(p){return p.s==="ok";}).length;
+        var db=players.filter(function(p){return p.s==="doubt";}).length;
+        var ot=players.filter(function(p){return p.s==="out";}).length;
+        return '<div class="sq-card"><div class="sq-hdr"><div class="sq-name">'+name+'</div><div class="sq-sum"><span class="sq-s ok">&#9989; '+ok+'</span><span class="sq-s dbt">&#9888; '+db+'</span><span class="sq-s out">&#10060; '+ot+'</span></div></div><div class="plist">'+players.map(function(p){return'<div class="prow"><div class="pinfo"><div class="pnum">'+p.n+'</div><div><div class="pname">'+p.nm+'</div><div class="ppos">'+p.pos+'</div></div></div><div class="pbadge pb-'+p.s+'">'+si(p.s)+(p.s==="ok"?" TITULAR":p.s==="doubt"?" DUDA":" BAJA")+'</div></div>';}).join("")+'</div></div>';
+    }
+    g.innerHTML=tc(m.home,m.hP)+tc(m.away,m.aP);
+}
+
+// ═══════════════════════════════════════════
+//  RENDER LINEUPS
+// ═══════════════════════════════════════════
+function renderLineups(){
+    var g=document.getElementById("lineupGrid");
+    g.innerHTML=LINEUPS.map(function(l){
+        var rows=l.rows.map(function(r){return'<div class="frow">'+r.map(function(p){return'<div class="pdot"><div class="d">'+p.n+'</div><div class="pn">'+p.nm+'</div></div>';}).join("")+'</div>';}).join("");
+        return'<div class="lu-card"><div class="lu-hdr"><div><div class="lu-team">'+l.team+'</div><div style="font-size:0.68rem;color:var(--mu);">Formacion: '+l.fm+'</div></div><div class="lu-conf"><span>'+l.conf+'% conf.</span><div class="cbar"><div class="cfill" style="width:'+l.conf+'%"></div></div></div></div><div class="field">'+rows+'</div></div>';
+    }).join("");
+}
+
+// ═══════════════════════════════════════════
+//  RENDER SOCIAL
+// ═══════════════════════════════════════════
+function renderSocial(){
+    var g=document.getElementById("socialGrid");
+    g.innerHTML=SOCIAL.map(function(s){
+        return'<div class="social-card '+s.type+'"><div class="social-hdr"><div class="social-avatar '+s.av+'">'+s.player.charAt(0)+'</div><div><div class="social-player">'+s.player+'</div><div class="social-team">'+s.team+'</div></div><div class="social-platform '+s.platform+'">'+s.type.toUpperCase()+'</div></div><div class="social-text">'+s.text+'</div><div class="social-ai"><div class="ai-label">&#129302; ANALISIS IA CUANTICO</div><div class="ai-text">'+s.ai+'</div></div><div class="social-footer"><div class="social-time">'+s.time+'</div><div class="social-impact '+s.impact+'">'+s.impLbl+'</div></div></div>';
+    }).join("");
+}
+
+// ═══════════════════════════════════════════
+//  RENDER NEWS
+// ═══════════════════════════════════════════
+function renderNews(){
+    var g=document.getElementById("newsGrid");
+    g.innerHTML=NEWS.map(function(n){
+        return'<div class="n-card '+n.t+'"><div class="n-badge '+n.bc+'">'+n.b+'</div><div class="n-head">'+n.h+'</div><div class="n-body">'+n.body+'</div><div class="n-foot"><div class="n-src">'+n.src+'</div><div class="n-time">'+n.time+'</div></div></div>';
+    }).join("");
+}
+
+// ═══════════════════════════════════════════
+//  HISTORICAL CHART
+// ═══════════════════════════════════════════
+function initHistChart(){
+    var ctx=document.getElementById("histChart").getContext("2d");
+    var gP=ctx.createLinearGradient(0,0,0,260);gP.addColorStop(0,"rgba(16,185,129,0.4)");gP.addColorStop(1,"rgba(16,185,129,0)");
+    var gQ=ctx.createLinearGradient(0,0,0,260);gQ.addColorStop(0,"rgba(6,182,212,0.4)");gQ.addColorStop(1,"rgba(6,182,212,0)");
+    new Chart(ctx,{type:"line",data:{labels:["Dia 1","Dia 5","Dia 10","Dia 15","Dia 20","Dia 25","Dia 30"],datasets:[{label:"Prob. Real Modelo (%)",data:[72,75,78,74,81,77,79],borderColor:"#10b981",backgroundColor:gP,fill:true,tension:0.4,borderWidth:3},{label:"Cuota Implicita Casa (%)",data:[62,64,65,61,68,65,66],borderColor:"#06b6d4",backgroundColor:gQ,fill:true,tension:0.4,borderWidth:2,borderDash:[5,5]}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{labels:{color:"#a1a1aa",font:{family:"Inter"}}}},scales:{x:{grid:{color:"#18181b"},ticks:{color:"#71717a"}},y:{grid:{color:"#18181b"},ticks:{color:"#71717a"}}}}});
+}
+
+// ═══════════════════════════════════════════
+//  LIVE MINUTE UPDATES (scores)
+// ═══════════════════════════════════════════
+function updateLiveMinutes(){
+    LEAGUES.forEach(function(l){
+        l.matches.forEach(function(m){
+            if(m.live&&m.time!=="FT"){
+                var min=parseInt(m.time);
+                if(!isNaN(min)&&min<90) m.time=(min+1)+"'";
+            }
+        });
+    });
+}
+
+// ═══════════════════════════════════════════
+//  MASTER TIMER
+// ═══════════════════════════════════════════
+function tick(){
+    sa++;wa++;
+    document.getElementById("liveTimer").textContent="LIVE \u00b7 "+sa+"s";
+
+    // Every 15s: push new EV point
+    if(sa%15===0){
+        var ev=eventPool[eventIdx%eventPool.length];
+        eventIdx++;
+        pushEVPoint(ev.delta,ev.label);
+        // Add event pill
+        var evDiv=document.getElementById("evEvents");
+        var pill=document.createElement("div");
+        pill.className="ev-event";
+        pill.style.animation="fadeIn 0.5s ease";
+        pill.innerHTML='<div class="dot" style="background:'+(ev.delta>0?"var(--em)":"var(--re)")+'"></div>'+ev.label+' '+(ev.delta>0?"+":"")+ev.delta.toFixed(1)+"% EV";
+        evDiv.insertBefore(pill,evDiv.firstChild);
+        if(evDiv.children.length>6) evDiv.removeChild(evDiv.lastChild);
+    }
+
+    // Every 60s: update live minutes & re-render leagues
+    if(sa%60===0){
+        updateLiveMinutes();
+        renderLeagues();
+        // Simulate random goal
+        if(Math.random()>0.7){
+            var randomLeague=LEAGUES[Math.floor(Math.random()*LEAGUES.length)];
+            var livem=randomLeague.matches.filter(function(m){return m.live;});
+            if(livem.length>0){
+                var match=livem[Math.floor(Math.random()*livem.length)];
+                var parts=match.score.split("-");
+                if(parts.length===2){
+                    if(Math.random()>0.5) parts[0]=String(parseInt(parts[0])+1);
+                    else parts[1]=String(parseInt(parts[1])+1);
+                    match.score=parts.join("-");
+                    renderLeagues();
+                }
+            }
+        }
+    }
+
+    // Every 30s: update weather
+    if(sa%30===0){
+        WEATHER.forEach(function(w){w.temp+=Math.round((Math.random()-0.5)*0.3);w.wind=Math.max(0,w.wind+Math.round((Math.random()-0.5)*1.2));});
+        renderWeather();
+        ["w-card"].forEach(function(cls){document.querySelectorAll("."+cls).forEach(function(c){c.style.borderColor="rgba(16,185,129,0.5)";setTimeout(function(){c.style.borderColor="";},700);});});
+    }
+
+    // Every 5s: push small EV drift
+    if(sa%5===0&&sa%15!==0){
+        pushEVPoint((Math.random()-0.48)*0.3,"Drift de mercado");
+    }
+
+    var wt=wa<60?"Actualizado hace "+wa+"s":"Actualizado hace "+Math.floor(wa/60)+"m "+(wa%60)+"s";
+    document.getElementById("weatherText").textContent=wt;
+    document.getElementById("newsText").textContent="Hace "+sa+"s";
+    document.getElementById("evUpdateText").textContent="Ultimo punto: hace "+(sa%15)+"s";
+}
+
+// ═══════════════════════════════════════════
+//  INIT
+// ═══════════════════════════════════════════
+document.addEventListener("DOMContentLoaded",function(){
+    renderLeagues();
+    renderWeather();
+    renderSquad();
+    renderLineups();
+    renderSocial();
+    renderNews();
+    initEVChart();
+    initHistChart();
+    setInterval(tick,1000);
+});
+</script>
+</body>
+</html>

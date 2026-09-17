@@ -1,0 +1,195 @@
+# =============================================================================
+# CAPTURA AUTOMATICA DE RATINGBET EN LA NUBE  (GitHub Actions)
+# -----------------------------------------------------------------------------
+# QUE RESUELVE
+#   "Al pulsar Actualizar salen siempre los mismos partidos": la web no puede
+#   leer ratingbet.com en vivo (Cloudflare responde 403 + challenge a cualquier
+#   fetch de servidor). Solo un navegador REAL lo atraviesa, y Vercel no tiene
+#   navegador. Este workflow ejecuta el scraper (Chrome real) en un runner de
+#   GitHub y publica el JSON resultante de DOS formas:
+#     5a) GIST PUBLICO  -> es la URL que consume Vercel (SIN token, sin redeploy)
+#     5b) rama 'dataset' -> respaldo + historial de capturas (usa el token interno)
+#   En Vercel solo hay que definir RATINGBET_DATASET_URL con la URL raw del gist.
+#
+# CADENCIA
+#   Cada 3 horas (cron '23 */3 * * *', en UTC). El dataset nunca supera ~3,2 h
+#   de antiguedad, dentro de la ventana de aviso del pipeline (180 min por
+#   defecto; se recomienda RATINGBET_MAX_ANTIGUEDAD_MIN=300 en Vercel).
+#   Tambien se puede lanzar a mano: Actions > Captura ratingbet > Run workflow.
+#
+# COSTE
+#   GitHub Free: 2.000 min/mes en repos PRIVADOS. 8 ejecuciones/dia ~= 2,5 min
+#   cada una ~= 600 min/mes. Sobra margen.
+#
+# SECRETOS que necesita el repositorio (Settings > Secrets and variables > Actions)
+#   RATINGBET_GITHUB_TOKEN  PAT con permiso 'gist' (crear/editar el gist publico)
+#   RATINGBET_GIST_ID       id del gist (lo imprime la primera ejecucion)
+#   RATINGBET_DATASET_TOKEN opcional, solo si se lee la rama 'dataset' de un repo privado
+#
+# NOTA: los commits del bot en la rama 'dataset' tambien mantienen el
+#       repositorio "activo", lo que evita que GitHub desactive el cron por
+#       inactividad (regla de 60 dias).
+# =============================================================================
+name: Captura ratingbet
+
+on:
+  schedule:
+    # UTC. 23 */3 -> 00:23, 03:23, 06:23, 09:23, 12:23, 15:23, 18:23, 21:23
+    - cron: '23 */3 * * *'
+  workflow_dispatch:
+    inputs:
+      dias:
+        description: 'Dias de calendario a capturar (1-7)'
+        required: false
+        default: '2'
+
+# Nunca solapar dos capturas: la segunda esperaria a que acabe la primera.
+concurrency:
+  group: captura-ratingbet
+  cancel-in-progress: false
+
+permissions:
+  contents: write          # necesario para publicar la rama 'dataset'
+
+jobs:
+  captura:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    # Los secretos NO son accesibles desde 'if:'. Se exponen como variables de
+    # entorno del job para poder condicionar pasos con env.X != ''.
+    env:
+      GH_GIST_TOKEN: ${{ secrets.RATINGBET_GITHUB_TOKEN }}
+      GIST_ID: ${{ secrets.RATINGBET_GIST_ID }}
+      DATASET_TOKEN: ${{ secrets.RATINGBET_DATASET_TOKEN }}
+
+    steps:
+      # ----------------------------------------------------------------------
+      # 1) Codigo (historial completo: se necesita la rama 'dataset')
+      # ----------------------------------------------------------------------
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Node 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+
+      - name: Dependencias (puppeteer-core)
+        run: npm ci
+
+# ----------------------------------------------------------------------
+      # 2) Chrome real: imprescindible para atravesar Cloudflare
+      #    Los runners ubuntu ya traen Chrome estable en /usr/bin/google-chrome.
+      #    Si algun dia no estuviera, se instala el .deb oficial.
+      # ----------------------------------------------------------------------
+      - name: Asegurar Chrome
+        run: |
+          set -euo pipefail
+          if command -v google-chrome >/dev/null 2>&1; then
+            echo "Chrome ya presente: $(google-chrome --version)"
+          else
+            echo "Chrome no encontrado: instalando el .deb oficial..."
+            sudo apt-get update -qq
+            sudo apt-get install -y -qq wget
+            wget -q -O /tmp/google-chrome.deb https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+            sudo apt-get install -y -qq /tmp/google-chrome.deb
+            echo "Instalado: $(google-chrome --version)"
+          fi
+
+      # ----------------------------------------------------------------------
+      # 3) Diagnostico informativo: ¿esta IP de runner pasa Cloudflare?
+      #    No bloquea el workflow (continue-on-error) pero queda en el log.
+      # ----------------------------------------------------------------------
+      - name: Diagnostico Cloudflare (informativo)
+        continue-on-error: true
+        run: node tools_diag_cloudflare.js
+
+      # ----------------------------------------------------------------------
+      # 4) Captura real: scrape_ratingbet.js (1.5 + 2.5) + validacion + escritura
+      #    --modo=info = captura sin publicar; la publicacion la hace el paso 5.
+      # ----------------------------------------------------------------------
+      - name: Capturar fixtures de ratingbet
+        run: node tools_publicar_dataset.js --modo=info --dias=${{ github.event.inputs.dias || '2' }}
+
+      # ----------------------------------------------------------------------
+      # 5a) PUBLICACION PRINCIPAL: gist PUBLICO.
+      #     Es lo que Vercel lee SIN token (URL raw estable, sin sha):
+      #       https://gist.githubusercontent.com/<usuario>/<id>/raw/ratingbet_fixtures.json
+      #     Necesita 2 secretos del repositorio:
+      #       RATINGBET_GITHUB_TOKEN  -> PAT con permiso 'gist'
+      #       RATINGBET_GIST_ID       -> id del gist (lo imprime la 1a ejecucion)
+      #     Si aun no existen, el paso se omite y la publicacion la hace 5b.
+      # ----------------------------------------------------------------------
+      - name: Publicar el dataset en un gist PUBLICO
+        if: ${{ env.GH_GIST_TOKEN != '' }}
+        env:
+          GITHUB_TOKEN: ${{ env.GH_GIST_TOKEN }}
+          GITHUB_GIST_ID: ${{ env.GIST_ID }}
+        run: |
+          set -uo pipefail
+          node tools_publicar_dataset.js --modo=gist --sin-scrape --publico > gist_out.txt 2>&1 || true
+          cat gist_out.txt
+          URL=$(grep -oE 'https://gist\.githubusercontent\.com/[^[:space:]]+' gist_out.txt | head -n 1 || true)
+          if [ -z "$URL" ]; then
+            echo "::warning::No se ha podido publicar en el gist (revisa el token/gist id)."
+            echo "GIST_ID_NUEVO=$(grep -oE 'RATINGBET_GIST_ID=[0-9a-f]+' gist_out.txt | head -n1 | cut -d= -f2 || true)" >> "$GITHUB_ENV"
+          else
+            echo "Gist actualizado: $URL"
+            echo "RATINGBET_DATASET_URL=$URL" >> "$GITHUB_ENV"
+          fi
+
+      # ----------------------------------------------------------------------
+      # 5b) PUBLICACION DE RESPALDO / AUDITORIA: rama 'dataset' (solo el JSON).
+      #     No necesita secretos: usa el GITHUB_TOKEN por defecto. Mantiene el
+      #     historial de capturas y, de paso, el repositorio "activo" (evita que
+      #     GitHub suspenda el cron por 60 dias sin actividad).
+      # ----------------------------------------------------------------------
+      - name: Publicar el dataset en la rama 'dataset'
+        run: |
+          set -euo pipefail
+          git config user.name  'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          cp ratingbet_fixtures.json "$RUNNER_TEMP/dataset.json"
+
+          git fetch origin dataset --depth=1
+          git checkout dataset
+          cp "$RUNNER_TEMP/dataset.json" ratingbet_fixtures.json
+          git add ratingbet_fixtures.json
+
+          if git diff --cached --quiet; then
+            echo "Sin cambios respecto a la captura anterior: nada que publicar."
+            exit 0
+          fi
+
+          git commit -m "captura $(date -u +'%Y-%m-%dT%H:%M:%SZ') [skip ci]"
+          git push origin dataset
+
+      # ----------------------------------------------------------------------
+      # 6) Comprobacion final: ¿la URL que consume Vercel sirve la captura nueva?
+      #    Se prefiere la URL del gist (5a). Si no hay gist, se comprueba la
+      #    rama 'dataset' (necesita RATINGBET_DATASET_TOKEN si el repo es privado).
+      # ----------------------------------------------------------------------
+      - name: Comprobar que la captura publicada se puede leer
+        if: ${{ env.RATINGBET_DATASET_URL != '' || env.DATASET_TOKEN != '' }}
+        run: |
+          set -uo pipefail
+          URL="${RATINGBET_DATASET_URL:-https://raw.githubusercontent.com/${GITHUB_REPOSITORY}/dataset/ratingbet_fixtures.json}"
+          echo "Comprobando: $URL"
+          node tools_verifica_nube.js --url="$URL" || true
+
+      # ----------------------------------------------------------------------
+      # 7) Auditoria: se guarda la captura y el log del pipeline de cada ciclo.
+      # ----------------------------------------------------------------------
+      - name: Guardar artefactos de auditoria
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: captura-${{ github.run_id }}
+          path: |
+            ratingbet_fixtures.json
+            ratingbet_fixtures_data.js
+          retention-days: 7
+          if-no-files-found: warn

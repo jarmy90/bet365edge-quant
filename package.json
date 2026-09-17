@@ -1,0 +1,15 @@
+{
+  "name": "quant-bet365-edge",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "start": "node run_local_app.js",
+    "test": "node tools_run_tests.js",
+    "verifica:nube": "node tools_verifica_nube.js",
+    "diag:cloudflare": "node tools_diag_cloudflare.js",
+    "captura": "node tools_publicar_dataset.js --modo=info --dias=2"
+  },
+  "dependencies": {
+    "puppeteer-core": "^25.11.0"
+  }
+}

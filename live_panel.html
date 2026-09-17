@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>QUANTUM BETS | LIVE Intelligence Feed</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:#08090d;color:#f1f5f9;font-family:'Inter',sans-serif;min-height:100vh;overflow-x:hidden;}
+:root{--em:#10b981;--cy:#06b6d4;--re:#ef4444;--am:#f59e0b;--pu:#8b5cf6;--bg2:#0f1117;--bg3:#161b27;--bd:#1e2535;}
+
+/* TOP BAR */
+.topbar{background:rgba(15,17,23,0.98);border-bottom:1px solid var(--bd);padding:0.75rem 1.5rem;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:200;backdrop-filter:blur(20px);}
+.tb-logo{display:flex;align-items:center;gap:10px;font-weight:900;font-size:1.1rem;background:linear-gradient(135deg,#10b981,#06b6d4);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.tb-icon{width:26px;height:26px;background:linear-gradient(135deg,#10b981,#06b6d4);border-radius:7px;display:flex;align-items:center;justify-content:center;color:#000;font-weight:900;font-size:0.85rem;}
+.tb-center{display:flex;align-items:center;gap:1.5rem;}
+.tb-clock{font-family:'JetBrains Mono',monospace;font-size:0.9rem;color:var(--cy);font-weight:700;}
+.live-pill{display:flex;align-items:center;gap:6px;background:rgba(239,68,68,0.12);border:1px solid rgba(239,68,68,0.35);padding:4px 12px;border-radius:20px;font-size:0.75rem;font-weight:800;color:#ef4444;}
+.live-dot{width:7px;height:7px;background:#ef4444;border-radius:50%;animation:ld 1.2s ease-in-out infinite;}
+@keyframes ld{0%,100%{box-shadow:0 0 0 0 rgba(239,68,68,0.7);}50%{box-shadow:0 0 0 5px rgba(239,68,68,0);}}
+.tb-right{display:flex;align-items:center;gap:1rem;}
+.kpi-mini{text-align:center;}
+.kpi-mini .v{font-size:1.05rem;font-weight:900;font-family:'JetBrains Mono',monospace;color:var(--em);transition:color 0.4s,transform 0.3s;}
+.kpi-mini .l{font-size:0.6rem;color:#4b5563;font-weight:600;letter-spacing:0.3px;}
+
+/* TICKER */
+.ticker{background:rgba(16,185,129,0.06);border-bottom:1px solid rgba(16,185,129,0.15);height:32px;display:flex;overflow:hidden;}
+.ticker-tag{background:var(--em);color:#000;font-size:0.68rem;font-weight:800;padding:0 14px;display:flex;align-items:center;flex-shrink:0;letter-spacing:0.5px;}
+.ticker-wrap{flex:1;overflow:hidden;}
+.ticker-inner{display:flex;animation:tscroll 70s linear infinite;white-space:nowrap;}
+.ti{font-size:0.75rem;color:#94a3b8;padding:0 1.5rem;border-right:1px solid var(--bd);line-height:32px;white-space:nowrap;}
+.ti strong{color:#f1f5f9;}
+.tr{color:var(--re);font-weight:700;margin-right:4px;}
+.ta{color:var(--am);font-weight:700;margin-right:4px;}
+.tg{color:var(--em);font-weight:700;margin-right:4px;}
+@keyframes tscroll{0%{transform:translateX(0);}100%{transform:translateX(-50%);}}
+
+/* MAIN GRID */
+.main{display:grid;grid-template-columns:1fr 340px;height:calc(100vh - 97px);overflow:hidden;}
+
+/* LEFT: EV CHART + EVENT LOG */
+.left{display:flex;flex-direction:column;overflow:hidden;border-right:1px solid var(--bd);}
+
+/* EV CHART PANEL */
+.ev-panel{padding:1.25rem 1.5rem;border-bottom:1px solid var(--bd);}
+.ev-hdr{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:1rem;}
+.ev-title-block .t{font-size:1rem;font-weight:800;}
+.ev-title-block .s{font-size:0.72rem;color:#6b7280;margin-top:2px;}
+.ev-metrics{display:flex;gap:1rem;}
+.ev-m{background:var(--bg3);border:1px solid var(--bd);border-radius:10px;padding:0.6rem 1rem;text-align:center;min-width:110px;}
+.ev-m .lbl{font-size:0.62rem;color:#6b7280;margin-bottom:2px;font-weight:600;text-transform:uppercase;letter-spacing:0.3px;}
+.ev-m .val{font-size:1.3rem;font-weight:900;font-family:'JetBrains Mono',monospace;transition:all 0.4s;}
+.trend-badge{display:inline-flex;align-items:center;gap:5px;padding:4px 12px;border-radius:20px;font-size:0.75rem;font-weight:800;margin-top:0.5rem;transition:all 0.4s;}
+.trend-up{background:rgba(16,185,129,0.12);color:var(--em);border:1px solid rgba(16,185,129,0.3);}
+.trend-dn{background:rgba(239,68,68,0.1);color:var(--re);border:1px solid rgba(239,68,68,0.25);}
+.chart-wrap{position:relative;height:180px;margin-top:1rem;}
+
+/* LAST EVENT BAR */
+.last-evt{background:var(--bg3);border-top:1px solid var(--bd);padding:0.6rem 1.5rem;font-size:0.78rem;display:flex;align-items:center;gap:10px;transition:all 0.3s;}
+.le-icon{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
+.le-text{color:#94a3b8;flex:1;}
+.le-delta{font-family:'JetBrains Mono',monospace;font-weight:800;font-size:0.82rem;}
+
+/* EVENT LOG */
+.event-log{flex:1;overflow-y:auto;padding:0;}
+.event-log::-webkit-scrollbar{width:4px;}
+.event-log::-webkit-scrollbar-track{background:#0a0c10;}
+.event-log::-webkit-scrollbar-thumb{background:#1e2535;border-radius:2px;}
+.el-hdr{padding:0.75rem 1.5rem;font-size:0.72rem;font-weight:800;color:#4b5563;letter-spacing:0.8px;border-bottom:1px solid var(--bd);text-transform:uppercase;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;background:var(--bg2);}
+.el-hdr .count{background:rgba(16,185,129,0.1);color:var(--em);border:1px solid rgba(16,185,129,0.2);padding:2px 8px;border-radius:10px;font-size:0.65rem;}
+.el-item{display:flex;align-items:flex-start;gap:10px;padding:0.75rem 1.5rem;border-bottom:1px solid rgba(30,37,53,0.5);transition:background 0.2s;animation:slideIn 0.4s ease;}
+@keyframes slideIn{from{transform:translateX(-20px);opacity:0;}to{transform:translateX(0);opacity:1;}}
+.el-item:hover{background:rgba(255,255,255,0.02);}
+.el-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;margin-top:5px;}
+.el-body{flex:1;}
+.el-tag{font-size:0.62rem;font-weight:800;padding:1px 6px;border-radius:8px;margin-bottom:4px;display:inline-block;letter-spacing:0.3px;}
+.tag-gol{background:rgba(16,185,129,0.15);color:var(--em);}
+.tag-baja{background:rgba(239,68,68,0.12);color:var(--re);}
+.tag-cuota{background:rgba(6,182,212,0.12);color:var(--cy);}
+.tag-social{background:rgba(139,92,246,0.12);color:var(--pu);}
+.tag-meteo{background:rgba(245,158,11,0.1);color:var(--am);}
+.tag-news{background:rgba(248,250,252,0.07);color:#94a3b8;}
+.el-desc{font-size:0.8rem;color:#cbd5e1;line-height:1.4;font-weight:500;}
+.el-meta{display:flex;align-items:center;gap:8px;margin-top:4px;}
+.el-time{font-size:0.65rem;color:#4b5563;font-family:'JetBrains Mono',monospace;}
+.el-ev{font-size:0.7rem;font-weight:800;font-family:'JetBrains Mono',monospace;}
+.ev-pos{color:var(--em);}
+.ev-neg{color:var(--re);}
+
+/* RIGHT PANEL */
+.right{display:flex;flex-direction:column;overflow:hidden;background:var(--bg2);}
+
+/* RIGHT SECTIONS */
+.r-section{border-bottom:1px solid var(--bd);}
+.r-hdr{padding:0.75rem 1rem;font-size:0.7rem;font-weight:800;color:#4b5563;letter-spacing:0.8px;text-transform:uppercase;display:flex;justify-content:space-between;align-items:center;}
+.r-hdr .pulse{width:6px;height:6px;background:var(--em);border-radius:50%;animation:ld 1.4s infinite;}
+
+/* LIVE SCORES */
+.scores-list{padding:0 0.5rem 0.5rem;}
+.score-row{display:flex;align-items:center;gap:6px;padding:0.5rem 0.6rem;border-radius:8px;margin-bottom:4px;transition:background 0.2s;}
+.score-row:hover{background:rgba(255,255,255,0.025);}
+.sr-league{font-size:0.58rem;color:#6b7280;font-weight:700;width:18px;text-align:center;flex-shrink:0;}
+.sr-teams{flex:1;font-size:0.78rem;font-weight:600;line-height:1.3;}
+.sr-home,.sr-away{display:block;}
+.sr-score{font-family:'JetBrains Mono',monospace;font-size:0.9rem;font-weight:900;min-width:30px;text-align:center;}
+.sr-score.live{color:var(--em);animation:sf 3s ease-in-out infinite;}
+@keyframes sf{0%,75%,100%{opacity:1;}80%{opacity:0.3;}}
+.sr-min{font-size:0.6rem;background:rgba(239,68,68,0.12);color:var(--re);padding:1px 4px;border-radius:4px;font-weight:700;font-family:'JetBrains Mono',monospace;}
+.sr-ev{font-size:0.65rem;font-weight:700;padding:1px 5px;border-radius:8px;}
+.sr-pos{background:rgba(16,185,129,0.1);color:var(--em);}
+.sr-neg{background:rgba(239,68,68,0.08);color:var(--re);}
+
+/* WEATHER */
+.weather-list{padding:0 0.5rem 0.5rem;}
+.w-row{display:flex;align-items:center;gap:8px;padding:0.4rem 0.6rem;border-radius:8px;margin-bottom:4px;}
+.w-icon{font-size:1.4rem;flex-shrink:0;}
+.w-info{flex:1;}
+.w-match{font-size:0.75rem;font-weight:700;}
+.w-detail{font-size:0.65rem;color:#6b7280;margin-top:1px;}
+.w-temp{font-size:1rem;font-weight:900;font-family:'JetBrains Mono',monospace;}
+.w-badge{font-size:0.62rem;font-weight:700;padding:1px 6px;border-radius:8px;}
+.wb-ok{background:rgba(16,185,129,0.1);color:var(--em);}
+.wb-warn{background:rgba(245,158,11,0.1);color:var(--am);}
+.wb-bad{background:rgba(239,68,68,0.1);color:var(--re);}
+
+/* SOCIAL */
+.social-list{padding:0 0.5rem 0.5rem;overflow-y:auto;max-height:260px;}
+.social-list::-webkit-scrollbar{width:3px;}
+.social-list::-webkit-scrollbar-thumb{background:#1e2535;}
+.soc-item{background:var(--bg3);border:1px solid var(--bd);border-radius:10px;padding:0.7rem 0.875rem;margin-bottom:6px;transition:all 0.3s;animation:slideIn 0.5s ease;}
+.soc-item:hover{border-color:rgba(16,185,129,0.25);}
+.soc-hdr{display:flex;align-items:center;gap:6px;margin-bottom:5px;}
+.soc-av{width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:0.65rem;font-weight:900;flex-shrink:0;}
+.av1{background:linear-gradient(135deg,#1d9bf0,#0284c7);}
+.av2{background:linear-gradient(135deg,#f58529,#dd2a7b);}
+.av3{background:linear-gradient(135deg,#10b981,#059669);}
+.av4{background:linear-gradient(135deg,#8b5cf6,#6d28d9);}
+.av5{background:linear-gradient(135deg,#f59e0b,#d97706);}
+.soc-name{font-size:0.75rem;font-weight:700;flex:1;}
+.soc-plat{font-size:0.6rem;font-weight:800;padding:1px 5px;border-radius:6px;}
+.plat-tw{background:rgba(29,155,240,0.12);color:#1d9bf0;}
+.plat-ig{background:rgba(221,42,123,0.12);color:#dd2a7b;}
+.soc-text{font-size:0.72rem;color:#94a3b8;line-height:1.4;margin-bottom:5px;}
+.soc-ai{background:rgba(139,92,246,0.07);border:1px solid rgba(139,92,246,0.15);border-radius:6px;padding:5px 7px;font-size:0.65rem;color:#a78bfa;line-height:1.4;}
+.soc-foot{display:flex;justify-content:space-between;align-items:center;margin-top:5px;}
+.soc-time{font-size:0.6rem;color:#4b5563;}
+.soc-imp{font-size:0.65rem;font-weight:800;padding:1px 6px;border-radius:8px;}
+.si-pos{background:rgba(16,185,129,0.1);color:var(--em);}
+.si-neg{background:rgba(239,68,68,0.1);color:var(--re);}
+.si-neu{background:rgba(107,114,128,0.1);color:#6b7280;}
+
+/* GOAL TOAST */
+.goal-toast{position:fixed;top:80px;right:20px;z-index:500;display:flex;flex-direction:column;gap:8px;pointer-events:none;}
+.g-toast{background:rgba(16,185,129,0.95);color:#000;padding:10px 16px;border-radius:12px;font-size:0.82rem;font-weight:800;display:flex;align-items:center;gap:8px;box-shadow:0 4px 20px rgba(16,185,129,0.5);animation:toastIn 0.4s ease;min-width:220px;}
+@keyframes toastIn{from{transform:translateX(40px);opacity:0;}to{transform:translateX(0);opacity:1;}}
+.g-toast.leaving{animation:toastOut 0.4s ease forwards;}
+@keyframes toastOut{to{transform:translateX(40px);opacity:0;}}
+.gt-icon{font-size:1.1rem;}
+
+/* EV FLASH */
+.ev-flash{animation:evFlash 0.5s ease;}
+@keyframes evFlash{0%,100%{filter:brightness(1);}50%{filter:brightness(1.4);}}
+
+@media(max-width:900px){
+    .main{grid-template-columns:1fr;}
+    .right{display:none;}
+}
+</style>
+</head>
+<body>
+
+<!-- TOPBAR -->
+<div class="topbar">
+    <div class="tb-logo">
+        <div class="tb-icon">Q</div>
+        <span>QUANTUM BETS</span>
+        <span style="background:rgba(16,185,129,0.1);color:var(--em);border:1px solid rgba(16,185,129,0.3);padding:3px 8px;border-radius:12px;font-size:0.65rem;font-weight:700;-webkit-text-fill-color:var(--em);background-clip:unset;">LIVE INTELLIGENCE</span>
+    </div>
+    <div class="tb-center">
+        <div class="live-pill"><div class="live-dot"></div><span>EN DIRECTO</span></div>
+        <div class="tb-clock" id="clock">--:--:--</div>
+    </div>
+    <div class="tb-right">
+        <div class="kpi-mini"><div class="v" id="kEdge">+12.5%</div><div class="l">EV EDGE</div></div>
+        <div style="width:1px;height:30px;background:var(--bd);"></div>
+        <div class="kpi-mini"><div class="v" id="kLive" style="color:var(--re);">18</div><div class="l">LIVE</div></div>
+        <div style="width:1px;height:30px;background:var(--bd);"></div>
+        <div class="kpi-mini"><div class="v" id="kAlerts" style="color:var(--am);">7</div><div class="l">ALERTAS</div></div>
+        <div style="width:1px;height:30px;background:var(--bd);"></div>
+        <div class="kpi-mini"><div class="v" id="kGoals" style="color:var(--cy);">0</div><div class="l">GOLES HOY</div></div>
+    </div>
+</div>
+
+<!-- TICKER -->
+<div class="ticker">
+    <div class="ticker-tag">&#128225; LIVE</div>
+    <div class="ticker-wrap">
+        <div class="ticker-inner" id="tickerEl">
+            <span class="ti"><span class="tr">&#128308;</span><strong>Inter 2-1 Napoli</strong> min.71 &mdash; Over 2.5 EV sube a +14.3%</span>
+            <span class="ti"><span class="tg">&#9917;</span><strong>GOL PSG</strong> Mbappe min.67 &mdash; PSG 2-1 Lyon &mdash; EV +8%</span>
+            <span class="ti"><span class="ta">&#9888;</span><strong>Sergio Leon descartado</strong> Valladolid &mdash; EV Edge +13.2%</span>
+            <span class="ti">&#129302; <strong>Bellingham Twitter:</strong> "Ready for tomorrow" &mdash; IA: POSITIVO +2.1%</span>
+            <span class="ti"><span class="tr">&#127783;</span><strong>Lluvia en Montevideo</strong> River vs Fenix &mdash; campo pesado &mdash; impacto NEUTRAL</span>
+            <span class="ti"><span class="tg">&#9917;</span><strong>GOL Leipzig</strong> min.80 &mdash; 1-1 vs Frankfurt &mdash; Over 2.5 en riesgo</span>
+            <span class="ti"><span class="ta">&#9888;</span><strong>Lewandowski OUT</strong> Bayern vs Dortmund &mdash; EV cae -3.1%</span>
+            <span class="ti">&#128202; Movimiento sharp: Over 1.5 Tenerife 1.44 &rarr; 1.41 &mdash; flujo institucional</span>
+            <span class="ti"><span class="tr">&#128308;</span><strong>Inter 2-1 Napoli</strong> min.71 &mdash; Over 2.5 EV sube a +14.3%</span>
+            <span class="ti"><span class="tg">&#9917;</span><strong>GOL PSG</strong> Mbappe min.67 &mdash; PSG 2-1 Lyon &mdash; EV +8%</span>
+            <span class="ti"><span class="ta">&#9888;</span><strong>Sergio Leon descartado</strong> Valladolid &mdash; EV Edge +13.2%</span>
+            <span class="ti">&#129302; <strong>Bellingham Twitter:</strong> "Ready for tomorrow" &mdash; IA: POSITIVO +2.1%</span>
+            <span class="ti"><span class="tr">&#127783;</span><strong>Lluvia en Montevideo</strong> River vs Fenix &mdash; campo pesado &mdash; impacto NEUTRAL</span>
+            <span class="ti"><span class="tg">&#9917;</span><strong>GOL Leipzig</strong> min.80 &mdash; 1-1 vs Frankfurt &mdash; Over 2.5 en riesgo</span>
+            <span class="ti"><span class="ta">&#9888;</span><strong>Lewandowski OUT</strong> Bayern vs Dortmund &mdash; EV cae -3.1%</span>
+            <span class="ti">&#128202; Movimiento sharp: Over 1.5 Tenerife 1.44 &rarr; 1.41 &mdash; flujo institucional</span>
+        </div>
+    </div>
+</div>
+
+<!-- MAIN -->
+<div class="main">
+
+    <!-- LEFT: CHART + LOG -->
+    <div class="left">
+
+        <!-- EV CHART -->
+        <div class="ev-panel">
+            <div class="ev-hdr">
+                <div class="ev-title-block">
+                    <div class="t">EV Edge &mdash; Reaccion en Tiempo Real</div>
+                    <div class="s">Cada evento (gol, baja, social, cuota, clima) recalcula el Edge autom&aacute;ticamente</div>
+                    <div class="trend-badge trend-up" id="trendBadge">&#8593; SUBIENDO +0.8%</div>
+                </div>
+                <div class="ev-metrics">
+                    <div class="ev-m"><div class="lbl">EV EDGE LIVE</div><div class="val" id="evVal" style="color:var(--em);">+12.5%</div></div>
+                    <div class="ev-m"><div class="lbl">PROB. MODELO</div><div class="val" id="evProb" style="color:var(--cy);">46.97%</div></div>
+                    <div class="ev-m"><div class="lbl">CUOTA IMPL.</div><div class="val" id="evImpl" style="color:#6b7280;">34.45%</div></div>
+                </div>
+            </div>
+            <div class="chart-wrap"><canvas id="evChart"></canvas></div>
+        </div>
+
+        <!-- LAST EVENT -->
+        <div class="last-evt" id="lastEvt">
+            <div class="le-icon" style="background:var(--em);"></div>
+            <div class="le-text">Iniciando monitor de eventos...</div>
+            <div class="le-delta ev-pos" id="lastDelta">--</div>
+        </div>
+
+        <!-- EVENT LOG -->
+        <div class="event-log">
+            <div class="el-hdr">
+                FLUJO DE EVENTOS EN VIVO
+                <span class="count" id="evtCount">0 eventos</span>
+            </div>
+            <div id="logContainer"></div>
+        </div>
+    </div>
+
+    <!-- RIGHT PANEL -->
+    <div class="right">
+
+        <!-- LIVE SCORES -->
+        <div class="r-section">
+            <div class="r-hdr">&#9917; Partidos en Directo <div class="pulse"></div></div>
+            <div class="scores-list" id="scoresList"></div>
+        </div>
+
+        <!-- WEATHER -->
+        <div class="r-section">
+            <div class="r-hdr">&#127782; Clima en Estadios <div class="pulse"></div></div>
+            <div class="weather-list" id="weatherList"></div>
+        </div>
+
+        <!-- SOCIAL AI -->
+        <div class="r-section" style="flex:1;display:flex;flex-direction:column;">
+            <div class="r-hdr">&#129302; Social IA &mdash; Jugadores <div class="pulse"></div></div>
+            <div class="social-list" id="socialList"></div>
+        </div>
+    </div>
+</div>
+
+<!-- GOAL TOASTS -->
+<div class="goal-toast" id="goalToast"></div>
+
+<script>
+// ═══════════════════════════════
+//  LIVE MATCHES DATA
+// ═══════════════════════════════
+var MATCHES=[
+    {lg:"L1",home:"PSG",away:"Lyon",score:[2,1],min:67,live:true,ev:11.2,evDir:1},
+    {lg:"L1",home:"Marseille",away:"Monaco",score:[0,0],min:43,live:true,ev:7.8,evDir:1},
+    {lg:"SA",home:"Inter",away:"Napoli",score:[2,1],min:71,live:true,ev:14.3,evDir:1},
+    {lg:"SA",home:"Juventus",away:"Roma",score:[1,0],min:55,live:true,ev:6.5,evDir:1},
+    {lg:"PL",home:"Man City",away:"Arsenal",score:[1,1],min:34,live:true,ev:8.7,evDir:1},
+    {lg:"BL",home:"Bayern",away:"Dortmund",score:[3,1],min:62,live:true,ev:-3.1,evDir:-1},
+    {lg:"BL",home:"Leipzig",away:"Frankfurt",score:[1,1],min:80,live:true,ev:7.9,evDir:1}
+];
+
+var WEATHER=[
+    {icon:"&#9925;",match:"Valladolid vs Oviedo",temp:19,wind:32,rain:8,badge:"wb-warn",blbl:"Viento alto"},
+    {icon:"&#9728;",match:"Tenerife vs Leganes",temp:25,wind:11,rain:0,badge:"wb-ok",blbl:"Ideal"},
+    {icon:"&#127783;",match:"River vs Fenix",temp:16,wind:18,rain:88,badge:"wb-bad",blbl:"Lluvia fuerte 88%"}
+];
+
+var SOCIAL_POOL=[
+    {av:"av1",name:"Jude Bellingham",team:"Real Madrid",text:'"Ready for tomorrow. Lets go &#128293;"',plat:"plat-tw",platLbl:"TW",ai:"Disponibilidad CONFIRMADA. 89% rendimiento superior cuando publica noche antes.",imp:"si-pos",impLbl:"EV +2.1%",delta:+2.1},
+    {av:"av2",name:"Vinicius Jr.",team:"Real Madrid",text:'"Entrenamiento completado &#9989; Al 100%"',plat:"plat-ig",platLbl:"IG",ai:"Post confirmacion fisica. Matchup favorito vs banda derecha rival.",imp:"si-pos",impLbl:"EV +1.8%",delta:+1.8},
+    {av:"av1",name:"Kylian Mbappe",team:"PSG",text:'"Training done &#128170; Big match tomorrow"',plat:"plat-tw",platLbl:"TW",ai:"PSG en casa: 2.3 goles media cuando Mbappe entrena 48h antes.",imp:"si-pos",impLbl:"EV +3.2%",delta:+3.2},
+    {av:"av3",name:"Erling Haaland",team:"Man City",text:'"100 Premier League goals. Next: 101 &#127919;"',plat:"plat-tw",platLbl:"TW",ai:"Racha 6 goles en 4 partidos. Motivacion extrema detectada. Senal AAA.",imp:"si-pos",impLbl:"EV +4.1%",delta:+4.1},
+    {av:"av4",name:"Victor Osimhen",team:"Napoli",text:'"Feeling good but still recovering &#10084;"',plat:"plat-ig",platLbl:"IG",ai:"ALERTA: Lenguaje ambiguo. Duda confirmada para hoy. Impacto negativo.",imp:"si-neg",impLbl:"EV -2.4%",delta:-2.4},
+    {av:"av5",name:"Robert Lewandowski",team:"Bayern",text:'"Injured, gutted to miss this one &#128532;"',plat:"plat-tw",platLbl:"TW",ai:"BAJA CONFIRMADA. Bayern pierde referencia ofensiva. Over 2.5 cae -3.1%.",imp:"si-neg",impLbl:"EV -3.1%",delta:-3.1},
+    {av:"av2",name:"Lamine Yamal",team:"Barcelona",text:'"Sesion increible hoy &#9889; Listos"',plat:"plat-ig",platLbl:"IG",ai:"Confirmacion total disponibilidad. Barcelona fuera: Over 1.5 en 82% historico.",imp:"si-pos",impLbl:"EV +2.6%",delta:+2.6}
+];
+
+// ═══════════════════════════════
+//  EVENT POOL (what drives the EV)
+// ═══════════════════════════════
+var EVENT_POOL=[
+    {tag:"tag-baja",tagLbl:"BAJA",dot:"#ef4444",desc:"Sergio Leon (Valladolid) descartado por molestias musculares. Weissman asume el rol de 9.",delta:+1.2,type:"baja"},
+    {tag:"tag-cuota",tagLbl:"CUOTA",dot:"#06b6d4",desc:"Over 1.5 Tenerife-Leganes cae de 1.44 a 1.41 en Bet365. Flujo sharp detectado.",delta:+0.6,type:"cuota"},
+    {tag:"tag-social",tagLbl:"SOCIAL",dot:"#8b5cf6",desc:"Instagram Weissman: '100% listo para el partido'. Confirmacion fisica verificada.",delta:+0.3,type:"social"},
+    {tag:"tag-meteo",tagLbl:"METEO",dot:"#f59e0b",desc:"Tenerife: cielo despejado, 25C, viento 11km/h. Condiciones ideales para Over.",delta:+0.2,type:"meteo"},
+    {tag:"tag-gol",tagLbl:"GOL LIVE",dot:"#10b981",desc:"GOOOL! Mbappe marca en PSG 2-1 Lyon (min.67). Over 2.5 confirmado en ese partido.",delta:+0.9,type:"gol",goal:"PSG 2-1 Lyon (Mbappe 67')"},
+    {tag:"tag-cuota",tagLbl:"CUOTA",dot:"#06b6d4",desc:"Cuota Over 2.5 Inter-Napoli cae 1.85 a 1.71. EV aumenta significativamente.",delta:+0.8,type:"cuota"},
+    {tag:"tag-baja",tagLbl:"BAJA",dot:"#ef4444",desc:"Lewandowski descartado para Bayern vs Dortmund. Baja de ultima hora confirmada.",delta:-0.8,type:"baja"},
+    {tag:"tag-gol",tagLbl:"GOL LIVE",dot:"#10b981",desc:"GOOOL! Inter amplía a 2-1 vs Napoli (min.71). Over 1.5 confirmado.",delta:+1.1,type:"gol",goal:"Inter 2-1 Napoli (min.71)"},
+    {tag:"tag-social",tagLbl:"SOCIAL",dot:"#8b5cf6",desc:"Twitter Bellingham: 'Ready for tomorrow'. IA detecta ALTA confianza, disponible 100%.",delta:+0.4,type:"social"},
+    {tag:"tag-meteo",tagLbl:"METEO",dot:"#f59e0b",desc:"Lluvia fuerte Montevideo 88%. Campo pesado River vs Fenix. Ritmo -8%, corrige Edge -0.4%.",delta:-0.4,type:"meteo"},
+    {tag:"tag-cuota",tagLbl:"CUOTA",dot:"#06b6d4",desc:"Man City vs Arsenal: Over 2.5 sube de 1.65 a 1.72 tras 1-1. Valor detectado.",delta:+0.7,type:"cuota"},
+    {tag:"tag-gol",tagLbl:"GOL LIVE",dot:"#10b981",desc:"GOOOL! Bayern amplía a 3-1 vs Dortmund (min.62). Over confirmado.",delta:+0.5,type:"gol",goal:"Bayern 3-1 Dortmund (min.62)"},
+    {tag:"tag-social",tagLbl:"SOCIAL",dot:"#8b5cf6",desc:"Instagram Osimhen: 'still recovering'. ALERTA: jugador duda. Napoli sin referencia.",delta:-0.5,type:"social"},
+    {tag:"tag-baja",tagLbl:"BAJA",dot:"#ef4444",desc:"Tarin Garcia (Leganes) entrenó diferenciado. Decision pendiente en rueda de prensa.",delta:-0.3,type:"baja"},
+    {tag:"tag-cuota",tagLbl:"CUOTA",dot:"#06b6d4",desc:"Movimiento sharp detectado: flujo institucional en Over 1.5 Valladolid. Cuota cae.",delta:+0.6,type:"cuota"},
+    {tag:"tag-gol",tagLbl:"GOL LIVE",dot:"#10b981",desc:"GOOOL! Leipzig 1-1 Frankfurt (min.80). Partido muy abierto — Over 2.5 posible.",delta:+0.6,type:"gol",goal:"Leipzig 1-1 Frankfurt (min.80)"},
+    {tag:"tag-social",tagLbl:"SOCIAL",dot:"#8b5cf6",desc:"Twitter Haaland: '100 goles Premier. Siguiente: 101'. Racha 6 goles en 4 partidos.",delta:+0.9,type:"social"},
+    {tag:"tag-meteo",tagLbl:"METEO",dot:"#f59e0b",desc:"Viento 32km/h en Valladolid previsto para 16:15h. Puede afectar juego aereo.",delta:-0.2,type:"meteo"},
+    {tag:"tag-news",tagLbl:"NOTICIA",dot:"#6b7280",desc:"PSG confirma alineacion: Mbappe, Dembele y Asensio en el once. Ataque completo.",delta:+0.4,type:"news"},
+    {tag:"tag-news",tagLbl:"NOTICIA",dot:"#6b7280",desc:"Tenerife confirma alineacion: Bermejo, Gallego y Aitor. Los 3 mas goleadores.",delta:+0.3,type:"news"}
+];
+
+// ═══════════════════════════════
+//  EV CHART SETUP
+// ═══════════════════════════════
+var evData=[], evLabels=[], evChart, evIdx=0, evCurrent=12.5, logCount=0, goalCount=0;
+var socialIdx=0;
+
+function initChart(){
+    // Seed 25 points
+    var v=12.5;
+    for(var i=0;i<25;i++){
+        v+=((Math.random()-0.45)*0.5);
+        v=Math.max(8,Math.min(20,v));
+        evData.push(parseFloat(v.toFixed(2)));
+        evLabels.push("");
+    }
+    evCurrent=evData[evData.length-1];
+    var ctx=document.getElementById("evChart").getContext("2d");
+    var g=ctx.createLinearGradient(0,0,0,180);
+    g.addColorStop(0,"rgba(16,185,129,0.4)");
+    g.addColorStop(1,"rgba(16,185,129,0)");
+    evChart=new Chart(ctx,{
+        type:"line",
+        data:{labels:evLabels,datasets:[{
+            label:"EV %",data:evData,
+            borderColor:"#10b981",backgroundColor:g,
+            fill:true,tension:0.5,borderWidth:2.5,
+            pointRadius:0,pointHoverRadius:4,
+            pointBackgroundColor:"#10b981"
+        }]},
+        options:{
+            responsive:true,maintainAspectRatio:false,
+            animation:{duration:500},
+            plugins:{legend:{display:false},tooltip:{callbacks:{label:function(c){return " +"+c.parsed.y.toFixed(2)+"%";}}}},
+            scales:{
+                x:{display:false},
+                y:{grid:{color:"rgba(30,37,53,0.8)"},ticks:{color:"#4b5563",callback:function(v){return "+"+v+"%";},font:{size:10}},min:6,max:22}
+            }
+        }
+    });
+}
+
+function pushEV(delta){
+    // Micro-ruido vivo + pico ocasional controlado (1 de cada ~12)
+    var pico=0;
+    if(Math.random()<0.08){ pico=(Math.random()<0.7?1:-1)*(0.6+Math.random()*0.5); }
+    var newVal=evCurrent+delta+pico+((Math.random()-0.5)*0.15);
+    newVal=Math.max(8,Math.min(20,newVal));
+    newVal=parseFloat(newVal.toFixed(2));
+    var prev=evCurrent;
+    evCurrent=newVal;
+    evData.push(newVal);
+    evLabels.push("");
+    if(evData.length>60){evData.shift();evLabels.shift();}
+    evChart.data.labels=evLabels;
+    evChart.data.datasets[0].data=evData;
+    evChart.update("none");
+    // Update metrics
+    document.getElementById("evVal").textContent=(newVal>0?"+":"")+newVal+"%";
+    document.getElementById("kEdge").textContent=(newVal>0?"+":"")+newVal.toFixed(1)+"%";
+    var prob=46.97+(newVal-12.5)*0.35;
+    document.getElementById("evProb").textContent=prob.toFixed(2)+"%";
+    // Trend badge
+    var tb=document.getElementById("trendBadge");
+    var up=newVal>=prev;
+    tb.className="trend-badge "+(up?"trend-up":"trend-dn");
+    tb.innerHTML=(up?"&#8593;":"&#8595;")+" "+(up?"SUBIENDO":"BAJANDO")+" "+(delta>=0?"+":"")+delta.toFixed(1)+"%";
+    // Flash
+    document.getElementById("evVal").classList.add("ev-flash");
+    setTimeout(function(){document.getElementById("evVal").classList.remove("ev-flash");},500);
+    // kEdge flash
+    var ke=document.getElementById("kEdge");
+    ke.style.color=up?"var(--em)":"var(--re)";
+    ke.style.transform="scale(1.15)";
+    setTimeout(function(){ke.style.color="var(--em)";ke.style.transform="scale(1)";},600);
+}
+
+// ═══════════════════════════════
+//  EVENT LOG
+// ═══════════════════════════════
+function addEvent(evt){
+    var container=document.getElementById("logContainer");
+    var div=document.createElement("div");
+    div.className="el-item";
+    var now=new Date();
+    var t=now.getHours()+":"+String(now.getMinutes()).padStart(2,"0")+":"+String(now.getSeconds()).padStart(2,"0");
+    var sign=evt.delta>=0?"+":"";
+    var evClass=evt.delta>=0?"ev-pos":"ev-neg";
+    div.innerHTML='<div class="el-dot" style="background:'+evt.dot+';"></div>'+
+        '<div class="el-body">'+
+        '<div class="el-tag '+evt.tag+'">'+evt.tagLbl+'</div>'+
+        '<div class="el-desc">'+evt.desc+'</div>'+
+        '<div class="el-meta"><span class="el-time">'+t+'</span>'+
+        '<span class="el-ev '+evClass+'">'+sign+evt.delta.toFixed(1)+'% EV</span></div>'+
+        '</div>';
+    container.insertBefore(div,container.firstChild);
+    // Keep max 40
+    while(container.children.length>40) container.removeChild(container.lastChild);
+    // Count
+    logCount++;
+    document.getElementById("evtCount").textContent=logCount+" eventos";
+    // Last event bar
+    var le=document.getElementById("lastEvt");
+    le.querySelector(".le-icon").style.background=evt.dot;
+    le.querySelector(".le-text").textContent=evt.desc.substring(0,80)+(evt.desc.length>80?"...":"");
+    var ld=document.getElementById("lastDelta");
+    ld.textContent=(sign)+evt.delta.toFixed(1)+"% EV";
+    ld.className="le-delta "+(evt.delta>=0?"ev-pos":"ev-neg");
+    // Push to chart
+    pushEV(evt.delta);
+    // Goal toast
+    if(evt.type==="gol"&&evt.goal){
+        showGoalToast(evt.goal);
+        goalCount++;
+        document.getElementById("kGoals").textContent=goalCount;
+    }
+    // Alert count
+    if(evt.type==="baja"||evt.type==="meteo"){
+        var ac=parseInt(document.getElementById("kAlerts").textContent)||7;
+        document.getElementById("kAlerts").textContent=ac+1;
+    }
+}
+
+// ═══════════════════════════════
+//  GOAL TOAST
+// ═══════════════════════════════
+function showGoalToast(text){
+    var c=document.getElementById("goalToast");
+    var t=document.createElement("div");
+    t.className="g-toast";
+    t.innerHTML='<div class="gt-icon">&#9917;</div><div><div style="font-size:0.68rem;margin-bottom:1px;">GOOOL EN DIRECTO</div>'+text+'</div>';
+    c.insertBefore(t,c.firstChild);
+    setTimeout(function(){
+        t.classList.add("leaving");
+        setTimeout(function(){if(t.parentNode)t.parentNode.removeChild(t);},400);
+    },4000);
+    while(c.children.length>3) c.removeChild(c.lastChild);
+}
+
+// ═══════════════════════════════
+//  SCORES
+// ═══════════════════════════════
+function renderScores(){
+    var g=document.getElementById("scoresList");
+    g.innerHTML=MATCHES.map(function(m){
+        var sc=m.score[0]+"-"+m.score[1];
+        var evSign=m.ev>=0?"+":"";
+        var evCls=m.ev>=0?"sr-pos":"sr-neg";
+        return'<div class="score-row">'+
+            '<div class="sr-league">'+m.lg+'</div>'+
+            '<div class="sr-teams"><span class="sr-home">'+m.home+'</span><span class="sr-away" style="color:#6b7280;">'+m.away+'</span></div>'+
+            '<div>'+
+            '<div class="sr-score '+(m.live?"live":"")+'">'+sc+'</div>'+
+            (m.live?'<div style="text-align:center;"><span class="sr-min">'+m.min+"'</span></div>":'<div style="font-size:0.6rem;color:#4b5563;text-align:center;">HOY</div>')+
+            '</div>'+
+            '<div class="sr-ev '+evCls+'">'+evSign+m.ev.toFixed(1)+"%"+'</div>'+
+            '</div>';
+    }).join("");
+}
+
+// ═══════════════════════════════
+//  WEATHER
+// ═══════════════════════════════
+function renderWeather(){
+    var g=document.getElementById("weatherList");
+    g.innerHTML=WEATHER.map(function(w){
+        return'<div class="w-row">'+
+            '<div class="w-icon">'+w.icon+'</div>'+
+            '<div class="w-info"><div class="w-match">'+w.match+'</div>'+
+            '<div class="w-detail">Viento '+w.wind+'km/h &middot; Lluvia '+w.rain+'%</div></div>'+
+            '<div style="text-align:right;"><div class="w-temp">'+w.temp+'&deg;</div>'+
+            '<div class="w-badge '+w.badge+'">'+w.blbl+'</div></div>'+
+            '</div>';
+    }).join("");
+}
+
+// ═══════════════════════════════
+//  SOCIAL
+// ═══════════════════════════════
+function renderSocial(){
+    var g=document.getElementById("socialList");
+    // show last 5 added
+    var items=socialShown.slice(-5).reverse();
+    g.innerHTML=items.map(function(s){
+        return'<div class="soc-item">'+
+            '<div class="soc-hdr">'+
+            '<div class="soc-av '+s.av+'">'+s.name.charAt(0)+'</div>'+
+            '<div class="soc-name">'+s.name+' <span style="font-size:0.65rem;color:#6b7280;font-weight:400;">'+s.team+'</span></div>'+
+            '<div class="soc-plat '+s.plat+'">'+s.platLbl+'</div>'+
+            '</div>'+
+            '<div class="soc-text">'+s.text+'</div>'+
+            '<div class="soc-ai">&#129302; IA: '+s.ai+'</div>'+
+            '<div class="soc-foot"><span class="soc-time">hace '+s.ago+'</span><span class="soc-imp '+s.imp+'">'+s.impLbl+'</span></div>'+
+            '</div>';
+    }).join("");
+}
+
+var socialShown=[];
+function addSocial(s){
+    var mins=[2,5,8,12,18,25,31,45];
+    s.ago=mins[Math.floor(Math.random()*mins.length)]+" min";
+    socialShown.push(s);
+    if(socialShown.length>10) socialShown.shift();
+    renderSocial();
+}
+
+// ═══════════════════════════════
+//  CLOCK
+// ═══════════════════════════════
+function updateClock(){
+    var n=new Date();
+    document.getElementById("clock").textContent=
+        String(n.getHours()).padStart(2,"0")+":"+
+        String(n.getMinutes()).padStart(2,"0")+":"+
+        String(n.getSeconds()).padStart(2,"0");
+}
+
+// ═══════════════════════════════
+//  LIVE MINUTES UPDATE
+// ═══════════════════════════════
+var sec=0;
+function tick(){
+    sec++;
+    updateClock();
+    // Every 60s: advance minutes, maybe goal
+    if(sec%60===0){
+        MATCHES.forEach(function(m){
+            if(m.live&&m.min<90){m.min++;}
+        });
+        // Random goal chance
+        if(Math.random()>0.6){
+            var liveMs=MATCHES.filter(function(m){return m.live&&m.min<90;});
+            if(liveMs.length>0){
+                var m=liveMs[Math.floor(Math.random()*liveMs.length)];
+                if(Math.random()>0.5) m.score[0]++;
+                else m.score[1]++;
+                var gText=m.home+" "+m.score[0]+"-"+m.score[1]+" "+m.away+" (min."+m.min+")";
+                showGoalToast(gText);
+                goalCount++;
+                document.getElementById("kGoals").textContent=goalCount;
+                // EV jump
+                pushEV(+(Math.random()*1.5+0.5).toFixed(2));
+                renderScores();
+            }
+        }
+        // Update weather slightly
+        WEATHER.forEach(function(w){
+            w.temp+=Math.round((Math.random()-0.5)*0.3);
+            w.wind=Math.max(0,w.wind+Math.round((Math.random()-0.5)*1.5));
+        });
+        renderWeather();
+        renderScores();
+    }
+    // Every 8s: push event
+    if(sec%8===0){
+        var e=EVENT_POOL[evIdx%EVENT_POOL.length];
+        evIdx++;
+        addEvent(e);
+        // If social, show in panel
+        if(e.type==="social"){
+            addSocial(SOCIAL_POOL[socialIdx%SOCIAL_POOL.length]);
+            socialIdx++;
+        }
+    }
+    // Every 3s: small drift vivo
+    if(sec%3===0&&sec%8!==0){
+        pushEV((Math.random()-0.48)*0.35);
+    }
+    // Cada 30s: clima respira (lluvia +-2, viento +-2)
+    if(sec%30===0){
+        WEATHER.forEach(function(w){
+            w.rain=Math.max(0,Math.min(100,w.rain+Math.round((Math.random()-0.5)*4)));
+            if(w.match.indexOf("River")!==-1){ w.rain=Math.max(82,Math.min(94,w.rain)); w.blbl="Lluvia fuerte "+w.rain+"%"; }
+            w.wind=Math.max(0,w.wind+Math.round((Math.random()-0.5)*2));
+        });
+        renderWeather();
+    }
+}
+
+// ═══════════════════════════════
+//  INIT
+// ═══════════════════════════════
+window.addEventListener("DOMContentLoaded",function(){
+    initChart();
+    renderScores();
+    renderWeather();
+    // Pre-load 3 social
+    for(var i=0;i<3;i++){addSocial(SOCIAL_POOL[i]);}
+    // Pre-load 5 events
+    for(var i=4;i>=0;i--){addEvent(EVENT_POOL[i]);evIdx=5;}
+    setInterval(tick,1000);
+});
+</script>
+</body>
+</html>

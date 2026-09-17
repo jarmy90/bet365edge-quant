@@ -1,0 +1,36 @@
+# --- Secretos: NUNCA subir ---
+.env
+.env.*
+!.env.example
+
+# --- Credenciales de plataformas ---
+.vercel
+.wrangler
+# wrangler.toml lleva claves LIVE en [vars]: no se sube (el CI no lo necesita).
+# Para publicar secretos en Cloudflare usa: npx wrangler secret put NOMBRE
+wrangler.toml
+
+# --- Dependencias ---
+node_modules/
+
+# --- Trazas y salidas de diagnostico ---
+*.log
+salida_test.txt
+herramientas_salida.txt
+out_client.txt
+env_ls.txt
+
+# --- Copias de seguridad / ficheros corruptos ---
+*.bak
+*.bak_v3
+*.broken
+*.corrupt
+
+# --- Volcados de DOM de pruebas ---
+tools_dom*.html
+tools_dom*.txt
+tools_probe_*.html
+
+# --- Sistema ---
+Thumbs.db
+.DS_Store
