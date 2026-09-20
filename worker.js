@@ -43,7 +43,7 @@ import {
 } from './ratingbet_pipeline.js';
 import datasetLocal from './ratingbet_fixtures_data.js';
 
-const BUILD_ID = 'ratingbet-v7.6-2026-09-17';
+const BUILD_ID = 'ratingbet-v8.0-2026-09-20';
 
 // =============================================================================
 // ACCESO_LIBRE: modo gratuito (fase de captacion de trafico).
