@@ -2503,7 +2503,17 @@ export default {
                 thProbability: "Probabilidad",
                 thEdge: "Edge (+EV)",
                 disclaimerFooterTitle: "Aviso de responsabilidad:",
-                disclaimerFooterText: "Las estimaciones se basan en modelos estadísticos y no garantizan resultados. El usuario es responsable de sus decisiones."
+                disclaimerFooterText: "Las estimaciones se basan en modelos estadísticos y no garantizan resultados. El usuario es responsable de sus decisiones.",
+                footerAge: "Solo para mayores de 18 años",
+                footerLinkAviso: "Aviso legal",
+                footerLinkPrivacidad: "Privacidad",
+                footerLinkCookies: "Cookies",
+                footerLinkTerminos: "Términos de uso",
+                footerLinkJuego: "Juego responsable",
+                footerInfo1: "Esta web es un <strong>servicio de información y análisis estadístico</strong>. <strong>No es un operador de juego</strong>: no acepta apuestas ni custodia dinero de jugadores. Las cuotas se recogen de fuentes públicas y pueden contener errores u omisiones; comprueba siempre el precio y las condiciones en la casa de apuestas antes de jugar. No garantizamos resultados ni ganancias.",
+                footerInfo2: "Jugar conlleva riesgo de perder dinero. Si el juego es un problema para ti o para alguien de tu entorno, pide ayuda: <strong>900 200 225</strong> (FEJAR, atención 24 h) o visita <strong>jugarbien.es</strong>. Puedes solicitar tu autoexclusión en el RGIAJ (Ordenación del Juego).",
+                footerInfo3: "<strong>Servicio independiente, no afiliado ni respaldado por bet365.</strong>",
+                footerBrandTag: "EDGE.FUTBOL Quant · Sistema cuantitativo autónomo"
             },
             en: {
                 navStatus: "Subscription: Inactive",
@@ -2576,7 +2586,17 @@ export default {
                 thProbability: "Probability",
                 thEdge: "Edge (+EV)",
                 disclaimerFooterTitle: "Disclaimer:",
-                disclaimerFooterText: "Estimates are based on statistical models and do not guarantee profits. Users are responsible for their decisions."
+                disclaimerFooterText: "Estimates are based on statistical models and do not guarantee profits. Users are responsible for their decisions.",
+                footerAge: "18+ Adults Only",
+                footerLinkAviso: "Legal Notice",
+                footerLinkPrivacidad: "Privacy Policy",
+                footerLinkCookies: "Cookie Policy",
+                footerLinkTerminos: "Terms of Use",
+                footerLinkJuego: "Responsible Gambling",
+                footerInfo1: "This site is an <strong>information and statistical analysis service</strong>. <strong>It is not a gambling operator</strong>: it does not accept bets nor manage player funds. Odds are gathered from public sources and may contain errors; always verify prices on official bookmaker sites before betting. No profits or outcomes guaranteed.",
+                footerInfo2: "Gambling involves risk of monetary loss. If gambling becomes a problem for you or someone close to you, seek help from responsible gambling organizations in your jurisdiction.",
+                footerInfo3: "<strong>Independent service, not affiliated with nor endorsed by bet365.</strong>",
+                footerBrandTag: "EDGE.FUTBOL Quant · Autonomous quantitative engine"
             }
         };
 
@@ -2823,14 +2843,42 @@ export default {
                 }
             }
 
-            // Footer Disclaimer
-            var footerDisclaimer = document.querySelector('footer div[style*="background:rgba(217,119,6,0.08)"]');
-            if (footerDisclaimer) {
-                var strongAlert = footerDisclaimer.querySelector('strong');
-                if (strongAlert) strongAlert.textContent = dict.disclaimerFooterTitle;
-                var textSpan = footerDisclaimer.querySelector('span');
-                if (textSpan) textSpan.textContent = ' ' + dict.disclaimerFooterText;
-            }
+            // Footer Disclaimer and Information
+            var footerDiscTitle = document.getElementById('footerDiscTitle');
+            if (footerDiscTitle) footerDiscTitle.textContent = dict.disclaimerFooterTitle;
+
+            var footerDiscBody = document.getElementById('footerDiscBody');
+            if (footerDiscBody) footerDiscBody.textContent = ' ' + dict.disclaimerFooterText;
+
+            var footerAgeTxt = document.getElementById('footerAgeTxt');
+            if (footerAgeTxt) footerAgeTxt.textContent = dict.footerAge;
+
+            var linkAviso = document.getElementById('linkAviso');
+            if (linkAviso) linkAviso.textContent = dict.footerLinkAviso;
+
+            var linkPrivacidad = document.getElementById('linkPrivacidad');
+            if (linkPrivacidad) linkPrivacidad.textContent = dict.footerLinkPrivacidad;
+
+            var linkCookies = document.getElementById('linkCookies');
+            if (linkCookies) linkCookies.textContent = dict.footerLinkCookies;
+
+            var linkTerminos = document.getElementById('linkTerminos');
+            if (linkTerminos) linkTerminos.textContent = dict.footerLinkTerminos;
+
+            var linkJuego = document.getElementById('linkJuego');
+            if (linkJuego) linkJuego.textContent = dict.footerLinkJuego;
+
+            var footerInfo1 = document.getElementById('footerInfo1');
+            if (footerInfo1) footerInfo1.innerHTML = dict.footerInfo1;
+
+            var footerInfo2 = document.getElementById('footerInfo2');
+            if (footerInfo2) footerInfo2.innerHTML = dict.footerInfo2;
+
+            var footerInfo3 = document.getElementById('footerInfo3');
+            if (footerInfo3) footerInfo3.innerHTML = dict.footerInfo3;
+
+            var footerBrandTag = document.getElementById('footerBrandTag');
+            if (footerBrandTag) footerBrandTag.textContent = dict.footerBrandTag;
         }
 
         // Auto-inicializar idioma en cuanto el DOM este listo
@@ -3403,12 +3451,36 @@ export default {
         var homeChart = null;
 
         const LIVE_NEWS_POOL = [
-            { tag: '⚽ GOL EN DIRECTO', tagBg: 'rgba(13,242,166,0.15)', tagColor: '#0df2a6', title: 'Vinícius Jr. marca gol (Real Madrid 1-0 Barcelona)', desc: 'xG real sube a 2.38. El Edge del mercado Over 2.5 salta +5.4%', time: 'Ahora mismo' },
-            { tag: '🌦️ CLIMA REAL', tagBg: 'rgba(0,212,255,0.15)', tagColor: '#00d4ff', title: 'Lluvia 75% sobre Etihad Stadium', desc: 'Lluvia moderada en Mánchester. Campo rápido: ritmo +6%, el Edge Over 2.5 sube +0.8%', time: 'hace 1 min' },
-            { tag: '🚨 ALINEACIÓN', tagBg: 'rgba(245,158,11,0.15)', tagColor: '#f59e0b', title: 'Kylian Mbappé confirmado como titular en el Clásico', desc: 'Recuperado de molestias. Probabilidad de gol por partido +18.4%', time: 'hace 2 min' },
-            { tag: '📱 POST JUGADOR', tagBg: 'rgba(139,92,246,0.15)', tagColor: '#8b5cf6', title: 'Post de Jude Bellingham (Instagram): "Focus on tonight 💥"', desc: 'IA de Sentimiento detecta moral de equipo máxima (94.8%)', time: 'hace 3 min' },
-            { tag: '📊 BET365 ODDS', tagBg: 'rgba(0,212,255,0.15)', tagColor: '#00d4ff', title: 'Cuota Bet365 (Arsenal vs Chelsea) ajustada a 1.95', desc: 'Desfase cuantitativo aislado por el modelo con mayor valor esperado (+EV)', time: 'hace 4 min' },
-            { tag: '🧠 IA OMNIROUTE', tagBg: 'rgba(255,255,255,0.08)', tagColor: '#94a3b8', title: 'Procesados 240 artículos de prensa deportiva de España e Inglaterra', desc: 'Tendencia estadística Over 1.5/2.5 en LaLiga y Premier validada al 92.1%', time: 'hace 5 min' }
+            {
+                es: { tag: '⚽ GOL EN DIRECTO', title: 'Vinícius Jr. marca gol (Real Madrid 1-0 Barcelona)', desc: 'xG real sube a 2.38. El Edge del mercado Over 2.5 salta +5.4%', time: 'Ahora mismo' },
+                en: { tag: '⚽ LIVE GOAL', title: 'Vinícius Jr. scores (Real Madrid 1-0 Barcelona)', desc: 'Live xG rises to 2.38. Over 2.5 market Edge surges +5.4%', time: 'Just now' },
+                tagBg: 'rgba(13,242,166,0.15)', tagColor: '#0df2a6'
+            },
+            {
+                es: { tag: '🌦️ CLIMA REAL', title: 'Lluvia 75% sobre Etihad Stadium', desc: 'Lluvia moderada en Mánchester. Campo rápido: ritmo +6%, el Edge Over 2.5 sube +0.8%', time: 'hace 1 min' },
+                en: { tag: '🌦️ LIVE WEATHER', title: '75% Rain over Etihad Stadium', desc: 'Moderate rain in Manchester. Fast pitch: pace +6%, Over 2.5 Edge increases +0.8%', time: '1 min ago' },
+                tagBg: 'rgba(0,212,255,0.15)', tagColor: '#00d4ff'
+            },
+            {
+                es: { tag: '🚨 ALINEACIÓN', title: 'Kylian Mbappé confirmado como titular en el Clásico', desc: 'Recuperado de molestias. Probabilidad de gol por partido +18.4%', time: 'hace 2 min' },
+                en: { tag: '🚨 LINEUP ALERT', title: 'Kylian Mbappé confirmed starter in El Clásico', desc: 'Fully recovered. Match goal probability +18.4%', time: '2 mins ago' },
+                tagBg: 'rgba(245,158,11,0.15)', tagColor: '#f59e0b'
+            },
+            {
+                es: { tag: '📱 POST JUGADOR', title: 'Post de Jude Bellingham (Instagram): "Focus on tonight 💥"', desc: 'IA de Sentimiento detecta moral de equipo máxima (94.8%)', time: 'hace 3 min' },
+                en: { tag: '📱 PLAYER POST', title: 'Jude Bellingham post (Instagram): "Focus on tonight 💥"', desc: 'Sentiment AI detects peak team morale (94.8%)', time: '3 mins ago' },
+                tagBg: 'rgba(139,92,246,0.15)', tagColor: '#8b5cf6'
+            },
+            {
+                es: { tag: '📊 BET365 ODDS', title: 'Cuota Bet365 (Arsenal vs Chelsea) ajustada a 1.95', desc: 'Desfase cuantitativo aislado por el modelo con mayor valor esperado (+EV)', time: 'hace 4 min' },
+                en: { tag: '📊 BET365 ODDS', title: 'Bet365 odds (Arsenal vs Chelsea) adjusted to 1.95', desc: 'Quantitative edge isolated by model with high expected value (+EV)', time: '4 mins ago' },
+                tagBg: 'rgba(0,212,255,0.15)', tagColor: '#00d4ff'
+            },
+            {
+                es: { tag: '🧠 IA OMNIROUTE', title: 'Procesados 240 artículos de prensa deportiva de España e Inglaterra', desc: 'Tendencia estadística Over 1.5/2.5 en LaLiga y Premier validada al 92.1%', time: 'hace 5 min' },
+                en: { tag: '🧠 OMNIROUTE AI', title: 'Processed 240 sports news articles from Spain & England', desc: 'Over 1.5/2.5 statistical trend validated at 92.1%', time: '5 mins ago' },
+                tagBg: 'rgba(255,255,255,0.08)', tagColor: '#94a3b8'
+            }
         ];
         var newsIdx = 0;
 
@@ -3474,15 +3546,18 @@ export default {
             });
         }
 
-        function pushLiveNewsItem(item) {
+        function pushLiveNewsItem(rawItem) {
             var container = document.getElementById('homeLiveNewsFeed');
             if(!container) return;
+
+            var lang = getCurrentLang();
+            var item = rawItem[lang] ? { ...rawItem[lang], tagBg: rawItem.tagBg, tagColor: rawItem.tagColor } : rawItem;
 
             var el = document.createElement('div');
             el.className = 'feed-item-enter stream-news-item';
             el.style.cssText = 'border-radius:10px; padding:8px 10px; display:flex; flex-direction:column; gap:3px; transition:all 0.2s;';
             el.innerHTML = '<div style="display:flex; justify-content:space-between; align-items:center;">' +
-                '<span style="font-size:0.6rem; font-weight:800; background:' + item.tagBg + '; color:' + item.tagColor + '; padding:2px 6px; border-radius:6px;">' + item.tag + '</span>' +
+                '<span style="font-size:0.6rem; font-weight:800; background:' + (item.tagBg||'rgba(13,242,166,0.15)') + '; color:' + (item.tagColor||'#0df2a6') + '; padding:2px 6px; border-radius:6px;">' + item.tag + '</span>' +
                 '<span style="font-size:0.62rem; color:var(--text-muted); font-family:JetBrains Mono;">'  + item.time + '</span>' +
                 '</div>' +
                 '<div style="font-size:0.78rem; font-weight:700; color:var(--text-primary); margin-top:2px;">' + item.title + '</div>' +
@@ -3798,12 +3873,16 @@ export default {
         function buildTickerFromFixtures(fixtures) {
             var el = document.getElementById('mainPageTicker');
             if (!el) return;
+            var lang = getCurrentLang();
             if (!fixtures || fixtures.length === 0) {
-                el.textContent = 'Sin fixtures futuros validados en este momento (no se publican partidos ya iniciados).';
+                el.textContent = lang === 'en' ? 'No future validated fixtures at this moment (past matches are filtered).' : 'Sin fixtures futuros validados en este momento (no se publican partidos ya iniciados).';
                 return;
             }
             var trozos = fixtures.slice(0, 5).map(function (f) {
-                return '⚽ <strong>' + f.partido + '</strong> - ' + f.dia + ' ' + f.fechaCorta + ' a las ' + f.hora + ' (' + f.ligaCorta + '), cuota ' + f.cuota.toFixed(2) + ' y edge ' + f.edge;
+                var diaStr = lang === 'en' ? (f.dia === 'Hoy' ? 'Today' : (f.dia === 'Mañana' ? 'Tomorrow' : f.dia)) : f.dia;
+                var atStr = lang === 'en' ? 'at' : 'a las';
+                var oddsStr = lang === 'en' ? 'odds' : 'cuota';
+                return '⚽ <strong>' + f.partido + '</strong> - ' + diaStr + ' ' + f.fechaCorta + ' ' + atStr + ' ' + f.hora + ' (' + f.ligaCorta + '), ' + oddsStr + ' ' + f.cuota.toFixed(2) + ' & edge ' + f.edge;
             });
             var sep = ' &nbsp;&nbsp;•&nbsp;&nbsp; ';
             el.innerHTML = trozos.join(sep) + sep + trozos.join(sep);
@@ -3828,51 +3907,54 @@ export default {
             }
         }
 
-        // Muestra DE CUANDO es el dato publicado (captura de la base de datos) para que
-        // el cliente sepa si esta viendo la captura mas reciente o una anterior.
         function renderFrescuraDatos(f) {
             var stamp = document.getElementById('heroFixtureStamp');
             if (!stamp) return;
+            var lang = getCurrentLang();
             if (!f || f.edadMin === null || f.edadMin === undefined) {
-                stamp.innerHTML = 'Base de datos: <strong>sin marca de frescura</strong> — se muestra la última captura disponible.';
+                stamp.innerHTML = lang === 'en' ? 'Database: <strong>no timestamp</strong> — showing latest available snapshot.' : 'Base de datos: <strong>sin marca de frescura</strong> — se muestra la última captura disponible.';
                 return;
             }
-            var edad = f.edadMin < 1 ? 'menos de 1 min' : f.edadMin + ' min';
+            var edad = f.edadMin < 1 ? (lang === 'en' ? 'less than 1 min' : 'menos de 1 min') : f.edadMin + ' min';
             var color = f.fresca ? 'var(--neon-emerald)' : '#fbbf24';
             var aviso = f.fresca
                 ? ''
-                : ' — <span style="color:#fbbf24; font-weight:700;">captura caducada (' + f.limiteMin + ' min max): actualiza los datos</span>';
-            stamp.innerHTML = 'Datos de la base de datos sincronizados hace <strong style="color:' + color + ';">' + edad + '</strong>'
-                + ' (' + (f.capturadoEnUtc ? new Date(f.capturadoEnUtc).toLocaleString('es-ES', { timeZone: 'Europe/Madrid', hour12: false }) : 'n/d') + ' Madrid)'
-                + aviso
-                + '<br>Modo de datos: <strong>' + (f.modoDataset === 'remoto' ? 'remoto (se actualiza sin redeploy)' : 'embebido en el despliegue') + '</strong>'
-                + (__metaTemporal ? ' · margen de seguridad ' + __metaTemporal.margenSeguridadHoras + ' h' : '')
-                + (__fixturesValidadas.length ? ' · ' + __fixturesValidadas.length + ' partidos futuros publicados' : ' · 0 partidos publicables');
+                : (lang === 'en' ? ' — <span style="color:#fbbf24; font-weight:700;">expired snapshot (' + f.limiteMin + ' min max): please refresh data</span>' : ' — <span style="color:#fbbf24; font-weight:700;">captura caducada (' + f.limiteMin + ' min max): actualiza los datos</span>');
+            
+            if (lang === 'en') {
+                stamp.innerHTML = 'Database synchronized <strong style="color:' + color + ';">' + edad + ' ago</strong>'
+                    + ' (' + (f.capturadoEnUtc ? new Date(f.capturadoEnUtc).toLocaleString('en-US', { timeZone: 'Europe/Madrid', hour12: false }) : 'N/A') + ' Madrid time)'
+                    + aviso
+                    + '<br>Data mode: <strong>' + (f.modoDataset === 'remoto' ? 'remote (live auto-update)' : 'embedded in build') + '</strong>'
+                    + (__metaTemporal ? ' · safety margin ' + __metaTemporal.margenSeguridadHoras + ' h' : '')
+                    + (__fixturesValidadas.length ? ' · ' + __fixturesValidadas.length + ' upcoming matches published' : ' · 0 matches published');
+            } else {
+                stamp.innerHTML = 'Datos de la base de datos sincronizados hace <strong style="color:' + color + ';">' + edad + '</strong>'
+                    + ' (' + (f.capturadoEnUtc ? new Date(f.capturadoEnUtc).toLocaleString('es-ES', { timeZone: 'Europe/Madrid', hour12: false }) : 'n/d') + ' Madrid)'
+                    + aviso
+                    + '<br>Modo de datos: <strong>' + (f.modoDataset === 'remoto' ? 'remoto (se actualiza sin redeploy)' : 'embebido en el despliegue') + '</strong>'
+                    + (__metaTemporal ? ' · margen de seguridad ' + __metaTemporal.margenSeguridadHoras + ' h' : '')
+                    + (__fixturesValidadas.length ? ' · ' + __fixturesValidadas.length + ' partidos futuros publicados' : ' · 0 partidos publicables');
+            }
         }
 
-        // Auto-refresco: iniciarPanelLive() ya re-consulta /api/fixtures-hoy cada
-        // 60 s en esta misma pagina, asi que no se duplica el temporizador. El
-        // servidor cachea 5 min, con lo que la web incorpora capturas nuevas de
-        // la base de datos sin que el cliente recargue nada.
-
-        // Boton "Actualizar datos": re-consulta saltando la cache del servidor,
-        // de modo que si la base de datos ya publico partidos nuevos, aparezcan al instante.
         async function actualizarDatosAhora() {
             if (__refrescando) return;
             __refrescando = true;
+            var lang = getCurrentLang();
             var btn = document.getElementById('btnRefreshDatos');
             var stamp = document.getElementById('heroFixtureStamp');
-            if (btn) { btn.disabled = true; btn.style.opacity = '0.6'; btn.innerText = '🔄 Actualizando...'; }
-            if (stamp) stamp.innerHTML = 'Consultando la última captura de la base de datos...';
+            if (btn) { btn.disabled = true; btn.style.opacity = '0.6'; btn.innerText = lang === 'en' ? '🔄 Refreshing...' : '🔄 Actualizando...'; }
+            if (stamp) stamp.innerHTML = lang === 'en' ? 'Querying latest database snapshot...' : 'Consultando la última captura de la base de datos...';
             try {
                 var ok = await cargarFixturesValidadas(true);
                 if (ok && currentSelectedRisk && isUserSubscribed) {
                     await loadParlayForRisk(currentSelectedRisk, true);
                 }
-                if (!ok && stamp) stamp.innerHTML = '<span style="color:#f87171;">No se pudo actualizar. Reintenta en unos segundos.</span>';
+                if (!ok && stamp) stamp.innerHTML = '<span style="color:#f87171;">' + (lang === 'en' ? 'Could not refresh. Retry in a few seconds.' : 'No se pudo actualizar. Reintenta en unos segundos.') + '</span>';
             } finally {
                 __refrescando = false;
-                if (btn) { btn.disabled = false; btn.style.opacity = '1'; btn.innerText = '🔄 Actualizar datos'; }
+                if (btn) { btn.disabled = false; btn.style.opacity = '1'; btn.innerText = lang === 'en' ? '↻ Refresh Data' : '🔄 Actualizar datos'; }
             }
         }
 
@@ -3881,34 +3963,43 @@ export default {
             try {
                 LIVE_NEWS_POOL.length = 0;
                 frescos.forEach(function (it) { LIVE_NEWS_POOL.push(it); });
-            } catch (e) { /* pool no mutable: el feed usa construirFeedActual() en cada refresco */ }
+            } catch (e) { }
         }
 
         function construirFeedActual() {
             var items = [];
             var ahora = selloHoraReal();
+            var lang = getCurrentLang();
             if (__fixturesValidadas && __fixturesValidadas.length) {
                 __fixturesValidadas.forEach(function (f) {
+                    var diaStr = lang === 'en' ? (f.dia === 'Hoy' ? 'Today' : (f.dia === 'Mañana' ? 'Tomorrow' : f.dia)) : f.dia;
+                    var tagTxt = lang === 'en' ? (f.dia === 'Hoy' ? 'TODAY FIXTURE' : 'TOMORROW FIXTURE') : (f.dia === 'Hoy' ? 'FIXTURE HOY' : 'FIXTURE ' + f.dia.toUpperCase());
+                    var atTxt = lang === 'en' ? 'at' : 'a las';
+                    var probTxt = Number.isFinite(f.modelProb) ? ((lang === 'en' ? 'model prob ' : 'prob. modelo ') + f.modelProb + '%') : (lang === 'en' ? 'prob N/A' : 'prob. n/d');
+                    var oddsTxt = lang === 'en' ? 'odds' : 'cuota';
+
                     items.push({
-                        tag: f.dia === 'Hoy' ? 'FIXTURE HOY' : 'FIXTURE ' + f.dia.toUpperCase(),
+                        tag: tagTxt,
                         tagBg: 'rgba(13,242,166,0.15)', tagColor: '#0df2a6',
-                        title: f.partido + ' - ' + f.dia + ' ' + f.fechaCorta + ' a las ' + f.hora,
-                        desc: f.ligaCorta + ' | ' + f.mercado + ' cuota ' + f.cuota.toFixed(2) + ' | ' + (Number.isFinite(f.modelProb) ? ('prob. modelo ' + f.modelProb + '%') : 'prob. n/d') + ' | ' + f.edge + ' | ' + f.justificacion,
+                        title: f.partido + ' - ' + diaStr + ' ' + f.fechaCorta + ' ' + atTxt + ' ' + f.hora,
+                        desc: f.ligaCorta + ' | ' + f.mercado + ' ' + oddsTxt + ' ' + f.cuota.toFixed(2) + ' | ' + probTxt + ' | ' + f.edge + ' | ' + (lang === 'en' ? (f.justificacion ? f.justificacion.replace('Partido real capturado de ratingbet.com. Pendiente de analisis de edge (agente IA no disponible en este ciclo).', 'Real match captured from live data feeds. Edge analysis pending.') : '') : f.justificacion),
                         time: ahora
                     });
                 });
                 items.push({
-                    tag: 'FILTRO TEMPORAL', tagBg: 'rgba(0,212,255,0.15)', tagColor: '#00d4ff',
-                    title: __fixturesValidadas.length + ' fixtures futuros validados (margen ' + ((__metaTemporal && __metaTemporal.margenSeguridadHoras) || 2.5) + ' h)',
-                    desc: 'Kickoffs ya iniciados descartados automaticamente. Actualizado: ' + ahora + ' (' + ((__metaTemporal && __metaTemporal.zonaHoraria) || 'Europe/Madrid') + ')',
+                    tag: lang === 'en' ? 'TIME AUDIT' : 'FILTRO TEMPORAL',
+                    tagBg: 'rgba(0,212,255,0.15)', tagColor: '#00d4ff',
+                    title: lang === 'en' ? (__fixturesValidadas.length + ' upcoming validated fixtures (' + ((__metaTemporal && __metaTemporal.margenSeguridadHoras) || 2.5) + 'h safety margin)') : (__fixturesValidadas.length + ' fixtures futuros validados (margen ' + ((__metaTemporal && __metaTemporal.margenSeguridadHoras) || 2.5) + ' h)'),
+                    desc: lang === 'en' ? ('Already started matches automatically filtered. Updated: ' + ahora + ' (' + ((__metaTemporal && __metaTemporal.zonaHoraria) || 'Europe/Madrid') + ')') : ('Kickoffs ya iniciados descartados automaticamente. Actualizado: ' + ahora + ' (' + ((__metaTemporal && __metaTemporal.zonaHoraria) || 'Europe/Madrid') + ')'),
                     time: ahora
                 });
             }
             if (__parlayCache && __parlayCache.estado === 'ok' && __parlayCache.partidos && __parlayCache.partidos.length && Number.isFinite(__parlayCache.cuotaTotal)) {
                 items.push({
-                    tag: 'COMBINADA RECALCULADA', tagBg: 'rgba(245,158,11,0.15)', tagColor: '#f59e0b',
-                    title: __parlayCache.iconoRiesgo + ' ' + __parlayCache.nombreRiesgo + ' - cuota total ' + __parlayCache.cuotaTotal.toFixed(2),
-                    desc: __parlayCache.partidos.length + ' selecciones | Prob. combinada ' + __parlayCache.probabilidadReal + '% vs casa ' + __parlayCache.probabilidadCasa + '% | edge ' + __parlayCache.edgeTotal + ' pts. Solo fixtures futuros.',
+                    tag: lang === 'en' ? 'PARLAY RECALCULATED' : 'COMBINADA RECALCULADA',
+                    tagBg: 'rgba(245,158,11,0.15)', tagColor: '#f59e0b',
+                    title: __parlayCache.iconoRiesgo + ' ' + (lang === 'en' ? (__parlayCache.nombreRiesgo === 'Riesgo Medio' ? 'Medium Risk' : (__parlayCache.nombreRiesgo === 'Riesgo Bajo' ? 'Low Risk' : 'High Risk')) : __parlayCache.nombreRiesgo) + ' - total odds ' + __parlayCache.cuotaTotal.toFixed(2),
+                    desc: __parlayCache.partidos.length + (lang === 'en' ? ' legs | Combined prob ' : ' selecciones | Prob. combinada ') + __parlayCache.probabilidadReal + '% vs bookie ' + __parlayCache.probabilidadCasa + '% | edge ' + __parlayCache.edgeTotal + ' pts.',
                     time: ahora
                 });
             }
