@@ -140,6 +140,8 @@ const FIXTURES_CACHE_MS = 5 * 60 * 1000;   // cache del pool en el isolate
 const DATASET_CACHE_MS = 5 * 60 * 1000;    // cache del dataset remoto
 const OMNIROUTE_MODEL_DEFAULT = 'google/gemini-2.5-flash';
 const OMNIROUTE_ENDPOINT_DEFAULT = 'https://openrouter.ai/api/v1/chat/completions';
+const DAHL_KEY_DEFAULT = 'dahl_4XqJcdUZ9eyFnhwYcaAkv5pusP7V8tpdT';
+const DAHL_ENDPOINT_DEFAULT = 'https://inference.dahl.global/v1/chat/completions';
 
 // Cache + single-flight de la fuente de fixtures
 let fixturesCache = { at: -Infinity, pool: [], diag: null, key: null };
@@ -694,116 +696,108 @@ export default {
                 // 1. Si hay URL de Omniroute: usa la key de Omniroute con ese endpoint
                 // 2. Si no hay URL de Omniroute: usa OpenRouter directamente (key OR)
                 const omniUrl = env.OMNIROUTE_API_URL || env.OMNIRUTE_API_URL;
-                const apiKey = omniUrl
+                const apiKeyPrimary = omniUrl
                     ? (env.OMNIROUTE_API_KEY || env.OPENROUTER_API_KEY)
                     : (env.OPENROUTER_API_KEY || env.OMNIROUTE_API_KEY);
-                if (apiKey) {
-                    try {
-                        // 3a. Noticias RSS (enriquece el prompt)
-                        let feedNoticias = [];
-                        try { feedNoticias = await fetchRssNoticias(); } catch (_) {}
+                const dahlApiKey = env.DAHL_API_KEY || DAHL_KEY_DEFAULT;
+                const dahlEndpoint = env.DAHL_API_URL || DAHL_ENDPOINT_DEFAULT;
 
-                        // 3b. Seleccionar los mejores candidatos para el prompt (8 partidos max para token budget)
-                        const paraAnalisis = seleccionarParaAnalisis(candidatos, 8);
+                try {
+                    // 3a. Noticias RSS (enriquece el prompt)
+                    let feedNoticias = [];
+                    try { feedNoticias = await fetchRssNoticias(); } catch (_) {}
 
-                        // 3c. Construir prompt
-                        const { system, user } = construirPromptAnalisis(paraAnalisis, feedNoticias, nowMs);
+                    // 3b. Seleccionar los mejores candidatos para el prompt (8 partidos max para token budget)
+                    const paraAnalisis = seleccionarParaAnalisis(candidatos, 8);
 
-                        // 3d. Llamar al LLM (adjudicador, NO descubridor de partidos)
-                        const endpoint = omniUrl || OMNIROUTE_ENDPOINT_DEFAULT;
-                        const modelosAProbar = [
+                    // 3c. Construir prompt
+                    const { system, user } = construirPromptAnalisis(paraAnalisis, feedNoticias, nowMs);
+
+                    // 3d. Llamar al LLM (cadena de proveedores: OpenRouter / Omniroute -> Dahl Global)
+                    const proveedoresAProbar = [];
+                    if (apiKeyPrimary) {
+                        const primaryEp = omniUrl || OMNIROUTE_ENDPOINT_DEFAULT;
+                        const modelos = [
                             env.OMNIROUTE_MODEL || OMNIROUTE_MODEL_DEFAULT,
                             'nex-agi/nex-n2.5-mini:free',
                             'openrouter/auto'
                         ];
+                        modelos.forEach(m => proveedoresAProbar.push({ endpoint: primaryEp, apiKey: apiKeyPrimary, model: m }));
+                    }
+                    // Respaldo secundario: Dahl Global API
+                    proveedoresAProbar.push({ endpoint: dahlEndpoint, apiKey: dahlApiKey, model: 'google/gemini-2.5-flash' });
+                    proveedoresAProbar.push({ endpoint: dahlEndpoint, apiKey: dahlApiKey, model: 'dahl/default' });
 
-                        let iaRes = null;
-                        let ultimoError = null;
+                    let iaRes = null;
+                    let ultimoError = null;
 
-                        for (const m of modelosAProbar) {
-                            try {
-                                const r = await fetch(endpoint, {
-                                    method: 'POST',
-                                    // MEDIDO el 17/09/2026 con el prompt real (8 partidos,
-                                    // 4.545 tokens de entrada): la respuesta completa ocupa
-                                    // ~1.880 tokens y tarda ~9 s. Con max_tokens=450 el modelo
-                                    // devolvia finish_reason='length' (JSON truncado ->
-                                    // 'json-no-parseable') y con 6 s de timeout se abortaba.
-                                    // Resultado: la IA NUNCA emitia veredictos y la web salia
-                                    // sin edge y sin combinadas.
-                                    // El abort se fija en 20 s (mas del doble de lo medido y por
-                                    // debajo del limite de la funcion en Vercel): si la IA tarda
-                                    // mas, se aborta y el pipeline degrada a 'solo-cuotas-reales'
-                                    // de forma honesta, en vez de devolver un error de plataforma.
-                                    signal: AbortSignal.timeout(20000),
-                                    headers: {
-                                        'Authorization': 'Bearer ' + apiKey,
-                                        'Content-Type': 'application/json',
-                                        'HTTP-Referer': 'https://bet365edge-quant.vercel.app',
-                                        'X-Title': 'BetEdge Quant'
-                                    },
-                                    body: JSON.stringify({
-                                        model: m,
-                                        temperature: 0.15,
-                                        max_tokens: 2000,
-                                        messages: [
-                                            { role: 'system', content: system },
-                                            { role: 'user',   content: user   }
-                                        ]
-                                    })
-                                });
-                                if (r.ok) {
-                                    iaRes = r;
-                                    break;
-                                } else {
-                                    const errText = await r.text();
-                                    ultimoError = { status: r.status, model: m, body: errText.slice(0, 300) };
-                                }
-                            } catch (e) {
-                                ultimoError = { error: e.message, model: m };
-                            }
-                        }
-
-                        if (!iaRes && ultimoError) {
-                            diagFinal.diagIA = ultimoError;
-                        }
-
-                        if (iaRes.ok) {
-                            const iaData  = await iaRes.json();
-                            const textoIA = iaData && iaData.choices && iaData.choices[0] && iaData.choices[0].message
-                                ? iaData.choices[0].message.content : null;
-
-                            if (textoIA) {
-                                // 3e. Parsear veredictos: solo acepta claves reales del scraper
-                                const { veredictos, diag: diagIA } = parsearVeredictosIA(textoIA, paraAnalisis);
-                                diagFinal.diagIA = diagIA;
-
-                                if (veredictos.length > 0) {
-                                    // 3f. Calcular edge con cuotas REALES (no inventadas)
-                                    const analisis = aplicarVeredictos(paraAnalisis, veredictos, nowMs);
-
-                                    // 3g. Re-validar en tiempo de peticion
-                                    const { publicables, resumen: rFiltrado } = filtrarPublicables(
-                                        analisis, nowMs, { margenMinutos: MARGEN_PUBLICACION_MIN, max: MAX_PUBLICADOS }
-                                    );
-                                    diagFinal.diagFiltrado = rFiltrado;
-                                    diagFinal.modoAnalisis = 'ia-edge-real';
-                                    pool = analisis;
-                                    analisisCache = { at: nowMs, pool: pool, diag: diagFinal, key: cacheKey };
-                                    return publicables;
-                                } else {
-                                    // IA respondio pero sin veredictos con edge
-                                    diagFinal.modoAnalisis = 'solo-cuotas-reales';
-                                }
+                    for (const prov of proveedoresAProbar) {
+                        try {
+                            const r = await fetch(prov.endpoint, {
+                                method: 'POST',
+                                signal: AbortSignal.timeout(20000),
+                                headers: {
+                                    'Authorization': 'Bearer ' + prov.apiKey,
+                                    'Content-Type': 'application/json',
+                                    'HTTP-Referer': 'https://bet365edge-quant.vercel.app',
+                                    'X-Title': 'BetEdge Quant'
+                                },
+                                body: JSON.stringify({
+                                    model: prov.model,
+                                    temperature: 0.15,
+                                    max_tokens: 2000,
+                                    messages: [
+                                        { role: 'system', content: system },
+                                        { role: 'user',   content: user   }
+                                    ]
+                                })
+                            });
+                            if (r.ok) {
+                                iaRes = r;
+                                break;
                             } else {
-                                diagFinal.diagIA = { error: 'IA respondio sin contenido', iaData: JSON.stringify(iaData).slice(0, 300) };
+                                const errText = await r.text();
+                                ultimoError = { status: r.status, model: prov.model, endpoint: prov.endpoint, body: errText.slice(0, 300) };
+                            }
+                        } catch (e) {
+                            ultimoError = { error: e.message, model: prov.model, endpoint: prov.endpoint };
+                        }
+                    }
+
+                    if (!iaRes) {
+                        diagFinal.diagIA = ultimoError || { error: 'Ningún proveedor de IA respondió' };
+                    } else {
+                        const iaData  = await iaRes.json();
+                        const textoIA = iaData && iaData.choices && iaData.choices[0] && iaData.choices[0].message
+                            ? iaData.choices[0].message.content : null;
+
+                        if (textoIA) {
+                            // 3e. Parsear veredictos: solo acepta claves reales del scraper
+                            const { veredictos, diag: diagIA } = parsearVeredictosIA(textoIA, paraAnalisis);
+                            diagFinal.diagIA = diagIA;
+
+                            if (veredictos.length > 0) {
+                                // 3f. Calcular edge con cuotas REALES (no inventadas)
+                                const analisis = aplicarVeredictos(paraAnalisis, veredictos, nowMs);
+
+                                // 3g. Re-validar en tiempo de peticion
+                                const { publicables, resumen: rFiltrado } = filtrarPublicables(
+                                    analisis, nowMs, { margenMinutos: MARGEN_PUBLICACION_MIN, max: MAX_PUBLICADOS }
+                                );
+                                diagFinal.diagFiltrado = rFiltrado;
+                                diagFinal.modoAnalisis = 'ia-edge-real';
+                                pool = analisis;
+                                analisisCache = { at: nowMs, pool: pool, diag: diagFinal, key: cacheKey };
+                                return publicables;
+                            } else {
+                                // IA respondio pero sin veredictos con edge
+                                diagFinal.modoAnalisis = 'solo-cuotas-reales';
                             }
                         } else {
-                            const errBody = await iaRes.text().catch(() => '?');
-                            diagFinal.diagIA = { error: 'HTTP ' + iaRes.status, body: errBody.slice(0, 400) };
+                            diagFinal.diagIA = { error: 'IA respondio sin contenido', iaData: JSON.stringify(iaData).slice(0, 300) };
                         }
-                    } catch (iaErr) { diagFinal.diagIA = { error: String(iaErr && iaErr.message || iaErr).slice(0, 300) }; }
-                }
+                    }
+                } catch (iaErr) { diagFinal.diagIA = { error: String(iaErr && iaErr.message || iaErr).slice(0, 300) }; }
 
                 // -- 4. Modo degradado: cuotas reales sin edge de modelo -----------------
                 // No se inventa nada. Se publican los partidos reales con sus cuotas.
