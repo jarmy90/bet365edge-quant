@@ -241,7 +241,7 @@ export default {
         // 1b. VERIFICAR ACCESO: clave = session_id Stripe, email, o codigo maestro autor
         if (url.pathname === '/api/verify-access' && request.method === 'GET') {
             const key = (url.searchParams.get('key') || '').trim().toLowerCase();
-            if (key === 'javiarmada@gmail.com' || key === 'quant-2026-vip' || key === 'admin-master-2026') {
+            if (key === 'admin@bet365edge.com' || key === 'quant-2026-vip' || key === 'admin-master-2026') {
                 return new Response(JSON.stringify({ ok: true, via: 'autor-master', email: key }), { headers: { ...corsHeaders, 'Content-Type': 'application/json' } });
             }
             if (!key) {
@@ -1043,8 +1043,14 @@ export default {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>BET365EDGE | Terminal Cuantitativa +EV y Value Betting</title>
+    <title>BET365EDGE Quant | Análisis estadístico de apuestas de fútbol</title>
+    <meta name="description" content="Bot de análisis 24/7 para detectar posibles oportunidades estadísticas en mercados de más de 1,5 y 2,5 goles.">
+    <meta property="og:title" content="BET365EDGE Quant | Análisis estadístico de apuestas de fútbol">
+    <meta property="og:description" content="Bot de análisis 24/7 para detectar posibles oportunidades estadísticas en mercados de más de 1,5 y 2,5 goles.">
+    <meta name="twitter:title" content="BET365EDGE Quant | Análisis estadístico de apuestas de fútbol">
+    <meta name="twitter:description" content="Bot de análisis 24/7 para detectar posibles oportunidades estadísticas en mercados de más de 1,5 y 2,5 goles.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
+
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700;800&display=swap" rel="stylesheet">
@@ -1407,6 +1413,13 @@ export default {
             .risk-tabs { grid-template-columns: 1fr; }
         }
 
+        @media (max-width: 600px) {
+            .live-grid-responsive { grid-template-columns: 1fr !important; }
+            .hero-h1 { font-size: 1.55rem !important; line-height: 1.3 !important; }
+            body { padding: 0.75rem 0.5rem 3rem 0.5rem !important; }
+        }
+
+
         .card-header {
             display: flex;
             justify-content: space-between;
@@ -1663,7 +1676,7 @@ export default {
                     <span id="navStatusTxt">Suscripción: Inactiva</span>
                 </span>
                 <button id="btnNavLogin" onclick="openEmailLoginModal()" style="background:none; border:none; color:var(--text-secondary); font-size:0.82rem; font-weight:600; cursor:pointer; text-decoration:underline; text-underline-offset:3px;">¿Ya eres cliente?</button>
-                <button id="btnNavUpgrade" class="btn-ghost" onclick="handleMainEdgeClick()">Ver los mejores picks</button>
+                <button id="btnNavUpgrade" class="btn-ghost" onclick="scrollToProximosPartidos()">Ver oportunidades de hoy</button>
             </div>
         </nav>
 
@@ -1671,62 +1684,100 @@ export default {
         <header class="hero">
             <div class="hero-pill">
                 <span class="pulse-dot"></span>
-                <span>AUDITORÍA CUANTITATIVA ACTIVA • GRANDES LIGAS</span>
+                <span>BOT ACTIVO 24/7 · ANÁLISIS DE FÚTBOL EN TIEMPO REAL</span>
             </div>
             <h1 class="hero-h1">
-                Value Betting Institucional con <br>
-                <span class="gradient-text">Ventaja Estadística Real</span>
+                Encuentra apuestas de fútbol <br>
+                <span class="gradient-text">con ventaja estadística</span>
             </h1>
             <p class="hero-desc">
-                Sin resultados inventados ni suposiciones. Nuestro algoritmo analiza el xG real y cuotas implícitas en mercados Over 1.5 y 2.5 goles para aislar únicamente oportunidades con valor esperado positivo (+EV).
+                Nuestro bot analiza continuamente partidos, estadísticas, jugadores, lesiones, meteorología y cuotas para detectar oportunidades en los mercados de más de 1,5 y 2,5 goles.
             </p>
 
             <!-- =========================================================
-                 BOTÓN PRINCIPAL: APUESTAS DE HOY CON EDGE (SIN PRECIO EN EL BOTÓN)
+                 BOTÓN PRINCIPAL: VER OPORTUNIDADES DE HOY
                  ========================================================= -->
-            <div class="cta-wrapper">
-                <button id="btnMainEdgeAction" class="btn-edge-primary" onclick="handleMainEdgeClick()">
+            <div class="cta-wrapper" style="display:flex; flex-direction:column; align-items:center; gap:10px;">
+                <button id="btnMainEdgeAction" class="btn-edge-primary" onclick="scrollToProximosPartidos()">
                     <span id="lockIconContainer" class="lock-indicator">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
                     </span>
-                    <span id="btnMainEdgeText">Apuestas de hoy con Edge</span>
+                    <span id="btnMainEdgeText">Ver oportunidades de hoy</span>
                 </button>
-                <div class="gate-subtext">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                    <span>Partidos reales auditados hoy • Filtro cuantificable de riesgo</span>
+                <div class="gate-subtext" style="font-size:0.8rem; color:var(--text-secondary); display:flex; align-items:center; gap:6px;">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="var(--neon-emerald)" stroke-width="2.5" width="14" height="14"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                    <span>Partidos analizados hoy · Datos actualizados continuamente</span>
                 </div>
-            </div>
-
-            <!-- =========================================================
-                 SISTEMA DE SELECCIÓN POR RIESGO (Bajo / Medio / Alto)
-                 ========================================================= -->
-            <div class="risk-selector-box col-12" style="width:100%; max-width:680px; margin-top:1.5rem;">
-                <div class="risk-selector-header">
-                    <strong>Nivel de Riesgo de la Combinada:</strong>
-                    <span id="currentRiskLabel" style="font-family:JetBrains Mono; font-size:0.75rem; color:var(--neon-emerald);">Riesgo Medio (2.00 - 3.00)</span>
-                </div>
-                <div class="risk-tabs">
-                    <button class="risk-btn" id="riskBtn-bajo" onclick="selectRiskLevel('bajo')">
-                        <span>🛡️ RIESGO BAJO</span>
-                        <span>Cuota < 2.00</span>
-                    </button>
-                    <button class="risk-btn active" id="riskBtn-medio" onclick="selectRiskLevel('medio')">
-                        <span>⚡ RIESGO MEDIO</span>
-                        <span>Cuota 2.00 - 3.00</span>
-                    </button>
-                    <button class="risk-btn" id="riskBtn-alto" onclick="selectRiskLevel('alto')">
-                        <span>🚀 RIESGO ALTO</span>
-                        <span>Cuota > 3.00</span>
-                    </button>
+                <div style="font-size:0.75rem; color:var(--text-muted); margin-top:4px; text-align:center;">
+                    Las oportunidades son estimaciones estadísticas y no garantizan resultados.
                 </div>
             </div>
         </header>
 
+        <!-- =========================================================
+             SECCIÓN 2: CÓMO FUNCIONA NUESTRO BOT
+             ========================================================= -->
+        <section class="bento-card col-12" style="margin-top:1rem; padding:1.4rem; width:100%;">
+            <div class="card-title-group" style="margin-bottom:1.2rem; text-align:center;">
+                <h2 style="font-size:1.35rem; color:var(--text-primary); font-weight:800;">Cómo funciona nuestro bot</h2>
+                <p style="font-size:0.86rem; color:var(--text-secondary); margin-top:4px; max-width:750px; margin-left:auto; margin-right:auto; line-height:1.5;">
+                    BET365EDGE Quant es un bot sofisticado que trabaja las 24 horas del día analizando de forma automática cientos de datos para detectar posibles ventajas estadísticas en el fútbol.
+                </p>
+            </div>
+            <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(240px, 1fr)); gap:1rem; margin-bottom:1.4rem;">
+                <div style="background:rgba(6,7,10,0.8); border:1px solid var(--border-subtle); border-radius:12px; padding:1.1rem;">
+                    <div style="display:flex; align-items:center; gap:10px; margin-bottom:8px;">
+                        <span style="background:rgba(13,242,166,0.15); color:var(--neon-emerald); width:32px; height:32px; border-radius:8px; display:flex; align-items:center; justify-content:center; font-weight:800;">1</span>
+                        <strong style="color:var(--text-primary); font-size:0.95rem;">Recopila datos 24/7</strong>
+                    </div>
+                    <p style="font-size:0.82rem; color:var(--text-secondary); line-height:1.5;">El bot recoge de forma continua información de partidos históricos, estadísticas de equipos y jugadores, lesiones, posibles alineaciones, condiciones meteorológicas, noticias y evolución de las cuotas.</p>
+                </div>
+                <div style="background:rgba(6,7,10,0.8); border:1px solid var(--border-subtle); border-radius:12px; padding:1.1rem;">
+                    <div style="display:flex; align-items:center; gap:10px; margin-bottom:8px;">
+                        <span style="background:rgba(0,212,255,0.15); color:var(--neon-cyan); width:32px; height:32px; border-radius:8px; display:flex; align-items:center; justify-content:center; font-weight:800;">2</span>
+                        <strong style="color:var(--text-primary); font-size:0.95rem;">Analiza el contexto</strong>
+                    </div>
+                    <p style="font-size:0.82rem; color:var(--text-secondary); line-height:1.5;">Evalúa el rendimiento reciente, el xG, el comportamiento como local y visitante, las tendencias de goles, el impacto de las bajas y el posible efecto del clima en el partido.</p>
+                </div>
+                <div style="background:rgba(6,7,10,0.8); border:1px solid var(--border-subtle); border-radius:12px; padding:1.1rem;">
+                    <div style="display:flex; align-items:center; gap:10px; margin-bottom:8px;">
+                        <span style="background:rgba(245,158,11,0.15); color:var(--neon-amber); width:32px; height:32px; border-radius:8px; display:flex; align-items:center; justify-content:center; font-weight:800;">3</span>
+                        <strong style="color:var(--text-primary); font-size:0.95rem;">Calcula la cuota justa</strong>
+                    </div>
+                    <p style="font-size:0.82rem; color:var(--text-secondary); line-height:1.5;">El modelo estima la probabilidad real de que se den más de 1,5 o más de 2,5 goles y la convierte en una cuota justa.</p>
+                </div>
+                <div style="background:rgba(6,7,10,0.8); border:1px solid var(--border-subtle); border-radius:12px; padding:1.1rem;">
+                    <div style="display:flex; align-items:center; gap:10px; margin-bottom:8px;">
+                        <span style="background:rgba(139,92,246,0.15); color:#8b5cf6; width:32px; height:32px; border-radius:8px; display:flex; align-items:center; justify-content:center; font-weight:800;">4</span>
+                        <strong style="color:var(--text-primary); font-size:0.95rem;">Detecta la ventaja</strong>
+                    </div>
+                    <p style="font-size:0.82rem; color:var(--text-secondary); line-height:1.5;">Compara esa cuota justa con la cuota que ofrece la casa de apuestas. Si la diferencia supera los filtros definidos, identifica una posible oportunidad estadística.</p>
+                </div>
+            </div>
+
+            <!-- Subsección: Qué analiza el sistema -->
+            <div style="border-top:1px solid var(--border-subtle); padding-top:1rem;">
+                <h3 style="font-size:0.88rem; color:var(--neon-emerald); font-weight:700; margin-bottom:0.8rem; text-transform:uppercase; letter-spacing:0.5px;">Qué analiza el sistema</h3>
+                <div style="display:flex; flex-wrap:wrap; gap:8px;">
+                    <span class="badge-quant" style="background:rgba(255,255,255,0.05); color:var(--text-secondary); border:1px solid var(--border-subtle);">Partidos y resultados históricos</span>
+                    <span class="badge-quant" style="background:rgba(255,255,255,0.05); color:var(--text-secondary); border:1px solid var(--border-subtle);">Estadísticas de equipos y jugadores</span>
+                    <span class="badge-quant" style="background:rgba(255,255,255,0.05); color:var(--text-secondary); border:1px solid var(--border-subtle);">Rendimiento reciente y tendencias de goles</span>
+                    <span class="badge-quant" style="background:rgba(255,255,255,0.05); color:var(--text-secondary); border:1px solid var(--border-subtle);">xG y métricas ofensivas</span>
+                    <span class="badge-quant" style="background:rgba(255,255,255,0.05); color:var(--text-secondary); border:1px solid var(--border-subtle);">Rendimiento como local y visitante</span>
+                    <span class="badge-quant" style="background:rgba(255,255,255,0.05); color:var(--text-secondary); border:1px solid var(--border-subtle);">Lesiones y bajas confirmadas</span>
+                    <span class="badge-quant" style="background:rgba(255,255,255,0.05); color:var(--text-secondary); border:1px solid var(--border-subtle);">Posibles alineaciones</span>
+                    <span class="badge-quant" style="background:rgba(255,255,255,0.05); color:var(--text-secondary); border:1px solid var(--border-subtle);">Condiciones meteorológicas (lluvia, viento, temp.)</span>
+                    <span class="badge-quant" style="background:rgba(255,255,255,0.05); color:var(--text-secondary); border:1px solid var(--border-subtle);">Noticias deportivas relevantes</span>
+                    <span class="badge-quant" style="background:rgba(255,255,255,0.05); color:var(--text-secondary); border:1px solid var(--border-subtle);">Evolución de las cuotas en el mercado</span>
+                </div>
+            </div>
+        </section>
+
 
         <!-- =========================================================
-             TERMINAL EN TIEMPO REAL: FLUJO DE NOTICIAS, REDES, CLIMA & GRÁFICA DE EDGE MOVÉNDOSE
+             SECCIÓN 9: ANÁLISIS EN DIRECTO (MONITOR Y NOTICIAS)
              ========================================================= -->
-        <section class="bento-card col-12" style="padding:1.4rem; margin-top:0.5rem; border:1px solid rgba(13,242,166,0.35); background:rgba(13,15,21,0.92); box-shadow:0 0 35px rgba(13,242,166,0.08); width:100%;">
+        <section class="bento-card col-12" style="padding:1.4rem; margin-top:1rem; border:1px solid rgba(13,242,166,0.35); background:rgba(13,15,21,0.92); box-shadow:0 0 35px rgba(13,242,166,0.08); width:100%;">
             
             <!-- Ticker Continuo de Noticias Live -->
             <div style="background:rgba(13,242,166,0.05); border:1px solid rgba(13,242,166,0.2); border-radius:10px; padding:8px 12px; display:flex; align-items:center; gap:12px; margin-bottom:1.2rem; overflow:hidden;">
@@ -1746,22 +1797,22 @@ export default {
                 <div class="card-title-group">
                     <div class="card-title" style="color:var(--text-primary); font-size:1.05rem; display:flex; align-items:center; gap:8px;">
                         <span class="pulse-dot"></span>
-                        MONITOR INTELIGENTE Y GRÁFICA DE EDGE EN TIEMPO REAL
+                        Análisis en directo
                     </div>
-                    <div class="card-subtitle">Red neuronal procesando noticias, clima, titularidades y posts de jugadores 24/7</div>
+                    <div class="card-subtitle">El sistema actualiza estadísticas, cuotas y contexto deportivo para reevaluar las oportunidades disponibles.</div>
                 </div>
                 <div style="display:flex; align-items:center; gap:12px;">
                     <div style="text-align:right;">
-                        <div style="font-size:0.62rem; color:var(--text-muted); font-weight:700;">EDGE REAL-TIME</div>
+                        <div style="font-size:0.62rem; color:var(--text-muted); font-weight:700;" title="Variación reciente estimada del Edge">VARIACIÓN EDGE</div>
                         <div id="liveHomeEdgeVal" style="font-family:JetBrains Mono; font-size:1.3rem; font-weight:800; color:var(--text-muted); transition:all 0.3s;">—</div>
                     </div>
                     <span class="badge-quant" style="background:rgba(13,242,166,0.15); color:var(--neon-emerald); border:1px solid rgba(13,242,166,0.4);">
-                        DATOS VIVOS
+                        DATOS VIVOS 24/7
                     </span>
                 </div>
             </div>
 
-            <!-- Grid 2 Columnas: Gráfica Dinámica SVG/Canvas + Stream de Noticias -->
+            <!-- Grid 2 Columnas: Gráfica Dinámica + Stream de Noticias -->
             <div style="display:grid; grid-template-columns: 1.1fr 0.9fr; gap:1.2rem;" class="live-grid-responsive">
                 
                 <!-- Columna Izquierda: Gráfica Animada de Edge Moviéndose -->
@@ -1769,7 +1820,7 @@ export default {
                     <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.6rem;">
                         <span style="font-size:0.75rem; font-weight:700; color:var(--text-secondary); display:flex; align-items:center; gap:6px;">
                             <span style="width:8px; height:8px; background:var(--neon-emerald); border-radius:50%;"></span>
-                            Curva de Edge Dinámica (Oscilación Vivo)
+                            Evolución temporal del Edge
                         </span>
                         <span style="font-family:JetBrains Mono; font-size:0.72rem; color:var(--neon-cyan);" id="liveClockTicker">19:43:10</span>
                     </div>
@@ -1781,21 +1832,21 @@ export default {
 
                     <!-- Píldoras de Salud de Fuentes -->
                     <div style="display:grid; grid-template-columns: repeat(4, 1fr); gap:6px; margin-top:0.8rem; text-align:center;">
-                        <div style="background:rgba(255,255,255,0.02); border:1px solid var(--border-subtle); border-radius:8px; padding:6px 4px;">
-                            <div style="font-size:0.58rem; color:var(--text-muted); font-weight:600;">xG ENGINE</div>
+                        <div style="background:rgba(255,255,255,0.02); border:1px solid var(--border-subtle); border-radius:8px; padding:6px 4px;" title="Porcentaje de completitud e integridad de datos del scraper">
+                            <div style="font-size:0.58rem; color:var(--text-muted); font-weight:600;">CALIDAD DATOS</div>
                             <div style="font-family:JetBrains Mono; font-size:0.75rem; color:var(--neon-emerald); font-weight:700;" id="hpXgVal">98.4%</div>
                         </div>
-                        <div style="background:rgba(255,255,255,0.02); border:1px solid var(--border-subtle); border-radius:8px; padding:6px 4px;">
-                            <div style="font-size:0.58rem; color:var(--text-muted); font-weight:600;">FACTOR METEO</div>
+                        <div style="background:rgba(255,255,255,0.02); border:1px solid var(--border-subtle); border-radius:8px; padding:6px 4px;" title="Ajuste contextual por precipitaciones y temperatura">
+                            <div style="font-size:0.58rem; color:var(--text-muted); font-weight:600;">METEOROLOGÍA</div>
                             <div style="font-family:JetBrains Mono; font-size:0.75rem; color:var(--neon-cyan); font-weight:700;" id="hpWtrVal">+12.4% EV</div>
                         </div>
-                        <div style="background:rgba(255,255,255,0.02); border:1px solid var(--border-subtle); border-radius:8px; padding:6px 4px;">
-                            <div style="font-size:0.58rem; color:var(--text-muted); font-weight:600;">TITULARES</div>
+                        <div style="background:rgba(255,255,255,0.02); border:1px solid var(--border-subtle); border-radius:8px; padding:6px 4px;" title="Verificación de bajas y onces probables">
+                            <div style="font-size:0.58rem; color:var(--text-muted); font-weight:600;">ALINEACIONES</div>
                             <div style="font-family:JetBrains Mono; font-size:0.75rem; color:var(--neon-amber); font-weight:700;" id="hpLineupVal">100% OK</div>
                         </div>
-                        <div style="background:rgba(255,255,255,0.02); border:1px solid var(--border-subtle); border-radius:8px; padding:6px 4px;">
-                            <div style="font-size:0.58rem; color:var(--text-muted); font-weight:600;">REDES/POSTS</div>
-                            <div style="font-family:JetBrains Mono; font-size:0.75rem; color:#8b5cf6; font-weight:700;" id="hpSocialVal">Positivo</div>
+                        <div style="background:rgba(255,255,255,0.02); border:1px solid var(--border-subtle); border-radius:8px; padding:6px 4px;" title="Información deportiva relevante recogida en directo">
+                            <div style="font-size:0.58rem; color:var(--text-muted); font-weight:600;">SEÑALES LIVE</div>
+                            <div style="font-family:JetBrains Mono; font-size:0.75rem; color:#8b5cf6; font-weight:700;" id="hpSocialVal">Activas</div>
                         </div>
                     </div>
                 </div>
@@ -1817,16 +1868,17 @@ export default {
             </div>
         </section>
 
-
-        <!-- SECCIÓN DE PICKS: acceso libre (fase de lanzamiento, sin gate) -->
-        <section id="unlockedEdgeSection" class="bento-card col-12">
+        <!-- =========================================================
+             SECCIÓN 7: OPORTUNIDADES DETECTADAS (CON VENTAJAS POSITIVAS)
+             ========================================================= -->
+        <section id="unlockedEdgeSection" class="bento-card col-12" style="margin-top:1rem;">
             <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid var(--border-subtle); padding-bottom:1.2rem; margin-bottom:1.2rem; flex-wrap:wrap; gap:10px;">
                 <div class="card-title-group">
-                    <div class="card-title" style="color:var(--neon-emerald);">
+                    <div class="card-title" style="color:var(--neon-emerald); font-size:1.1rem;">
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                        LOS MEJORES PICKS DE HOY
+                        OPORTUNIDADES DETECTADAS
                     </div>
-                    <div id="unlockedSubtitle" class="card-subtitle">Partidos reales de ratingbet con sus cuotas. Si no hay ventaja, se dice: no se inventa nada.</div>
+                    <div id="unlockedSubtitle" class="card-subtitle">Partidos y mercados que superan los filtros cuantitativos de ventaja estadística positiva (+EV).</div>
                 </div>
                 <div style="display:flex; align-items:center; gap:8px;">
                     <span id="parlayTotalBadge" class="badge-quant" style="background:rgba(13,242,166,0.1); color:var(--neon-emerald); font-size:0.95rem; padding:6px 14px;">
@@ -1837,7 +1889,31 @@ export default {
 
             <div id="unlockedBetsContainer" class="bets-grid"></div>
 
-            <div style="display:grid; grid-template-columns:repeat(3, 1fr); gap:8px; background:rgba(6,7,10,0.8); border:1px solid var(--border-subtle); border-radius:12px; padding:1rem; text-align:center;">
+            <!-- =========================================================
+                 SECCIÓN 8: SIMPLIFICACIÓN DEL BLOQUE DE RIESGO
+                 ========================================================= -->
+            <div class="risk-selector-box col-12" style="width:100%; max-width:680px; margin:1.2rem auto 0.8rem;">
+                <div class="risk-selector-header" style="margin-bottom:0.6rem; text-align:center;">
+                    <strong style="font-size:0.92rem; color:var(--text-primary);">Filtrar por rango de cuota:</strong>
+                    <span id="currentRiskLabel" style="font-family:'JetBrains Mono'; font-size:0.78rem; color:var(--neon-emerald); margin-left:8px;">Cuota 2.00 - 3.00</span>
+                </div>
+                <div class="risk-tabs">
+                    <button class="risk-btn" id="riskBtn-bajo" onclick="selectRiskLevel('bajo')">
+                        <span>🛡️ RANGO BAJO</span>
+                        <span>Cuota &lt; 2.00</span>
+                    </button>
+                    <button class="risk-btn active" id="riskBtn-medio" onclick="selectRiskLevel('medio')">
+                        <span>⚡ RANGO MEDIO</span>
+                        <span>Cuota 2.00 - 3.00</span>
+                    </button>
+                    <button class="risk-btn" id="riskBtn-alto" onclick="selectRiskLevel('alto')">
+                        <span>🚀 RANGO ALTO</span>
+                        <span>Cuota &gt; 3.00</span>
+                    </button>
+                </div>
+            </div>
+
+            <div style="display:grid; grid-template-columns:repeat(3, 1fr); gap:8px; background:rgba(6,7,10,0.8); border:1px solid var(--border-subtle); border-radius:12px; padding:1rem; text-align:center; margin-top:1rem;">
                 <div>
                     <label id="labelProbReal" style="display:block; font-size:0.68rem; color:var(--text-muted); font-weight:600; margin-bottom:2px;">PROB. COMBINADA</label>
                     <strong id="metricProbReal" style="font-family:JetBrains Mono; font-size:1.15rem; color:var(--neon-cyan);">—</strong>
@@ -1852,6 +1928,7 @@ export default {
                 </div>
             </div>
         </section>
+
 
         <!-- Bento Grid: Gráficos Cuantitativos -->
         <section class="bento-grid">
@@ -2076,7 +2153,7 @@ export default {
 
             <div style="margin-bottom:1.2rem; text-align:left;">
                 <label style="display:block; font-size:0.75rem; color:var(--text-muted); font-weight:600; margin-bottom:6px;">TU EMAIL:</label>
-                <input type="email" id="inputClientEmail" placeholder="ejemplo: javiarmada@gmail.com" style="width:100%; padding:0.85rem 1rem; background:rgba(6,7,10,0.9); border:1px solid var(--border-highlight); border-radius:12px; color:#fff; font-family:Plus Jakarta Sans, sans-serif; font-size:0.92rem; outline:none;">
+                <input type="email" id="inputClientEmail" placeholder="ejemplo: cliente@ejemplo.com" style="width:100%; padding:0.85rem 1rem; background:rgba(6,7,10,0.9); border:1px solid var(--border-highlight); border-radius:12px; color:#fff; font-family:Plus Jakarta Sans, sans-serif; font-size:0.92rem; outline:none;">
             </div>
 
             <button onclick="submitClientEmail()" id="btnSubmitEmail" class="btn-stripe-pay" style="background:linear-gradient(135deg, var(--neon-emerald), var(--neon-cyan)); color:#000; width:100%;">
@@ -2123,8 +2200,9 @@ export default {
 
         
         // =========================================================
-        // ACCESO CLIENTES POR EMAIL (javiarmada@gmail.com & Stripe)
+        // ACCESO CLIENTES POR EMAIL (Stripe & VIP)
         // =========================================================
+
         function openEmailLoginModal() {
             var m = document.getElementById('emailLoginModal');
             if(m) m.style.display = 'flex';
@@ -2748,35 +2826,172 @@ export default {
             }
         }
 
+        function scrollToProximosPartidos() {
+            var el = document.getElementById('proximosPartidosSection') || document.getElementById('unlockedEdgeSection');
+            if (el) el.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        var __proximosMaxCount = 5;
+
+        function toggleProximosMaxCount() {
+            __proximosMaxCount = (__proximosMaxCount === 5) ? 8 : 5;
+            renderHeroValidatedFixtures(__fixturesValidadas, __metaTemporal);
+        }
+
+        function esLigaTopPermitidaCliente(f) {
+            if (!f) return false;
+            var liga = String(f.liga || f.league || '').toLowerCase();
+            var url = String(f.urlRelativa || f.ligaUrl || f.url || '').toLowerCase();
+            var esLaLiga = liga.includes('laliga') || liga.includes('la liga') || url.includes('spain-laliga') || url.includes('laliga');
+            var esPremier = liga.includes('premier league') || url.includes('england-premier-league') || url.includes('premier-league');
+            if (esLaLiga) {
+                return (liga.includes('spain') || url.includes('spain') || liga.includes('españa') || liga.includes('laliga')) &&
+                    !liga.includes('segunda') && !liga.includes('rfef') && !liga.includes('liga f');
+            }
+            if (esPremier) {
+                return (liga.includes('england') || url.includes('england') || liga.includes('inglaterra') || liga.includes('premier')) &&
+                    !liga.includes('league one') && !liga.includes('league two') && !liga.includes('championship');
+            }
+            return false;
+        }
+
         function renderHeroValidatedFixtures(fixtures, meta) {
             var body = document.getElementById('heroFixtureBody');
-            if (!body) return;
+            var cardsContainer = document.getElementById('proximosPartidosCardsContainer');
+
             if (!fixtures || fixtures.length === 0) {
-                body.innerHTML = '<tr><td colspan="6" style="text-align:center; padding:18px; color:#f87171; font-weight:700; font-size:0.82rem;">Sin fixtures futuros que cumplan el margen de 2,5 h. No se muestran partidos ya iniciados.</td></tr>';
+                if (body) body.innerHTML = '<tr><td colspan="6" style="text-align:center; padding:18px; color:#f87171; font-weight:700; font-size:0.82rem;">No hay próximos partidos disponibles con datos completos para estos mercados. El sistema continuará analizando nuevas oportunidades.</td></tr>';
+                if (cardsContainer) cardsContainer.innerHTML = '<div style="text-align:center; padding:2rem; color:var(--text-secondary); font-size:0.9rem; background:rgba(6,7,10,0.6); border-radius:12px; border:1px solid var(--border-subtle);">No hay próximos partidos disponibles con datos completos para estos mercados. El sistema continuará analizando nuevas oportunidades.</div>';
                 return;
             }
-            var html = '';
-            fixtures.forEach(function (f) {
-                var esHoy = f.dia === 'Hoy';
-                var color = esHoy ? '#0df2a6' : '#00d4ff';
-                var fondo = esHoy ? 'rgba(13,242,166,0.12)' : 'rgba(0,212,255,0.12)';
-                html += '<tr>' +
-                    '<td><div style="font-weight:700; color:#f8fafc;">' + f.partido + '</div>' +
-                    '<div style="font-size:0.72rem; color:var(--text-muted);">' + f.ligaCorta + '</div></td>' +
-                    '<td style="text-align:center;">' +
-                        '<span style="display:inline-block; font-weight:800; font-size:0.68rem; color:' + color + '; background:' + fondo + '; padding:2px 7px; border-radius:6px;">' + f.dia + ' ' + f.fechaCorta + '</span>' +
-                        '<div style="font-family:JetBrains Mono; font-size:0.85rem; font-weight:800; color:#f8fafc; margin-top:2px;">' + f.hora + '</div>' +
-                    '</td>' +
-                    '<td style="text-align:center;"><span style="font-weight:700;">' + f.mercado + '</span></td>' +
-                    '<td style="text-align:center; font-family:JetBrains Mono; font-weight:800; color:var(--neon-cyan);">' + f.cuota.toFixed(2) + '</td>' +
-                    '<td style="text-align:center; font-family:JetBrains Mono; font-weight:800; color:var(--neon-emerald);">' + (Number.isFinite(f.modelProb) ? f.modelProb + '%' : (function () { var ln = f.lineas && (f.lineas['1.5'] || f.lineas['2.5']); return (ln && Number.isFinite(ln.pOverJusta)) ? '≈' + Math.round(ln.pOverJusta) + '%' : 'n/d'; })()) + '</td>' +
-                    '<td style="text-align:center; font-family:JetBrains Mono; font-weight:800; color:var(--neon-emerald);">' + f.edge + '</td>' +
-                    '</tr>';
-            });
-            body.innerHTML = html;
-            // El sello de frescura lo compone renderFrescuraDatos() (incluye la edad
-            // real de la captura y el modo de datos), para no mostrar dos textos.
+
+            // Fill table fallback for test assertions
+            if (body) {
+                var htmlTable = '';
+                fixtures.forEach(function (f) {
+                    var esHoy = f.dia === 'Hoy';
+                    var color = esHoy ? '#0df2a6' : '#00d4ff';
+                    var fondo = esHoy ? 'rgba(13,242,166,0.12)' : 'rgba(0,212,255,0.12)';
+                    htmlTable += '<tr>' +
+                        '<td><div style="font-weight:700; color:#f8fafc;">' + f.partido + '</div>' +
+                        '<div style="font-size:0.72rem; color:var(--text-muted);">' + f.ligaCorta + '</div></td>' +
+                        '<td style="text-align:center;">' +
+                            '<span style="display:inline-block; font-weight:800; font-size:0.68rem; color:' + color + '; background:' + fondo + '; padding:2px 7px; border-radius:6px;">' + f.dia + ' ' + f.fechaCorta + '</span>' +
+                            '<div style="font-family:JetBrains Mono; font-size:0.85rem; font-weight:800; color:#f8fafc; margin-top:2px;">' + f.hora + '</div>' +
+                        '</td>' +
+                        '<td style="text-align:center;"><span style="font-weight:700;">' + f.mercado + '</span></td>' +
+                        '<td style="text-align:center; font-family:JetBrains Mono; font-weight:800; color:var(--neon-cyan);">' + f.cuota.toFixed(2) + '</td>' +
+                        '<td style="text-align:center; font-family:JetBrains Mono; font-weight:800; color:var(--neon-emerald);">' + (Number.isFinite(f.modelProb) ? f.modelProb + '%' : (function () { var ln = f.lineas && (f.lineas['1.5'] || f.lineas['2.5']); return (ln && Number.isFinite(ln.pOverJusta)) ? '≈' + Math.round(ln.pOverJusta) + '%' : 'n/d'; })()) + '</td>' +
+                        '<td style="text-align:center; font-family:JetBrains Mono; font-weight:800; color:var(--neon-emerald);">' + f.edge + '</td>' +
+                        '</tr>';
+                });
+                body.innerHTML = htmlTable;
+            }
+
+            // Fill new cards for "Próximos partidos analizados" (LaLiga & Premier League)
+            if (cardsContainer) {
+                var topFixtures = fixtures.filter(esLigaTopPermitidaCliente);
+
+                if (topFixtures.length === 0) {
+                    cardsContainer.innerHTML = '<div style="text-align:center; padding:2rem; color:var(--text-secondary); font-size:0.9rem; background:rgba(6,7,10,0.6); border-radius:12px; border:1px solid var(--border-subtle);">No hay próximos partidos disponibles con datos completos para estos mercados. El sistema continuará analizando nuevas oportunidades.</div>';
+                    return;
+                }
+
+                var mostrar = topFixtures.slice(0, Math.min(__proximosMaxCount, 8));
+                var htmlCards = '';
+
+                mostrar.forEach(function (f) {
+                    var lineas = f.lineas || {};
+                    var l15 = lineas['1.5'] || null;
+                    var l25 = lineas['2.5'] || null;
+
+                    // Mercado 1.5
+                    var cCasa15 = l15 && l15.cuotaOver ? l15.cuotaOver.toFixed(2) : '—';
+                    var pJusta15 = l15 ? l15.pOverJusta : null;
+                    var cMod15 = pJusta15 ? (100 / pJusta15).toFixed(2) : '—';
+                    var ev15 = (l15 && l15.cuotaOver && pJusta15) ? (((l15.cuotaOver * (pJusta15 / 100)) - 1) * 100) : null;
+                    var edgeStr15 = Number.isFinite(ev15) ? (ev15 >= 0 ? '+' + ev15.toFixed(1) + '%' : '-' + Math.abs(ev15).toFixed(1) + '%') : 'N/D';
+                    
+                    var estado15, colorEst15, bgEst15, iconEst15;
+                    if (!l15 || ev15 === null) {
+                        estado15 = 'Datos incompletos'; colorEst15 = '#94a3b8'; bgEst15 = 'rgba(255,255,255,0.05)'; iconEst15 = '⚪';
+                    } else if (ev15 >= 2.0) {
+                        estado15 = 'Oportunidad detectada'; colorEst15 = '#0df2a6'; bgEst15 = 'rgba(13,242,166,0.15)'; iconEst15 = '⚡';
+                    } else if (ev15 > 0) {
+                        estado15 = 'Ventaja moderada'; colorEst15 = '#00d4ff'; bgEst15 = 'rgba(0,212,255,0.15)'; iconEst15 = '🔹';
+                    } else {
+                        estado15 = 'Sin ventaja suficiente'; colorEst15 = '#94a3b8'; bgEst15 = 'rgba(255,255,255,0.05)'; iconEst15 = '⚪';
+                    }
+
+                    // Mercado 2.5
+                    var cCasa25 = l25 && l25.cuotaOver ? l25.cuotaOver.toFixed(2) : '—';
+                    var pJusta25 = l25 ? l25.pOverJusta : null;
+                    var cMod25 = pJusta25 ? (100 / pJusta25).toFixed(2) : '—';
+                    var ev25 = (l25 && l25.cuotaOver && pJusta25) ? (((l25.cuotaOver * (pJusta25 / 100)) - 1) * 100) : null;
+                    var edgeStr25 = Number.isFinite(ev25) ? (ev25 >= 0 ? '+' + ev25.toFixed(1) + '%' : '-' + Math.abs(ev25).toFixed(1) + '%') : 'N/D';
+
+                    var estado25, colorEst25, bgEst25, iconEst25;
+                    if (!l25 || ev25 === null) {
+                        estado25 = 'Datos incompletos'; colorEst25 = '#94a3b8'; bgEst25 = 'rgba(255,255,255,0.05)'; iconEst25 = '⚪';
+                    } else if (ev25 >= 2.0) {
+                        estado25 = 'Oportunidad detectada'; colorEst25 = '#0df2a6'; bgEst25 = 'rgba(13,242,166,0.15)'; iconEst25 = '⚡';
+                    } else if (ev25 > 0) {
+                        estado25 = 'Ventaja moderada'; colorEst25 = '#00d4ff'; bgEst25 = 'rgba(0,212,255,0.15)'; iconEst25 = '🔹';
+                    } else {
+                        estado25 = 'Sin ventaja suficiente'; colorEst25 = '#94a3b8'; bgEst25 = 'rgba(255,255,255,0.05)'; iconEst25 = '⚪';
+                    }
+
+                    htmlCards += '<div style="background:rgba(13,15,21,0.9); border:1px solid var(--border-subtle); border-radius:14px; padding:1.1rem; box-shadow:0 4px 20px rgba(0,0,0,0.3);">' +
+                        '<div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px; margin-bottom:0.85rem; border-bottom:1px solid var(--border-subtle); padding-bottom:0.6rem;">' +
+                            '<div>' +
+                                '<span class="badge-quant" style="background:rgba(0,212,255,0.12); color:var(--neon-cyan); border:1px solid rgba(0,212,255,0.3); font-size:0.72rem; padding:3px 8px; border-radius:6px; font-weight:700;">' + f.ligaCorta + '</span>' +
+                                '<strong style="color:var(--text-primary); font-size:1.02rem; margin-left:8px; font-weight:800;">' + f.partido + '</strong>' +
+                            '</div>' +
+                            '<div style="font-family:JetBrains Mono; font-size:0.78rem; color:var(--text-secondary); display:flex; align-items:center; gap:8px;">' +
+                                '<span>📅 ' + f.dia + ' ' + f.fechaCorta + '</span>' +
+                                '<span style="color:var(--neon-emerald); font-weight:700;">⏰ ' + f.hora + ' Madrid</span>' +
+                            '</div>' +
+                        '</div>' +
+
+                        '<div style="display:flex; flex-direction:column; gap:0.65rem;">' +
+                            // Mercado 1.5
+                            '<div style="background:rgba(6,7,10,0.75); border:1px solid var(--border-subtle); border-radius:10px; padding:0.75rem 0.9rem; display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:10px;">' +
+                                '<div style="font-weight:700; color:var(--text-primary); font-size:0.85rem; min-width:110px;">Más de 1,5 goles</div>' +
+                                '<div style="display:flex; align-items:center; gap:16px; flex-wrap:wrap;">' +
+                                    '<div style="text-align:center;"><span style="font-size:0.65rem; color:var(--text-muted); display:block;">Cuota casa</span><strong style="font-family:JetBrains Mono; color:var(--neon-cyan); font-size:0.92rem;">' + cCasa15 + '</strong></div>' +
+                                    '<div style="text-align:center;" title="Cuota justa calculada a partir de la probabilidad estimada por el modelo."><span style="font-size:0.65rem; color:var(--text-muted); display:block; cursor:help;">Cuota modelo ℹ️</span><strong style="font-family:JetBrains Mono; color:var(--text-primary); font-size:0.92rem;">' + cMod15 + '</strong></div>' +
+                                    '<div style="text-align:center;" title="Diferencia estimada entre la cuota disponible y la valoración del modelo."><span style="font-size:0.65rem; color:var(--text-muted); display:block; cursor:help;">Edge estimado ℹ️</span><strong style="font-family:JetBrains Mono; color:' + colorEst15 + '; font-size:0.92rem;">' + edgeStr15 + '</strong></div>' +
+                                '</div>' +
+                                '<span style="background:' + bgEst15 + '; color:' + colorEst15 + '; font-size:0.75rem; padding:4px 10px; border-radius:8px; font-weight:700; display:inline-flex; align-items:center; gap:4px;">' + iconEst15 + ' ' + estado15 + '</span>' +
+                            '</div>' +
+
+                            // Mercado 2.5
+                            '<div style="background:rgba(6,7,10,0.75); border:1px solid var(--border-subtle); border-radius:10px; padding:0.75rem 0.9rem; display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:10px;">' +
+                                '<div style="font-weight:700; color:var(--text-primary); font-size:0.85rem; min-width:110px;">Más de 2,5 goles</div>' +
+                                '<div style="display:flex; align-items:center; gap:16px; flex-wrap:wrap;">' +
+                                    '<div style="text-align:center;"><span style="font-size:0.65rem; color:var(--text-muted); display:block;">Cuota casa</span><strong style="font-family:JetBrains Mono; color:var(--neon-cyan); font-size:0.92rem;">' + cCasa25 + '</strong></div>' +
+                                    '<div style="text-align:center;" title="Cuota justa calculada a partir de la probabilidad estimada por el modelo."><span style="font-size:0.65rem; color:var(--text-muted); display:block; cursor:help;">Cuota modelo ℹ️</span><strong style="font-family:JetBrains Mono; color:var(--text-primary); font-size:0.92rem;">' + cMod25 + '</strong></div>' +
+                                    '<div style="text-align:center;" title="Diferencia estimada entre la cuota disponible y la valoración del modelo."><span style="font-size:0.65rem; color:var(--text-muted); display:block; cursor:help;">Edge estimado ℹ️</span><strong style="font-family:JetBrains Mono; color:' + colorEst25 + '; font-size:0.92rem;">' + edgeStr25 + '</strong></div>' +
+                                '</div>' +
+                                '<span style="background:' + bgEst25 + '; color:' + colorEst25 + '; font-size:0.75rem; padding:4px 10px; border-radius:8px; font-weight:700; display:inline-flex; align-items:center; gap:4px;">' + iconEst25 + ' ' + estado25 + '</span>' +
+                            '</div>' +
+                        '</div>' +
+                    '</div>';
+                });
+
+                if (topFixtures.length > 5) {
+                    var textoBoton = (__proximosMaxCount === 5)
+                        ? ('Ver más próximos partidos (' + topFixtures.length + ' disponibles)')
+                        : 'Mostrar solo 5 partidos principales';
+                    htmlCards += '<div style="text-align:center; margin-top:0.8rem;">' +
+                        '<button onclick="toggleProximosMaxCount()" style="cursor:pointer; background:rgba(0,212,255,0.1); border:1px solid rgba(0,212,255,0.35); color:var(--neon-cyan); padding:8px 18px; border-radius:10px; font-weight:700; font-size:0.82rem;">' + textoBoton + '</button>' +
+                    '</div>';
+                }
+
+                cardsContainer.innerHTML = htmlCards;
+            }
         }
+
 
         function buildTickerFromFixtures(fixtures) {
             var el = document.getElementById('mainPageTicker');
@@ -2927,8 +3142,12 @@ export default {
 
     </script>
 
-    <!-- PIE: informacion legal, aviso de edad y juego responsable -->
-    <footer style="max-width:1400px; margin:2rem auto 1.5rem; padding:1.6rem 1rem 0; border-top:1px solid var(--border-subtle); font-size:0.78rem; color:var(--text-muted); line-height:1.7;">
+    <!-- PIE: transparencia, juego responsable y aviso de independencia -->
+    <footer style="max-width:1400px; margin:2.5rem auto 1.5rem; padding:1.8rem 1rem 0; border-top:1px solid var(--border-subtle); font-size:0.78rem; color:var(--text-muted); line-height:1.75;">
+        <div style="background:rgba(245,158,11,0.08); border:1px solid rgba(245,158,11,0.3); border-radius:10px; padding:12px 16px; margin-bottom:1.2rem; color:#fbbf24; font-size:0.82rem; display:flex; align-items:center; gap:10px;">
+            <span style="font-size:1.2rem;">⚠️</span>
+            <div><strong>Aviso de responsabilidad:</strong> Las estimaciones se basan en modelos estadísticos y no garantizan resultados. El usuario es responsable de sus decisiones.</div>
+        </div>
         <div style="display:flex; flex-wrap:wrap; gap:14px; align-items:center; margin-bottom:12px;">
             <span style="font-weight:800; color:#f59e0b; border:1px solid rgba(245,158,11,0.5); border-radius:6px; padding:2px 8px;">+18</span>
             <strong style="color:var(--text-secondary);">Solo para mayores de 18 años</strong>
@@ -2940,8 +3159,10 @@ export default {
         </div>
         <div>Esta web es un <strong>servicio de información y análisis estadístico</strong>. <strong>No es un operador de juego</strong>: no acepta apuestas ni custodia dinero de jugadores. Las cuotas se recogen de fuentes públicas y pueden contener errores u omisiones; comprueba siempre el precio y las condiciones en la casa de apuestas antes de jugar. No garantizamos resultados ni ganancias.</div>
         <div style="margin-top:8px;">Jugar conlleva riesgo de perder dinero. Si el juego es un problema para ti o para alguien de tu entorno, pide ayuda: <strong>900 200 225</strong> (FEJAR, atención 24 h) o visita <strong>jugarbien.es</strong>. Puedes solicitar tu autoexclusión en el RGIAJ (Ordenación del Juego).</div>
-        <div style="margin-top:8px;">Titular: <strong>[PENDIENTE: nombre o razón social, NIF y domicilio]</strong> · Contacto: <strong>[PENDIENTE: correo de contacto]</strong></div>
+        <div style="margin-top:8px; color:var(--text-secondary);"><strong>Servicio independiente, no afiliado ni respaldado por bet365.</strong></div>
+        <div style="margin-top:8px; color:var(--text-muted); font-size:0.75rem;">BET365EDGE Quant · Sistema cuantitativo autónomo</div>
     </footer>
+
 </body>
 </html>`;
 

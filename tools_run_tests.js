@@ -23,7 +23,8 @@ const SUITES = [
     { fichero: 'test_acceso_libre.js', que: 'acceso libre + pagina legal (+18, privacidad, cookies)' },
     { fichero: 'test_temporal_validation.js', que: 'validacion temporal (motor v3)' },
     { fichero: 'test_health_endpoint.js', que: '/api/health (contrato v3)' },
-    { fichero: 'test_frontend_validation.js', que: 'validacion del frontend' }
+    { fichero: 'test_frontend_validation.js', que: 'validacion del frontend' },
+    { fichero: 'test_laliga_premier_filter.js', que: 'filtrado LaLiga/Premier, Edge y privacidad' }
 ];
 
 const filtro = (() => {

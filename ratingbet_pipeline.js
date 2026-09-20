@@ -34,6 +34,37 @@ export const MARGEN_SEGURIDAD_MIN = 30;     // no publicar lo que empieza en < 3
 export const MAX_VENTANA_DIAS = 14;         // anti-fechas absurdas
 export const MAX_PUBLICADOS = 24;           // tope de fixtures en la tabla
 
+// Ligas permitidas para la seccion principal "Proximos partidos analizados"
+export const ALLOWED_LEAGUE_IDS = [
+    'spain-laliga',
+    'england-premier-league'
+];
+
+export function esLigaTopPermitida(match) {
+    if (!match) return false;
+    const liga = String(match.liga || match.league || '').toLowerCase();
+    const url = String(match.urlRelativa || match.ligaUrl || match.url || '').toLowerCase();
+
+    const esLaLiga = liga.includes('laliga') || liga.includes('la liga') || url.includes('spain-laliga') || url.includes('laliga');
+    const esPremier = liga.includes('premier league') || url.includes('england-premier-league') || url.includes('premier-league');
+
+    if (esLaLiga) {
+        return (liga.includes('spain') || url.includes('spain') || liga.includes('españa') || liga.includes('laliga')) &&
+            !liga.includes('segunda') && !liga.includes('rfef') && !liga.includes('liga f');
+    }
+    if (esPremier) {
+        return (liga.includes('england') || url.includes('england') || liga.includes('inglaterra') || liga.includes('premier')) &&
+            !liga.includes('league one') && !liga.includes('league two') && !liga.includes('championship');
+    }
+    return false;
+}
+
+export function filtrarSoloLigasTop(partidos) {
+    if (!Array.isArray(partidos)) return [];
+    return partidos.filter(esLigaTopPermitida);
+}
+
+
 const DIAS_ES = ['Dom', 'Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab'];
 
 function pad2(n) { return (n < 10 ? '0' : '') + n; }

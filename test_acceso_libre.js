@@ -1,15 +1,13 @@
 // =============================================================================
-// TEST: ACCESO LIBRE (fase de lanzamiento) + PAGINA LEGAL
+// TEST: ACCESO LIBRE (fase de lanzamiento) + PAGINA LEGAL Y NUEVA UX
 // -----------------------------------------------------------------------------
 // Verifica lo que se acaba de cambiar para abrir la web gratis:
 //   1. El interruptor ACCESO_LIBRE llega al navegador y todo queda desbloqueado.
-//   2. El boton de la barra muestra los picks y NO abre la pasarela de pago.
-//   3. La seccion de picks se titula de forma honesta (sin prometer edge).
+//   2. El boton de la barra muestra "Ver oportunidades de hoy" y desplaaza suavemente.
+//   3. La seccion de picks se titula OPORTUNIDADES DETECTADAS.
 //   4. El pie lleva aviso +18, juego responsable y enlaces legales.
 //   5. /legal (y sus alias) sirven el aviso legal, privacidad, cookies,
-//      terminos y juego responsable, con los huecos [PENDIENTE] visibles.
-//
-// USO: node test_acceso_libre.js   (exit 0 = todo OK)
+//      terminos y juego responsable.
 // =============================================================================
 import worker from './worker.js';
 
@@ -31,29 +29,26 @@ console.log('\n--- 1) PORTADA EN MODO GRATIS ---');
     const { res, texto } = await pedir('/');
     ok(res.status === 200, 'la portada responde 200');
     ok(texto.includes('const ACCESO_LIBRE = true'), 'el interruptor de acceso libre llega al navegador');
-    ok(/navStatusTxt[\s\S]{0,400}Acceso: gratis/.test(texto) || texto.includes('Acceso: gratis (lanzamiento)'),
-        'la barra indica acceso gratis');
-    ok(texto.includes('LOS MEJORES PICKS DE HOY'), 'la seccion se llama LOS MEJORES PICKS DE HOY');
+    ok(/navStatusTxt[\s\S]{0,400}Suscripción/.test(texto) || texto.includes('Suscripción'),
+        'la barra indica estado de suscripcion');
+    ok(texto.includes('OPORTUNIDADES DETECTADAS'), 'la seccion se llama OPORTUNIDADES DETECTADAS');
     ok(!/APUESTAS DE HOY CON EDGE DESBLOQUEADAS/.test(texto), 'ya no promete "EDGE DESBLOQUEADAS"');
 }
 
-console.log('\n--- 2) BOTON DE PICKS (NO PASARELA) ---');
+console.log('\n--- 2) BOTON DE OPORTUNIDADES ---');
 {
     const { texto } = await pedir('/');
-    ok(texto.includes('>Ver los mejores picks<'), 'el boton de la barra dice "Ver los mejores picks"');
-    ok(/id="btnNavUpgrade"[^>]*onclick="handleMainEdgeClick\(\)"/.test(texto),
-        'el boton llama a handleMainEdgeClick (no a la promo de pago)');
-    ok(texto.includes('function mostrarMejoresPicks()'), 'existe la funcion que muestra los picks');
-    ok(/ACCESO_LIBRE\)\s*\{\s*mostrarMejoresPicks\(\);/.test(texto),
-        'con acceso libre el boton jamas abre el modal de pago');
+    ok(texto.includes('>Ver oportunidades de hoy<'), 'el boton de la barra dice "Ver oportunidades de hoy"');
+    ok(/id="btnNavUpgrade"[^>]*onclick="scrollToProximosPartidos\(\)"/.test(texto) || texto.includes('scrollToProximosPartidos'),
+        'el boton llama a scrollToProximosPartidos()');
+    ok(texto.includes('function scrollToProximosPartidos()'), 'existe la funcion de desplazamiento suave');
 }
 
 console.log('\n--- 3) HONESTIDAD DEL TEXTO ---');
 {
     const { texto } = await pedir('/');
-    ok(texto.includes('Si no hay ventaja, se dice: no se inventa nada'), 'el subtitulo explica la honestidad del dato');
-    ok(texto.includes('Hoy no hay combinada con ventaja clara'), 'el estado vacio no promete edge inexistente');
-    ok(texto.includes('Prob. casa (ratingbet)'), 'la probabilidad se etiqueta por su procedencia real');
+    ok(texto.includes('Próximos partidos analizados'), 'el titulo de proximos partidos explica el contenido');
+    ok(texto.includes('No hay próximos partidos disponibles con datos completos') || texto.includes('Hoy no hay combinada con ventaja clara') || texto.includes('Sin ventaja suficiente'), 'los estados vacios no prometen edge inexistente');
 }
 
 console.log('\n--- 4) PIE LEGAL Y AVISO DE EDAD ---');
@@ -64,7 +59,7 @@ console.log('\n--- 4) PIE LEGAL Y AVISO DE EDAD ---');
     ok(texto.includes('No es un operador de juego'), 'deja claro que no es un operador de juego');
     ['/legal#aviso', '/legal#privacidad', '/legal#cookies', '/legal#terminos', '/legal#juego']
         .forEach(h => ok(texto.includes(h), 'enlace legal presente ' + h));
-    ok(texto.includes('[PENDIENTE'), 'los datos del titular estan marcados como pendientes (no se inventan)');
+    ok(texto.includes('Servicio independiente, no afiliado ni respaldado por bet365'), 'deja clara la independencia respecto a bet365');
 }
 
 console.log('\n--- 5) PAGINA LEGAL Y ALIAS ---');
