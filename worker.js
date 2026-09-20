@@ -2452,23 +2452,58 @@ export default {
                 howStep4Title: "Detecta la ventaja",
                 howStep4Desc: "Compara cuota justa vs disponible y calcula el valor esperado.",
                 analyzesLabel: "Analiza:",
+                analyzesTag1: "Forma reciente",
+                analyzesTag2: "xG y métricas ofensivas",
+                analyzesTag3: "Local/visitante",
+                analyzesTag4: "Lesiones y bajas",
+                analyzesTag5: "Alineaciones",
+                analyzesTag6: "Meteorología",
+                analyzesTag7: "Noticias relevantes",
+                analyzesTag8: "Evolución de cuotas",
                 streamTitle: "Análisis en directo",
                 streamSubtitle: "El sistema actualiza estadísticas, cuotas y contexto deportivo para reevaluar las oportunidades disponibles.",
-                oppsTitle: "Oportunidades destacadas de hoy",
-                oppsSubtitle: "Partidos donde la cuota disponible en casas oficiales supera significativamente la cuota justa calculada por el modelo.",
-                parlaysTitle: "Combinadas por nivel de riesgo",
-                parlaysSubtitle: "Selección automática de combinadas recomendadas según el margen de seguridad y perfil de riesgo.",
-                tableTitle: "Próximos partidos analizados",
-                tableSubtitle: "Mostrando partidos auditados de grandes ligas (España e Inglaterra).",
-                thTime: "Hora",
-                thMatch: "Partido",
-                thLeague: "Liga",
+                edgeVarLabel: "VARIACIÓN EDGE",
+                dataVivosLabel: "DATOS VIVOS 24/7",
+                edgeEvolLabel: "Evolución temporal del Edge",
+                dataQualityLabel: "CALIDAD DATOS",
+                weatherLabel: "METEOROLOGÍA",
+                lineupsLabel: "ALINEACIONES",
+                liveSignalsLabel: "SEÑALES LIVE",
+                liveSignalsVal: "Activas",
+                feedHeader: "FLUJO DE EVENTOS & NOTICIAS",
+                feedSpeed: "28 fuentes/min",
+                oppsTitle: "OPORTUNIDADES DETECTADAS",
+                oppsSubtitle: "Partidos y mercados que superan los filtros cuantitativos de ventaja estadística positiva (+EV).",
+                totalOddsLabel: "Cuota Total",
+                riskFilterHeader: "Filtrar por rango de cuota:",
+                riskTabLow: "🛡️ RANGO BAJO",
+                riskSubLow: "Cuota < 2.00",
+                riskTabMed: "⚡ RANGO MEDIO",
+                riskSubMed: "Cuota 2.00 - 3.00",
+                riskTabHigh: "🚀 RANGO ALTO",
+                riskSubHigh: "Cuota > 3.00",
+                metricProbReal: "PROB. COMBINADA",
+                metricProbHouse: "PROB. IMPLÍCITA CASA",
+                metricEdgeNet: "VENTAJA NETA (+EV)",
+                chart1Title: "Probabilidad del Modelo vs Cuota Implícita Bet365",
+                chart1Subtitle: "Auditoría punto a punto sobre partidos reales de Grandes Ligas",
+                chart1AvgEdge: "EDGE: +6.3% AVG",
+                chart1LegendModel: "Probabilidad Calculada Modelo",
+                chart1LegendBookie: "Cuota Implícita Casa de Apuestas",
+                chart2Title: "Yield Acumulado",
+                chart2Subtitle: "Varianza real del bankroll (+EV)",
+                tableHeaderTitle: "Partidos de Grandes Ligas Auditados (Hoy / Mañana)",
+                tableHeaderSubtitle: "Datos reales de fixture y cuotas tomadas de las casas oficiales",
+                btnRefreshData: "↻ Actualizar datos",
+                badgeTemporal: "VALIDACION TEMPORAL 2.5H",
+                thMatchLeague: "Partido & Liga",
+                thTimeState: "Estado Temporal",
                 thMarket: "Mercado",
-                thFairOdds: "Cuota justa",
-                thBookieOdds: "Cuota",
-                thEv: "Ventaja EV",
-                thProb: "Prob. Est.",
-                thActions: "Análisis"
+                thBookieOdds: "Cuota Bet365",
+                thProbability: "Probabilidad",
+                thEdge: "Edge (+EV)",
+                disclaimerFooterTitle: "Aviso de responsabilidad:",
+                disclaimerFooterText: "Las estimaciones se basan en modelos estadísticos y no garantizan resultados. El usuario es responsable de sus decisiones."
             },
             en: {
                 navStatus: "Subscription: Inactive",
@@ -2490,23 +2525,58 @@ export default {
                 howStep4Title: "Detects +EV Edge",
                 howStep4Desc: "Compares model fair odds vs bookmaker odds to compute EV.",
                 analyzesLabel: "Analyzes:",
+                analyzesTag1: "Recent Form",
+                analyzesTag2: "xG & Attack Metrics",
+                analyzesTag3: "Home/Away Split",
+                analyzesTag4: "Injuries & Absences",
+                analyzesTag5: "Lineups",
+                analyzesTag6: "Weather Context",
+                analyzesTag7: "Relevant News",
+                analyzesTag8: "Odds Line Movement",
                 streamTitle: "Live Stream Monitor",
                 streamSubtitle: "Real-time updates of statistics, odds movements, and sporting context.",
-                oppsTitle: "Today's Top Value Opportunities",
-                oppsSubtitle: "Matches where bookmaker odds significantly exceed the model's calculated fair odds.",
-                parlaysTitle: "Risk-Adjusted Accumulators / Parlays",
-                parlaysSubtitle: "Automated selection of recommended parlays based on risk profiles and safety margins.",
-                tableTitle: "Upcoming Analyzed Matches",
-                tableSubtitle: "Exclusively displaying top audited European league matches (Spain & England).",
-                thTime: "Time",
-                thMatch: "Match",
-                thLeague: "League",
+                edgeVarLabel: "EDGE VARIATION",
+                dataVivosLabel: "LIVE DATA 24/7",
+                edgeEvolLabel: "Edge Timeline Evolution",
+                dataQualityLabel: "DATA QUALITY",
+                weatherLabel: "WEATHER",
+                lineupsLabel: "LINEUPS",
+                liveSignalsLabel: "LIVE SIGNALS",
+                liveSignalsVal: "Active",
+                feedHeader: "EVENT & NEWS FEED",
+                feedSpeed: "28 sources/min",
+                oppsTitle: "DETECTED OPPORTUNITIES",
+                oppsSubtitle: "Matches and markets exceeding quantitative positive statistical edge (+EV) filters.",
+                totalOddsLabel: "Total Odds",
+                riskFilterHeader: "Filter by odds range:",
+                riskTabLow: "🛡️ LOW RANGE",
+                riskSubLow: "Odds < 2.00",
+                riskTabMed: "⚡ MEDIUM RANGE",
+                riskSubMed: "Odds 2.00 - 3.00",
+                riskTabHigh: "🚀 HIGH RANGE",
+                riskSubHigh: "Odds > 3.00",
+                metricProbReal: "COMBINED PROB.",
+                metricProbHouse: "BOOKMAKER IMPL. PROB.",
+                metricEdgeNet: "NET EDGE (+EV)",
+                chart1Title: "Model Probability vs Bet365 Implied Odds",
+                chart1Subtitle: "Point-by-point audit on real top European league matches",
+                chart1AvgEdge: "EDGE: +6.3% AVG",
+                chart1LegendModel: "Model Calculated Probability",
+                chart1LegendBookie: "Bookmaker Implied Odds",
+                chart2Title: "Cumulative Yield",
+                chart2Subtitle: "Real bankroll variance (+EV)",
+                tableHeaderTitle: "Audited Major League Matches (Today / Tomorrow)",
+                tableHeaderSubtitle: "Real fixture data and odds pulled from official bookmakers",
+                btnRefreshData: "↻ Refresh Data",
+                badgeTemporal: "TEMPORAL AUDIT 2.5H",
+                thMatchLeague: "Match & League",
+                thTimeState: "Time Status",
                 thMarket: "Market",
-                thFairOdds: "Fair Odds",
-                thBookieOdds: "Odds",
-                thEv: "EV Edge",
-                thProb: "Est. Prob.",
-                thActions: "Analysis"
+                thBookieOdds: "Bet365 Odds",
+                thProbability: "Probability",
+                thEdge: "Edge (+EV)",
+                disclaimerFooterTitle: "Disclaimer:",
+                disclaimerFooterText: "Estimates are based on statistical models and do not guarantee profits. Users are responsible for their decisions."
             }
         };
 
@@ -2522,6 +2592,10 @@ export default {
             var next = curr === 'es' ? 'en' : 'es';
             localStorage.setItem('edge_lang', next);
             applyLanguage(next);
+            // Re-render dynamic elements so English text is instantly updated
+            if (typeof renderHeroFixtures === 'function') renderHeroFixtures();
+            if (typeof renderCombinadas === 'function') renderCombinadas();
+            if (typeof renderHomeLiveNewsFeed === 'function') renderHomeLiveNewsFeed();
         }
 
         function applyLanguage(lang) {
@@ -2536,6 +2610,7 @@ export default {
                 document.documentElement.setAttribute('lang', lang);
             }
 
+            // Navbar
             var navStatusTxt = document.getElementById('navStatusTxt');
             if (navStatusTxt) {
                 var txt = navStatusTxt.innerText || navStatusTxt.textContent || '';
@@ -2555,6 +2630,7 @@ export default {
             var btnNavUpgrade = document.getElementById('btnNavUpgrade');
             if (btnNavUpgrade) btnNavUpgrade.textContent = dict.navUpgrade;
 
+            // Hero
             var heroPillSpan = document.querySelector('.hero-pill span:last-child');
             if (heroPillSpan) heroPillSpan.textContent = dict.heroPill;
 
@@ -2567,10 +2643,193 @@ export default {
             var btnMainEdgeText = document.getElementById('btnMainEdgeText');
             if (btnMainEdgeText) btnMainEdgeText.textContent = dict.btnMainEdgeText;
 
+            var gateSubtextSpan = document.querySelector('.gate-subtext span');
+            if (gateSubtextSpan) gateSubtextSpan.textContent = dict.gateSubtext;
+
+            var disclaimerDiv = document.querySelector('.cta-wrapper > div:last-child');
+            if (disclaimerDiv) disclaimerDiv.textContent = dict.disclaimer;
+
+            // How it works steps
             var howStepsGrid = document.querySelector('.how-steps-grid');
             if (howStepsGrid && howStepsGrid.parentElement) {
                 var h2 = howStepsGrid.parentElement.querySelector('h2');
                 if (h2) h2.textContent = dict.howTitle;
+
+                var stepDivs = howStepsGrid.querySelectorAll('div[style*="text-align:center"]');
+                if (stepDivs.length >= 4) {
+                    var s1Titles = stepDivs[0].querySelectorAll('div');
+                    if (s1Titles[1]) s1Titles[1].textContent = dict.howStep1Title;
+                    if (s1Titles[2]) s1Titles[2].textContent = dict.howStep1Desc;
+
+                    var s2Titles = stepDivs[1].querySelectorAll('div');
+                    if (s2Titles[1]) s2Titles[1].textContent = dict.howStep2Title;
+                    if (s2Titles[2]) s2Titles[2].textContent = dict.howStep2Desc;
+
+                    var s3Titles = stepDivs[2].querySelectorAll('div');
+                    if (s3Titles[1]) s3Titles[1].textContent = dict.howStep3Title;
+                    if (s3Titles[2]) s3Titles[2].textContent = dict.howStep3Desc;
+
+                    var s4Titles = stepDivs[3].querySelectorAll('div');
+                    if (s4Titles[1]) s4Titles[1].textContent = dict.howStep4Title;
+                    if (s4Titles[2]) s4Titles[2].textContent = dict.howStep4Desc;
+                }
+            }
+
+            // Chips "Analiza:"
+            var chipsContainer = document.querySelector('.bento-card.col-12 div[style*="border-top:1px solid"]');
+            if (chipsContainer) {
+                var labelSpan = chipsContainer.querySelector('span[style*="font-size:0.68rem"]');
+                if (labelSpan) labelSpan.textContent = dict.analyzesLabel;
+
+                var badges = chipsContainer.querySelectorAll('.badge-quant');
+                if (badges.length >= 8) {
+                    badges[0].textContent = dict.analyzesTag1;
+                    badges[1].textContent = dict.analyzesTag2;
+                    badges[2].textContent = dict.analyzesTag3;
+                    badges[3].textContent = dict.analyzesTag4;
+                    badges[4].textContent = dict.analyzesTag5;
+                    badges[5].textContent = dict.analyzesTag6;
+                    badges[6].textContent = dict.analyzesTag7;
+                    badges[7].textContent = dict.analyzesTag8;
+                }
+            }
+
+            // Live Monitor Section
+            var liveSection = document.querySelector('.stream-live-container');
+            if (liveSection) {
+                var cardTitle = liveSection.querySelector('.card-title');
+                if (cardTitle) {
+                    cardTitle.innerHTML = '<span class="pulse-dot"></span>' + dict.streamTitle;
+                }
+                var cardSub = liveSection.querySelector('.card-subtitle');
+                if (cardSub) cardSub.textContent = dict.streamSubtitle;
+
+                var varLabel = liveSection.querySelector('div[title*="Variación"]');
+                if (varLabel) varLabel.textContent = dict.edgeVarLabel;
+
+                var vivosBadge = liveSection.querySelector('.stream-live-badge-vivos');
+                if (vivosBadge) vivosBadge.textContent = dict.dataVivosLabel;
+
+                var evolSpan = liveSection.querySelector('span[style*="width:8px; height:8px"]');
+                if (evolSpan && evolSpan.parentElement) {
+                    evolSpan.parentElement.innerHTML = '<span style="width:8px; height:8px; background:var(--neon-emerald); border-radius:50%;"></span>' + dict.edgeEvolLabel;
+                }
+
+                var metricPills = liveSection.querySelectorAll('.stream-metric-pill');
+                if (metricPills.length >= 4) {
+                    var m1 = metricPills[0].querySelector('div:first-child');
+                    if (m1) m1.textContent = dict.dataQualityLabel;
+                    var m2 = metricPills[1].querySelector('div:first-child');
+                    if (m2) m2.textContent = dict.weatherLabel;
+                    var m3 = metricPills[2].querySelector('div:first-child');
+                    if (m3) m3.textContent = dict.lineupsLabel;
+                    var m4 = metricPills[3].querySelector('div:first-child');
+                    if (m4) m4.textContent = dict.liveSignalsLabel;
+
+                    var m4val = metricPills[3].querySelector('#hpSocialVal');
+                    if (m4val) m4val.textContent = dict.liveSignalsVal;
+                }
+
+                var feedHeaderSpan = liveSection.querySelector('span[style*="text-transform:uppercase"]');
+                if (feedHeaderSpan) feedHeaderSpan.textContent = dict.feedHeader;
+
+                var feedSpeedSpan = document.getElementById('hpFeedSpeed');
+                if (feedSpeedSpan) feedSpeedSpan.textContent = dict.feedSpeed;
+            }
+
+            // Unlocked Section (Oportunidades Detectadas)
+            var unlockedSection = document.getElementById('unlockedEdgeSection');
+            if (unlockedSection) {
+                var titleDiv = unlockedSection.querySelector('.card-title');
+                if (titleDiv) {
+                    titleDiv.innerHTML = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>' + dict.oppsTitle;
+                }
+                var unlockedSub = document.getElementById('unlockedSubtitle');
+                if (unlockedSub) unlockedSub.textContent = dict.oppsSubtitle;
+
+                var riskHeaderStrong = unlockedSection.querySelector('.risk-selector-header strong');
+                if (riskHeaderStrong) riskHeaderStrong.textContent = dict.riskFilterHeader;
+
+                var btnLow = document.getElementById('riskBtn-bajo');
+                if (btnLow) btnLow.innerHTML = '<span>' + dict.riskTabLow + '</span><span>' + dict.riskSubLow + '</span>';
+
+                var btnMed = document.getElementById('riskBtn-medio');
+                if (btnMed) btnMed.innerHTML = '<span>' + dict.riskTabMed + '</span><span>' + dict.riskSubMed + '</span>';
+
+                var btnHigh = document.getElementById('riskBtn-alto');
+                if (btnHigh) btnHigh.innerHTML = '<span>' + dict.riskTabHigh + '</span><span>' + dict.riskSubHigh + '</span>';
+
+                var labelProbReal = document.getElementById('labelProbReal');
+                if (labelProbReal) labelProbReal.textContent = dict.metricProbReal;
+
+                var labelProbHouse = document.getElementById('labelProbHouse');
+                if (labelProbHouse) labelProbHouse.textContent = dict.metricProbHouse;
+
+                var labelEdgeNet = document.getElementById('labelEdgeNet');
+                if (labelEdgeNet) labelEdgeNet.textContent = dict.metricEdgeNet;
+            }
+
+            // Bento Grid Charts
+            var bentoCards = document.querySelectorAll('.bento-grid .bento-card');
+            if (bentoCards.length >= 3) {
+                // Chart 1
+                var c1Title = bentoCards[0].querySelector('.card-title');
+                if (c1Title) {
+                    c1Title.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--neon-cyan)" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>' + dict.chart1Title;
+                }
+                var c1Sub = bentoCards[0].querySelector('.card-subtitle');
+                if (c1Sub) c1Sub.textContent = dict.chart1Subtitle;
+
+                var c1Badge = bentoCards[0].querySelector('.badge-quant');
+                if (c1Badge) c1Badge.textContent = dict.chart1AvgEdge;
+
+                var c1LegendItems = bentoCards[0].querySelectorAll('.legend-item span:last-child');
+                if (c1LegendItems.length >= 2) {
+                    c1LegendItems[0].textContent = dict.chart1LegendModel;
+                    c1LegendItems[1].textContent = dict.chart1LegendBookie;
+                }
+
+                // Chart 2
+                var c2Title = bentoCards[1].querySelector('.card-title');
+                if (c2Title) {
+                    c2Title.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--neon-emerald)" stroke-width="2"><path d="M3 3v18h18"></path><path d="m19 9-5 5-4-4-3 3"></path></svg>' + dict.chart2Title;
+                }
+                var c2Sub = bentoCards[1].querySelector('.card-subtitle');
+                if (c2Sub) c2Sub.textContent = dict.chart2Subtitle;
+
+                // Table Header
+                var c3Title = bentoCards[2].querySelector('.card-title');
+                if (c3Title) {
+                    c3Title.innerHTML = '<span class="pulse-dot"></span>' + dict.tableHeaderTitle;
+                }
+                var c3Sub = bentoCards[2].querySelector('.card-subtitle');
+                if (c3Sub) c3Sub.textContent = dict.tableHeaderSubtitle;
+
+                var btnRefresh = document.getElementById('btnRefreshDatos');
+                if (btnRefresh) btnRefresh.innerHTML = dict.btnRefreshData;
+
+                var badgeTemp = bentoCards[2].querySelector('.badge-quant');
+                if (badgeTemp) badgeTemp.textContent = dict.badgeTemporal;
+
+                // Table Th Headers
+                var ths = bentoCards[2].querySelectorAll('table.quant-table th');
+                if (ths.length >= 6) {
+                    ths[0].textContent = dict.thMatchLeague;
+                    ths[1].textContent = dict.thTimeState;
+                    ths[2].textContent = dict.thMarket;
+                    ths[3].textContent = dict.thBookieOdds;
+                    ths[4].textContent = dict.thProbability;
+                    ths[5].textContent = dict.thEdge;
+                }
+            }
+
+            // Footer Disclaimer
+            var footerDisclaimer = document.querySelector('footer div[style*="background:rgba(217,119,6,0.08)"]');
+            if (footerDisclaimer) {
+                var strongAlert = footerDisclaimer.querySelector('strong');
+                if (strongAlert) strongAlert.textContent = dict.disclaimerFooterTitle;
+                var textSpan = footerDisclaimer.querySelector('span');
+                if (textSpan) textSpan.textContent = ' ' + dict.disclaimerFooterText;
             }
         }
 
