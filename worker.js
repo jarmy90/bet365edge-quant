@@ -1054,7 +1054,7 @@ export default {
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700;800&display=swap" rel="stylesheet">
     <!-- Anti-parpadeo: aplicar tema ANTES de pintar el DOM -->
-    <script>(function(){var t=localStorage.getItem('b365_theme');document.documentElement.setAttribute('data-theme',t||'light');})()</script>
+    <script data-theme-init>(function(){try{var t=localStorage.getItem('b365_theme');if(document.documentElement)document.documentElement.setAttribute('data-theme',t||'light');}catch(e){}})()</script>
     <style>
         /* =====================================================================
            SISTEMA DE TOKENS DUAL: LIGHT (default) / DARK
@@ -2264,8 +2264,11 @@ export default {
         }
         // Inicializar iconos al cargar
         (function() {
-            var t = document.documentElement.getAttribute('data-theme') || 'light';
-            updateThemeIcons(t);
+            try {
+                var root = (typeof document !== 'undefined' && document.documentElement) ? document.documentElement : null;
+                var t = (root && root.getAttribute) ? (root.getAttribute('data-theme') || 'light') : 'light';
+                updateThemeIcons(t);
+            } catch(e) {}
         })();
 
         // ESTADO DE ACCESO
@@ -2367,7 +2370,8 @@ export default {
         var bentoYieldData = [100.0, 105.2, 108.4, 115.1, 122.8, 131.0, 138.4];
 
         function getChartColors() {
-            var dark = document.documentElement.getAttribute('data-theme') === 'dark';
+            var dark = false;
+            try { dark = document.documentElement.getAttribute('data-theme') === 'dark'; } catch(e) {}
             return {
                 grid: dark ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.06)',
                 tick: dark ? '#64748b' : '#94a3b8',
