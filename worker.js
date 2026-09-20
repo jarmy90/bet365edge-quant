@@ -43,7 +43,7 @@ import {
 } from './ratingbet_pipeline.js';
 import datasetLocal from './ratingbet_fixtures_data.js';
 
-const BUILD_ID = 'ratingbet-v8.0-2026-09-20';
+const BUILD_ID = 'ratingbet-v9.0-2026-09-20';
 
 // =============================================================================
 // ACCESO_LIBRE: modo gratuito (fase de captacion de trafico).
@@ -1039,7 +1039,7 @@ export default {
         // 6. FRONTEND 2026: UI TERMINAL CON BOTÓN SIN PRECIO + GATE 25€ + RIESGO
         // =========================================================================
         const html = `<!DOCTYPE html>
-<html lang="es" class="dark">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -1050,24 +1050,52 @@ export default {
     <meta name="twitter:title" content="BET365EDGE Quant | Análisis estadístico de apuestas de fútbol">
     <meta name="twitter:description" content="Bot de análisis 24/7 para detectar posibles oportunidades estadísticas en mercados de más de 1,5 y 2,5 goles.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
-
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <!-- Anti-parpadeo: aplicar tema ANTES de pintar el DOM -->
+    <script>(function(){var t=localStorage.getItem('b365_theme');document.documentElement.setAttribute('data-theme',t||'light');})()</script>
     <style>
-        :root {
+        /* =====================================================================
+           SISTEMA DE TOKENS DUAL: LIGHT (default) / DARK
+           ===================================================================== */
+        :root, [data-theme="light"] {
+            --bg-void: #f8fafc;
+            --bg-surface: #ffffff;
+            --bg-card: rgba(255,255,255,0.95);
+            --border-subtle: rgba(0,0,0,0.08);
+            --border-highlight: rgba(13,148,136,0.4);
+            --neon-emerald: #0d9488;
+            --emerald-glow: rgba(13,148,136,0.18);
+            --neon-cyan: #0284c7;
+            --neon-amber: #d97706;
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+            --text-muted: #94a3b8;
+            --card-shadow: 0 2px 12px rgba(0,0,0,0.07), 0 1px 3px rgba(0,0,0,0.04);
+            --ambient-bg: rgba(13,148,136,0.04);
+            --grid-line: rgba(0,0,0,0.015);
+            --chart-grid: rgba(0,0,0,0.06);
+            --chart-text: #64748b;
+        }
+        [data-theme="dark"] {
             --bg-void: #06070a;
             --bg-surface: #0d0f15;
-            --bg-card: rgba(17, 20, 30, 0.75);
-            --border-subtle: rgba(255, 255, 255, 0.08);
-            --border-highlight: rgba(13, 242, 166, 0.35);
+            --bg-card: rgba(17,20,30,0.80);
+            --border-subtle: rgba(255,255,255,0.08);
+            --border-highlight: rgba(13,242,166,0.35);
             --neon-emerald: #0df2a6;
-            --emerald-glow: rgba(13, 242, 166, 0.28);
+            --emerald-glow: rgba(13,242,166,0.28);
             --neon-cyan: #00d4ff;
             --neon-amber: #f59e0b;
             --text-primary: #f8fafc;
             --text-secondary: #94a3b8;
             --text-muted: #64748b;
+            --card-shadow: 0 15px 35px rgba(0,0,0,0.4);
+            --ambient-bg: rgba(13,242,166,0.07);
+            --grid-line: rgba(255,255,255,0.015);
+            --chart-grid: rgba(255,255,255,0.05);
+            --chart-text: #64748b;
         }
 
         * {
@@ -1088,9 +1116,10 @@ export default {
             padding: 1.25rem 1rem 3.5rem 1rem;
             overflow-x: hidden;
             position: relative;
+            transition: background-color 0.3s ease, color 0.3s ease;
         }
 
-        /* Ambient Lighting / Subtle Grid */
+        /* Ambient glow */
         body::before {
             content: '';
             position: fixed;
@@ -1099,7 +1128,7 @@ export default {
             transform: translateX(-50%);
             width: 950px;
             height: 550px;
-            background: radial-gradient(circle, rgba(13, 242, 166, 0.07) 0%, rgba(0, 212, 255, 0.04) 40%, transparent 70%);
+            background: radial-gradient(circle, var(--ambient-bg) 0%, transparent 70%);
             z-index: -2;
             pointer-events: none;
             filter: blur(80px);
@@ -1109,11 +1138,15 @@ export default {
             content: '';
             position: fixed;
             inset: 0;
-            background-image: linear-gradient(rgba(255,255,255,0.015) 1px, transparent 1px),
-                              linear-gradient(90deg, rgba(255,255,255,0.015) 1px, transparent 1px);
+            background-image: linear-gradient(var(--grid-line) 1px, transparent 1px),
+                              linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
             background-size: 36px 36px;
             z-index: -1;
             pointer-events: none;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
         }
 
         .container {
@@ -1121,7 +1154,7 @@ export default {
             max-width: 1020px;
             display: flex;
             flex-direction: column;
-            gap: 1.5rem;
+            gap: 1.25rem;
         }
 
         /* Header Navbar */
@@ -1129,12 +1162,34 @@ export default {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 0.85rem 1.25rem;
-            background: rgba(13, 15, 21, 0.85);
+            padding: 0.75rem 1.25rem;
+            background: var(--bg-surface);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
             border: 1px solid var(--border-subtle);
             border-radius: 16px;
+            box-shadow: var(--card-shadow);
+        }
+
+        /* Theme Toggle */
+        .theme-toggle {
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            border: 1px solid var(--border-subtle);
+            background: rgba(128,128,128,0.06);
+            color: var(--text-secondary);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+            flex-shrink: 0;
+        }
+        .theme-toggle:hover {
+            border-color: var(--neon-emerald);
+            color: var(--neon-emerald);
+            background: rgba(128,128,128,0.1);
         }
 
         .brand {
@@ -1390,18 +1445,19 @@ export default {
         .bento-card {
             background: var(--bg-card);
             border: 1px solid var(--border-subtle);
-            border-radius: 20px;
-            padding: 1.4rem;
+            border-radius: 18px;
+            padding: 1.25rem;
             backdrop-filter: blur(16px);
             -webkit-backdrop-filter: blur(16px);
-            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+            transition: border-color 0.25s ease, box-shadow 0.25s ease;
             display: flex;
             flex-direction: column;
             position: relative;
+            box-shadow: var(--card-shadow);
         }
         .bento-card:hover {
-            border-color: rgba(255, 255, 255, 0.14);
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+            border-color: var(--border-highlight);
+            box-shadow: var(--card-shadow);
         }
 
         .col-12 { grid-column: span 12; }
@@ -1670,13 +1726,17 @@ export default {
                 </div>
                 <div class="brand-title">BET365EDGE <span class="brand-badge">QUANT +EV</span></div>
             </a>
-            <div class="nav-actions" style="display:flex; align-items:center; gap:12px;">
+            <div class="nav-actions" style="display:flex; align-items:center; gap:10px;">
                 <span class="status-badge">
                     <span class="pulse-dot"></span>
                     <span id="navStatusTxt">Suscripción: Inactiva</span>
                 </span>
                 <button id="btnNavLogin" onclick="openEmailLoginModal()" style="background:none; border:none; color:var(--text-secondary); font-size:0.82rem; font-weight:600; cursor:pointer; text-decoration:underline; text-underline-offset:3px;">¿Ya eres cliente?</button>
                 <button id="btnNavUpgrade" class="btn-ghost" onclick="scrollToProximosPartidos()">Ver oportunidades de hoy</button>
+                <button class="theme-toggle" id="themeToggleBtn" onclick="toggleTheme()" title="Cambiar tema claro/oscuro" aria-label="Cambiar tema">
+                    <svg id="iconSun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" display="block"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+                    <svg id="iconMoon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" display="none"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+                </button>
             </div>
         </nav>
 
@@ -1715,63 +1775,60 @@ export default {
         </header>
 
         <!-- =========================================================
-             SECCIÓN 2: CÓMO FUNCIONA NUESTRO BOT
+             SECCIÓN 2: CÓMO FUNCIONA NUESTRO BOT — COMPACTA
              ========================================================= -->
-        <section class="bento-card col-12" style="margin-top:1rem; padding:1.4rem; width:100%;">
-            <div class="card-title-group" style="margin-bottom:1.2rem; text-align:center;">
-                <h2 style="font-size:1.35rem; color:var(--text-primary); font-weight:800;">Cómo funciona nuestro bot</h2>
-                <p style="font-size:0.86rem; color:var(--text-secondary); margin-top:4px; max-width:750px; margin-left:auto; margin-right:auto; line-height:1.5;">
-                    BET365EDGE Quant es un bot sofisticado que trabaja las 24 horas del día analizando de forma automática cientos de datos para detectar posibles ventajas estadísticas en el fútbol.
-                </p>
+        <section class="bento-card col-12" style="padding:1rem 1.25rem; width:100%;">
+            <div style="text-align:center; margin-bottom:0.85rem;">
+                <h2 style="font-size:1.05rem; color:var(--text-primary); font-weight:800; letter-spacing:-0.3px;">Cómo funciona nuestro bot</h2>
             </div>
-            <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(240px, 1fr)); gap:1rem; margin-bottom:1.4rem;">
-                <div style="background:rgba(6,7,10,0.8); border:1px solid var(--border-subtle); border-radius:12px; padding:1.1rem;">
-                    <div style="display:flex; align-items:center; gap:10px; margin-bottom:8px;">
-                        <span style="background:rgba(13,242,166,0.15); color:var(--neon-emerald); width:32px; height:32px; border-radius:8px; display:flex; align-items:center; justify-content:center; font-weight:800;">1</span>
-                        <strong style="color:var(--text-primary); font-size:0.95rem;">Recopila datos 24/7</strong>
-                    </div>
-                    <p style="font-size:0.82rem; color:var(--text-secondary); line-height:1.5;">El bot recoge de forma continua información de partidos históricos, estadísticas de equipos y jugadores, lesiones, posibles alineaciones, condiciones meteorológicas, noticias y evolución de las cuotas.</p>
+            <!-- 4 pasos horizontales -->
+            <div style="display:grid; grid-template-columns:1fr auto 1fr auto 1fr auto 1fr; gap:0; align-items:start;" class="how-steps-grid">
+                <div style="text-align:center; padding:0.6rem 0.5rem;">
+                    <div style="width:30px; height:30px; background:rgba(13,148,136,0.14); color:var(--neon-emerald); border-radius:8px; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:0.82rem; margin:0 auto 6px;">1</div>
+                    <div style="font-weight:700; font-size:0.82rem; color:var(--text-primary); margin-bottom:3px;">Recopila datos 24/7</div>
+                    <div style="font-size:0.72rem; color:var(--text-secondary); line-height:1.4;">Partidos, estadísticas, bajas, noticias, meteo y cuotas.</div>
                 </div>
-                <div style="background:rgba(6,7,10,0.8); border:1px solid var(--border-subtle); border-radius:12px; padding:1.1rem;">
-                    <div style="display:flex; align-items:center; gap:10px; margin-bottom:8px;">
-                        <span style="background:rgba(0,212,255,0.15); color:var(--neon-cyan); width:32px; height:32px; border-radius:8px; display:flex; align-items:center; justify-content:center; font-weight:800;">2</span>
-                        <strong style="color:var(--text-primary); font-size:0.95rem;">Analiza el contexto</strong>
-                    </div>
-                    <p style="font-size:0.82rem; color:var(--text-secondary); line-height:1.5;">Evalúa el rendimiento reciente, el xG, el comportamiento como local y visitante, las tendencias de goles, el impacto de las bajas y el posible efecto del clima en el partido.</p>
+                <div style="display:flex; align-items:center; justify-content:center; padding-top:8px; color:var(--text-muted); font-size:0.9rem;">→</div>
+                <div style="text-align:center; padding:0.6rem 0.5rem;">
+                    <div style="width:30px; height:30px; background:rgba(2,132,199,0.14); color:var(--neon-cyan); border-radius:8px; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:0.82rem; margin:0 auto 6px;">2</div>
+                    <div style="font-weight:700; font-size:0.82rem; color:var(--text-primary); margin-bottom:3px;">Analiza el contexto</div>
+                    <div style="font-size:0.72rem; color:var(--text-secondary); line-height:1.4;">Forma reciente, xG, localía, tendencias y alineaciones.</div>
                 </div>
-                <div style="background:rgba(6,7,10,0.8); border:1px solid var(--border-subtle); border-radius:12px; padding:1.1rem;">
-                    <div style="display:flex; align-items:center; gap:10px; margin-bottom:8px;">
-                        <span style="background:rgba(245,158,11,0.15); color:var(--neon-amber); width:32px; height:32px; border-radius:8px; display:flex; align-items:center; justify-content:center; font-weight:800;">3</span>
-                        <strong style="color:var(--text-primary); font-size:0.95rem;">Calcula la cuota justa</strong>
-                    </div>
-                    <p style="font-size:0.82rem; color:var(--text-secondary); line-height:1.5;">El modelo estima la probabilidad real de que se den más de 1,5 o más de 2,5 goles y la convierte en una cuota justa.</p>
+                <div style="display:flex; align-items:center; justify-content:center; padding-top:8px; color:var(--text-muted); font-size:0.9rem;">→</div>
+                <div style="text-align:center; padding:0.6rem 0.5rem;">
+                    <div style="width:30px; height:30px; background:rgba(217,119,6,0.14); color:var(--neon-amber); border-radius:8px; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:0.82rem; margin:0 auto 6px;">3</div>
+                    <div style="font-weight:700; font-size:0.82rem; color:var(--text-primary); margin-bottom:3px;">Calcula la cuota justa</div>
+                    <div style="font-size:0.72rem; color:var(--text-secondary); line-height:1.4;">Estima probabilidad para +1,5 y +2,5 goles.</div>
                 </div>
-                <div style="background:rgba(6,7,10,0.8); border:1px solid var(--border-subtle); border-radius:12px; padding:1.1rem;">
-                    <div style="display:flex; align-items:center; gap:10px; margin-bottom:8px;">
-                        <span style="background:rgba(139,92,246,0.15); color:#8b5cf6; width:32px; height:32px; border-radius:8px; display:flex; align-items:center; justify-content:center; font-weight:800;">4</span>
-                        <strong style="color:var(--text-primary); font-size:0.95rem;">Detecta la ventaja</strong>
-                    </div>
-                    <p style="font-size:0.82rem; color:var(--text-secondary); line-height:1.5;">Compara esa cuota justa con la cuota que ofrece la casa de apuestas. Si la diferencia supera los filtros definidos, identifica una posible oportunidad estadística.</p>
+                <div style="display:flex; align-items:center; justify-content:center; padding-top:8px; color:var(--text-muted); font-size:0.9rem;">→</div>
+                <div style="text-align:center; padding:0.6rem 0.5rem;">
+                    <div style="width:30px; height:30px; background:rgba(139,92,246,0.14); color:#8b5cf6; border-radius:8px; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:0.82rem; margin:0 auto 6px;">4</div>
+                    <div style="font-weight:700; font-size:0.82rem; color:var(--text-primary); margin-bottom:3px;">Detecta la ventaja</div>
+                    <div style="font-size:0.72rem; color:var(--text-secondary); line-height:1.4;">Compara cuota justa vs disponible y calcula el valor esperado.</div>
                 </div>
             </div>
-
-            <!-- Subsección: Qué analiza el sistema -->
-            <div style="border-top:1px solid var(--border-subtle); padding-top:1rem;">
-                <h3 style="font-size:0.88rem; color:var(--neon-emerald); font-weight:700; margin-bottom:0.8rem; text-transform:uppercase; letter-spacing:0.5px;">Qué analiza el sistema</h3>
-                <div style="display:flex; flex-wrap:wrap; gap:8px;">
-                    <span class="badge-quant" style="background:rgba(255,255,255,0.05); color:var(--text-secondary); border:1px solid var(--border-subtle);">Partidos y resultados históricos</span>
-                    <span class="badge-quant" style="background:rgba(255,255,255,0.05); color:var(--text-secondary); border:1px solid var(--border-subtle);">Estadísticas de equipos y jugadores</span>
-                    <span class="badge-quant" style="background:rgba(255,255,255,0.05); color:var(--text-secondary); border:1px solid var(--border-subtle);">Rendimiento reciente y tendencias de goles</span>
-                    <span class="badge-quant" style="background:rgba(255,255,255,0.05); color:var(--text-secondary); border:1px solid var(--border-subtle);">xG y métricas ofensivas</span>
-                    <span class="badge-quant" style="background:rgba(255,255,255,0.05); color:var(--text-secondary); border:1px solid var(--border-subtle);">Rendimiento como local y visitante</span>
-                    <span class="badge-quant" style="background:rgba(255,255,255,0.05); color:var(--text-secondary); border:1px solid var(--border-subtle);">Lesiones y bajas confirmadas</span>
-                    <span class="badge-quant" style="background:rgba(255,255,255,0.05); color:var(--text-secondary); border:1px solid var(--border-subtle);">Posibles alineaciones</span>
-                    <span class="badge-quant" style="background:rgba(255,255,255,0.05); color:var(--text-secondary); border:1px solid var(--border-subtle);">Condiciones meteorológicas (lluvia, viento, temp.)</span>
-                    <span class="badge-quant" style="background:rgba(255,255,255,0.05); color:var(--text-secondary); border:1px solid var(--border-subtle);">Noticias deportivas relevantes</span>
-                    <span class="badge-quant" style="background:rgba(255,255,255,0.05); color:var(--text-secondary); border:1px solid var(--border-subtle);">Evolución de las cuotas en el mercado</span>
-                </div>
+            <!-- Chips de qué analiza el sistema -->
+            <div style="border-top:1px solid var(--border-subtle); padding-top:0.7rem; margin-top:0.7rem; display:flex; flex-wrap:wrap; gap:6px; align-items:center;">
+                <span style="font-size:0.68rem; font-weight:700; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.4px; margin-right:4px;">Analiza:</span>
+                <span class="badge-quant" style="font-size:0.7rem; padding:3px 8px;">Forma reciente</span>
+                <span class="badge-quant" style="font-size:0.7rem; padding:3px 8px;">xG y métricas ofensivas</span>
+                <span class="badge-quant" style="font-size:0.7rem; padding:3px 8px;">Local/visitante</span>
+                <span class="badge-quant" style="font-size:0.7rem; padding:3px 8px;">Lesiones y bajas</span>
+                <span class="badge-quant" style="font-size:0.7rem; padding:3px 8px;">Alineaciones</span>
+                <span class="badge-quant" style="font-size:0.7rem; padding:3px 8px;">Meteorología</span>
+                <span class="badge-quant" style="font-size:0.7rem; padding:3px 8px;">Noticias relevantes</span>
+                <span class="badge-quant" style="font-size:0.7rem; padding:3px 8px;">Evolución de cuotas</span>
             </div>
         </section>
+        <style>
+        @media (max-width:600px) {
+            .how-steps-grid { grid-template-columns: 1fr !important; }
+            .how-steps-grid > [style*="align-items:center; justify-content:center"] { display: none !important; }
+        }
+        @media (min-width:601px) and (max-width:900px) {
+            .how-steps-grid { grid-template-columns: 1fr auto 1fr !important; }
+        }
+        </style>
 
 
         <!-- =========================================================
@@ -1964,25 +2021,25 @@ export default {
                         </defs>
 
                         <!-- Guías horizontales -->
-                        <line x1="40" y1="35" x2="660" y2="35" stroke="rgba(255,255,255,0.06)" stroke-width="1" stroke-dasharray="4,4"/>
-                        <line x1="40" y1="85" x2="660" y2="85" stroke="rgba(255,255,255,0.06)" stroke-width="1" stroke-dasharray="4,4"/>
-                        <line x1="40" y1="135" x2="660" y2="135" stroke="rgba(255,255,255,0.06)" stroke-width="1" stroke-dasharray="4,4"/>
-                        <line x1="40" y1="185" x2="660" y2="185" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+                        <line x1="40" y1="35" x2="660" y2="35" stroke="var(--chart-grid)" stroke-width="1" stroke-dasharray="4,4"/>
+                        <line x1="40" y1="85" x2="660" y2="85" stroke="var(--chart-grid)" stroke-width="1" stroke-dasharray="4,4"/>
+                        <line x1="40" y1="135" x2="660" y2="135" stroke="var(--chart-grid)" stroke-width="1" stroke-dasharray="4,4"/>
+                        <line x1="40" y1="185" x2="660" y2="185" stroke="var(--chart-grid)" stroke-width="1"/>
 
                         <!-- Etiquetas Y -->
-                        <text x="12" y="39" fill="#64748b" font-family="'JetBrains Mono'" font-size="10">90%</text>
-                        <text x="12" y="89" fill="#64748b" font-family="'JetBrains Mono'" font-size="10">80%</text>
-                        <text x="12" y="139" fill="#64748b" font-family="'JetBrains Mono'" font-size="10">70%</text>
-                        <text x="12" y="189" fill="#64748b" font-family="'JetBrains Mono'" font-size="10">60%</text>
+                        <text x="12" y="39" fill="var(--chart-text)" font-family="'JetBrains Mono'" font-size="10">90%</text>
+                        <text x="12" y="89" fill="var(--chart-text)" font-family="'JetBrains Mono'" font-size="10">80%</text>
+                        <text x="12" y="139" fill="var(--chart-text)" font-family="'JetBrains Mono'" font-size="10">70%</text>
+                        <text x="12" y="189" fill="var(--chart-text)" font-family="'JetBrains Mono'" font-size="10">60%</text>
 
                         <!-- Áreas bajo la curva -->
                         <path d="M 50 65 Q 150 45, 250 50 T 450 40 T 650 35 L 650 185 L 50 185 Z" fill="url(#glowGradModel)"/>
                         <path d="M 50 115 Q 150 100, 250 105 T 450 95 T 650 90 L 650 185 L 50 185 Z" fill="url(#glowGradHouse)"/>
 
-                        <!-- Línea Modelo (Esmeralda) -->
-                        <path d="M 50 65 Q 150 45, 250 50 T 450 40 T 650 35" fill="none" stroke="#0df2a6" stroke-width="3" stroke-linecap="round"/>
-                        <!-- Línea Bet365 (Cian discontinuo) -->
-                        <path d="M 50 115 Q 150 100, 250 105 T 450 95 T 650 90" fill="none" stroke="#00d4ff" stroke-width="2" stroke-dasharray="6,6" stroke-linecap="round"/>
+                        <!-- Línea Modelo (Turquesa) -->
+                        <path d="M 50 65 Q 150 45, 250 50 T 450 40 T 650 35" fill="none" stroke="var(--neon-emerald)" stroke-width="3" stroke-linecap="round"/>
+                        <!-- Línea Cuota Implícita (Cian discontinuo) -->
+                        <path d="M 50 115 Q 150 100, 250 105 T 450 95 T 650 90" fill="none" stroke="var(--neon-cyan)" stroke-width="2" stroke-dasharray="6,6" stroke-linecap="round"/>
 
                         <!-- Puntos de comprobación -->
                         <circle cx="250" cy="50" r="5" fill="#0df2a6" stroke="#06070a" stroke-width="2"/>
@@ -1990,10 +2047,10 @@ export default {
                         <circle cx="650" cy="35" r="5" fill="#0df2a6" stroke="#06070a" stroke-width="2"/>
 
                         <!-- Etiquetas X -->
-                        <text x="45" y="205" fill="#64748b" font-family="'JetBrains Mono'" font-size="10">Part 1</text>
-                        <text x="240" y="205" fill="#64748b" font-family="'JetBrains Mono'" font-size="10">Part 2</text>
-                        <text x="440" y="205" fill="#64748b" font-family="'JetBrains Mono'" font-size="10">Part 3</text>
-                        <text x="620" y="205" fill="#64748b" font-family="'JetBrains Mono'" font-size="10">Part 4 (Hoy)</text>
+                        <text x="45" y="205" fill="var(--chart-text)" font-family="'JetBrains Mono'" font-size="10">Sep 01</text>
+                        <text x="230" y="205" fill="var(--chart-text)" font-family="'JetBrains Mono'" font-size="10">Sep 10</text>
+                        <text x="430" y="205" fill="var(--chart-text)" font-family="'JetBrains Mono'" font-size="10">Sep 17</text>
+                        <text x="605" y="205" fill="var(--chart-text)" font-family="'JetBrains Mono'" font-size="10">Hoy (20 Sep)</text>
                     </svg>
 
                     <div class="chart-legend-row">
@@ -2164,6 +2221,53 @@ export default {
 
 
     <script>
+        // =========================================================
+        // TOGGLE TEMA CLARO / OSCURO
+        // =========================================================
+        function toggleTheme() {
+            var current = document.documentElement.getAttribute('data-theme') || 'light';
+            var next = current === 'dark' ? 'light' : 'dark';
+            document.documentElement.setAttribute('data-theme', next);
+            localStorage.setItem('b365_theme', next);
+            updateThemeIcons(next);
+            // Actualizar colores de los charts Chart.js si existen
+            if (typeof bentoModelChart !== 'undefined' && bentoModelChart) {
+                var c = getChartColors();
+                bentoModelChart.options.scales.x.grid.color = c.grid;
+                bentoModelChart.options.scales.y.grid.color = c.grid;
+                bentoModelChart.options.scales.x.ticks.color = c.tick;
+                bentoModelChart.options.scales.y.ticks.color = c.tick;
+                bentoModelChart.update();
+            }
+            if (typeof bentoYieldChart !== 'undefined' && bentoYieldChart) {
+                var c2 = getChartColors();
+                bentoYieldChart.options.scales.x.grid.color = c2.grid;
+                bentoYieldChart.options.scales.y.grid.color = c2.grid;
+                bentoYieldChart.options.scales.x.ticks.color = c2.tick;
+                bentoYieldChart.options.scales.y.ticks.color = c2.tick;
+                bentoYieldChart.update();
+            }
+            if (typeof homeChart !== 'undefined' && homeChart) {
+                var c3 = getChartColors();
+                homeChart.options.scales.x.grid.color = c3.grid;
+                homeChart.options.scales.y.grid.color = c3.grid;
+                homeChart.options.scales.x.ticks.color = c3.tick;
+                homeChart.options.scales.y.ticks.color = c3.tick;
+                homeChart.update('none');
+            }
+        }
+        function updateThemeIcons(theme) {
+            var sun = document.getElementById('iconSun');
+            var moon = document.getElementById('iconMoon');
+            if (sun) sun.style.display = theme === 'dark' ? 'none' : 'block';
+            if (moon) moon.style.display = theme === 'dark' ? 'block' : 'none';
+        }
+        // Inicializar iconos al cargar
+        (function() {
+            var t = document.documentElement.getAttribute('data-theme') || 'light';
+            updateThemeIcons(t);
+        })();
+
         // ESTADO DE ACCESO
         // ACCESO_LIBRE lo inyecta el servidor (const ACCESO_LIBRE del worker):
         // en fase de lanzamiento es true y todo el contenido es visible gratis.
@@ -2257,18 +2361,30 @@ export default {
         var bentoModelChart = null;
         var bentoYieldChart = null;
 
+        // Datos históricos de demostración del modelo (sample estático)
         var bentoModelData = [83.5, 87.2, 85.8, 91.4, 93.8, 92.5];
         var bentoHouseData = [78.0, 81.0, 80.0, 86.0, 89.0, 88.0];
         var bentoYieldData = [100.0, 105.2, 108.4, 115.1, 122.8, 131.0, 138.4];
 
+        function getChartColors() {
+            var dark = document.documentElement.getAttribute('data-theme') === 'dark';
+            return {
+                grid: dark ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.06)',
+                tick: dark ? '#64748b' : '#94a3b8',
+                emerald: dark ? '#0df2a6' : '#0d9488',
+                cyan: dark ? '#00d4ff' : '#0284c7'
+            };
+        }
+
         function initBentoDynamicCharts() {
-            // Chart 1: Probabilidad Modelo vs Bet365 Implícita
+            var c = getChartColors();
+            // Chart 1: Probabilidad Modelo vs Cuota Implícita (datos de demostración)
             var ctx1 = document.getElementById('bentoModelVsHouseCanvas');
             if(ctx1) {
                 bentoModelChart = new Chart(ctx1.getContext('2d'), {
                     type: 'line',
                     data: {
-                        labels: ['Part 1', 'Part 2', 'Part 3', 'Part 4', 'Part 5', 'Hoy (Live)'],
+                        labels: ['01 Sep', '08 Sep', '12 Sep', '15 Sep', '18 Sep', '20 Sep'],
                         datasets: [
                             {
                                 label: 'Probabilidad Modelo',
@@ -2298,22 +2414,25 @@ export default {
                     options: {
                         responsive: true,
                         maintainAspectRatio: false,
-                        plugins: { legend: { display: false } },
+                        plugins: {
+                            legend: { display: false },
+                            tooltip: { callbacks: { label: function(ctx) { return ctx.dataset.label + ': ' + ctx.parsed.y.toFixed(1) + '%'; } } }
+                        },
                         scales: {
-                            x: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#64748b', font: { family: 'JetBrains Mono', size: 10 } } },
-                            y: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#64748b', font: { family: 'JetBrains Mono', size: 10 }, callback: v => v + '%' }, min: 60, max: 100 }
+                            x: { grid: { color: c.grid }, ticks: { color: c.tick, font: { family: 'JetBrains Mono', size: 10 } } },
+                            y: { grid: { color: c.grid }, ticks: { color: c.tick, font: { family: 'JetBrains Mono', size: 10 }, callback: v => v + '%' }, min: 60, max: 100 }
                         }
                     }
                 });
             }
 
-            // Chart 2: Yield Acumulado (+138.4%)
+            // Chart 2: Yield Acumulado (datos históricos de demostración)
             var ctx2 = document.getElementById('bentoYieldCanvas');
             if(ctx2) {
                 bentoYieldChart = new Chart(ctx2.getContext('2d'), {
                     type: 'line',
                     data: {
-                        labels: ['ENE', 'FEB', 'MAR', 'ABR', 'MAY', 'JUN', 'HOY'],
+                        labels: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', '20 Sep'],
                         datasets: [{
                             label: 'Yield Acumulado (%)',
                             data: bentoYieldData,
@@ -2337,48 +2456,24 @@ export default {
                     options: {
                         responsive: true,
                         maintainAspectRatio: false,
-                        plugins: { legend: { display: false } },
+                        plugins: {
+                            legend: { display: false },
+                            tooltip: { callbacks: { label: function(ctx) { return 'Yield: +' + ctx.parsed.y.toFixed(1) + '%'; } } }
+                        },
                         scales: {
-                            x: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#64748b', font: { family: 'JetBrains Mono', size: 10 } } },
-                            y: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#64748b', font: { family: 'JetBrains Mono', size: 10 }, callback: v => '+' + v.toFixed(1) + '%' } }
+                            x: { grid: { color: c.grid }, ticks: { color: c.tick, font: { family: 'JetBrains Mono', size: 10 } } },
+                            y: { grid: { color: c.grid }, ticks: { color: c.tick, font: { family: 'JetBrains Mono', size: 10 }, callback: v => '+' + v.toFixed(1) + '%' } }
                         }
                     }
                 });
             }
         }
 
-        function animateBentoChartsTick() {
-            // Soft coherent movement for Yield chart
-            if(bentoYieldChart) {
-                var lastYield = bentoYieldData[bentoYieldData.length - 1];
-                var yieldDrift = (Math.random() - 0.45) * 0.3;
-                var newYield = parseFloat((lastYield + yieldDrift).toFixed(1));
-                if(newYield < 135) newYield = 136.5;
-                if(newYield > 145) newYield = 142.0;
-
-                bentoYieldData[bentoYieldData.length - 1] = newYield;
-                bentoYieldChart.data.datasets[0].data = bentoYieldData;
-                bentoYieldChart.update('none');
-            }
-
-            // Soft drift for Model vs Bet365 chart
-            if(bentoModelChart) {
-                var lastModel = bentoModelData[bentoModelData.length - 1];
-                var modelDrift = (Math.random() - 0.48) * 0.4;
-                var newModel = parseFloat((lastModel + modelDrift).toFixed(1));
-                if(newModel < 88) newModel = 90.5;
-                if(newModel > 96) newModel = 95.2;
-
-                bentoModelData[bentoModelData.length - 1] = newModel;
-                bentoModelChart.data.datasets[0].data = bentoModelData;
-                bentoModelChart.update('none');
-            }
-        }
-
-        // Init bento charts on load and start 3s animation interval
+        // Los gráficos bento muestran datos históricos estáticos del modelo.
+        // NO se animan aleatoriamente — se actualizan solo al recibir datos reales.
+        // Init bento charts on load (sin interval de drift aleatorio)
         window.addEventListener('DOMContentLoaded', function() {
             setTimeout(initBentoDynamicCharts, 150);
-            setInterval(animateBentoChartsTick, 3000);
         });
 
 
@@ -2838,6 +2933,27 @@ export default {
             renderHeroValidatedFixtures(__fixturesValidadas, __metaTemporal);
         }
 
+        // Prioridad de ligas para presentación pública
+        // 1=España top, 2=Inglaterra top, 3=Europa top, 4=Resto
+        var LIGA_PRIORITY = {
+            'laliga': 1, 'spain-laliga': 1, 'la liga': 1,
+            'hypermotion': 1, 'segunda': 1, 'copa del rey': 1,
+            'premier league': 2, 'england-premier-league': 2, 'championship': 2,
+            'fa cup': 2, 'efl': 2,
+            'serie a': 3, 'bundesliga': 3, 'ligue 1': 3,
+            'champions league': 3, 'europa league': 3, 'conference league': 3,
+            'eredivisie': 3, 'liga nos': 3
+        };
+        function getLigaPriority(f) {
+            if (!f) return 99;
+            var liga = String(f.liga || f.league || '').toLowerCase();
+            var url = String(f.urlRelativa || f.ligaUrl || f.url || '').toLowerCase();
+            var combined = liga + ' ' + url;
+            for (var key in LIGA_PRIORITY) {
+                if (combined.includes(key)) return LIGA_PRIORITY[key];
+            }
+            return 99;
+        }
         function esLigaTopPermitidaCliente(f) {
             if (!f) return false;
             var liga = String(f.liga || f.league || '').toLowerCase();
@@ -2888,14 +3004,18 @@ export default {
                 body.innerHTML = htmlTable;
             }
 
-            // Fill new cards for "Próximos partidos analizados" (LaLiga & Premier League)
+            // Fill new cards para "Próximos partidos analizados"
+            // Intenta primero LaLiga/Premier, luego grandes ligas europeas, finalmente cualquier liga
             if (cardsContainer) {
                 var topFixtures = fixtures.filter(esLigaTopPermitidaCliente);
+                var allSorted = fixtures.slice().sort(function(a,b) { return getLigaPriority(a) - getLigaPriority(b); });
+                var displayFixtures = topFixtures.length > 0 ? topFixtures : allSorted;
 
-                if (topFixtures.length === 0) {
-                    cardsContainer.innerHTML = '<div style="text-align:center; padding:2rem; color:var(--text-secondary); font-size:0.9rem; background:rgba(6,7,10,0.6); border-radius:12px; border:1px solid var(--border-subtle);">No hay próximos partidos disponibles con datos completos para estos mercados. El sistema continuará analizando nuevas oportunidades.</div>';
+                if (!displayFixtures || displayFixtures.length === 0) {
+                    cardsContainer.innerHTML = '<div style="text-align:center; padding:2rem; color:var(--text-secondary); font-size:0.9rem; background:var(--bg-card); border-radius:12px; border:1px solid var(--border-subtle);">No hay próximos partidos disponibles de las ligas prioritarias. El sistema continúa analizando otras competiciones.</div>';
                     return;
                 }
+                var topFixtures = displayFixtures;
 
                 var mostrar = topFixtures.slice(0, Math.min(__proximosMaxCount, 8));
                 var htmlCards = '';
@@ -2941,39 +3061,39 @@ export default {
                         estado25 = 'Sin ventaja suficiente'; colorEst25 = '#94a3b8'; bgEst25 = 'rgba(255,255,255,0.05)'; iconEst25 = '⚪';
                     }
 
-                    htmlCards += '<div style="background:rgba(13,15,21,0.9); border:1px solid var(--border-subtle); border-radius:14px; padding:1.1rem; box-shadow:0 4px 20px rgba(0,0,0,0.3);">' +
-                        '<div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px; margin-bottom:0.85rem; border-bottom:1px solid var(--border-subtle); padding-bottom:0.6rem;">' +
+                    htmlCards += '<div style="background:var(--bg-card); border:1px solid var(--border-subtle); border-radius:14px; padding:1rem; box-shadow:var(--card-shadow); transition:border-color 0.2s ease;">' +
+                        '<div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px; margin-bottom:0.75rem; border-bottom:1px solid var(--border-subtle); padding-bottom:0.55rem;">' +
                             '<div>' +
-                                '<span class="badge-quant" style="background:rgba(0,212,255,0.12); color:var(--neon-cyan); border:1px solid rgba(0,212,255,0.3); font-size:0.72rem; padding:3px 8px; border-radius:6px; font-weight:700;">' + f.ligaCorta + '</span>' +
-                                '<strong style="color:var(--text-primary); font-size:1.02rem; margin-left:8px; font-weight:800;">' + f.partido + '</strong>' +
+                                '<span class="badge-quant" style="font-size:0.7rem; padding:3px 8px; border-radius:6px; font-weight:700;">' + f.ligaCorta + '</span>' +
+                                '<strong style="color:var(--text-primary); font-size:0.98rem; margin-left:8px; font-weight:700;">' + f.partido + '</strong>' +
                             '</div>' +
-                            '<div style="font-family:JetBrains Mono; font-size:0.78rem; color:var(--text-secondary); display:flex; align-items:center; gap:8px;">' +
-                                '<span>📅 ' + f.dia + ' ' + f.fechaCorta + '</span>' +
-                                '<span style="color:var(--neon-emerald); font-weight:700;">⏰ ' + f.hora + ' Madrid</span>' +
+                            '<div style="font-family:JetBrains Mono; font-size:0.75rem; color:var(--text-secondary); display:flex; align-items:center; gap:8px;">' +
+                                '<span>' + f.dia + ' ' + f.fechaCorta + '</span>' +
+                                '<span style="color:var(--neon-emerald); font-weight:700;">' + f.hora + '</span>' +
                             '</div>' +
                         '</div>' +
 
-                        '<div style="display:flex; flex-direction:column; gap:0.65rem;">' +
+                        '<div style="display:flex; flex-direction:column; gap:0.5rem;">' +
                             // Mercado 1.5
-                            '<div style="background:rgba(6,7,10,0.75); border:1px solid var(--border-subtle); border-radius:10px; padding:0.75rem 0.9rem; display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:10px;">' +
-                                '<div style="font-weight:700; color:var(--text-primary); font-size:0.85rem; min-width:110px;">Más de 1,5 goles</div>' +
-                                '<div style="display:flex; align-items:center; gap:16px; flex-wrap:wrap;">' +
-                                    '<div style="text-align:center;"><span style="font-size:0.65rem; color:var(--text-muted); display:block;">Cuota casa</span><strong style="font-family:JetBrains Mono; color:var(--neon-cyan); font-size:0.92rem;">' + cCasa15 + '</strong></div>' +
-                                    '<div style="text-align:center;" title="Cuota justa calculada a partir de la probabilidad estimada por el modelo."><span style="font-size:0.65rem; color:var(--text-muted); display:block; cursor:help;">Cuota modelo ℹ️</span><strong style="font-family:JetBrains Mono; color:var(--text-primary); font-size:0.92rem;">' + cMod15 + '</strong></div>' +
-                                    '<div style="text-align:center;" title="Diferencia estimada entre la cuota disponible y la valoración del modelo."><span style="font-size:0.65rem; color:var(--text-muted); display:block; cursor:help;">Edge estimado ℹ️</span><strong style="font-family:JetBrains Mono; color:' + colorEst15 + '; font-size:0.92rem;">' + edgeStr15 + '</strong></div>' +
+                            '<div style="background:rgba(128,128,128,0.05); border:1px solid var(--border-subtle); border-radius:9px; padding:0.65rem 0.85rem; display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:8px;">' +
+                                '<div style="font-weight:700; color:var(--text-primary); font-size:0.82rem; min-width:100px;">+1,5 goles</div>' +
+                                '<div style="display:flex; align-items:center; gap:14px; flex-wrap:wrap;">' +
+                                    '<div style="text-align:center;"><span style="font-size:0.62rem; color:var(--text-muted); display:block;">Cuota casa</span><strong style="font-family:JetBrains Mono; color:var(--neon-cyan); font-size:0.88rem;">' + cCasa15 + '</strong></div>' +
+                                    '<div style="text-align:center;" title="Cuota justa calculada a partir de la probabilidad estimada por el modelo."><span style="font-size:0.62rem; color:var(--text-muted); display:block; cursor:help;">Cuota modelo ℹ</span><strong style="font-family:JetBrains Mono; color:var(--text-primary); font-size:0.88rem;">' + cMod15 + '</strong></div>' +
+                                    '<div style="text-align:center;" title="Diferencia estimada entre la cuota disponible y la valoración del modelo."><span style="font-size:0.62rem; color:var(--text-muted); display:block; cursor:help;">Edge ℹ</span><strong style="font-family:JetBrains Mono; color:' + colorEst15 + '; font-size:0.88rem;">' + edgeStr15 + '</strong></div>' +
                                 '</div>' +
-                                '<span style="background:' + bgEst15 + '; color:' + colorEst15 + '; font-size:0.75rem; padding:4px 10px; border-radius:8px; font-weight:700; display:inline-flex; align-items:center; gap:4px;">' + iconEst15 + ' ' + estado15 + '</span>' +
+                                '<span style="background:' + bgEst15 + '; color:' + colorEst15 + '; font-size:0.7rem; padding:3px 8px; border-radius:7px; font-weight:700; display:inline-flex; align-items:center; gap:4px;">' + iconEst15 + ' ' + estado15 + '</span>' +
                             '</div>' +
 
                             // Mercado 2.5
-                            '<div style="background:rgba(6,7,10,0.75); border:1px solid var(--border-subtle); border-radius:10px; padding:0.75rem 0.9rem; display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:10px;">' +
-                                '<div style="font-weight:700; color:var(--text-primary); font-size:0.85rem; min-width:110px;">Más de 2,5 goles</div>' +
-                                '<div style="display:flex; align-items:center; gap:16px; flex-wrap:wrap;">' +
-                                    '<div style="text-align:center;"><span style="font-size:0.65rem; color:var(--text-muted); display:block;">Cuota casa</span><strong style="font-family:JetBrains Mono; color:var(--neon-cyan); font-size:0.92rem;">' + cCasa25 + '</strong></div>' +
-                                    '<div style="text-align:center;" title="Cuota justa calculada a partir de la probabilidad estimada por el modelo."><span style="font-size:0.65rem; color:var(--text-muted); display:block; cursor:help;">Cuota modelo ℹ️</span><strong style="font-family:JetBrains Mono; color:var(--text-primary); font-size:0.92rem;">' + cMod25 + '</strong></div>' +
-                                    '<div style="text-align:center;" title="Diferencia estimada entre la cuota disponible y la valoración del modelo."><span style="font-size:0.65rem; color:var(--text-muted); display:block; cursor:help;">Edge estimado ℹ️</span><strong style="font-family:JetBrains Mono; color:' + colorEst25 + '; font-size:0.92rem;">' + edgeStr25 + '</strong></div>' +
+                            '<div style="background:rgba(128,128,128,0.05); border:1px solid var(--border-subtle); border-radius:9px; padding:0.65rem 0.85rem; display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:8px;">' +
+                                '<div style="font-weight:700; color:var(--text-primary); font-size:0.82rem; min-width:100px;">+2,5 goles</div>' +
+                                '<div style="display:flex; align-items:center; gap:14px; flex-wrap:wrap;">' +
+                                    '<div style="text-align:center;"><span style="font-size:0.62rem; color:var(--text-muted); display:block;">Cuota casa</span><strong style="font-family:JetBrains Mono; color:var(--neon-cyan); font-size:0.88rem;">' + cCasa25 + '</strong></div>' +
+                                    '<div style="text-align:center;" title="Cuota justa calculada a partir de la probabilidad estimada por el modelo."><span style="font-size:0.62rem; color:var(--text-muted); display:block; cursor:help;">Cuota modelo ℹ</span><strong style="font-family:JetBrains Mono; color:var(--text-primary); font-size:0.88rem;">' + cMod25 + '</strong></div>' +
+                                    '<div style="text-align:center;" title="Diferencia estimada entre la cuota disponible y la valoración del modelo."><span style="font-size:0.62rem; color:var(--text-muted); display:block; cursor:help;">Edge ℹ</span><strong style="font-family:JetBrains Mono; color:' + colorEst25 + '; font-size:0.88rem;">' + edgeStr25 + '</strong></div>' +
                                 '</div>' +
-                                '<span style="background:' + bgEst25 + '; color:' + colorEst25 + '; font-size:0.75rem; padding:4px 10px; border-radius:8px; font-weight:700; display:inline-flex; align-items:center; gap:4px;">' + iconEst25 + ' ' + estado25 + '</span>' +
+                                '<span style="background:' + bgEst25 + '; color:' + colorEst25 + '; font-size:0.7rem; padding:3px 8px; border-radius:7px; font-weight:700; display:inline-flex; align-items:center; gap:4px;">' + iconEst25 + ' ' + estado25 + '</span>' +
                             '</div>' +
                         '</div>' +
                     '</div>';
