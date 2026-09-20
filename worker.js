@@ -1661,6 +1661,77 @@ export default {
             border: 1px solid var(--border-subtle) !important;
         }
 
+        /* Estilos Adaptativos del Panel Stream Live 24/7 */
+        [data-theme="light"] .stream-live-container {
+            background: #ffffff !important;
+            border: 1px solid #b8e9e4 !important;
+            box-shadow: 0 4px 20px rgba(15, 159, 152, 0.08) !important;
+        }
+        [data-theme="dark"] .stream-live-container {
+            background: rgba(13,15,21,0.92) !important;
+            border: 1px solid rgba(13,242,166,0.35) !important;
+            box-shadow: 0 0 35px rgba(13,242,166,0.08) !important;
+        }
+
+        [data-theme="light"] .stream-live-ticker-box {
+            background: #ecfdf8 !important;
+            border: 1px solid #b8e9e4 !important;
+        }
+        [data-theme="dark"] .stream-live-ticker-box {
+            background: rgba(13,242,166,0.05) !important;
+            border: 1px solid rgba(13,242,166,0.2) !important;
+        }
+
+        [data-theme="light"] .stream-live-ticker-badge {
+            background: #0f9f98 !important;
+            color: #ffffff !important;
+        }
+        [data-theme="dark"] .stream-live-ticker-badge {
+            background: var(--neon-emerald) !important;
+            color: #000000 !important;
+        }
+
+        [data-theme="light"] .stream-live-badge-vivos {
+            background: #ecfdf8 !important;
+            color: #0f9f98 !important;
+            border: 1px solid #b8e9e4 !important;
+        }
+        [data-theme="dark"] .stream-live-badge-vivos {
+            background: rgba(13,242,166,0.15) !important;
+            color: var(--neon-emerald) !important;
+            border: 1px solid rgba(13,242,166,0.4) !important;
+        }
+
+        [data-theme="light"] .stream-inner-card {
+            background: #ffffff !important;
+            border: 1px solid #e9eef5 !important;
+        }
+        [data-theme="dark"] .stream-inner-card {
+            background: rgba(6,7,10,0.85) !important;
+            border: 1px solid var(--border-subtle) !important;
+        }
+
+        [data-theme="light"] .stream-metric-pill {
+            background: #f8fafc !important;
+            border: 1px solid #e5eaf0 !important;
+        }
+        [data-theme="dark"] .stream-metric-pill {
+            background: rgba(255,255,255,0.02) !important;
+            border: 1px solid var(--border-subtle) !important;
+        }
+
+        [data-theme="light"] .stream-news-item {
+            background: #f8fafc !important;
+            border: 1px solid #e9eef5 !important;
+        }
+        [data-theme="dark"] .stream-news-item {
+            background: rgba(255,255,255,0.025) !important;
+            border: 1px solid var(--border-subtle) !important;
+        }
+        .stream-news-item:hover {
+            border-color: #b8e9e4 !important;
+        }
+
         /* Tabla de Auditoría */
         .quant-table {
             width: 100%;
@@ -1936,17 +2007,17 @@ export default {
         <!-- =========================================================
              SECCIÓN 9: ANÁLISIS EN DIRECTO (MONITOR Y NOTICIAS)
              ========================================================= -->
-        <section class="bento-card col-12" style="padding:1.4rem; margin-top:1rem; border:1px solid rgba(13,242,166,0.35); background:rgba(13,15,21,0.92); box-shadow:0 0 35px rgba(13,242,166,0.08); width:100%;">
+        <section class="bento-card col-12 stream-live-container" style="padding:1.4rem; margin-top:1rem; width:100%;">
             
             <!-- Ticker Continuo de Noticias Live -->
-            <div style="background:rgba(13,242,166,0.05); border:1px solid rgba(13,242,166,0.2); border-radius:10px; padding:8px 12px; display:flex; align-items:center; gap:12px; margin-bottom:1.2rem; overflow:hidden;">
-                <span style="background:var(--neon-emerald); color:#000; font-family:JetBrains Mono; font-size:0.68rem; font-weight:800; padding:3px 8px; border-radius:6px; flex-shrink:0; letter-spacing:0.5px; display:flex; align-items:center; gap:5px;">
-                    <span style="width:6px; height:6px; background:#000; border-radius:50%; display:inline-block; animation: pulse 1s infinite;"></span>
+            <div class="stream-live-ticker-box" style="border-radius:10px; padding:8px 12px; display:flex; align-items:center; gap:12px; margin-bottom:1.2rem; overflow:hidden;">
+                <span class="stream-live-ticker-badge" style="font-family:JetBrains Mono; font-size:0.68rem; font-weight:800; padding:3px 8px; border-radius:6px; flex-shrink:0; letter-spacing:0.5px; display:flex; align-items:center; gap:5px;">
+                    <span style="width:6px; height:6px; background:currentColor; border-radius:50%; display:inline-block; animation: pulse 1s infinite;"></span>
                     STREAM LIVE 24/7
                 </span>
                 <div style="flex:1; overflow:hidden; white-space:nowrap; position:relative;">
                     <div id="mainPageTicker" style="display:inline-block; font-size:0.78rem; color:var(--text-secondary); font-family:JetBrains Mono; animation: tickerScroll 35s linear infinite;">
-                        ⚽ <strong>Lautaro Martínez (Inter)</strong>: xG sube a 2.45 (+14.2% EV) &nbsp;&nbsp;•&nbsp;&nbsp; 🌦️ <strong>San Siro</strong>: Lluvia moderada (+15% tiro lejano) &nbsp;&nbsp;•&nbsp;&nbsp; 🚨 <strong>Mbappé</strong>: Titularidad confirmada &nbsp;&nbsp;•&nbsp;&nbsp; 📱 <strong>Bellingham (IG)</strong>: "Ready for tonight 🔥" &nbsp;&nbsp;•&nbsp;&nbsp; 📊 <strong>Bet365</strong>: Cuota ajustada a 1.94 (Desfase Quant +9.8%) &nbsp;&nbsp;•&nbsp;&nbsp; ⚽ <strong>Lautaro Martínez (Inter)</strong>: xG sube a 2.45 (+14.2% EV) &nbsp;&nbsp;•&nbsp;&nbsp; 🌦️ <strong>San Siro</strong>: Lluvia moderada (+15% tiro lejano)
+                        ⚽ <strong>Vinícius Jr. (Real Madrid)</strong>: xG sube a 2.35 (+14.2% EV) &nbsp;&nbsp;•&nbsp;&nbsp; 🌦️ <strong>Santiago Bernabéu</strong>: Despejado (+12% ritmo) &nbsp;&nbsp;•&nbsp;&nbsp; 🚨 <strong>Mbappé</strong>: Titularidad confirmada &nbsp;&nbsp;•&nbsp;&nbsp; 📱 <strong>Bellingham (IG)</strong>: "Ready for tonight 🔥" &nbsp;&nbsp;•&nbsp;&nbsp; 📊 <strong>Bet365</strong>: Cuota ajustada a 1.94 (Desfase Quant +9.8%) &nbsp;&nbsp;•&nbsp;&nbsp; ⚽ <strong>Erling Haaland (Man City)</strong>: xG sube a 2.45 (+15.8% EV) &nbsp;&nbsp;•&nbsp;&nbsp; 🌦️ <strong>Etihad Stadium</strong>: Lluvia moderada (+10% tiro lejano)
                     </div>
                 </div>
             </div>
@@ -1965,7 +2036,7 @@ export default {
                         <div style="font-size:0.62rem; color:var(--text-muted); font-weight:700;" title="Variación reciente estimada del Edge">VARIACIÓN EDGE</div>
                         <div id="liveHomeEdgeVal" style="font-family:JetBrains Mono; font-size:1.3rem; font-weight:800; color:var(--text-muted); transition:all 0.3s;">—</div>
                     </div>
-                    <span class="badge-quant" style="background:rgba(13,242,166,0.15); color:var(--neon-emerald); border:1px solid rgba(13,242,166,0.4);">
+                    <span class="badge-quant stream-live-badge-vivos">
                         DATOS VIVOS 24/7
                     </span>
                 </div>
@@ -1975,7 +2046,7 @@ export default {
             <div style="display:grid; grid-template-columns: 1.1fr 0.9fr; gap:1.2rem;" class="live-grid-responsive">
                 
                 <!-- Columna Izquierda: Gráfica Animada de Edge Moviéndose -->
-                <div style="background:rgba(6,7,10,0.85); border:1px solid var(--border-subtle); border-radius:14px; padding:1.1rem; display:flex; flex-direction:column; justify-content:space-between;">
+                <div class="stream-inner-card" style="border-radius:14px; padding:1.1rem; display:flex; flex-direction:column; justify-content:space-between;">
                     <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.6rem;">
                         <span style="font-size:0.75rem; font-weight:700; color:var(--text-secondary); display:flex; align-items:center; gap:6px;">
                             <span style="width:8px; height:8px; background:var(--neon-emerald); border-radius:50%;"></span>
@@ -1991,19 +2062,19 @@ export default {
 
                     <!-- Píldoras de Salud de Fuentes -->
                     <div style="display:grid; grid-template-columns: repeat(4, 1fr); gap:6px; margin-top:0.8rem; text-align:center;">
-                        <div style="background:rgba(255,255,255,0.02); border:1px solid var(--border-subtle); border-radius:8px; padding:6px 4px;" title="Porcentaje de completitud e integridad de datos del scraper">
+                        <div class="stream-metric-pill" style="border-radius:8px; padding:6px 4px;" title="Porcentaje de completitud e integridad de datos del scraper">
                             <div style="font-size:0.58rem; color:var(--text-muted); font-weight:600;">CALIDAD DATOS</div>
                             <div style="font-family:JetBrains Mono; font-size:0.75rem; color:var(--neon-emerald); font-weight:700;" id="hpXgVal">98.4%</div>
                         </div>
-                        <div style="background:rgba(255,255,255,0.02); border:1px solid var(--border-subtle); border-radius:8px; padding:6px 4px;" title="Ajuste contextual por precipitaciones y temperatura">
+                        <div class="stream-metric-pill" style="border-radius:8px; padding:6px 4px;" title="Ajuste contextual por precipitaciones y temperatura">
                             <div style="font-size:0.58rem; color:var(--text-muted); font-weight:600;">METEOROLOGÍA</div>
                             <div style="font-family:JetBrains Mono; font-size:0.75rem; color:var(--neon-cyan); font-weight:700;" id="hpWtrVal">+12.4% EV</div>
                         </div>
-                        <div style="background:rgba(255,255,255,0.02); border:1px solid var(--border-subtle); border-radius:8px; padding:6px 4px;" title="Verificación de bajas y onces probables">
+                        <div class="stream-metric-pill" style="border-radius:8px; padding:6px 4px;" title="Verificación de bajas y onces probables">
                             <div style="font-size:0.58rem; color:var(--text-muted); font-weight:600;">ALINEACIONES</div>
                             <div style="font-family:JetBrains Mono; font-size:0.75rem; color:var(--neon-amber); font-weight:700;" id="hpLineupVal">100% OK</div>
                         </div>
-                        <div style="background:rgba(255,255,255,0.02); border:1px solid var(--border-subtle); border-radius:8px; padding:6px 4px;" title="Información deportiva relevante recogida en directo">
+                        <div class="stream-metric-pill" style="border-radius:8px; padding:6px 4px;" title="Información deportiva relevante recogida en directo">
                             <div style="font-size:0.58rem; color:var(--text-muted); font-weight:600;">SEÑALES LIVE</div>
                             <div style="font-family:JetBrains Mono; font-size:0.75rem; color:#8b5cf6; font-weight:700;" id="hpSocialVal">Activas</div>
                         </div>
@@ -2011,7 +2082,7 @@ export default {
                 </div>
 
                 <!-- Columna Derecha: Feed vivo de Noticias, Bajas, Clima, Tweets y Goles -->
-                <div style="background:rgba(6,7,10,0.85); border:1px solid var(--border-subtle); border-radius:14px; padding:1.1rem; display:flex; flex-direction:column; height:320px; overflow:hidden;">
+                <div class="stream-inner-card" style="border-radius:14px; padding:1.1rem; display:flex; flex-direction:column; height:320px; overflow:hidden;">
                     <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.75rem; border-bottom:1px solid var(--border-subtle); padding-bottom:0.5rem;">
                         <span style="font-size:0.75rem; font-weight:800; color:var(--text-primary); text-transform:uppercase; letter-spacing:0.5px;">FLUJO DE EVENTOS &amp; NOTICIAS</span>
                         <span style="font-size:0.62rem; background:rgba(13,242,166,0.12); color:var(--neon-emerald); padding:2px 8px; border-radius:10px; font-weight:700;" id="hpFeedSpeed">28 fuentes/min</span>
@@ -2777,8 +2848,11 @@ export default {
                 container.innerHTML = '';
 
                 if (!data.partidos || !data.partidos.length) {
-                    container.innerHTML = '<div style="grid-column:1/-1; background:rgba(245,158,11,0.08); border:1px solid rgba(245,158,11,0.3); border-radius:12px; padding:1.2rem; color:#f59e0b; font-weight:600; text-align:center; font-size:0.88rem;">' +
-                        (data.advertenciaTemporal || data.warning || 'Sin combinada disponible ahora mismo. Se recalculara con la proxima captura de cuotas.') + '</div>';
+                    container.innerHTML = '<div style="grid-column:1/-1; background:var(--bg-card); border:1px solid var(--border-subtle); border-radius:14px; padding:1.5rem; text-align:center; box-shadow:var(--card-shadow);">' +
+                        '<div style="font-size:1.4rem; margin-bottom:6px;">⚽</div>' +
+                        '<div style="font-size:0.95rem; font-weight:700; color:var(--text-primary); margin-bottom:4px;">No hay oportunidades disponibles en las competiciones españolas o inglesas seleccionadas.</div>' +
+                        '<div style="font-size:0.8rem; color:var(--text-muted);">El sistema continúa analizando nuevos partidos automáticamente.</div>' +
+                        '</div>';
                     return;
                 }
 
@@ -2874,12 +2948,12 @@ export default {
         var homeChart = null;
 
         const LIVE_NEWS_POOL = [
-            { tag: '⚽ GOL EN DIRECTO', tagBg: 'rgba(13,242,166,0.15)', tagColor: '#0df2a6', title: 'Lautaro Martínez marca gol (Inter 1-0 Milan)', desc: 'xG real sube a 2.48. El Edge del mercado Over 2.5 salta +5.8%', time: 'Ahora mismo' },
-            { tag: '🌦️ CLIMA REAL', tagBg: 'rgba(0,212,255,0.15)', tagColor: '#00d4ff', title: 'Lluvia 88% sobre San Siro', desc: 'Lluvia fuerte 88%. Campo pesado: ritmo -8%, el Edge Over 2.5 corrige -0.4%', time: 'hace 1 min' },
-            { tag: '🚨 ALINEACIÓN', tagBg: 'rgba(245,158,11,0.15)', tagColor: '#f59e0b', title: 'Kylian Mbappé confirmado como titular en ataque', desc: 'Recuperado de molestias. Probabilidad de gol por partido +18.4%', time: 'hace 2 min' },
+            { tag: '⚽ GOL EN DIRECTO', tagBg: 'rgba(13,242,166,0.15)', tagColor: '#0df2a6', title: 'Vinícius Jr. marca gol (Real Madrid 1-0 Barcelona)', desc: 'xG real sube a 2.38. El Edge del mercado Over 2.5 salta +5.4%', time: 'Ahora mismo' },
+            { tag: '🌦️ CLIMA REAL', tagBg: 'rgba(0,212,255,0.15)', tagColor: '#00d4ff', title: 'Lluvia 75% sobre Etihad Stadium', desc: 'Lluvia moderada en Mánchester. Campo rápido: ritmo +6%, el Edge Over 2.5 sube +0.8%', time: 'hace 1 min' },
+            { tag: '🚨 ALINEACIÓN', tagBg: 'rgba(245,158,11,0.15)', tagColor: '#f59e0b', title: 'Kylian Mbappé confirmado como titular en el Clásico', desc: 'Recuperado de molestias. Probabilidad de gol por partido +18.4%', time: 'hace 2 min' },
             { tag: '📱 POST JUGADOR', tagBg: 'rgba(139,92,246,0.15)', tagColor: '#8b5cf6', title: 'Post de Jude Bellingham (Instagram): "Focus on tonight 💥"', desc: 'IA de Sentimiento detecta moral de equipo máxima (94.8%)', time: 'hace 3 min' },
-            { tag: '📊 BET365 ODDS', tagBg: 'rgba(0,212,255,0.15)', tagColor: '#00d4ff', title: 'Cuota Bet365 ajustada de 1.82 a 1.95', desc: 'Desfase cuantitativo aislado por el modelo con mayor valor esperado (+EV)', time: 'hace 4 min' },
-            { tag: '🧠 IA OMNIROUTE', tagBg: 'rgba(255,255,255,0.08)', tagColor: '#94a3b8', title: 'Procesados 240 artículos de prensa deportiva europea', desc: 'Tendencia estadística Over 1.5/2.5 validada al 92.1%', time: 'hace 5 min' }
+            { tag: '📊 BET365 ODDS', tagBg: 'rgba(0,212,255,0.15)', tagColor: '#00d4ff', title: 'Cuota Bet365 (Arsenal vs Chelsea) ajustada a 1.95', desc: 'Desfase cuantitativo aislado por el modelo con mayor valor esperado (+EV)', time: 'hace 4 min' },
+            { tag: '🧠 IA OMNIROUTE', tagBg: 'rgba(255,255,255,0.08)', tagColor: '#94a3b8', title: 'Procesados 240 artículos de prensa deportiva de España e Inglaterra', desc: 'Tendencia estadística Over 1.5/2.5 en LaLiga y Premier validada al 92.1%', time: 'hace 5 min' }
         ];
         var newsIdx = 0;
 
@@ -2887,6 +2961,12 @@ export default {
             var ctx = document.getElementById('homeEdgeLiveCanvas');
             if(!ctx) return;
             
+            var rootEl = (typeof document !== 'undefined' && document.documentElement) ? document.documentElement : null;
+            var isLight = rootEl ? (rootEl.getAttribute('data-theme') !== 'dark') : true;
+            var gridColor = isLight ? '#E9EEF5' : 'rgba(255, 255, 255, 0.05)';
+            var textColor = isLight ? '#667085' : '#64748b';
+            var lineColor = isLight ? '#0f9f98' : '#0df2a6';
+
             homeChart = new Chart(ctx.getContext('2d'), {
                 type: 'line',
                 data: {
@@ -2894,22 +2974,27 @@ export default {
                     datasets: [{
                         label: 'Edge +EV (%)',
                         data: edgeHistory,
-                        borderColor: '#0df2a6',
+                        borderColor: lineColor,
                         borderWidth: 3,
                         backgroundColor: (context) => {
                             const chart = context.chart;
                             const {ctx, chartArea} = chart;
                             if (!chartArea) return null;
                             const gradient = ctx.createLinearGradient(0, chartArea.top, 0, chartArea.bottom);
-                            gradient.addColorStop(0, 'rgba(13, 242, 166, 0.35)');
-                            gradient.addColorStop(1, 'rgba(13, 242, 166, 0.0)');
+                            if (isLight) {
+                                gradient.addColorStop(0, 'rgba(15, 159, 152, 0.25)');
+                                gradient.addColorStop(1, 'rgba(15, 159, 152, 0.0)');
+                            } else {
+                                gradient.addColorStop(0, 'rgba(13, 242, 166, 0.35)');
+                                gradient.addColorStop(1, 'rgba(13, 242, 166, 0.0)');
+                            }
                             return gradient;
                         },
                         fill: true,
                         tension: 0.38,
                         pointRadius: 4,
-                        pointBackgroundColor: '#0df2a6',
-                        pointBorderColor: '#06070a',
+                        pointBackgroundColor: lineColor,
+                        pointBorderColor: isLight ? '#ffffff' : '#06070a',
                         pointBorderWidth: 2
                     }]
                 },
@@ -2920,12 +3005,12 @@ export default {
                     plugins: { legend: { display: false } },
                     scales: {
                         x: {
-                            grid: { color: 'rgba(255, 255, 255, 0.05)' },
-                            ticks: { color: '#64748b', font: { family: 'JetBrains Mono', size: 10 } }
+                            grid: { color: gridColor },
+                            ticks: { color: textColor, font: { family: 'JetBrains Mono', size: 10 } }
                         },
                         y: {
-                            grid: { color: 'rgba(255, 255, 255, 0.05)' },
-                            ticks: { color: '#64748b', font: { family: 'JetBrains Mono', size: 10 }, callback: v => '+' + v + '%' },
+                            grid: { color: gridColor },
+                            ticks: { color: textColor, font: { family: 'JetBrains Mono', size: 10 }, callback: v => '+' + v + '%' },
                             min: -5,
                             max: 25
                         }
@@ -2939,8 +3024,8 @@ export default {
             if(!container) return;
 
             var el = document.createElement('div');
-            el.className = 'feed-item-enter';
-            el.style.cssText = 'background:rgba(255,255,255,0.025); border:1px solid var(--border-subtle); border-radius:10px; padding:8px 10px; display:flex; flex-direction:column; gap:3px;';
+            el.className = 'feed-item-enter stream-news-item';
+            el.style.cssText = 'border-radius:10px; padding:8px 10px; display:flex; flex-direction:column; gap:3px; transition:all 0.2s;';
             el.innerHTML = '<div style="display:flex; justify-content:space-between; align-items:center;">' +
                 '<span style="font-size:0.6rem; font-weight:800; background:' + item.tagBg + '; color:' + item.tagColor + '; padding:2px 6px; border-radius:6px;">' + item.tag + '</span>' +
                 '<span style="font-size:0.62rem; color:var(--text-muted); font-family:JetBrains Mono;">'  + item.time + '</span>' +
