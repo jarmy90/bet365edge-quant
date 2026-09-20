@@ -1038,12 +1038,12 @@ export default {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>BET365EDGE Quant | Análisis estadístico de apuestas de fútbol</title>
-    <meta name="description" content="Bot de análisis 24/7 para detectar posibles oportunidades estadísticas en mercados de más de 1,5 y 2,5 goles.">
-    <meta property="og:title" content="BET365EDGE Quant | Análisis estadístico de apuestas de fútbol">
-    <meta property="og:description" content="Bot de análisis 24/7 para detectar posibles oportunidades estadísticas en mercados de más de 1,5 y 2,5 goles.">
-    <meta name="twitter:title" content="BET365EDGE Quant | Análisis estadístico de apuestas de fútbol">
-    <meta name="twitter:description" content="Bot de análisis 24/7 para detectar posibles oportunidades estadísticas en mercados de más de 1,5 y 2,5 goles.">
+    <title>EDGE.FUTBOL Quant | Análisis cuantitativo y apuestas +EV / Soccer Value Betting Engine</title>
+    <meta name="description" content="Motor cuantitativo 24/7 para detectar oportunidades con ventaja (+EV) en partidos de fútbol. Real-time quant engine for soccer value betting.">
+    <meta property="og:title" content="EDGE.FUTBOL Quant | Soccer Value Betting & +EV Engine">
+    <meta property="og:description" content="Motor cuantitativo 24/7 para detectar oportunidades con ventaja (+EV) en partidos de fútbol. Real-time quant engine for soccer value betting.">
+    <meta name="twitter:title" content="EDGE.FUTBOL Quant | Soccer Value Betting & +EV Engine">
+    <meta name="twitter:description" content="Motor cuantitativo 24/7 para detectar oportunidades con ventaja (+EV) en partidos de fútbol. Real-time quant engine for soccer value betting.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -1912,7 +1912,7 @@ export default {
                         <polyline points="16 7 22 7 22 13"></polyline>
                     </svg>
                 </div>
-                <div class="brand-title">BET365EDGE <span class="brand-badge">QUANT +EV</span></div>
+                <div class="brand-title" style="font-weight:800; font-family:'JetBrains Mono', monospace; font-size:1.1rem; letter-spacing:-0.4px;">EDGE<span style="color:var(--neon-emerald)">.FUTBOL</span> <span class="brand-badge">QUANT +EV</span></div>
             </a>
             <div class="nav-actions" style="display:flex; align-items:center; gap:10px;">
                 <span class="status-badge">
@@ -1921,6 +1921,9 @@ export default {
                 </span>
                 <button id="btnNavLogin" onclick="openEmailLoginModal()" style="background:none; border:none; color:var(--text-secondary); font-size:0.82rem; font-weight:600; cursor:pointer; text-decoration:underline; text-underline-offset:3px;">¿Ya eres cliente?</button>
                 <button id="btnNavUpgrade" class="btn-ghost" onclick="scrollToProximosPartidos()">Ver oportunidades de hoy</button>
+                <button class="theme-toggle" id="langToggleBtn" onclick="toggleLanguage()" title="Switch Language / Cambiar Idioma" aria-label="Cambiar idioma" style="display:flex; align-items:center; gap:4px; font-weight:700; font-size:0.75rem; padding:0 8px; font-family:'JetBrains Mono', monospace; background:var(--bg-surface); border:1px solid var(--border-subtle); color:var(--text-primary); border-radius:8px; cursor:pointer; height:34px;">
+                    <span id="langFlag">🇪🇸</span> <span id="langCode">ES</span>
+                </button>
                 <button class="theme-toggle" id="themeToggleBtn" onclick="toggleTheme()" title="Cambiar tema claro/oscuro" aria-label="Cambiar tema">
                     <svg id="iconSun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" display="block"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
                     <svg id="iconMoon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" display="none"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
@@ -2409,6 +2412,159 @@ export default {
 
 
     <script>
+        // =========================================================
+        // INTERNACIONALIZACIÓN (i18n: ES / EN)
+        // =========================================================
+        const I18N_DICT = {
+            es: {
+                navStatus: "Suscripción: Inactiva",
+                navLogin: "¿Ya eres cliente?",
+                navUpgrade: "Ver oportunidades de hoy",
+                heroPill: "BOT ACTIVO 24/7 · ANÁLISIS DE FÚTBOL EN TIEMPO REAL",
+                heroTitle: 'Encuentra apuestas de fútbol <br><span class="gradient-text">con ventaja estadística</span>',
+                heroDesc: 'Nuestro bot analiza continuamente partidos, estadísticas, jugadores, lesiones, meteorología y cuotas para detectar oportunidades en los mercados de más de 1,5 y 2,5 goles.',
+                btnMainEdgeText: "Ver oportunidades de hoy",
+                gateSubtext: "Partidos analizados hoy · Datos actualizados continuamente",
+                disclaimer: "Las oportunidades son estimaciones estadísticas y no garantizan resultados.",
+                howTitle: "Cómo funciona nuestro bot",
+                howStep1Title: "Recopila datos 24/7",
+                howStep1Desc: "Partidos, estadísticas, bajas, noticias, meteo y cuotas.",
+                howStep2Title: "Analiza el contexto",
+                howStep2Desc: "Forma reciente, xG, localía, tendencias y alineaciones.",
+                howStep3Title: "Calcula la cuota justa",
+                howStep3Desc: "Estima probabilidad para +1,5 y +2,5 goles.",
+                howStep4Title: "Detecta la ventaja",
+                howStep4Desc: "Compara cuota justa vs disponible y calcula el valor esperado.",
+                analyzesLabel: "Analiza:",
+                streamTitle: "Análisis en directo",
+                streamSubtitle: "El sistema actualiza estadísticas, cuotas y contexto deportivo para reevaluar las oportunidades disponibles.",
+                oppsTitle: "Oportunidades destacadas de hoy",
+                oppsSubtitle: "Partidos donde la cuota disponible en casas oficiales supera significativamente la cuota justa calculada por el modelo.",
+                parlaysTitle: "Combinadas por nivel de riesgo",
+                parlaysSubtitle: "Selección automática de combinadas recomendadas según el margen de seguridad y perfil de riesgo.",
+                tableTitle: "Próximos partidos analizados",
+                tableSubtitle: "Mostrando partidos auditados de grandes ligas (España e Inglaterra).",
+                thTime: "Hora",
+                thMatch: "Partido",
+                thLeague: "Liga",
+                thMarket: "Mercado",
+                thFairOdds: "Cuota justa",
+                thBookieOdds: "Cuota",
+                thEv: "Ventaja EV",
+                thProb: "Prob. Est.",
+                thActions: "Análisis"
+            },
+            en: {
+                navStatus: "Subscription: Inactive",
+                navLogin: "Already a member?",
+                navUpgrade: "View today's value picks",
+                heroPill: "BOT ACTIVE 24/7 · REAL-TIME SOCCER QUANT ENGINE",
+                heroTitle: 'Find soccer value bets <br><span class="gradient-text">with statistical edge</span>',
+                heroDesc: 'Our quant engine continuously evaluates matches, statistics, team news, weather, and odds to spot value opportunities (+EV) in Over 1.5 & Over 2.5 goals markets.',
+                btnMainEdgeText: "View today's value picks",
+                gateSubtext: "Matches analyzed today · Continuously updated data",
+                disclaimer: "Opportunities are statistical estimates and do not guarantee profits.",
+                howTitle: "How our quant engine works",
+                howStep1Title: "Collects 24/7 Data",
+                howStep1Desc: "Matches, form, news, weather, and live odds.",
+                howStep2Title: "Analyzes Context",
+                howStep2Desc: "Recent form, xG, home/away split, trends, and lineups.",
+                howStep3Title: "Calculates Fair Odds",
+                howStep3Desc: "Estimates true probability for Over 1.5 & 2.5 goals.",
+                howStep4Title: "Detects +EV Edge",
+                howStep4Desc: "Compares model fair odds vs bookmaker odds to compute EV.",
+                analyzesLabel: "Analyzes:",
+                streamTitle: "Live Stream Monitor",
+                streamSubtitle: "Real-time updates of statistics, odds movements, and sporting context.",
+                oppsTitle: "Today's Top Value Opportunities",
+                oppsSubtitle: "Matches where bookmaker odds significantly exceed the model's calculated fair odds.",
+                parlaysTitle: "Risk-Adjusted Accumulators / Parlays",
+                parlaysSubtitle: "Automated selection of recommended parlays based on risk profiles and safety margins.",
+                tableTitle: "Upcoming Analyzed Matches",
+                tableSubtitle: "Exclusively displaying top audited European league matches (Spain & England).",
+                thTime: "Time",
+                thMatch: "Match",
+                thLeague: "League",
+                thMarket: "Market",
+                thFairOdds: "Fair Odds",
+                thBookieOdds: "Odds",
+                thEv: "EV Edge",
+                thProb: "Est. Prob.",
+                thActions: "Analysis"
+            }
+        };
+
+        function getCurrentLang() {
+            var stored = localStorage.getItem('edge_lang');
+            if (stored === 'es' || stored === 'en') return stored;
+            var sysLang = (navigator.language || navigator.userLanguage || '').toLowerCase();
+            return sysLang.startsWith('es') ? 'es' : 'en';
+        }
+
+        function toggleLanguage() {
+            var curr = getCurrentLang();
+            var next = curr === 'es' ? 'en' : 'es';
+            localStorage.setItem('edge_lang', next);
+            applyLanguage(next);
+        }
+
+        function applyLanguage(lang) {
+            var dict = I18N_DICT[lang] || I18N_DICT.es;
+            
+            var flagEl = document.getElementById('langFlag');
+            var codeEl = document.getElementById('langCode');
+            if (flagEl) flagEl.textContent = lang === 'es' ? '🇪🇸' : '🇬🇧';
+            if (codeEl) codeEl.textContent = lang.toUpperCase();
+
+            if (document.documentElement && document.documentElement.setAttribute) {
+                document.documentElement.setAttribute('lang', lang);
+            }
+
+            var navStatusTxt = document.getElementById('navStatusTxt');
+            if (navStatusTxt) {
+                var txt = navStatusTxt.innerText || navStatusTxt.textContent || '';
+                if (txt.includes('Suscripción') || txt.includes('Subscription') || !txt) {
+                    navStatusTxt.textContent = dict.navStatus;
+                }
+            }
+
+            var btnNavLogin = document.getElementById('btnNavLogin');
+            if (btnNavLogin) {
+                var txtL = btnNavLogin.innerText || btnNavLogin.textContent || '';
+                if (txtL.includes('cliente') || txtL.includes('member') || !txtL) {
+                    btnNavLogin.textContent = dict.navLogin;
+                }
+            }
+
+            var btnNavUpgrade = document.getElementById('btnNavUpgrade');
+            if (btnNavUpgrade) btnNavUpgrade.textContent = dict.navUpgrade;
+
+            var heroPillSpan = document.querySelector('.hero-pill span:last-child');
+            if (heroPillSpan) heroPillSpan.textContent = dict.heroPill;
+
+            var heroH1 = document.querySelector('.hero-h1');
+            if (heroH1) heroH1.innerHTML = dict.heroTitle;
+
+            var heroDesc = document.querySelector('.hero-desc');
+            if (heroDesc) heroDesc.textContent = dict.heroDesc;
+
+            var btnMainEdgeText = document.getElementById('btnMainEdgeText');
+            if (btnMainEdgeText) btnMainEdgeText.textContent = dict.btnMainEdgeText;
+
+            var howStepsGrid = document.querySelector('.how-steps-grid');
+            if (howStepsGrid && howStepsGrid.parentElement) {
+                var h2 = howStepsGrid.parentElement.querySelector('h2');
+                if (h2) h2.textContent = dict.howTitle;
+            }
+        }
+
+        // Auto-inicializar idioma en cuanto el DOM este listo
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', function() { applyLanguage(getCurrentLang()); });
+        } else {
+            setTimeout(function() { applyLanguage(getCurrentLang()); }, 50);
+        }
+
         // =========================================================
         // TOGGLE TEMA CLARO / OSCURO
         // =========================================================
