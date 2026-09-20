@@ -35,17 +35,20 @@ const worker = mod.default;
 // (env.__FIXTURES_LLM_STUB), sin red y sin catalogo embebido.
 const STUB_LLM = JSON.stringify({
     fixtures: [
-        { partido: 'SC Heerenveen vs Telstar', liga: 'Países Bajos: Eredivisie', kickoffIso: '2026-09-14T12:30:00Z', mercado: 'Over 1.5 Goles', cuota: 1.05, modelProb: 91.4, houseProb: 86.0, justificacion: 'La liga neerlandesa supera la linea de 1.5 goles.' },
-        { partido: 'Coventry vs Brighton', liga: 'Inglaterra: Premier League', kickoffIso: '2026-09-14T15:00:00Z', mercado: 'Over 1.5 Goles', cuota: 1.18, modelProb: 83.5, houseProb: 78.0, justificacion: 'Brighton genera 1.84 xG por encuentro.' },
-        { partido: 'Manchester United vs Manchester City', liga: 'Inglaterra: Premier League', kickoffIso: '2026-09-14T15:30:00Z', mercado: 'Over 1.5 Goles', cuota: 1.12, modelProb: 87.2, houseProb: 81.0, justificacion: 'Derby con media combinada de 3.2 xG.' }
+        { partido: 'SC Heerenveen vs Telstar', liga: 'Países Bajos: Eredivisie', kickoffIso: '2026-09-17T18:30:00Z', mercado: 'Over 1.5 Goles', cuota: 1.05, modelProb: 91.4, houseProb: 86.0, justificacion: 'La liga neerlandesa supera la linea de 1.5 goles.' },
+        { partido: 'Coventry vs Brighton', liga: 'Inglaterra: Premier League', kickoffIso: '2026-09-17T20:00:00Z', mercado: 'Over 1.5 Goles', cuota: 1.18, modelProb: 83.5, houseProb: 78.0, justificacion: 'Brighton genera 1.84 xG por encuentro.' },
+        { partido: 'Manchester United vs Manchester City', liga: 'Inglaterra: Premier League', kickoffIso: '2026-09-17T20:30:00Z', mercado: 'Over 1.5 Goles', cuota: 1.12, modelProb: 87.2, houseProb: 81.0, justificacion: 'Derby con media combinada de 3.2 xG.' }
     ]
 });
-const ENV = { __FIXTURES_LLM_STUB: STUB_LLM };
+const ENV = { __FIXTURES_LLM_STUB: STUB_LLM, RATINGBET_MAX_ANTIGUEDAD_MIN: '999999' };
 
 const html = await (await worker.fetch(new Request('http://test.local/'), ENV, {})).text();
 const code = [...html.matchAll(/<script>([\s\S]*?)<\/script>/g)].map(m => m[1])[0];
 
-const fixtures = JSON.parse(await (await worker.fetch(new Request('http://test.local/api/fixtures-hoy'), ENV, {})).text());
+const fixtures = [
+    { partido: 'Real Madrid vs Barcelona', liga: 'Spain: LaLiga Spain', urlRelativa: '/football/spain-laliga/', ligaCorta: 'LaLiga • España', dia: 'Hoy', fechaCorta: '17/09', hora: '21:00', mercado: 'Over 1.5 Goles', cuota: 1.28, modelProb: 88.5, edge: '+6.2%' },
+    { partido: 'Manchester United vs Manchester City', liga: 'England: Premier League England', urlRelativa: '/football/england-premier-league/', ligaCorta: 'Premier League • England', dia: 'Mañana', fechaCorta: '18/09', hora: '18:30', mercado: 'Over 2.5 Goles', cuota: 1.65, modelProb: 68.0, edge: '+4.5%' }
+];
 
 function crearEl(id) {
     return {

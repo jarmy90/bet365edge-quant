@@ -1060,23 +1060,23 @@ export default {
            SISTEMA DE TOKENS DUAL: LIGHT (default) / DARK
            ===================================================================== */
         :root, [data-theme="light"] {
-            --bg-void: #f8fafc;
+            --bg-void: #f7f9fc;
             --bg-surface: #ffffff;
-            --bg-card: rgba(255,255,255,0.95);
-            --border-subtle: rgba(0,0,0,0.08);
-            --border-highlight: rgba(13,148,136,0.4);
+            --bg-card: #ffffff;
+            --border-subtle: #e5eaf0;
+            --border-highlight: #0d9488;
             --neon-emerald: #0d9488;
-            --emerald-glow: rgba(13,148,136,0.18);
+            --emerald-glow: rgba(13, 148, 136, 0.15);
             --neon-cyan: #0284c7;
             --neon-amber: #d97706;
-            --text-primary: #0f172a;
-            --text-secondary: #475569;
-            --text-muted: #94a3b8;
-            --card-shadow: 0 2px 12px rgba(0,0,0,0.07), 0 1px 3px rgba(0,0,0,0.04);
-            --ambient-bg: rgba(13,148,136,0.04);
-            --grid-line: rgba(0,0,0,0.015);
-            --chart-grid: rgba(0,0,0,0.06);
-            --chart-text: #64748b;
+            --text-primary: #101828;
+            --text-secondary: #475467;
+            --text-muted: #667085;
+            --card-shadow: 0 2px 10px rgba(16, 24, 40, 0.06), 0 1px 3px rgba(16, 24, 40, 0.04);
+            --ambient-bg: rgba(13, 148, 136, 0.03);
+            --grid-line: rgba(0, 0, 0, 0.012);
+            --chart-grid: #e2e8f0;
+            --chart-text: #475467;
         }
         [data-theme="dark"] {
             --bg-void: #06070a;
@@ -1213,7 +1213,7 @@ export default {
         .brand-icon svg {
             width: 18px;
             height: 18px;
-            color: #06070a;
+            color: #ffffff;
             stroke-width: 2.5;
         }
 
@@ -1232,8 +1232,8 @@ export default {
             font-size: 0.65rem;
             font-weight: 700;
             color: var(--neon-emerald);
-            background: rgba(13, 242, 166, 0.1);
-            border: 1px solid rgba(13, 242, 166, 0.25);
+            background: rgba(13, 148, 136, 0.1);
+            border: 1px solid rgba(13, 148, 136, 0.25);
             padding: 2px 7px;
             border-radius: 6px;
         }
@@ -1253,7 +1253,7 @@ export default {
             font-family: 'JetBrains Mono', monospace;
             font-size: 0.72rem;
             font-weight: 700;
-            background: rgba(255, 255, 255, 0.04);
+            background: rgba(128, 128, 128, 0.05);
             border: 1px solid var(--border-subtle);
             color: var(--text-secondary);
         }
@@ -1287,8 +1287,8 @@ export default {
             gap: 8px;
             padding: 5px 14px;
             border-radius: 999px;
-            background: rgba(13, 242, 166, 0.08);
-            border: 1px solid rgba(13, 242, 166, 0.22);
+            background: rgba(13, 148, 136, 0.08);
+            border: 1px solid rgba(13, 148, 136, 0.22);
             margin-bottom: 1.2rem;
         }
 
@@ -1307,10 +1307,16 @@ export default {
             letter-spacing: -1.2px;
             margin-bottom: 0.85rem;
             max-width: 820px;
+            color: var(--text-primary);
         }
 
-        .hero-h1 .gradient-text {
-            background: linear-gradient(135deg, #ffffff 40%, var(--neon-emerald) 85%, var(--neon-cyan) 100%);
+        [data-theme="light"] .hero-h1 .gradient-text {
+            background: linear-gradient(135deg, #0d9488 0%, #0284c7 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        [data-theme="dark"] .hero-h1 .gradient-text {
+            background: linear-gradient(135deg, #0df2a6 0%, #00d4ff 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
@@ -1323,9 +1329,7 @@ export default {
             margin-bottom: 2rem;
         }
 
-        /* =========================================================================
-           BOTÓN PRINCIPAL: APUESTAS DE HOY CON EDGE (SIN PRECIO VISIBLE)
-           ========================================================================= */
+        /* Botón Principal */
         .cta-wrapper {
             display: flex;
             flex-direction: column;
@@ -1338,15 +1342,15 @@ export default {
         .btn-edge-primary {
             width: 100%;
             position: relative;
-            background: linear-gradient(135deg, #0df2a6, #00d4ff);
-            color: #06070a;
+            background: linear-gradient(135deg, #0d9488, #0284c7);
+            color: #ffffff;
             font-size: 1.2rem;
             font-weight: 800;
             padding: 1.2rem 2rem;
             border: none;
             border-radius: 18px;
             cursor: pointer;
-            box-shadow: 0 0 40px rgba(13, 242, 166, 0.35);
+            box-shadow: 0 4px 20px rgba(13, 148, 136, 0.3);
             transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
             display: flex;
             align-items: center;
@@ -1354,17 +1358,21 @@ export default {
             gap: 12px;
             letter-spacing: -0.3px;
         }
+        [data-theme="dark"] .btn-edge-primary {
+            background: linear-gradient(135deg, #0df2a6, #00d4ff);
+            color: #06070a;
+            box-shadow: 0 0 40px rgba(13, 242, 166, 0.35);
+        }
         .btn-edge-primary:hover {
             transform: translateY(-2px) scale(1.01);
-            box-shadow: 0 0 55px rgba(13, 242, 166, 0.55);
         }
         .btn-edge-primary:active {
             transform: translateY(0);
         }
 
         .lock-indicator {
-            background: rgba(6, 7, 10, 0.85);
-            color: var(--neon-emerald);
+            background: rgba(0, 0, 0, 0.15);
+            color: #ffffff;
             padding: 4px 10px;
             border-radius: 8px;
             display: inline-flex;
@@ -1381,11 +1389,9 @@ export default {
         }
         .gate-subtext svg { color: var(--neon-emerald); width: 14px; height: 14px; }
 
-        /* =========================================================================
-           SISTEMA DE FILTRADO Y GENERACIÓN POR RIESGO (Bajo / Medio / Alto)
-           ========================================================================= */
+        /* Filtro por Rango de Cuotas */
         .risk-selector-box {
-            background: rgba(13, 15, 21, 0.7);
+            background: var(--bg-surface);
             border: 1px solid var(--border-subtle);
             border-radius: 16px;
             padding: 1rem 1.25rem;
@@ -1393,6 +1399,7 @@ export default {
             flex-direction: column;
             gap: 10px;
             margin-top: 1rem;
+            box-shadow: var(--card-shadow);
         }
 
         .risk-selector-header {
@@ -1410,7 +1417,7 @@ export default {
         }
 
         .risk-btn {
-            background: rgba(255, 255, 255, 0.03);
+            background: var(--bg-void);
             border: 1px solid var(--border-subtle);
             border-radius: 12px;
             padding: 10px 8px;
@@ -1426,13 +1433,21 @@ export default {
         }
         .risk-btn span { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; font-weight: 500; color: var(--text-muted); }
 
-        .risk-btn.active {
+        [data-theme="light"] .risk-btn.active {
+            background: #ccfbf1;
+            border-color: #0d9488;
+            color: #0f766e;
+            box-shadow: 0 1px 3px rgba(13, 148, 136, 0.15);
+        }
+        [data-theme="light"] .risk-btn.active span { color: #0f766e; font-weight: 700; }
+
+        [data-theme="dark"] .risk-btn.active {
             background: rgba(13, 242, 166, 0.12);
             border-color: var(--neon-emerald);
             color: var(--neon-emerald);
             box-shadow: 0 0 20px rgba(13, 242, 166, 0.15);
         }
-        .risk-btn.active span { color: var(--neon-emerald); font-weight: 700; }
+        [data-theme="dark"] .risk-btn.active span { color: var(--neon-emerald); font-weight: 700; }
 
         /* Bento Grid Architecture */
         .bento-grid {
@@ -1447,8 +1462,6 @@ export default {
             border: 1px solid var(--border-subtle);
             border-radius: 18px;
             padding: 1.25rem;
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
             transition: border-color 0.25s ease, box-shadow 0.25s ease;
             display: flex;
             flex-direction: column;
@@ -1474,7 +1487,6 @@ export default {
             .hero-h1 { font-size: 1.55rem !important; line-height: 1.3 !important; }
             body { padding: 0.75rem 0.5rem 3rem 0.5rem !important; }
         }
-
 
         .card-header {
             display: flex;
@@ -1510,7 +1522,7 @@ export default {
             font-weight: 700;
             padding: 4px 9px;
             border-radius: 6px;
-            background: rgba(255,255,255,0.04);
+            background: rgba(128,128,128,0.06);
             border: 1px solid var(--border-subtle);
             color: var(--text-secondary);
         }
@@ -1547,12 +1559,20 @@ export default {
             border-radius: 50%;
         }
 
-        /* SECCIÓN DESBLOQUEADA DE APUESTAS CON EDGE */
+        /* SECCIÓN OPORTUNIDADES DETECTADAS (CON VENTAJAS POSITIVAS) */
         #unlockedEdgeSection {
             display: none;
-            background: radial-gradient(ellipse at top, rgba(13, 242, 166, 0.08), rgba(13, 15, 21, 0.95));
-            border: 1px solid var(--border-highlight);
-            box-shadow: 0 0 40px rgba(13, 242, 166, 0.12);
+        }
+
+        [data-theme="light"] #unlockedEdgeSection {
+            background: #ffffff !important;
+            border: 1.5px solid #99f6e4 !important;
+            box-shadow: 0 4px 20px rgba(13, 148, 136, 0.08) !important;
+        }
+        [data-theme="dark"] #unlockedEdgeSection {
+            background: radial-gradient(ellipse at top, rgba(13, 242, 166, 0.08), rgba(13, 15, 21, 0.95)) !important;
+            border: 1px solid var(--border-highlight) !important;
+            box-shadow: 0 0 40px rgba(13, 242, 166, 0.12) !important;
         }
 
         .bets-grid {
@@ -1563,10 +1583,17 @@ export default {
         }
 
         .bet-card {
-            background: rgba(6, 7, 10, 0.6);
-            border: 1px solid var(--border-subtle);
             border-radius: 14px;
             padding: 1.15rem;
+            box-shadow: var(--card-shadow);
+        }
+        [data-theme="light"] .bet-card {
+            background: #ffffff !important;
+            border: 1px solid #e2e8f0 !important;
+        }
+        [data-theme="dark"] .bet-card {
+            background: rgba(6, 7, 10, 0.6) !important;
+            border: 1px solid var(--border-subtle) !important;
         }
 
         .bet-card-top {
@@ -1589,23 +1616,49 @@ export default {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.04);
             padding: 6px 10px;
             border-radius: 8px;
             margin-bottom: 10px;
             font-size: 0.85rem;
             font-weight: 700;
         }
+        [data-theme="light"] .bet-odds-row {
+            background: #f8fafc !important;
+            border: 1px solid #e2e8f0 !important;
+            color: #101828 !important;
+        }
+        [data-theme="dark"] .bet-odds-row {
+            background: rgba(255, 255, 255, 0.03) !important;
+            border: 1px solid rgba(255, 255, 255, 0.04) !important;
+            color: var(--text-primary) !important;
+        }
 
         .bet-reason {
-            font-size: 0.78rem;
-            color: #cbd5e1;
-            line-height: 1.45;
-            background: rgba(13, 242, 166, 0.04);
-            border-left: 2.5px solid var(--neon-emerald);
-            padding: 8px 10px;
             border-radius: 6px;
+            padding: 8px 10px;
+        }
+        [data-theme="light"] .bet-reason {
+            color: #334155 !important;
+            background: #f0fdf4 !important;
+            border-left: 3px solid #0d9488 !important;
+            font-size: 0.85rem !important;
+            line-height: 1.5 !important;
+        }
+        [data-theme="dark"] .bet-reason {
+            color: #cbd5e1 !important;
+            background: rgba(13, 242, 166, 0.04) !important;
+            border-left: 2.5px solid var(--neon-emerald) !important;
+            font-size: 0.78rem !important;
+            line-height: 1.45 !important;
+        }
+
+        [data-theme="light"] .unlocked-summary-box {
+            background: #f8fafc !important;
+            border: 1px solid #e2e8f0 !important;
+        }
+        [data-theme="dark"] .unlocked-summary-box {
+            background: rgba(6,7,10,0.8) !important;
+            border: 1px solid var(--border-subtle) !important;
         }
 
         /* Tabla de Auditoría */
@@ -1617,16 +1670,65 @@ export default {
         }
         .quant-table th {
             padding: 10px 12px;
-            font-size: 0.7rem;
+            font-size: 0.72rem;
             font-weight: 700;
             color: var(--text-muted);
             text-transform: uppercase;
             letter-spacing: 0.5px;
             border-bottom: 1px solid var(--border-subtle);
+            background: var(--bg-void);
         }
         .quant-table td {
             padding: 12px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+            border-bottom: 1px solid var(--border-subtle);
+        }
+        .quant-table tr:hover td {
+            background: rgba(128, 128, 128, 0.03);
+        }
+
+        /* Responsive Mobile Table Cards */
+        @media (max-width: 640px) {
+            .quant-table, .quant-table thead, .quant-table tbody, .quant-table th, .quant-table td, .quant-table tr {
+                display: block;
+            }
+            .quant-table thead tr {
+                position: absolute;
+                top: -9999px;
+                left: -9999px;
+            }
+            .quant-table tr {
+                background: var(--bg-surface);
+                border: 1px solid var(--border-subtle);
+                border-radius: 12px;
+                margin-bottom: 10px;
+                padding: 10px 12px;
+                box-shadow: var(--card-shadow);
+            }
+            .quant-table td {
+                border-bottom: none !important;
+                padding: 6px 0 !important;
+                display: flex !important;
+                justify-content: space-between !important;
+                align-items: center !important;
+                font-size: 0.82rem !important;
+            }
+            .quant-table td:first-child {
+                flex-direction: column !important;
+                align-items: flex-start !important;
+                border-bottom: 1px solid var(--border-subtle) !important;
+                padding-bottom: 8px !important;
+                margin-bottom: 4px !important;
+            }
+            .quant-table td::before {
+                content: attr(data-label);
+                font-size: 0.7rem;
+                font-weight: 700;
+                color: var(--text-muted);
+                text-transform: uppercase;
+            }
+            .quant-table td:first-child::before {
+                display: none;
+            }
         }
         .quant-table tr:hover td {
             background: rgba(255, 255, 255, 0.02);
@@ -1970,7 +2072,7 @@ export default {
                 </div>
             </div>
 
-            <div style="display:grid; grid-template-columns:repeat(3, 1fr); gap:8px; background:rgba(6,7,10,0.8); border:1px solid var(--border-subtle); border-radius:12px; padding:1rem; text-align:center; margin-top:1rem;">
+            <div class="unlocked-summary-box" style="display:grid; grid-template-columns:repeat(3, 1fr); gap:8px; border-radius:12px; padding:1rem; text-align:center; margin-top:1rem;">
                 <div>
                     <label id="labelProbReal" style="display:block; font-size:0.68rem; color:var(--text-muted); font-weight:600; margin-bottom:2px;">PROB. COMBINADA</label>
                     <strong id="metricProbReal" style="font-family:JetBrains Mono; font-size:1.15rem; color:var(--neon-cyan);">—</strong>
@@ -2960,17 +3062,33 @@ export default {
         }
         function esLigaTopPermitidaCliente(f) {
             if (!f) return false;
-            var liga = String(f.liga || f.league || '').toLowerCase();
+            var liga = String(f.liga || f.league || f.ligaCorta || '').toLowerCase();
             var url = String(f.urlRelativa || f.ligaUrl || f.url || '').toLowerCase();
-            var esLaLiga = liga.includes('laliga') || liga.includes('la liga') || url.includes('spain-laliga') || url.includes('laliga');
-            var esPremier = liga.includes('premier league') || url.includes('england-premier-league') || url.includes('premier-league');
-            if (esLaLiga) {
-                return (liga.includes('spain') || url.includes('spain') || liga.includes('españa') || liga.includes('laliga')) &&
-                    !liga.includes('segunda') && !liga.includes('rfef') && !liga.includes('liga f');
+            var pais = String(f.pais || f.country || '').toLowerCase();
+            var combined = (liga + ' ' + url + ' ' + pais).toLowerCase();
+
+            // Exclusiones explícitas primero
+            var exclusiones = [
+                'friendly', 'amistoso', 'reserve', 'reserves', 'juventud', 'youth', 'u21', 'u19', 'u23', 'femenino', 'women',
+                'argentina', 'colombia', 'guatemala', 'honduras', 'mexico', 'méxico', 'russia', 'rusia',
+                'belgium', 'bélgica', 'estonia', 'romania', 'rumanía', 'slovakia', 'eslovaquia',
+                'ukraine', 'ucrania', 'norway', 'noruega', 'bulgaria', 'denmark', 'dinamarca', 'georgia',
+                'germany', 'alemania', 'italy', 'italia', 'france', 'francia', 'portugal', 'netherlands', 'holanda'
+            ];
+            for (var i = 0; i < exclusiones.length; i++) {
+                if (combined.includes(exclusiones[i])) return false;
             }
-            if (esPremier) {
-                return (liga.includes('england') || url.includes('england') || liga.includes('inglaterra') || liga.includes('premier')) &&
-                    !liga.includes('league one') && !liga.includes('league two') && !liga.includes('championship');
+
+            // Competiciones Españolas permitidas (LaLiga, LaLiga EA Sports, Primera División, Hypermotion, Segunda División, Copa del Rey)
+            var esEspana = combined.includes('spain') || combined.includes('españa') || combined.includes('es');
+            var esLaLiga = combined.includes('laliga') || combined.includes('la liga') || combined.includes('primera division') || combined.includes('primera división') || combined.includes('hypermotion') || combined.includes('segunda division') || combined.includes('segunda división') || combined.includes('copa del rey');
+
+            // Competiciones Inglesas permitidas (Premier League, English Premier League, Championship, EFL Championship, FA Cup, EFL Cup, Carabao Cup)
+            var esInglaterra = combined.includes('england') || combined.includes('inglaterra') || combined.includes('gb-eng');
+            var esPremier = combined.includes('premier league') || combined.includes('premier') || combined.includes('championship') || combined.includes('fa cup') || combined.includes('efl cup') || combined.includes('carabao cup');
+
+            if ((esEspana && esLaLiga) || (esInglaterra && esPremier)) {
+                return true;
             }
             return false;
         }
@@ -2979,30 +3097,50 @@ export default {
             var body = document.getElementById('heroFixtureBody');
             var cardsContainer = document.getElementById('proximosPartidosCardsContainer');
 
-            if (!fixtures || fixtures.length === 0) {
-                if (body) body.innerHTML = '<tr><td colspan="6" style="text-align:center; padding:18px; color:#f87171; font-weight:700; font-size:0.82rem;">No hay próximos partidos disponibles con datos completos para estos mercados. El sistema continuará analizando nuevas oportunidades.</td></tr>';
-                if (cardsContainer) cardsContainer.innerHTML = '<div style="text-align:center; padding:2rem; color:var(--text-secondary); font-size:0.9rem; background:rgba(6,7,10,0.6); border-radius:12px; border:1px solid var(--border-subtle);">No hay próximos partidos disponibles con datos completos para estos mercados. El sistema continuará analizando nuevas oportunidades.</div>';
+            var pool = Array.isArray(fixtures) ? fixtures : (fixtures && Array.isArray(fixtures.fixtures) ? fixtures.fixtures : []);
+            var validos = pool.filter(esLigaTopPermitidaCliente);
+
+            // Ordenar por fecha y hora ascendente
+            validos.sort(function (a, b) {
+                var tA = a.kickoffMs || a.timestamp || 0;
+                var tB = b.kickoffMs || b.timestamp || 0;
+                return tA - tB;
+            });
+
+            // Máximo 10 partidos en la tabla final (NO fallback a otros países)
+            var final10 = validos.slice(0, 10);
+
+            if (!final10 || final10.length === 0) {
+                var emptyHtml = '<tr><td colspan="6" style="text-align:center; padding:2rem 1rem;">' +
+                    '<div style="font-size:1.5rem; margin-bottom:8px;">⚽</div>' +
+                    '<div style="font-size:0.92rem; font-weight:700; color:var(--text-primary); margin-bottom:4px;">No hay partidos disponibles de las competiciones españolas o inglesas seleccionadas para hoy o mañana.</div>' +
+                    '<div style="font-size:0.8rem; color:var(--text-muted); margin-bottom:12px;">El sistema seguirá comprobando nuevas oportunidades automáticamente.</div>' +
+                    '</td></tr>';
+                if (body) body.innerHTML = emptyHtml;
+                if (cardsContainer) cardsContainer.innerHTML = '<div style="text-align:center; padding:2rem 1rem; color:var(--text-secondary); font-size:0.9rem; background:var(--bg-card); border-radius:12px; border:1px solid var(--border-subtle);">' +
+                    '<div style="font-size:1.5rem; margin-bottom:8px;">⚽</div>' +
+                    '<div style="font-size:0.92rem; font-weight:700; color:var(--text-primary); margin-bottom:4px;">No hay partidos disponibles de las competiciones españolas o inglesas seleccionadas para hoy o mañana.</div>' +
+                    '<div style="font-size:0.8rem; color:var(--text-muted);">El sistema seguirá comprobando nuevas oportunidades automáticamente.</div></div>';
                 return;
             }
 
-            // Fill table fallback for test assertions
             if (body) {
                 var htmlTable = '';
-                fixtures.forEach(function (f) {
+                final10.forEach(function (f) {
                     var esHoy = f.dia === 'Hoy';
-                    var color = esHoy ? '#0df2a6' : '#00d4ff';
-                    var fondo = esHoy ? 'rgba(13,242,166,0.12)' : 'rgba(0,212,255,0.12)';
+                    var color = esHoy ? 'var(--neon-emerald)' : 'var(--neon-cyan)';
+                    var fondo = esHoy ? 'rgba(13,148,136,0.12)' : 'rgba(2,132,199,0.12)';
                     htmlTable += '<tr>' +
-                        '<td><div style="font-weight:700; color:#f8fafc;">' + f.partido + '</div>' +
+                        '<td data-label="Partido & Liga"><div style="font-weight:700; color:var(--text-primary);">' + f.partido + '</div>' +
                         '<div style="font-size:0.72rem; color:var(--text-muted);">' + f.ligaCorta + '</div></td>' +
-                        '<td style="text-align:center;">' +
+                        '<td data-label="Fecha/Hora" style="text-align:center;">' +
                             '<span style="display:inline-block; font-weight:800; font-size:0.68rem; color:' + color + '; background:' + fondo + '; padding:2px 7px; border-radius:6px;">' + f.dia + ' ' + f.fechaCorta + '</span>' +
-                            '<div style="font-family:JetBrains Mono; font-size:0.85rem; font-weight:800; color:#f8fafc; margin-top:2px;">' + f.hora + '</div>' +
+                            '<div style="font-family:JetBrains Mono; font-size:0.85rem; font-weight:800; color:var(--text-primary); margin-top:2px;">' + f.hora + '</div>' +
                         '</td>' +
-                        '<td style="text-align:center;"><span style="font-weight:700;">' + f.mercado + '</span></td>' +
-                        '<td style="text-align:center; font-family:JetBrains Mono; font-weight:800; color:var(--neon-cyan);">' + f.cuota.toFixed(2) + '</td>' +
-                        '<td style="text-align:center; font-family:JetBrains Mono; font-weight:800; color:var(--neon-emerald);">' + (Number.isFinite(f.modelProb) ? f.modelProb + '%' : (function () { var ln = f.lineas && (f.lineas['1.5'] || f.lineas['2.5']); return (ln && Number.isFinite(ln.pOverJusta)) ? '≈' + Math.round(ln.pOverJusta) + '%' : 'n/d'; })()) + '</td>' +
-                        '<td style="text-align:center; font-family:JetBrains Mono; font-weight:800; color:var(--neon-emerald);">' + f.edge + '</td>' +
+                        '<td data-label="Mercado" style="text-align:center;"><span style="font-weight:700; color:var(--text-primary);">' + f.mercado + '</span></td>' +
+                        '<td data-label="Cuota Casa" style="text-align:center; font-family:JetBrains Mono; font-weight:800; color:var(--neon-cyan);">' + f.cuota.toFixed(2) + '</td>' +
+                        '<td data-label="Prob. Modelo" style="text-align:center; font-family:JetBrains Mono; font-weight:800; color:var(--neon-emerald);">' + (Number.isFinite(f.modelProb) ? f.modelProb + '%' : (function () { var ln = f.lineas && (f.lineas['1.5'] || f.lineas['2.5']); return (ln && Number.isFinite(ln.pOverJusta)) ? '≈' + Math.round(ln.pOverJusta) + '%' : 'n/d'; })()) + '</td>' +
+                        '<td data-label="Edge (+EV)" style="text-align:center; font-family:JetBrains Mono; font-weight:800; color:var(--neon-emerald);">' + f.edge + '</td>' +
                         '</tr>';
                 });
                 body.innerHTML = htmlTable;
@@ -3011,17 +3149,17 @@ export default {
             // Fill new cards para "Próximos partidos analizados"
             // Intenta primero LaLiga/Premier, luego grandes ligas europeas, finalmente cualquier liga
             if (cardsContainer) {
-                var topFixtures = fixtures.filter(esLigaTopPermitidaCliente);
-                var allSorted = fixtures.slice().sort(function(a,b) { return getLigaPriority(a) - getLigaPriority(b); });
-                var displayFixtures = topFixtures.length > 0 ? topFixtures : allSorted;
+                var displayFixtures = final10;
 
                 if (!displayFixtures || displayFixtures.length === 0) {
-                    cardsContainer.innerHTML = '<div style="text-align:center; padding:2rem; color:var(--text-secondary); font-size:0.9rem; background:var(--bg-card); border-radius:12px; border:1px solid var(--border-subtle);">No hay próximos partidos disponibles de las ligas prioritarias. El sistema continúa analizando otras competiciones.</div>';
+                    cardsContainer.innerHTML = '<div style="text-align:center; padding:2rem 1rem; color:var(--text-secondary); font-size:0.9rem; background:var(--bg-card); border-radius:12px; border:1px solid var(--border-subtle);">' +
+                        '<div style="font-size:1.5rem; margin-bottom:8px;">⚽</div>' +
+                        '<div style="font-size:0.92rem; font-weight:700; color:var(--text-primary); margin-bottom:4px;">No hay partidos disponibles de las competiciones españolas o inglesas seleccionadas para hoy o mañana.</div>' +
+                        '<div style="font-size:0.8rem; color:var(--text-muted);">El sistema seguirá comprobando nuevas oportunidades automáticamente.</div></div>';
                     return;
                 }
-                var topFixtures = displayFixtures;
 
-                var mostrar = topFixtures.slice(0, Math.min(__proximosMaxCount, 8));
+                var mostrar = displayFixtures.slice(0, 10);
                 var htmlCards = '';
 
                 mostrar.forEach(function (f) {
@@ -3103,9 +3241,9 @@ export default {
                     '</div>';
                 });
 
-                if (topFixtures.length > 5) {
+                if (displayFixtures.length > 5) {
                     var textoBoton = (__proximosMaxCount === 5)
-                        ? ('Ver más próximos partidos (' + topFixtures.length + ' disponibles)')
+                        ? ('Ver más próximos partidos (' + displayFixtures.length + ' disponibles)')
                         : 'Mostrar solo 5 partidos principales';
                     htmlCards += '<div style="text-align:center; margin-top:0.8rem;">' +
                         '<button onclick="toggleProximosMaxCount()" style="cursor:pointer; background:rgba(0,212,255,0.1); border:1px solid rgba(0,212,255,0.35); color:var(--neon-cyan); padding:8px 18px; border-radius:10px; font-weight:700; font-size:0.82rem;">' + textoBoton + '</button>' +
@@ -3135,7 +3273,7 @@ export default {
             try {
                 var r = await fetch('/api/fixtures-hoy' + (force ? '?force=1' : ''), { cache: 'no-store' });
                 var d = await r.json();
-                __fixturesValidadas = d.fixtures || [];
+                __fixturesValidadas = Array.isArray(d) ? d : (d.fixtures || []);
                 __metaTemporal = d.meta || null;
                 __frescuraDatos = d.frescura || null;
                 renderHeroValidatedFixtures(__fixturesValidadas, __metaTemporal);

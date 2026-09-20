@@ -42,21 +42,30 @@ export const ALLOWED_LEAGUE_IDS = [
 
 export function esLigaTopPermitida(match) {
     if (!match) return false;
-    const liga = String(match.liga || match.league || '').toLowerCase();
+    const liga = String(match.liga || match.league || match.ligaCorta || '').toLowerCase();
     const url = String(match.urlRelativa || match.ligaUrl || match.url || '').toLowerCase();
+    const pais = String(match.pais || match.country || '').toLowerCase();
+    const combined = `${liga} ${url} ${pais}`.toLowerCase();
 
-    const esLaLiga = liga.includes('laliga') || liga.includes('la liga') || url.includes('spain-laliga') || url.includes('laliga');
-    const esPremier = liga.includes('premier league') || url.includes('england-premier-league') || url.includes('premier-league');
+    // Exclusiones explícitas primero
+    const exclusiones = [
+        'friendly', 'amistoso', 'reserve', 'reserves', 'juventud', 'youth', 'u21', 'u19', 'u23', 'femenino', 'women',
+        'argentina', 'colombia', 'guatemala', 'honduras', 'mexico', 'méxico', 'russia', 'rusia',
+        'belgium', 'bélgica', 'estonia', 'romania', 'rumanía', 'slovakia', 'eslovaquia',
+        'ukraine', 'ucrania', 'norway', 'noruega', 'bulgaria', 'denmark', 'dinamarca', 'georgia',
+        'germany', 'alemania', 'italy', 'italia', 'france', 'francia', 'portugal', 'netherlands', 'holanda'
+    ];
+    if (exclusiones.some(ex => combined.includes(ex))) return false;
 
-    if (esLaLiga) {
-        return (liga.includes('spain') || url.includes('spain') || liga.includes('españa') || liga.includes('laliga')) &&
-            !liga.includes('segunda') && !liga.includes('rfef') && !liga.includes('liga f');
-    }
-    if (esPremier) {
-        return (liga.includes('england') || url.includes('england') || liga.includes('inglaterra') || liga.includes('premier')) &&
-            !liga.includes('league one') && !liga.includes('league two') && !liga.includes('championship');
-    }
-    return false;
+    // Competiciones Españolas permitidas (LaLiga, LaLiga EA Sports, Primera División, Hypermotion, Segunda División, Copa del Rey)
+    const esEspana = combined.includes('spain') || combined.includes('españa') || combined.includes('es');
+    const esLaLiga = combined.includes('laliga') || combined.includes('la liga') || combined.includes('primera division') || combined.includes('primera división') || combined.includes('hypermotion') || combined.includes('segunda division') || combined.includes('segunda división') || combined.includes('copa del rey');
+
+    // Competiciones Inglesas permitidas (Premier League, English Premier League, Championship, EFL Championship, FA Cup, EFL Cup, Carabao Cup)
+    const esInglaterra = combined.includes('england') || combined.includes('inglaterra') || combined.includes('gb-eng');
+    const esPremier = combined.includes('premier league') || combined.includes('premier') || combined.includes('championship') || combined.includes('fa cup') || combined.includes('efl cup') || combined.includes('carabao cup');
+
+    return (esEspana && esLaLiga) || (esInglaterra && esPremier);
 }
 
 export function filtrarSoloLigasTop(partidos) {

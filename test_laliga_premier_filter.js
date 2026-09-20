@@ -27,11 +27,13 @@ const partidoLaLiga = { liga: 'Spain: LaLiga Spain', urlRelativa: '/football/spa
 const partidoPremier = { liga: 'England: Premier League England', urlRelativa: '/football/england-premier-league/' };
 const partidoSegunda = { liga: 'Spain: Segunda Division Spain', urlRelativa: '/football/spain-segunda-division/' };
 const partidoEcuador = { liga: 'Ecuador: Serie B Ecuador', urlRelativa: null };
+const partidoArgentina = { liga: 'Argentina: Liga Profesional', urlRelativa: null };
 
 assert.strictEqual(esLigaTopPermitida(partidoLaLiga), true, 'LaLiga debe ser permitida');
 assert.strictEqual(esLigaTopPermitida(partidoPremier), true, 'Premier League debe ser permitida');
-assert.strictEqual(esLigaTopPermitida(partidoSegunda), false, 'Segunda Division NO debe ser permitida');
+assert.strictEqual(esLigaTopPermitida(partidoSegunda), true, 'Segunda Division debe ser permitida');
 assert.strictEqual(esLigaTopPermitida(partidoEcuador), false, 'Serie B Ecuador NO debe ser permitida');
+assert.strictEqual(esLigaTopPermitida(partidoArgentina), false, 'Liga Argentina NO debe ser permitida');
 
 console.log('  [OK] Identificadores de competicion oficiales y filtrado de ligas.');
 
