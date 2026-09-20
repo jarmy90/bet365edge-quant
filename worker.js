@@ -1016,7 +1016,8 @@ export default {
         if (url.pathname === '/api/parlays-by-risk') {
             const riskLevel = url.searchParams.get('risk') || 'medio'; // bajo, medio, alto
             const force = url.searchParams.get('force') === '1';
-            const realMatchesPool = await getFutureMatchesPool(force);
+            const rawPool = await getFutureMatchesPool(force);
+            const realMatchesPool = (rawPool || []).filter(esLigaTopPermitida);
 
             // Motor de combinadas v5: selecciona 2-4 picks reales cuya cuota
             // multiplicada cae en la banda del nivel de riesgo, maximizando la
@@ -1659,6 +1660,26 @@ export default {
         [data-theme="dark"] .unlocked-summary-box {
             background: rgba(6,7,10,0.8) !important;
             border: 1px solid var(--border-subtle) !important;
+        }
+
+        /* Barra Informativa de Cálculo de Combinadas */
+        [data-theme="light"] .parlay-info-bar {
+            background: #f8fafc !important;
+            border: 1px solid #e5eaf0 !important;
+            color: #475467 !important;
+        }
+        [data-theme="light"] .parlay-info-highlight {
+            color: #0f9f98 !important;
+            font-weight: 800;
+        }
+        [data-theme="dark"] .parlay-info-bar {
+            background: rgba(13,15,21,0.85) !important;
+            border: 1px solid var(--border-subtle) !important;
+            color: var(--text-secondary) !important;
+        }
+        [data-theme="dark"] .parlay-info-highlight {
+            color: var(--neon-emerald) !important;
+            font-weight: 800;
         }
 
         /* Estilos Adaptativos del Panel Stream Live 24/7 */
@@ -2928,9 +2949,10 @@ export default {
                 // Pie: solo para combinadas validas
                 if (esCombinadaValida && data.cuotaTotal) {
                     var foot = document.createElement('div');
-                    foot.style.cssText = 'grid-column:1/-1; width:100%; padding:10px 14px; background:rgba(6,7,10,0.6); border:1px solid var(--border-subtle); border-radius:10px; color:var(--text-muted); font-size:0.72rem;';
-                    foot.innerHTML = '💡 Cálculo: ' + data.partidos.map(function (p2) { return p2.cuota.toFixed(2); }).join(' × ') +
-                        ' = <strong style="color:var(--neon-emerald);">' + data.cuotaTotal.toFixed(2) + '</strong>. Probabilidad combinada ' + data.probabilidadReal + '% vs ' + data.probabilidadCasa + '% implícita de la casa. Kickoffs futuros, dia y hora reales.';
+                    foot.className = 'parlay-info-bar';
+                    foot.style.cssText = 'grid-column:1/-1; width:100%; padding:10px 14px; border-radius:10px; font-size:0.75rem; line-height:1.45; margin-top:4px;';
+                    foot.innerHTML = '💡 <strong>Cálculo combinada:</strong> ' + data.partidos.map(function (p2) { return p2.cuota.toFixed(2); }).join(' × ') +
+                        ' = <strong class="parlay-info-highlight">' + data.cuotaTotal.toFixed(2) + '</strong>. Probabilidad combinada <strong>' + data.probabilidadReal + '%</strong> vs <strong>' + data.probabilidadCasa + '%</strong> implícita de la casa. Kickoffs futuros validados (España e Inglaterra).';
                     container.appendChild(foot);
                 }
             } catch(e) {
