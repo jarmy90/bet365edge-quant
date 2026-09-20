@@ -1905,14 +1905,30 @@ export default {
     <div class="container">
         <!-- Header Navbar -->
         <nav class="navbar">
-            <a href="#" class="brand">
-                <div class="brand-icon">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                        <polyline points="22 7 13.5 15.5 8.5 10.5 2 17"></polyline>
-                        <polyline points="16 7 22 7 22 13"></polyline>
+            <a href="#" class="brand" style="display:flex; align-items:center; gap:8px; text-decoration:none;">
+                <div class="brand-logo-svg" style="display:flex; align-items:center; height:34px;">
+                    <svg viewBox="0 0 680 160" height="34" style="width:auto; height:34px; display:block;" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <linearGradient id="edgeBrandGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stop-color="#10b981"/>
+                                <stop offset="100%" stop-color="#06b6d4"/>
+                            </linearGradient>
+                        </defs>
+                        <!-- Stylized E Icon + Football Arc -->
+                        <g transform="translate(10, 10)">
+                            <path d="M 45 10 L 120 10 C 135 10 142 22 132 38 L 118 60 L 52 60 Z" fill="url(#edgeBrandGrad)"/>
+                            <path d="M 38 68 L 105 68 C 112 68 116 75 110 85 L 102 98 L 30 98 Z" fill="url(#edgeBrandGrad)"/>
+                            <path d="M 26 106 L 95 106 C 105 106 102 118 85 135 L 75 145 C 55 145 35 140 20 130 Z" fill="url(#edgeBrandGrad)"/>
+                            <path d="M 95 15 C 135 -5 175 15 190 55 C 205 95 185 140 135 155 C 105 162 70 152 50 135 C 75 148 115 148 145 130 C 175 108 185 70 170 42 C 158 20 128 8 95 15 Z" fill="#0f172a" stroke="url(#edgeBrandGrad)" stroke-width="2"/>
+                            <polygon points="145,30 160,45 152,65 132,60 130,40" fill="#0f172a" stroke="url(#edgeBrandGrad)" stroke-width="1.5"/>
+                            <polygon points="172,75 185,95 168,115 148,105 150,85" fill="#0f172a" stroke="url(#edgeBrandGrad)" stroke-width="1.5"/>
+                        </g>
+                        <!-- Brand Text -->
+                        <text x="210" y="98" font-family="'JetBrains Mono', 'Inter', sans-serif" font-weight="900" font-size="62" font-style="italic" fill="var(--text-primary)" letter-spacing="-2">EDGE</text>
+                        <text x="365" y="98" font-family="'JetBrains Mono', 'Inter', sans-serif" font-weight="900" font-size="62" font-style="italic" fill="url(#edgeBrandGrad)" letter-spacing="-2">.FUTBOL</text>
                     </svg>
                 </div>
-                <div class="brand-title" style="font-weight:800; font-family:'JetBrains Mono', monospace; font-size:1.1rem; letter-spacing:-0.4px;">EDGE<span style="color:var(--neon-emerald)">.FUTBOL</span> <span class="brand-badge">QUANT +EV</span></div>
+                <span class="brand-badge" style="margin-left:2px;">QUANT +EV</span>
             </a>
             <div class="nav-actions" style="display:flex; align-items:center; gap:10px;">
                 <span class="status-badge">
@@ -3874,8 +3890,23 @@ body{background:#08090d;color:#f1f5f9;font-family:'Inter',sans-serif;min-height:
 <!-- TOPBAR -->
 <div class="topbar">
     <div class="tb-logo">
-        <div class="tb-icon">Q</div>
-        <span>QUANTUM BETS</span>
+        <div class="tb-icon" style="background:transparent; padding:0; width:auto; height:24px;">
+            <svg viewBox="0 0 200 160" height="24" style="width:auto; height:24px; display:block;" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <linearGradient id="edgeLiveGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stop-color="#10b981"/>
+                        <stop offset="100%" stop-color="#06b6d4"/>
+                    </linearGradient>
+                </defs>
+                <g transform="translate(10, 10)">
+                    <path d="M 45 10 L 120 10 C 135 10 142 22 132 38 L 118 60 L 52 60 Z" fill="url(#edgeLiveGrad)"/>
+                    <path d="M 38 68 L 105 68 C 112 68 116 75 110 85 L 102 98 L 30 98 Z" fill="url(#edgeLiveGrad)"/>
+                    <path d="M 26 106 L 95 106 C 105 106 102 118 85 135 L 75 145 C 55 145 35 140 20 130 Z" fill="url(#edgeLiveGrad)"/>
+                    <path d="M 95 15 C 135 -5 175 15 190 55 C 205 95 185 140 135 155 C 105 162 70 152 50 135 C 75 148 115 148 145 130 C 175 108 185 70 170 42 C 158 20 128 8 95 15 Z" fill="#0f172a" stroke="url(#edgeLiveGrad)" stroke-width="2"/>
+                </g>
+            </svg>
+        </div>
+        <span style="font-family:'JetBrains Mono', sans-serif; font-style:italic;">EDGE.FUTBOL</span>
         <span style="background:rgba(16,185,129,0.1);color:var(--em);border:1px solid rgba(16,185,129,0.3);padding:3px 8px;border-radius:12px;font-size:0.65rem;font-weight:700;-webkit-text-fill-color:var(--em);background-clip:unset;">LIVE INTELLIGENCE</span>
     </div>
     <div class="tb-center">
