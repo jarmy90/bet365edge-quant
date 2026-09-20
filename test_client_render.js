@@ -137,8 +137,8 @@ assert.ok(!fila.innerHTML.includes('null%'), 'ninguna probabilidad nula pintada 
 
 assert.ok(nodos['mainPageTicker'].innerHTML.length > 20, 'el ticker debe estar poblado');
 const stampTxt = (nodos['heroFixtureStamp'].innerHTML || '') + ' ' + (nodos['heroFixtureStamp'].textContent || '');
-assert.ok(/capturados hace|sin marca de frescura/i.test(stampTxt),
-    'el sello debe indicar DE CUANDO es la captura de ratingbet (frescura del dato)');
+assert.ok(/sincronizados hace|sin marca de frescura|capturados hace/i.test(stampTxt),
+    'el sello debe indicar DE CUANDO es la captura (frescura del dato)');
 assert.ok(!stampTxt.includes('Calculando'), 'el sello no debe quedarse en el estado inicial');
 assert.ok(nodos['hpFeedUpdated'].textContent.includes('Actualizado'), 'el feed debe marcar su actualizacion');
 

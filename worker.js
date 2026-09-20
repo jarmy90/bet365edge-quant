@@ -2914,7 +2914,7 @@ export default {
                     card.className = 'bet-card';
                     var cuotaModelo = (Number.isFinite(p.probPct) && p.probPct > 0) ? (100 / p.probPct).toFixed(2) : null;
                     var probEst = Number.isFinite(p.probPct)
-                        ? ((p.probBase === 'modelo-ia' ? 'Prob. IA: ' : 'Prob. casa (ratingbet): ') + Math.round(p.probPct) + '%')
+                        ? ((p.probBase === 'modelo-ia' ? 'Prob. IA: ' : 'Prob. casa: ') + Math.round(p.probPct) + '%')
                         : 'Prob. n/d';
                     var edgeVal = Number.isFinite(p.edgePuntos) ? p.edgePuntos : (cuotaModelo ? Math.round((p.cuota - Number(cuotaModelo)) * 100) : null);
                     var edgeHtml = Number.isFinite(edgeVal) ?
@@ -3395,13 +3395,13 @@ export default {
             }
         }
 
-        // Muestra DE CUANDO es el dato publicado (captura de ratingbet) para que
+        // Muestra DE CUANDO es el dato publicado (captura de la base de datos) para que
         // el cliente sepa si esta viendo la captura mas reciente o una anterior.
         function renderFrescuraDatos(f) {
             var stamp = document.getElementById('heroFixtureStamp');
             if (!stamp) return;
             if (!f || f.edadMin === null || f.edadMin === undefined) {
-                stamp.innerHTML = 'Captura de ratingbet: <strong>sin marca de frescura</strong> — se muestra la ultima captura disponible.';
+                stamp.innerHTML = 'Base de datos: <strong>sin marca de frescura</strong> — se muestra la última captura disponible.';
                 return;
             }
             var edad = f.edadMin < 1 ? 'menos de 1 min' : f.edadMin + ' min';
@@ -3409,7 +3409,7 @@ export default {
             var aviso = f.fresca
                 ? ''
                 : ' — <span style="color:#fbbf24; font-weight:700;">captura caducada (' + f.limiteMin + ' min max): actualiza los datos</span>';
-            stamp.innerHTML = 'Datos de ratingbet capturados hace <strong style="color:' + color + ';">' + edad + '</strong>'
+            stamp.innerHTML = 'Datos de la base de datos sincronizados hace <strong style="color:' + color + ';">' + edad + '</strong>'
                 + ' (' + (f.capturadoEnUtc ? new Date(f.capturadoEnUtc).toLocaleString('es-ES', { timeZone: 'Europe/Madrid', hour12: false }) : 'n/d') + ' Madrid)'
                 + aviso
                 + '<br>Modo de datos: <strong>' + (f.modoDataset === 'remoto' ? 'remoto (se actualiza sin redeploy)' : 'embebido en el despliegue') + '</strong>'
@@ -3420,17 +3420,17 @@ export default {
         // Auto-refresco: iniciarPanelLive() ya re-consulta /api/fixtures-hoy cada
         // 60 s en esta misma pagina, asi que no se duplica el temporizador. El
         // servidor cachea 5 min, con lo que la web incorpora capturas nuevas de
-        // ratingbet sin que el cliente recargue nada.
+        // la base de datos sin que el cliente recargue nada.
 
         // Boton "Actualizar datos": re-consulta saltando la cache del servidor,
-        // de modo que si ratingbet ya publico partidos nuevos, aparezcan al instante.
+        // de modo que si la base de datos ya publico partidos nuevos, aparezcan al instante.
         async function actualizarDatosAhora() {
             if (__refrescando) return;
             __refrescando = true;
             var btn = document.getElementById('btnRefreshDatos');
             var stamp = document.getElementById('heroFixtureStamp');
             if (btn) { btn.disabled = true; btn.style.opacity = '0.6'; btn.innerText = '🔄 Actualizando...'; }
-            if (stamp) stamp.innerHTML = 'Consultando la ultima captura de ratingbet...';
+            if (stamp) stamp.innerHTML = 'Consultando la última captura de la base de datos...';
             try {
                 var ok = await cargarFixturesValidadas(true);
                 if (ok && currentSelectedRisk && isUserSubscribed) {
