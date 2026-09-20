@@ -39,7 +39,7 @@ import {
     filtrarPublicables, MARGEN_PUBLICACION_MIN,
     construirFixturesSinAnalisis, feedSinAnalisis, construirFeedNoticias,
     // combinadas por nivel de riesgo (bandas de cuota reales, sin inventar)
-    construirParlayRiesgo, BANDAS_RIESGO
+    construirParlayRiesgo, BANDAS_RIESGO, esLigaTopPermitida
 } from './ratingbet_pipeline.js';
 import datasetLocal from './ratingbet_fixtures_data.js';
 
@@ -2831,6 +2831,14 @@ export default {
 
             try {
                 const res = await fetch('/api/parlays-by-risk?risk=' + risk + (force ? '&force=1' : ''));
+                if (!res.ok) {
+                    throw new Error('Servidor devolvió respuesta ' + res.status);
+                }
+                const contentType = res.headers.get('content-type') || '';
+                if (!contentType.includes('application/json')) {
+                    const textErr = await res.text();
+                    throw new Error('Respuesta no es JSON (' + textErr.slice(0, 100) + ')');
+                }
                 const data = await res.json();
                 __parlayCache = data;
                 if (data.frescura) { __frescuraDatos = data.frescura; renderFrescuraDatos(__frescuraDatos); }
