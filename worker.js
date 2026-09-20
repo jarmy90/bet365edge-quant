@@ -2504,6 +2504,12 @@ export default {
                 thEdge: "Edge (+EV)",
                 disclaimerFooterTitle: "Aviso de responsabilidad:",
                 disclaimerFooterText: "Las estimaciones se basan en modelos estadísticos y no garantizan resultados. El usuario es responsable de sus decisiones.",
+                emptyOppsTitle: "No hay oportunidades disponibles en las competiciones españolas o inglesas seleccionadas.",
+                emptyOppsSub: "El sistema continúa analizando nuevos partidos automáticamente.",
+                emptyHeadTitle: "⭐ PARTIDOS DESTACADOS DEL DÍA",
+                emptyHeadDesc: "Hoy no hay combinada con ventaja clara para esta banda. Te mostramos los partidos más destacados del día, ordenados por probabilidad:",
+                emptyTableTitle: "No hay partidos disponibles de las competiciones españolas o inglesas seleccionadas para hoy o mañana.",
+                emptyTableSub: "El sistema seguirá comprobando nuevas oportunidades automáticamente.",
                 footerAge: "Solo para mayores de 18 años",
                 footerLinkAviso: "Aviso legal",
                 footerLinkPrivacidad: "Privacidad",
@@ -2587,6 +2593,12 @@ export default {
                 thEdge: "Edge (+EV)",
                 disclaimerFooterTitle: "Disclaimer:",
                 disclaimerFooterText: "Estimates are based on statistical models and do not guarantee profits. Users are responsible for their decisions.",
+                emptyOppsTitle: "No opportunities available in selected Spanish or English competitions.",
+                emptyOppsSub: "The system continuously analyzes new matches automatically.",
+                emptyHeadTitle: "⭐ FEATURED MATCHES OF THE DAY",
+                emptyHeadDesc: "No parlay with a clear edge for this tier today. Displaying today's top featured matches ordered by probability:",
+                emptyTableTitle: "No matches available from selected Spanish or English competitions for today or tomorrow.",
+                emptyTableSub: "The system will automatically continue checking for new opportunities.",
                 footerAge: "18+ Adults Only",
                 footerLinkAviso: "Legal Notice",
                 footerLinkPrivacidad: "Privacy Policy",
@@ -3348,12 +3360,13 @@ export default {
                 }
 
                 container.innerHTML = '';
+                var dict = (I18N_DICT[getCurrentLang()] || I18N_DICT.es);
 
                 if (!data.partidos || !data.partidos.length) {
                     container.innerHTML = '<div style="grid-column:1/-1; background:var(--bg-card); border:1px solid var(--border-subtle); border-radius:14px; padding:1.5rem; text-align:center; box-shadow:var(--card-shadow);">' +
                         '<div style="font-size:1.4rem; margin-bottom:6px;">⚽</div>' +
-                        '<div style="font-size:0.95rem; font-weight:700; color:var(--text-primary); margin-bottom:4px;">No hay oportunidades disponibles en las competiciones españolas o inglesas seleccionadas.</div>' +
-                        '<div style="font-size:0.8rem; color:var(--text-muted);">El sistema continúa analizando nuevos partidos automáticamente.</div>' +
+                        '<div style="font-size:0.95rem; font-weight:700; color:var(--text-primary); margin-bottom:4px;">' + dict.emptyOppsTitle + '</div>' +
+                        '<div style="font-size:0.8rem; color:var(--text-muted);">' + dict.emptyOppsSub + '</div>' +
                         '</div>';
                     return;
                 }
@@ -3384,8 +3397,8 @@ export default {
                 } else {
                     head.style.cssText = 'grid-column:1/-1; width:100%; padding:12px 14px; background:linear-gradient(135deg, rgba(245,158,11,0.12), rgba(0,212,255,0.05)); border:1px solid rgba(245,158,11,0.3); border-radius:12px;';
                     head.innerHTML =
-                        '<div style="font-size:0.78rem; color:#f59e0b; font-weight:800; letter-spacing:1.5px;">⭐ PARTIDOS DESTACADOS DEL DÍA</div>' +
-                        '<div style="font-size:0.85rem; color:var(--text-secondary); margin-top:4px;">Hoy no hay combinada con ventaja clara para esta banda (' + (data.descripcionRiesgo || 'este riesgo') + '). Te mostramos los partidos más destacados del día, ordenados por probabilidad:</div>';
+                        '<div style="font-size:0.78rem; color:#f59e0b; font-weight:800; letter-spacing:1.5px;">' + dict.emptyHeadTitle + '</div>' +
+                        '<div style="font-size:0.85rem; color:var(--text-secondary); margin-top:4px;">' + dict.emptyHeadDesc + '</div>';
                 }
                 container.appendChild(head);
 
@@ -3724,18 +3737,19 @@ export default {
 
             // Máximo 10 partidos en la tabla final (NO fallback a otros países)
             var final10 = validos.slice(0, 10);
+            var dict = (I18N_DICT[getCurrentLang()] || I18N_DICT.es);
 
             if (!final10 || final10.length === 0) {
                 var emptyHtml = '<tr><td colspan="6" style="text-align:center; padding:2rem 1rem;">' +
                     '<div style="font-size:1.5rem; margin-bottom:8px;">⚽</div>' +
-                    '<div style="font-size:0.92rem; font-weight:700; color:var(--text-primary); margin-bottom:4px;">No hay partidos disponibles de las competiciones españolas o inglesas seleccionadas para hoy o mañana.</div>' +
-                    '<div style="font-size:0.8rem; color:var(--text-muted); margin-bottom:12px;">El sistema seguirá comprobando nuevas oportunidades automáticamente.</div>' +
+                    '<div style="font-size:0.92rem; font-weight:700; color:var(--text-primary); margin-bottom:4px;">' + dict.emptyTableTitle + '</div>' +
+                    '<div style="font-size:0.8rem; color:var(--text-muted); margin-bottom:12px;">' + dict.emptyTableSub + '</div>' +
                     '</td></tr>';
                 if (body) body.innerHTML = emptyHtml;
                 if (cardsContainer) cardsContainer.innerHTML = '<div style="text-align:center; padding:2rem 1rem; color:var(--text-secondary); font-size:0.9rem; background:var(--bg-card); border-radius:12px; border:1px solid var(--border-subtle);">' +
                     '<div style="font-size:1.5rem; margin-bottom:8px;">⚽</div>' +
-                    '<div style="font-size:0.92rem; font-weight:700; color:var(--text-primary); margin-bottom:4px;">No hay partidos disponibles de las competiciones españolas o inglesas seleccionadas para hoy o mañana.</div>' +
-                    '<div style="font-size:0.8rem; color:var(--text-muted);">El sistema seguirá comprobando nuevas oportunidades automáticamente.</div></div>';
+                    '<div style="font-size:0.92rem; font-weight:700; color:var(--text-primary); margin-bottom:4px;">' + dict.emptyTableTitle + '</div>' +
+                    '<div style="font-size:0.8rem; color:var(--text-muted);">' + dict.emptyTableSub + '</div></div>';
                 return;
             }
 
