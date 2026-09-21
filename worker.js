@@ -134,6 +134,83 @@ function paginaLegal() {
         + '</div></body></html>';
 }
 
+// =============================================================================
+// PÁGINA SEO DE GUÍA Y METODOLOGÍA (/guia | /como-funciona | /bot-apuestas)
+// -----------------------------------------------------------------------------
+// Hub de Contenido SEO optimizado para posicionamiento orgánico en Google y 
+// motores de IA (ChatGPT, Perplexity) sobre "bot bet365 y otras casas", 
+// "apuestas con ventaja (+EV)" y "algoritmos de fútbol para goles".
+// =============================================================================
+function paginaGuiaSeo() {
+    const estilo = 'font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif;background:#06070a;color:#e2e8f0;margin:0;padding:0;line-height:1.8;';
+    const caja = 'max-width:960px;margin:0 auto;padding:2.5rem 1.2rem 4rem;';
+    const h2 = 'color:#0df2a6;font-size:1.35rem;margin:2.5rem 0 0.8rem;letter-spacing:-0.4px;';
+    const h3 = 'color:#00d4ff;font-size:1.1rem;margin:1.8rem 0 0.5rem;';
+    const card = 'background:#0d0f15;border:1px solid rgba(255,255,255,0.08);border-radius:16px;padding:1.4rem;margin:1.5rem 0;';
+
+    return '<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8">'
+        + '<meta name="viewport" content="width=device-width, initial-scale=1.0">'
+        + '<meta name="robots" content="index, follow">'
+        + '<title>Bot de Apuestas de Fútbol y Cuotas con Ventaja (+EV) | Guía EDGE.FUTBOL</title>'
+        + '<meta name="description" content="Guía completa sobre cómo funciona el bot cuantitativo para bet365 y otras casas de apuestas. Aprende qué es el valor esperado (+EV) y cómo calcular cuotas justas en mercados de goles.">'
+        + '<script type="application/ld+json">'
+        + JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Article",
+            "headline": "Bot de Apuestas de Fútbol y Cuotas con Ventaja (+EV)",
+            "description": "Explicación detallada del modelo cuantitativo para evaluar partidos de fútbol, calcular probabilidades reales de goles y comparar cuotas en bet365 y otras casas de apuestas.",
+            "author": { "@type": "Organization", "name": "EDGE.FUTBOL Quant" },
+            "publisher": { "@type": "Organization", "name": "EDGE.FUTBOL Quant" }
+        })
+        + '</script>'
+        + '<style>body{' + estilo + '}a{color:#00d4ff;text-decoration:none;}a:hover{text-decoration:underline;}ul{padding-left:1.3rem;}li{margin-bottom:0.6rem;}'
+        + 'h1{font-size:2rem;line-height:1.2;color:#f8fafc;} p{color:#94a3b8;margin-bottom:1.2rem;}'
+        + '</style></head><body><div style="' + caja + '">'
+        + '<p><a href="/">&#8592; Volver al terminal principal EDGE.FUTBOL</a></p>'
+        + '<h1>Bot de Apuestas de Fútbol y Cálculo de Ventaja Estadística (+EV)</h1>'
+        + '<p style="font-size:1.05rem;color:#cbd5e1;">Aprende cómo operan los modelos cuantitativos autónomos para evaluar partidos de fútbol en tiempo real, estimar probabilidades reales de goles y detectar cuotas desajustadas en <strong>bet365 y otras casas de apuestas</strong>.</p>'
+
+        + '<div style="' + card + '">'
+        + '<h2 style="' + h2 + '">1. ¿Qué es un Bot de Apuestas Cuantitativo?</h2>'
+        + '<p>Un bot de apuestas deportivas cuantitativo es un algoritmo informático que procesa millones de datos estadísticos por segundo sin sesgo emocional. A diferencia de las predicciones basadas en intuición, nuestro sistema calcula matemáticamente la probabilidad real de que ocurra un evento (por ejemplo, que haya más de 1.5 o más de 2.5 goles en un partido).</p>'
+        + '<p>El bot analiza partidos de las principales ligas del mundo (LaLiga, Premier League, Serie A, Bundesliga, Champions League) evaluando variables como el rendimiento reciente, las métricas de goles esperados (xG), las bajas confirmadas, la meteorología y la evolución en directo de las cuotas.</p>'
+        + '</div>'
+
+        + '<div style="' + card + '">'
+        + '<h2 style="' + h2 + '">2. ¿Cómo evaluar cuotas en bet365 y otras casas de apuestas?</h2>'
+        + '<p>Las casas de apuestas públicas como <strong>bet365 y otras plataformas del mercado</strong> fijan sus cuotas añadiendo un margen de beneficio (operador o <em>margin</em>). El objetivo de nuestro algoritmo no es adivinar quién gana, sino calcular la <strong>cuota justa pura</strong>.</p>'
+        + '<h3 style="' + h3 + '">Ejemplo práctico de Ventaja (+EV):</h3>'
+        + '<ul>'
+        + '<li><strong>Partido:</strong> Real Madrid vs Barcelona.</li>'
+        + '<li><strong>Estimación del Bot:</strong> La probabilidad real calculada para Más de 2.5 goles es del <strong>65%</strong> (Cuota justa = 1.54).</li>'
+        + '<li><strong>Cuota disponible en la casa:</strong> <strong>1.80</strong> (Probabilidad implícita de la casa = 55.5%).</li>'
+        + '<li><strong>Resultado:</strong> Existe un desfase del <strong>+9.5% de ventaja matemática (+EV)</strong> a favor del apostador.</li>'
+        + '</ul>'
+        + '</div>'
+
+        + '<div style="' + card + '">'
+        + '<h2 style="' + h2 + '">3. Mercados Específicos: Más de 1.5 y Más de 2.5 Goles</h2>'
+        + '<p>Elegimos enfocar el bot en los mercados de goles (Over/Under) por 3 razones cuantitativas:</p>'
+        + '<ul>'
+        + '<li><strong>Mayor liquidez:</strong> Son de los mercados más negociados del mundo en bet365 y otros operadores.</li>'
+        + '<li><strong>Independencia del ganador:</strong> No importa qué equipo marque o gane el partido, solo el total de goles.</li>'
+        + '<li><strong>Modelado mediante Distribución de Poisson:</strong> Permite calcular con alta precisión matemática las probabilidades de frecuencia de goles según el ritmo de ataque y defensa de los equipos.</li>'
+        + '</ul>'
+        + '</div>'
+
+        + '<div style="' + card + '">'
+        + '<h2 style="' + h2 + '">4. Preguntas Frecuentes sobre Bots y Apuestas con Ventaja</h2>'
+        + '<h3 style="' + h3 + '">¿Se pueden usar estos datos en bet365 y cualquier otra casa de apuestas?</h3>'
+        + '<p>Sí. Las estimaciones de probabilidad son universales. Si el bot detecta valor en una cuota superior a 1.70, puedes comparar esa selección en bet365 o cualquier otra casa de apuestas autorizada en tu país.</p>'
+        + '<h3 style="' + h3 + '">¿El bot ofrece apuestas con garantía de ganancia?</h3>'
+        + '<p>No. En la estadística no existen las certezas absolutas al 100%. Apostar con ventaja (+EV) busca ganar margen a largo plazo superando la esperanza matemática, pero partidos individuales siempre tienen varianza. Recomendamos una gestión de bankroll responsable.</p>'
+        + '</div>'
+
+        + '<p style="margin-top:2.5rem;text-align:center;"><a href="/" style="background:#0df2a6;color:#06070a;font-weight:800;padding:0.9rem 2rem;border-radius:12px;display:inline-block;">PROBAR EL BOT Y VER OPORTUNIDADES HOY</a></p>'
+        + '<p style="margin-top:2rem;color:#64748b;font-size:0.8rem;text-align:center;">EDGE.FUTBOL Quant · Servicio independiente de análisis estadístico. No somos operador de juego.</p>'
+        + '</div></body></html>';
+}
+
 // Procedencia del catalogo de fixtures publicado por la API publica.
 const FIXTURES_SOURCE = RATINGBET_FUENTE;
 const FIXTURES_CACHE_MS = 5 * 60 * 1000;   // cache del pool en el isolate
@@ -1984,6 +2061,7 @@ export default {
                     <span class="pulse-dot"></span>
                     <span id="navStatusTxt">Suscripción: Inactiva</span>
                 </span>
+                <a href="/guia" style="color:var(--neon-emerald); font-size:0.82rem; font-weight:700; text-decoration:none; padding:4px 10px; border-radius:8px; background:rgba(13,148,136,0.1); border:1px solid rgba(13,148,136,0.25);">Guía Bot & +EV</a>
                 <button id="btnNavLogin" onclick="openEmailLoginModal()" style="background:none; border:none; color:var(--text-secondary); font-size:0.82rem; font-weight:600; cursor:pointer; text-decoration:underline; text-underline-offset:3px;">¿Ya eres cliente?</button>
                 <button id="btnNavUpgrade" class="btn-ghost" onclick="scrollToProximosPartidos()">Ver oportunidades de hoy</button>
                 <button class="theme-toggle" id="langToggleBtn" onclick="toggleLanguage()" title="Switch Language / Cambiar Idioma" aria-label="Cambiar idioma" style="display:flex; align-items:center; gap:4px; font-weight:700; font-size:0.75rem; padding:0 8px; font-family:'JetBrains Mono', monospace; background:var(--bg-surface); border:1px solid var(--border-subtle); color:var(--text-primary); border-radius:8px; cursor:pointer; height:34px;">
@@ -2445,6 +2523,7 @@ export default {
             <div style="display:flex; flex-wrap:wrap; gap:14px; align-items:center; margin-bottom:12px;">
                 <span style="font-weight:800; color:#f59e0b; border:1px solid rgba(245,158,11,0.5); border-radius:6px; padding:2px 8px;">+18</span>
                 <strong id="footerAgeTxt" style="color:var(--text-secondary);">Solo para mayores de 18 años</strong>
+                <a href="/guia" style="color:var(--neon-emerald); font-weight:700; text-decoration:none;">Guía Bot &amp; +EV</a>
                 <a id="linkAviso" href="/legal#aviso" style="color:var(--neon-cyan); text-decoration:none;">Aviso legal</a>
                 <a id="linkPrivacidad" href="/legal#privacidad" style="color:var(--neon-cyan); text-decoration:none;">Privacidad</a>
                 <a id="linkCookies" href="/legal#cookies" style="color:var(--neon-cyan); text-decoration:none;">Cookies</a>
@@ -5029,6 +5108,15 @@ window.addEventListener("DOMContentLoaded",function(){
 </body>
 </html>`;
             return new Response(liveHtml, {
+                headers: { ...corsHeaders, 'Content-Type': 'text/html; charset=utf-8' }
+            });
+        }
+
+        // ---------------------------------------------------------------------
+        // PÁGINA DEDICADA DE GUÍA DE APUESTAS CON VENTAJA Y BOT (+EV SEO HUB)
+        // ---------------------------------------------------------------------
+        if (url.pathname === '/guia' || url.pathname === '/como-funciona' || url.pathname === '/bot-apuestas') {
+            return new Response(paginaGuiaSeo(), {
                 headers: { ...corsHeaders, 'Content-Type': 'text/html; charset=utf-8' }
             });
         }
