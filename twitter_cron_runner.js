@@ -1,12 +1,8 @@
 // =============================================================================
-// TWITTER / X CRON RUNNER & DAEMON FOR EDGE.FUTBOL
+// TWITTER / X CRON RUNNER v2.0 (CON HORARIOS ALEATORIZADOS DE VENTANA)
 // -----------------------------------------------------------------------------
-// Ejecuta el bot de Twitter en intervalos regulares (por defecto cada 4 horas)
-// para mantener un flujo continuo de 3 a 5 publicaciones diarias.
-//
-// USO:
-//   node twitter_cron_runner.js               # Ejecuta en bucle según POST_INTERVAL_HOURS
-//   node twitter_cron_runner.js --now         # Ejecuta una vez de inmediato y luego sigue en bucle
+// Ejecuta publicaciones aleatorias dentro de ventanas fijas al día
+// para evitar que Twitter detecte horas exactas repetitivas.
 // =============================================================================
 
 import { spawn } from 'child_process';
@@ -17,46 +13,40 @@ import { fileURLToPath } from 'url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// Cargar variables de entorno
-const envPath = path.join(__dirname, '.env');
-let intervalHours = 4;
-
-if (fs.existsSync(envPath)) {
-    const content = fs.readFileSync(envPath, 'utf-8');
-    content.split('\n').forEach(line => {
-        const trimmed = line.trim();
-        if (trimmed && !trimmed.startsWith('#') && trimmed.includes('POST_INTERVAL_HOURS=')) {
-            const val = parseFloat(trimmed.split('=')[1]);
-            if (val && val > 0) intervalHours = val;
-        }
-    });
-}
-
-const INTERVAL_MS = intervalHours * 60 * 60 * 1000;
-
 function log(msg) {
     const time = new Date().toISOString().replace('T', ' ').substring(0, 19);
-    console.log(`[CRON-RUNNER] [${time}] ${msg}`);
+    console.log(`[CRON-V2] [${time}] ${msg}`);
 }
 
 function runBotScript() {
-    log('Iniciando ejecución programada de twitter_bot_engine.js...');
+    log('Iniciando ejecución de twitter_bot_engine.js...');
     const child = spawn('node', ['twitter_bot_engine.js'], {
         cwd: __dirname,
         stdio: 'inherit'
     });
 
     child.on('close', code => {
-        log(`Proceso finalizado con código de salida: ${code}`);
-        log(`Próxima publicación programada en ${intervalHours} horas (${new Date(Date.now() + INTERVAL_MS).toLocaleTimeString()}).`);
+        log(`Ejecución del bot finalizada con código: ${code}`);
+        scheduleNextRandomRun();
     });
 }
 
-log(`=== EDGE.FUTBOL TWITTER CRON DAEMON INICIADO ===`);
-log(`Frecuencia de publicación configurada: Cada ${intervalHours} horas (${Math.round(24 / intervalHours)} tuits al día).`);
+function scheduleNextRandomRun() {
+    // Frecuencia base 4 horas + variación aleatoria de +/- 45 minutos (en ms)
+    const baseIntervalMs = 4 * 60 * 60 * 1000;
+    const randomJitterMs = (Math.random() - 0.5) * 90 * 60 * 1000;
+    const nextIntervalMs = Math.max(2.5 * 60 * 60 * 1000, Math.floor(baseIntervalMs + randomJitterMs));
+    
+    const nextDate = new Date(Date.now() + nextIntervalMs);
+    log(`Próxima publicación programada de forma aleatoria para las ${nextDate.toLocaleTimeString()} (en ${Math.round(nextIntervalMs / 60000)} minutos).`);
+    
+    setTimeout(runBotScript, nextIntervalMs);
+}
+
+log('=== EDGE.FUTBOL TWITTER CRON DAEMON v2.0 (HORARIOS ALEATORIOS) ===');
 
 if (process.argv.includes('--now')) {
     runBotScript();
+} else {
+    scheduleNextRandomRun();
 }
-
-setInterval(runBotScript, INTERVAL_MS);
