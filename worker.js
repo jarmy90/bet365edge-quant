@@ -2351,6 +2351,23 @@ export default {
                 </div>
             </div>
         </section>
+
+        <!-- PIE: información legal, aviso de edad y juego responsable -->
+        <footer style="max-width:1020px; width:100%; margin:2rem auto 1.5rem; padding:1.6rem 1rem 0; border-top:1px solid var(--border-subtle); font-size:0.78rem; color:var(--text-muted); line-height:1.7;">
+            <div style="display:flex; flex-wrap:wrap; gap:14px; align-items:center; margin-bottom:12px;">
+                <span style="font-weight:800; color:#f59e0b; border:1px solid rgba(245,158,11,0.5); border-radius:6px; padding:2px 8px;">+18</span>
+                <strong id="footerAgeTxt" style="color:var(--text-secondary);">Solo para mayores de 18 años</strong>
+                <a id="linkAviso" href="/legal#aviso" style="color:var(--neon-cyan); text-decoration:none;">Aviso legal</a>
+                <a id="linkPrivacidad" href="/legal#privacidad" style="color:var(--neon-cyan); text-decoration:none;">Privacidad</a>
+                <a id="linkCookies" href="/legal#cookies" style="color:var(--neon-cyan); text-decoration:none;">Cookies</a>
+                <a id="linkTerminos" href="/legal#terminos" style="color:var(--neon-cyan); text-decoration:none;">Términos de uso</a>
+                <a id="linkJuego" href="/legal#juego" style="color:var(--neon-cyan); text-decoration:none;">Juego responsable</a>
+            </div>
+            <div id="footerInfo1">Esta web es un <strong>servicio de información y análisis estadístico</strong>. <strong>No es un operador de juego</strong>: no acepta apuestas ni custodia dinero de jugadores. Las cuotas se recogen de fuentes públicas y pueden contener errores u omisiones; comprueba siempre el precio y las condiciones en la casa de apuestas antes de jugar. No garantizamos resultados ni ganancias.</div>
+            <div id="footerInfo2" style="margin-top:8px;">Jugar conlleva riesgo de perder dinero. Si el juego es un problema para ti o para alguien de tu entorno, pide ayuda: <strong>900 200 225</strong> (FEJAR, atención 24 h) o visita <strong>jugarbien.es</strong>. Puedes solicitar tu autoexclusión en el RGIAJ (Ordenación del Juego).</div>
+            <div id="footerInfo3" style="margin-top:8px;"><strong>Servicio independiente, no afiliado ni respaldado por bet365.</strong></div>
+            <div id="footerBrandTag" style="margin-top:8px; font-weight:700; color:var(--text-secondary);">EDGE.FUTBOL Quant · Sistema cuantitativo autónomo</div>
+        </footer>
     </div>
 
     <!-- =========================================================================
