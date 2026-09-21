@@ -7,7 +7,11 @@
     "test": "node tools_run_tests.js",
     "verifica:nube": "node tools_verifica_nube.js",
     "diag:cloudflare": "node tools_diag_cloudflare.js",
-    "captura": "node tools_publicar_dataset.js --modo=info --dias=2"
+    "captura": "node tools_publicar_dataset.js --modo=info --dias=2",
+    "bot:twitter": "node twitter_bot_engine.js",
+    "bot:twitter:login": "node twitter_bot_engine.js --login-only",
+    "bot:twitter:test": "node twitter_bot_engine.js --dry-run",
+    "bot:twitter:daemon": "node twitter_cron_runner.js --now"
   },
   "dependencies": {
     "puppeteer-core": "^25.11.0"
