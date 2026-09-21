@@ -1044,6 +1044,55 @@ export default {
     <meta property="og:description" content="Motor cuantitativo 24/7 para detectar oportunidades con ventaja (+EV) en partidos de fútbol. Real-time quant engine for soccer value betting.">
     <meta name="twitter:title" content="EDGE.FUTBOL Quant | Soccer Value Betting & +EV Engine">
     <meta name="twitter:description" content="Motor cuantitativo 24/7 para detectar oportunidades con ventaja (+EV) en partidos de fútbol. Real-time quant engine for soccer value betting.">
+    <!-- Schema.org JSON-LD Markup for Search Engines and AI (ChatGPT, Perplexity, Gemini) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "SoftwareApplication",
+          "name": "EDGE.FUTBOL Quant Bot",
+          "operatingSystem": "Web",
+          "applicationCategory": "SportsAnalyticsApplication",
+          "description": "Bot cuantitativo autónomo 24/7 para calcular cuotas justas y detectar apuestas con ventaja estadística (+EV) en bet365.",
+          "offers": {
+            "@type": "Offer",
+            "price": "25.00",
+            "priceCurrency": "EUR"
+          }
+        },
+        {
+          "@type": "FAQPage",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "¿Cómo funciona nuestro bot para bet365?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Nuestro bot analiza continuamente 24/7 partidos de fútbol, estadísticas de forma, métricas xG, noticias deportivas, lesiones, meteorología y movimiento de cuotas para calcular la probabilidad justa del mercado (+1.5 y +2.5 goles) y detectar cuotas con valor esperado positivo (+EV)."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "¿Qué significa apostar con ventaja (+EV)?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Apostar con ventaja (+EV o Expected Value positivo) significa realizar apuestas cuando la cuota de la casa de apuestas paga más de lo que corresponde según la probabilidad real calculada por el modelo cuantitativo."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "¿Garantizan ganancias las oportunidades del bot?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "No. Las estimaciones son modelos estadísticos matemáticos de valor a largo plazo y no garantizan resultados en partidos individuales. El usuario es responsable de su propia gestión de bankroll."
+              }
+            }
+          ]
+        }
+      ]
+    }
+    </script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -2352,6 +2401,45 @@ export default {
             </div>
         </section>
 
+        <!-- =========================================================
+             SECCIÓN FAQ VISIBLE EN LA PÁGINA (PREGUNTAS FRECUENTES)
+             ========================================================= -->
+        <section class="bento-card col-12" style="margin-top:1.5rem; padding:1.4rem;">
+            <div style="text-align:center; margin-bottom:1.2rem;">
+                <h2 id="faqTitle" style="font-size:1.2rem; font-weight:800; color:var(--text-primary); letter-spacing:-0.4px;">Preguntas Frecuentes (FAQ)</h2>
+                <p id="faqSubtitle" style="font-size:0.8rem; color:var(--text-muted); margin-top:4px;">Respuestas sobre el bot de bet365, modelo de ventaja +EV y funcionamiento cuantitativo.</p>
+            </div>
+            
+            <div style="display:flex; flex-direction:column; gap:10px; max-width:860px; margin:0 auto; width:100%;">
+                <details style="background:var(--bg-void); border:1px solid var(--border-subtle); border-radius:12px; padding:12px 16px; cursor:pointer;" open>
+                    <summary id="faqQ1" style="font-weight:700; font-size:0.9rem; color:var(--text-primary); outline:none; display:flex; justify-content:space-between; align-items:center;">
+                        ¿Cómo funciona nuestro bot para bet365?
+                    </summary>
+                    <p id="faqA1" style="font-size:0.82rem; color:var(--text-secondary); margin-top:8px; line-height:1.5;">
+                        Nuestro bot cuantitativo procesa 24/7 datos masivos de partidos, estadísticas recientes, métricas xG, meteorología, bajas confirmadas y noticias en tiempo real. Con estos datos calcula la <strong>cuota justa</strong> (probabilidad real) para los mercados de más de 1.5 y 2.5 goles y la compara contra las cuotas públicas de bet365 para aislar únicamente selecciones con esperanza matemática positiva (+EV).
+                    </p>
+                </details>
+
+                <details style="background:var(--bg-void); border:1px solid var(--border-subtle); border-radius:12px; padding:12px 16px; cursor:pointer;">
+                    <summary id="faqQ2" style="font-weight:700; font-size:0.9rem; color:var(--text-primary); outline:none;">
+                        ¿Qué significa apostar con ventaja (+EV)?
+                    </summary>
+                    <p id="faqA2" style="font-size:0.82rem; color:var(--text-secondary); margin-top:8px; line-height:1.5;">
+                        Apostar con ventaja (+EV / Expected Value positivo) consiste en colocar apuestas únicamente cuando la probabilidad estimada por el algoritmo indica que la cuota ofrecida por la casa paga más de lo que matemáticamente debería. A largo plazo, operar exclusivamente en cuotas con valor esperado positivo supera el margen implícito de la casa.
+                    </p>
+                </details>
+
+                <details style="background:var(--bg-void); border:1px solid var(--border-subtle); border-radius:12px; padding:12px 16px; cursor:pointer;">
+                    <summary id="faqQ3" style="font-weight:700; font-size:0.9rem; color:var(--text-primary); outline:none;">
+                        ¿Garantizan ganancias las señales del bot?
+                    </summary>
+                    <p id="faqA3" style="font-size:0.82rem; color:var(--text-secondary); margin-top:8px; line-height:1.5;">
+                        No. Ningún modelo estadístico garantiza resultados en eventos deportivos individuales. Las predicciones son estimaciones probabilísticas. El usuario es responsable de su propia gestión de bankroll y de verificar las condiciones en la casa de apuestas antes de jugar.
+                    </p>
+                </details>
+            </div>
+        </section>
+
         <!-- PIE: información legal, aviso de edad y juego responsable -->
         <footer style="max-width:1020px; width:100%; margin:2rem auto 1.5rem; padding:1.6rem 1rem 0; border-top:1px solid var(--border-subtle); font-size:0.78rem; color:var(--text-muted); line-height:1.7;">
             <div style="display:flex; flex-wrap:wrap; gap:14px; align-items:center; margin-bottom:12px;">
@@ -2536,7 +2624,15 @@ export default {
                 footerInfo1: "Esta web es un <strong>servicio de información y análisis estadístico</strong>. <strong>No es un operador de juego</strong>: no acepta apuestas ni custodia dinero de jugadores. Las cuotas se recogen de fuentes públicas y pueden contener errores u omisiones; comprueba siempre el precio y las condiciones en la casa de apuestas antes de jugar. No garantizamos resultados ni ganancias.",
                 footerInfo2: "Jugar conlleva riesgo de perder dinero. Si el juego es un problema para ti o para alguien de tu entorno, pide ayuda: <strong>900 200 225</strong> (FEJAR, atención 24 h) o visita <strong>jugarbien.es</strong>. Puedes solicitar tu autoexclusión en el RGIAJ (Ordenación del Juego).",
                 footerInfo3: "<strong>Servicio independiente, no afiliado ni respaldado por bet365.</strong>",
-                footerBrandTag: "EDGE.FUTBOL Quant · Sistema cuantitativo autónomo"
+                footerBrandTag: "EDGE.FUTBOL Quant · Sistema cuantitativo autónomo",
+                faqTitle: "Preguntas Frecuentes (FAQ)",
+                faqSubtitle: "Respuestas sobre el bot de bet365, modelo de ventaja +EV y funcionamiento cuantitativo.",
+                faqQ1: "¿Cómo funciona nuestro bot para bet365?",
+                faqA1: "Nuestro bot cuantitativo procesa 24/7 datos masivos de partidos, estadísticas recientes, métricas xG, meteorología, bajas confirmadas y noticias en tiempo real. Con estos datos calcula la cuota justa (probabilidad real) para los mercados de más de 1.5 y 2.5 goles y la compara contra las cuotas públicas de bet365 para aislar únicamente selecciones con esperanza matemática positiva (+EV).",
+                faqQ2: "¿Qué significa apostar con ventaja (+EV)?",
+                faqA2: "Apostar con ventaja (+EV / Expected Value positivo) consiste en colocar apuestas únicamente cuando la probabilidad estimada por el algoritmo indica que la cuota ofrecida por la casa paga más de lo que matemáticamente debería. A largo plazo, operar exclusivamente en cuotas con valor esperado positivo supera el margen implícito de la casa.",
+                faqQ3: "¿Garantizan ganancias las señales del bot?",
+                faqA3: "No. Ningún modelo estadístico garantiza resultados en eventos deportivos individuales. Las predicciones son estimaciones probabilísticas. El usuario es responsable de su propia gestión de bankroll y de verificar las condiciones en la casa de apuestas antes de jugar."
             },
             en: {
                 navStatus: "Subscription: Inactive",
@@ -2625,7 +2721,15 @@ export default {
                 footerInfo1: "This site is an <strong>information and statistical analysis service</strong>. <strong>It is not a gambling operator</strong>: it does not accept bets nor manage player funds. Odds are gathered from public sources and may contain errors; always verify prices on official bookmaker sites before betting. No profits or outcomes guaranteed.",
                 footerInfo2: "Gambling involves risk of monetary loss. If gambling becomes a problem for you or someone close to you, seek help from responsible gambling organizations in your jurisdiction.",
                 footerInfo3: "<strong>Independent service, not affiliated with nor endorsed by bet365.</strong>",
-                footerBrandTag: "EDGE.FUTBOL Quant · Autonomous quantitative engine"
+                footerBrandTag: "EDGE.FUTBOL Quant · Autonomous quantitative engine",
+                faqTitle: "Frequently Asked Questions (FAQ)",
+                faqSubtitle: "Answers about the bet365 bot, +EV value betting model, and quantitative operations.",
+                faqQ1: "How does our bet365 quant bot work?",
+                faqA1: "Our quantitative bot processes massive 24/7 match data, recent form, xG metrics, weather forecasts, confirmed team news, and live odds movements. It calculates true fair odds (real probability) for Over 1.5 & Over 2.5 markets and compares them against public bet365 odds to isolate only positive expected value (+EV) selections.",
+                faqQ2: "What does value betting (+EV) mean?",
+                faqA2: "Value betting (+EV / positive Expected Value) means placing bets only when the model-estimated probability indicates that the bookmaker odds offer a higher payout than mathematically expected. Over the long run, operating strictly on positive value odds overcomes the bookmaker margin.",
+                faqQ3: "Do bot signals guarantee profits?",
+                faqA3: "No. No statistical model guarantees outcomes on individual sporting events. Predictions are mathematical estimations. Users are fully responsible for their own bankroll management and verifying bookmaker terms before betting."
             }
         };
 
@@ -2908,6 +3012,31 @@ export default {
 
             var footerBrandTag = document.getElementById('footerBrandTag');
             if (footerBrandTag) footerBrandTag.textContent = dict.footerBrandTag;
+
+            // FAQ Section
+            var faqTitle = document.getElementById('faqTitle');
+            if (faqTitle) faqTitle.textContent = dict.faqTitle;
+
+            var faqSubtitle = document.getElementById('faqSubtitle');
+            if (faqSubtitle) faqSubtitle.textContent = dict.faqSubtitle;
+
+            var faqQ1 = document.getElementById('faqQ1');
+            if (faqQ1) faqQ1.textContent = dict.faqQ1;
+
+            var faqA1 = document.getElementById('faqA1');
+            if (faqA1) faqA1.innerHTML = dict.faqA1;
+
+            var faqQ2 = document.getElementById('faqQ2');
+            if (faqQ2) faqQ2.textContent = dict.faqQ2;
+
+            var faqA2 = document.getElementById('faqA2');
+            if (faqA2) faqA2.innerHTML = dict.faqA2;
+
+            var faqQ3 = document.getElementById('faqQ3');
+            if (faqQ3) faqQ3.textContent = dict.faqQ3;
+
+            var faqA3 = document.getElementById('faqA3');
+            if (faqA3) faqA3.innerHTML = dict.faqA3;
         }
 
         // Auto-inicializar idioma en cuanto el DOM este listo
