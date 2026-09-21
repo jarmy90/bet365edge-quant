@@ -142,12 +142,6 @@ function paginaLegal() {
 // "apuestas con ventaja (+EV)" y "algoritmos de fútbol para goles".
 // =============================================================================
 function paginaGuiaSeo() {
-    const estilo = 'font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif;background:#06070a;color:#e2e8f0;margin:0;padding:0;line-height:1.8;';
-    const caja = 'max-width:960px;margin:0 auto;padding:2.5rem 1.2rem 4rem;';
-    const h2 = 'color:#0df2a6;font-size:1.35rem;margin:2.5rem 0 0.8rem;letter-spacing:-0.4px;';
-    const h3 = 'color:#00d4ff;font-size:1.1rem;margin:1.8rem 0 0.5rem;';
-    const card = 'background:#0d0f15;border:1px solid rgba(255,255,255,0.08);border-radius:16px;padding:1.4rem;margin:1.5rem 0;';
-
     return '<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8">'
         + '<meta name="viewport" content="width=device-width, initial-scale=1.0">'
         + '<meta name="robots" content="index, follow">'
@@ -163,23 +157,51 @@ function paginaGuiaSeo() {
             "publisher": { "@type": "Organization", "name": "EDGE.FUTBOL Quant" }
         })
         + '</script>'
-        + '<style>body{' + estilo + '}a{color:#00d4ff;text-decoration:none;}a:hover{text-decoration:underline;}ul{padding-left:1.3rem;}li{margin-bottom:0.6rem;}'
-        + 'h1{font-size:2rem;line-height:1.2;color:#f8fafc;} p{color:#94a3b8;margin-bottom:1.2rem;}'
-        + '</style></head><body><div style="' + caja + '">'
-        + '<p><a href="/">&#8592; Volver al terminal principal EDGE.FUTBOL</a></p>'
+        + '<script>(function(){try{var t=localStorage.getItem("b365_theme");if(document.documentElement)document.documentElement.setAttribute("data-theme",t||"light");}catch(e){}})()</script>'
+        + '<style>'
+        + ':root, [data-theme="light"] {'
+        + '  --bg-void:#f7f9fc; --bg-surface:#ffffff; --bg-card:#ffffff; --border-subtle:#e5eaf0; --neon-emerald:#0d9488;'
+        + '  --neon-cyan:#0284c7; --text-primary:#101828; --text-secondary:#475467; --text-muted:#667085;'
+        + '  --btn-bg:#0d9488; --btn-text:#ffffff; --card-shadow:0 2px 10px rgba(16,24,40,0.06);'
+        + '}'
+        + '[data-theme="dark"] {'
+        + '  --bg-void:#06070a; --bg-surface:#0d0f15; --bg-card:#0d0f15; --border-subtle:rgba(255,255,255,0.08); --neon-emerald:#0df2a6;'
+        + '  --neon-cyan:#00d4ff; --text-primary:#f8fafc; --text-secondary:#94a3b8; --text-muted:#64748b;'
+        + '  --btn-bg:#0df2a6; --btn-text:#06070a; --card-shadow:0 15px 35px rgba(0,0,0,0.4);'
+        + '}'
+        + 'body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;background-color:var(--bg-void);color:var(--text-primary);margin:0;padding:0;line-height:1.8;transition:background-color 0.3s ease,color 0.3s ease;}'
+        + 'a{color:var(--neon-cyan);text-decoration:none;}a:hover{text-decoration:underline;}'
+        + 'ul{padding-left:1.3rem;}li{margin-bottom:0.6rem;color:var(--text-secondary);}'
+        + 'h1{font-size:2rem;line-height:1.2;color:var(--text-primary);margin-bottom:0.8rem;}'
+        + 'h2{color:var(--neon-emerald);font-size:1.35rem;margin:1rem 0 0.8rem;letter-spacing:-0.4px;}'
+        + 'h3{color:var(--neon-cyan);font-size:1.1rem;margin:1.8rem 0 0.5rem;}'
+        + 'p{color:var(--text-secondary);margin-bottom:1.2rem;}'
+        + '.container{max-width:960px;margin:0 auto;padding:2rem 1.2rem 4rem;}'
+        + '.guide-card{background:var(--bg-card);border:1px solid var(--border-subtle);border-radius:16px;padding:1.4rem;margin:1.5rem 0;box-shadow:var(--card-shadow);}'
+        + '.header-bar{display:flex;justify-content:space-between;align-items:center;margin-bottom:1.5rem;}'
+        + '.theme-toggle{width:36px;height:36px;border-radius:10px;border:1px solid var(--border-subtle);background:rgba(128,128,128,0.06);color:var(--text-secondary);cursor:pointer;display:flex;align-items:center;justify-content:center;}'
+        + '</style></head><body>'
+        + '<div class="container">'
+        + '<div class="header-bar">'
+        + '<a href="/">&#8592; Volver al terminal principal EDGE.FUTBOL</a>'
+        + '<button class="theme-toggle" id="themeToggleBtn" onclick="toggleTheme()" title="Cambiar tema claro/oscuro" aria-label="Cambiar tema">'
+        + '<svg id="iconSun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" display="block"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>'
+        + '<svg id="iconMoon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" display="none"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>'
+        + '</button>'
+        + '</div>'
         + '<h1>Bot de Apuestas de Fútbol y Cálculo de Ventaja Estadística (+EV)</h1>'
-        + '<p style="font-size:1.05rem;color:#cbd5e1;">Aprende cómo operan los modelos cuantitativos autónomos para evaluar partidos de fútbol en tiempo real, estimar probabilidades reales de goles y detectar cuotas desajustadas en <strong>bet365 y otras casas de apuestas</strong>.</p>'
+        + '<p style="font-size:1.05rem;color:var(--text-secondary);">Aprende cómo operan los modelos cuantitativos autónomos para evaluar partidos de fútbol en tiempo real, estimar probabilidades reales de goles y detectar cuotas desajustadas en <strong>bet365 y otras casas de apuestas</strong>.</p>'
 
-        + '<div style="' + card + '">'
-        + '<h2 style="' + h2 + '">1. ¿Qué es un Bot de Apuestas Cuantitativo?</h2>'
+        + '<div class="guide-card">'
+        + '<h2>1. ¿Qué es un Bot de Apuestas Cuantitativo?</h2>'
         + '<p>Un bot de apuestas deportivas cuantitativo es un algoritmo informático que procesa millones de datos estadísticos por segundo sin sesgo emocional. A diferencia de las predicciones basadas en intuición, nuestro sistema calcula matemáticamente la probabilidad real de que ocurra un evento (por ejemplo, que haya más de 1.5 o más de 2.5 goles en un partido).</p>'
         + '<p>El bot analiza partidos de las principales ligas del mundo (LaLiga, Premier League, Serie A, Bundesliga, Champions League) evaluando variables como el rendimiento reciente, las métricas de goles esperados (xG), las bajas confirmadas, la meteorología y la evolución en directo de las cuotas.</p>'
         + '</div>'
 
-        + '<div style="' + card + '">'
-        + '<h2 style="' + h2 + '">2. ¿Cómo evaluar cuotas en bet365 y otras casas de apuestas?</h2>'
+        + '<div class="guide-card">'
+        + '<h2>2. ¿Cómo evaluar cuotas en bet365 y otras casas de apuestas?</h2>'
         + '<p>Las casas de apuestas públicas como <strong>bet365 y otras plataformas del mercado</strong> fijan sus cuotas añadiendo un margen de beneficio (operador o <em>margin</em>). El objetivo de nuestro algoritmo no es adivinar quién gana, sino calcular la <strong>cuota justa pura</strong>.</p>'
-        + '<h3 style="' + h3 + '">Ejemplo práctico de Ventaja (+EV):</h3>'
+        + '<h3>Ejemplo práctico de Ventaja (+EV):</h3>'
         + '<ul>'
         + '<li><strong>Partido:</strong> Real Madrid vs Barcelona.</li>'
         + '<li><strong>Estimación del Bot:</strong> La probabilidad real calculada para Más de 2.5 goles es del <strong>65%</strong> (Cuota justa = 1.54).</li>'
@@ -188,8 +210,8 @@ function paginaGuiaSeo() {
         + '</ul>'
         + '</div>'
 
-        + '<div style="' + card + '">'
-        + '<h2 style="' + h2 + '">3. Mercados Específicos: Más de 1.5 y Más de 2.5 Goles</h2>'
+        + '<div class="guide-card">'
+        + '<h2>3. Mercados Específicos: Más de 1.5 y Más de 2.5 Goles</h2>'
         + '<p>Elegimos enfocar el bot en los mercados de goles (Over/Under) por 3 razones cuantitativas:</p>'
         + '<ul>'
         + '<li><strong>Mayor liquidez:</strong> Son de los mercados más negociados del mundo en bet365 y otros operadores.</li>'
@@ -198,17 +220,23 @@ function paginaGuiaSeo() {
         + '</ul>'
         + '</div>'
 
-        + '<div style="' + card + '">'
-        + '<h2 style="' + h2 + '">4. Preguntas Frecuentes sobre Bots y Apuestas con Ventaja</h2>'
-        + '<h3 style="' + h3 + '">¿Se pueden usar estos datos en bet365 y cualquier otra casa de apuestas?</h3>'
+        + '<div class="guide-card">'
+        + '<h2>4. Preguntas Frecuentes sobre Bots y Apuestas con Ventaja</h2>'
+        + '<h3>¿Se pueden usar estos datos en bet365 y cualquier otra casa de apuestas?</h3>'
         + '<p>Sí. Las estimaciones de probabilidad son universales. Si el bot detecta valor en una cuota superior a 1.70, puedes comparar esa selección en bet365 o cualquier otra casa de apuestas autorizada en tu país.</p>'
-        + '<h3 style="' + h3 + '">¿El bot ofrece apuestas con garantía de ganancia?</h3>'
+        + '<h3>¿El bot ofrece apuestas con garantía de ganancia?</h3>'
         + '<p>No. En la estadística no existen las certezas absolutas al 100%. Apostar con ventaja (+EV) busca ganar margen a largo plazo superando la esperanza matemática, pero partidos individuales siempre tienen varianza. Recomendamos una gestión de bankroll responsable.</p>'
         + '</div>'
 
-        + '<p style="margin-top:2.5rem;text-align:center;"><a href="/" style="background:#0df2a6;color:#06070a;font-weight:800;padding:0.9rem 2rem;border-radius:12px;display:inline-block;">PROBAR EL BOT Y VER OPORTUNIDADES HOY</a></p>'
-        + '<p style="margin-top:2rem;color:#64748b;font-size:0.8rem;text-align:center;">EDGE.FUTBOL Quant · Servicio independiente de análisis estadístico. No somos operador de juego.</p>'
-        + '</div></body></html>';
+        + '<p style="margin-top:2.5rem;text-align:center;"><a href="/" style="background:var(--btn-bg);color:var(--btn-text);font-weight:800;padding:0.9rem 2rem;border-radius:12px;display:inline-block;">PROBAR EL BOT Y VER OPORTUNIDADES HOY</a></p>'
+        + '<p style="margin-top:2rem;color:var(--text-muted);font-size:0.8rem;text-align:center;">EDGE.FUTBOL Quant · Servicio independiente de análisis estadístico. No somos operador de juego.</p>'
+        + '</div>'
+        + '<script>'
+        + 'function toggleTheme(){var c=document.documentElement.getAttribute("data-theme")||"light";var n=c==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",n);localStorage.setItem("b365_theme",n);updateThemeIcons(n);}'
+        + 'function updateThemeIcons(t){var s=document.getElementById("iconSun");var m=document.getElementById("iconMoon");if(s)s.style.display=t==="dark"?"none":"block";if(m)m.style.display=t==="dark"?"block":"none";}'
+        + 'updateThemeIcons(document.documentElement.getAttribute("data-theme")||"light");'
+        + '</script>'
+        + '</body></html>';
 }
 
 // Procedencia del catalogo de fixtures publicado por la API publica.
