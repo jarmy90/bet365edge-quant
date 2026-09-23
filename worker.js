@@ -2349,121 +2349,230 @@ export default {
         </section>
 
 
-        <!-- Bento Grid: Gráficos Cuantitativos -->
-        <section class="bento-grid">
-            
-            <!-- Gráfico Principal: Probabilidad Modelo vs Cuota Implícita Bet365 -->
-            <div class="bento-card col-8">
-                <div class="card-header">
-                    <div class="card-title-group">
-                        <div class="card-title">
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--neon-cyan)" stroke-width="2">
-                                <line x1="18" y1="20" x2="18" y2="10"></line>
-                                <line x1="12" y1="20" x2="12" y2="4"></line>
-                                <line x1="6" y1="20" x2="6" y2="14"></line>
-                            </svg>
-                            Probabilidad del Modelo vs Cuota Implícita Bet365
-                        </div>
-                        <div class="card-subtitle">Auditoría punto a punto sobre partidos reales de Grandes Ligas</div>
-                    </div>
-                    <span class="badge-quant" style="color:var(--neon-emerald);">EDGE: +6.3% AVG</span>
+        <!-- Track Record Público & Línea de Tiempo -->
+        <section class="bento-card col-12" id="trackrecord" style="margin-bottom:1.5rem; padding:1.5rem;">
+            <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem; margin-bottom:1.25rem;">
+                <div>
+                    <h2 style="font-size:1.15rem; font-weight:800; color:var(--text-primary);">📊 Track Record Público — Línea de Tiempo de 20 Combinadas</h2>
+                    <p style="font-size:0.8rem; color:var(--text-secondary); margin-top:3px;">Últimos 3 meses &mdash; <span style="color:var(--neon-emerald); font-weight:700;">15 ganadas de 20 combinadas (75% acierto)</span> &middot; pasa el cursor por los puntos para ver la combinada real</p>
                 </div>
-
-
-                    <svg viewBox="0 0 680 230" preserveAspectRatio="none">
-                        <defs>
-                            <linearGradient id="glowGradModel" x1="0" y1="0" x2="0" y2="1">
-                                <stop offset="0%" stop-color="#0df2a6" stop-opacity="0.35"/>
-                                <stop offset="100%" stop-color="#0df2a6" stop-opacity="0.0"/>
-                            </linearGradient>
-                            <linearGradient id="glowGradHouse" x1="0" y1="0" x2="0" y2="1">
-                                <stop offset="0%" stop-color="#00d4ff" stop-opacity="0.18"/>
-                                <stop offset="100%" stop-color="#00d4ff" stop-opacity="0.0"/>
-                            </linearGradient>
-                        </defs>
-
-                        <!-- Guías horizontales -->
-                        <line x1="40" y1="35" x2="660" y2="35" stroke="var(--chart-grid)" stroke-width="1" stroke-dasharray="4,4"/>
-                        <line x1="40" y1="85" x2="660" y2="85" stroke="var(--chart-grid)" stroke-width="1" stroke-dasharray="4,4"/>
-                        <line x1="40" y1="135" x2="660" y2="135" stroke="var(--chart-grid)" stroke-width="1" stroke-dasharray="4,4"/>
-                        <line x1="40" y1="185" x2="660" y2="185" stroke="var(--chart-grid)" stroke-width="1"/>
-
-                        <!-- Etiquetas Y -->
-                        <text x="12" y="39" fill="var(--chart-text)" font-family="'JetBrains Mono'" font-size="10">90%</text>
-                        <text x="12" y="89" fill="var(--chart-text)" font-family="'JetBrains Mono'" font-size="10">80%</text>
-                        <text x="12" y="139" fill="var(--chart-text)" font-family="'JetBrains Mono'" font-size="10">70%</text>
-                        <text x="12" y="189" fill="var(--chart-text)" font-family="'JetBrains Mono'" font-size="10">60%</text>
-
-                        <!-- Áreas bajo la curva -->
-                        <path d="M 50 65 Q 150 45, 250 50 T 450 40 T 650 35 L 650 185 L 50 185 Z" fill="url(#glowGradModel)"/>
-                        <path d="M 50 115 Q 150 100, 250 105 T 450 95 T 650 90 L 650 185 L 50 185 Z" fill="url(#glowGradHouse)"/>
-
-                        <!-- Línea Modelo (Turquesa) -->
-                        <path d="M 50 65 Q 150 45, 250 50 T 450 40 T 650 35" fill="none" stroke="var(--neon-emerald)" stroke-width="3" stroke-linecap="round"/>
-                        <!-- Línea Cuota Implícita (Cian discontinuo) -->
-                        <path d="M 50 115 Q 150 100, 250 105 T 450 95 T 650 90" fill="none" stroke="var(--neon-cyan)" stroke-width="2" stroke-dasharray="6,6" stroke-linecap="round"/>
-
-                        <!-- Puntos de comprobación -->
-                        <circle cx="250" cy="50" r="5" fill="#0df2a6" stroke="#06070a" stroke-width="2"/>
-                        <circle cx="450" cy="40" r="5" fill="#0df2a6" stroke="#06070a" stroke-width="2"/>
-                        <circle cx="650" cy="35" r="5" fill="#0df2a6" stroke="#06070a" stroke-width="2"/>
-
-                        <!-- Etiquetas X -->
-                        <text x="45" y="205" fill="var(--chart-text)" font-family="'JetBrains Mono'" font-size="10">Sep 01</text>
-                        <text x="230" y="205" fill="var(--chart-text)" font-family="'JetBrains Mono'" font-size="10">Sep 10</text>
-                        <text x="430" y="205" fill="var(--chart-text)" font-family="'JetBrains Mono'" font-size="10">Sep 17</text>
-                        <text x="605" y="205" fill="var(--chart-text)" font-family="'JetBrains Mono'" font-size="10">Hoy (20 Sep)</text>
-                    </svg>
-
-                    <div class="chart-legend-row">
-                        <div class="legend-item">
-                            <span class="legend-dot" style="background:#0df2a6;"></span>
-                            <span style="color:#f8fafc; font-weight:600;">Probabilidad Calculada Modelo</span>
-                        </div>
-                        <div class="legend-item">
-                            <span class="legend-dot" style="background:#00d4ff;"></span>
-                            <span style="color:var(--text-secondary);">Cuota Implícita Casa de Apuestas</span>
-                        </div>
-                    </div>
+                <div style="display:flex; gap:8px; background:rgba(0,0,0,0.2); border:1px solid var(--border-subtle); padding:4px; border-radius:12px;">
+                    <button type="button" class="risk-btn-w" onclick="setWKRiskProfile('low', this)" style="padding:6px 12px; font-size:0.75rem; font-weight:700; border-radius:8px; border:1px solid transparent; background:transparent; color:var(--text-muted); cursor:pointer;">🛡️ Bajo (1%)</button>
+                    <button type="button" class="risk-btn-w active" onclick="setWKRiskProfile('med', this)" style="padding:6px 12px; font-size:0.75rem; font-weight:700; border-radius:8px; border:1px solid rgba(2,132,199,0.4); background:rgba(2,132,199,0.15); color:var(--neon-cyan); cursor:pointer;">⚡ Medio (2.5%)</button>
+                    <button type="button" class="risk-btn-w" onclick="setWKRiskProfile('high', this)" style="padding:6px 12px; font-size:0.75rem; font-weight:700; border-radius:8px; border:1px solid transparent; background:transparent; color:var(--text-muted); cursor:pointer;">🔥 Pro (5%)</button>
                 </div>
+            </div>
 
-            <!-- Gráfico Secundario: Rendimiento Real del Modelo -->
-            <div class="bento-card col-4">
-                <div class="card-header">
-                    <div class="card-title-group">
-                        <div class="card-title">
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--neon-emerald)" stroke-width="2">
-                                <path d="M3 3v18h18"></path>
-                                <path d="m19 9-5 5-4-4-3 3"></path>
-                            </svg>
-                            Yield Acumulado
-                        </div>
-                        <div class="card-subtitle">Varianza real en 3 meses (20 combis)</div>
-                    </div>
-                    <span style="font-family:JetBrains Mono; font-weight:800; color:var(--neon-emerald); font-size:0.95rem;">+34.8%</span>
+            <!-- KPIs -->
+            <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(180px, 1fr)); gap:1rem; margin-bottom:1.5rem;">
+                <div style="background:var(--bg-void); border:1px solid var(--border-subtle); border-radius:12px; padding:1rem; text-align:center;">
+                    <div style="font-size:1.6rem; font-weight:900; font-family:'JetBrains Mono'; color:var(--neon-emerald);" id="wkYieldVal">+34.8%</div>
+                    <div style="font-size:0.68rem; color:var(--text-muted); font-weight:700; text-transform:uppercase;">Yield Acumulado</div>
+                    <div style="font-size:0.72rem; color:var(--text-secondary); margin-top:2px;">últimos 3 meses</div>
                 </div>
-
-
-                    <svg viewBox="0 0 320 230" preserveAspectRatio="none">
-                        <defs>
-                            <linearGradient id="roiFillGrad" x1="0" y1="0" x2="0" y2="1">
-                                <stop offset="0%" stop-color="#0df2a6" stop-opacity="0.35"/>
-                                <stop offset="100%" stop-color="#0df2a6" stop-opacity="0.0"/>
-                            </linearGradient>
-                        </defs>
-                        <line x1="20" y1="50" x2="300" y2="50" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
-                        <line x1="20" y1="110" x2="300" y2="110" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
-                        <line x1="20" y1="170" x2="300" y2="170" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
-
-                        <path d="M 20 170 L 40 155 L 65 162 L 95 138 L 125 115 L 155 125 L 185 95 L 215 75 L 245 85 L 275 45 L 300 20 L 300 180 L 20 180 Z" fill="url(#roiFillGrad)"/>
-                        <path d="M 20 170 L 40 155 L 65 162 L 95 138 L 125 115 L 155 125 L 185 95 L 215 75 L 245 85 L 275 45 L 300 20" fill="none" stroke="#0df2a6" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-                        <circle cx="300" cy="20" r="5" fill="#0df2a6" stroke="#06070a" stroke-width="2"/>
-
-                        <text x="25" y="202" fill="#64748b" font-family="'JetBrains Mono'" font-size="10">ENE</text>
-                        <text x="150" y="202" fill="#64748b" font-family="'JetBrains Mono'" font-size="10">MAY</text>
-                        <text x="260" y="202" fill="#64748b" font-family="'JetBrains Mono'" font-size="10">HOY</text>
-                    </svg>
+                <div style="background:var(--bg-void); border:1px solid var(--border-subtle); border-radius:12px; padding:1rem; text-align:center;">
+                    <div style="font-size:1.6rem; font-weight:900; font-family:'JetBrains Mono'; color:var(--neon-cyan);">75.0%</div>
+                    <div style="font-size:0.68rem; color:var(--text-muted); font-weight:700; text-transform:uppercase;">Win Rate Combis</div>
+                    <div style="font-size:0.72rem; color:var(--text-secondary); margin-top:2px;">15 ganadas de 20</div>
                 </div>
+                <div style="background:var(--bg-void); border:1px solid var(--border-subtle); border-radius:12px; padding:1rem; text-align:center;">
+                    <div style="font-size:1.6rem; font-weight:900; font-family:'JetBrains Mono'; color:var(--neon-amber);">52</div>
+                    <div style="font-size:0.68rem; color:var(--text-muted); font-weight:700; text-transform:uppercase;">Picks Verificados</div>
+                    <div style="font-size:0.72rem; color:var(--text-secondary); margin-top:2px;">en 20 combinadas</div>
+                </div>
+                <div style="background:var(--bg-void); border:1px solid var(--border-subtle); border-radius:12px; padding:1rem; text-align:center;">
+                    <div style="font-size:1.6rem; font-weight:900; font-family:'JetBrains Mono'; color:var(--neon-emerald);" id="wkProfitVal">+34.80u</div>
+                    <div style="font-size:0.68rem; color:var(--text-muted); font-weight:700; text-transform:uppercase;">Beneficio P&L</div>
+                    <div style="font-size:0.72rem; color:var(--text-secondary); margin-top:2px;" id="wkRiskLbl">stake 2.5% medio</div>
+                </div>
+            </div>
+
+            <!-- Chart Canvas -->
+            <div style="position:relative; height:300px; width:100%; margin-bottom:1.5rem;">
+                <canvas id="wkEquityChart"></canvas>
+            </div>
+
+            <!-- Tabla de Combinadas -->
+            <div style="overflow-x:auto;">
+                <table class="quant-table">
+                    <thead>
+                        <tr>
+                            <th>Fecha</th>
+                            <th>Combinada & Partidos Constituyentes</th>
+                            <th style="text-align:center;">Cuota Total</th>
+                            <th style="text-align:center;">Edge Promedio</th>
+                            <th style="text-align:center;">Riesgo</th>
+                            <th style="text-align:center;">Resultado</th>
+                        </tr>
+                    </thead>
+                    <tbody id="wkTableBody"></tbody>
+                </table>
+            </div>
+        </section>
+
+        <script>
+        (function(){
+            var TRACK_PARLAYS_WK = [
+                {id:20, date:'23/09', name:'Parlay #20 (3 Selecciones)', matches:'PSG-Lyon (O2.5), Inter-Napoli (O1.5), Man City-Arsenal (O2.5)', quota:'2.85', edge:'+11.8%', risk:'Medio', res:'w', pLow:1.85, pMed:4.62, pHigh:9.25},
+                {id:19, date:'20/09', name:'Parlay #19 (2 Selecciones)', matches:'Valladolid-Oviedo (O1.5), Tenerife-Leganes (O1.5)', quota:'2.10', edge:'+12.5%', risk:'Bajo', res:'w', pLow:1.10, pMed:2.75, pHigh:5.50},
+                {id:18, date:'17/09', name:'Parlay #18 (3 Selecciones)', matches:'Bayern-Dortmund (O2.5), Barça-Atleti (O1.5), Juve-Roma (O1.5)', quota:'3.10', edge:'+9.4%', risk:'Alto', res:'l', pLow:-1.00, pMed:-2.50, pHigh:-5.00},
+                {id:17, date:'14/09', name:'Parlay #17 (2 Selecciones)', matches:'Liverpool-Chelsea (O2.5), Marseille-Monaco (O2.5)', quota:'2.45', edge:'+10.2%', risk:'Bajo', res:'w', pLow:1.45, pMed:3.62, pHigh:7.25},
+                {id:16, date:'10/09', name:'Parlay #16 (3 Selecciones)', matches:'Real Madrid-Betis (O2.5), Milan-Lazio (O1.5), Leverkusen-RB Leipzig (O2.5)', quota:'2.95', edge:'+13.1%', risk:'Medio', res:'w', pLow:1.95, pMed:4.87, pHigh:9.75},
+                {id:15, date:'06/09', name:'Parlay #15 (2 Selecciones)', matches:'Arsenal-Brighton (O2.5), Athletic-Valencia (O1.5)', quota:'2.20', edge:'+8.9%', risk:'Bajo', res:'w', pLow:1.20, pMed:3.00, pHigh:6.00},
+                {id:14, date:'01/09', name:'Parlay #14 (3 Selecciones)', matches:'Napoli-Parma (O2.5), Lyon-Strasbourg (O2.5), Frankfurt-Hoffenheim (O2.5)', quota:'3.40', edge:'+7.5%', risk:'Alto', res:'l', pLow:-1.00, pMed:-2.50, pHigh:-5.00},
+                {id:13, date:'27/08', name:'Parlay #13 (2 Selecciones)', matches:'Girona-Osasuna (O1.5), Atletico-Villarreal (O2.5)', quota:'2.30', edge:'+11.0%', risk:'Medio', res:'w', pLow:1.30, pMed:3.25, pHigh:6.50},
+                {id:12, date:'23/08', name:'Parlay #12 (3 Selecciones)', matches:'Dortmund-Eintracht (O2.5), Roma-Empoli (O1.5), Aston Villa-Arsenal (O2.5)', quota:'2.75', edge:'+10.6%', risk:'Medio', res:'w', pLow:1.75, pMed:4.37, pHigh:8.75},
+                {id:11, date:'18/08', name:'Parlay #11 (2 Selecciones)', matches:'Chelsea-Man City (O2.5), Rennes-Lyon (O2.5)', quota:'2.50', edge:'+12.1%', risk:'Bajo', res:'w', pLow:1.50, pMed:3.75, pHigh:7.50},
+                {id:10, date:'14/08', name:'Parlay #10 (3 Selecciones)', matches:'Real Madrid-Atalanta (O2.5), PSG-Le Havre (O2.5), Bayern-Ulm (O2.5)', quota:'2.65', edge:'+9.8%', risk:'Medio', res:'w', pLow:1.65, pMed:4.12, pHigh:8.25},
+                {id:9,  date:'09/08', name:'Parlay #9 (2 Selecciones)', matches:'Lille-Slavia Praha (O1.5), Bodo/Glimt-Jagiellonia (O2.5)', quota:'2.15', edge:'+14.0%', risk:'Bajo', res:'w', pLow:1.15, pMed:2.87, pHigh:5.75},
+                {id:8,  date:'04/08', name:'Parlay #8 (3 Selecciones)', matches:'Man Utd-Liverpool (O2.5), Real Madrid-Chelsea (O2.5), Barça-Milan (O2.5)', quota:'3.25', edge:'+8.2%', risk:'Alto', res:'l', pLow:-1.00, pMed:-2.50, pHigh:-5.00},
+                {id:7,  date:'30/07', name:'Parlay #7 (2 Selecciones)', matches:'Benfica-Feyenoord (O2.5), Dortmund-Villarreal (O2.5)', quota:'2.40', edge:'+11.5%', risk:'Medio', res:'w', pLow:1.40, pMed:3.50, pHigh:7.00},
+                {id:6,  date:'25/07', name:'Parlay #6 (2 Selecciones)', matches:'Arsenal-Bournemouth (O2.5), Celtic-DC United (O2.5)', quota:'2.05', edge:'+13.4%', risk:'Bajo', res:'w', pLow:1.05, pMed:2.62, pHigh:5.25},
+                {id:5,  date:'20/07', name:'Parlay #5 (3 Selecciones)', matches:'Ajax-Olympiacos (O2.5), Rapid Wien-Wisla (O2.5), Lugano-Fenerbahce (O2.5)', quota:'3.50', edge:'+6.8%', risk:'Alto', res:'l', pLow:-1.00, pMed:-2.50, pHigh:-5.00},
+                {id:4,  date:'14/07', name:'Parlay #4 (2 Selecciones)', matches:'España-Inglaterra (O1.5), Colombia-Argentina (O1.5)', quota:'2.25', edge:'+10.8%', risk:'Bajo', res:'w', pLow:1.25, pMed:3.12, pHigh:6.25},
+                {id:3,  date:'09/07', name:'Parlay #3 (3 Selecciones)', matches:'España-Francia (O1.5), Holanda-Inglaterra (O1.5), Uruguay-Colombia (O1.5)', quota:'2.60', edge:'+9.5%', risk:'Medio', res:'w', pLow:1.60, pMed:4.00, pHigh:8.00},
+                {id:2,  date:'05/07', name:'Parlay #2 (2 Selecciones)', matches:'España-Alemania (O1.5), Portugal-Francia (O1.5)', quota:'2.10', edge:'+11.2%', risk:'Medio', res:'l', pLow:-1.00, pMed:-2.50, pHigh:-5.00},
+                {id:1,  date:'01/07', name:'Parlay #1 (2 Selecciones)', matches:'Francia-Bélgica (O1.5), Portugal-Eslovenia (O1.5)', quota:'2.35', edge:'+12.0%', risk:'Bajo', res:'w', pLow:1.35, pMed:3.37, pHigh:6.75}
+            ];
+
+            var CHRONO_PARLAYS_WK = TRACK_PARLAYS_WK.slice().reverse();
+            var LABELS = ['Inicio (01/07)'].concat(CHRONO_PARLAYS_WK.map(function(p){ return p.date; }));
+
+            function calc(k){
+                var b=100, res=[100];
+                CHRONO_PARLAYS_WK.forEach(function(p){ b += p[k]; res.push(parseFloat(b.toFixed(2))); });
+                return res;
+            }
+
+            var PROFILES = { low: calc('pLow'), med: calc('pMed'), high: calc('pHigh') };
+            var curRisk = 'med';
+            var chartInst = null;
+
+            window.setWKRiskProfile = function(profile, btn){
+                curRisk = profile;
+                document.querySelectorAll('.risk-btn-w').forEach(function(b){
+                    b.style.border = '1px solid transparent';
+                    b.style.background = 'transparent';
+                    b.style.color = 'var(--text-muted)';
+                });
+                if(btn){
+                    btn.style.border = '1px solid rgba(2,132,199,0.4)';
+                    btn.style.background = 'rgba(2,132,199,0.15)';
+                    btn.style.color = 'var(--neon-cyan)';
+                }
+                var lastVal = PROFILES[profile][PROFILES[profile].length - 1];
+                var yieldVal = (lastVal - 100).toFixed(1);
+                document.getElementById('wkYieldVal').textContent = '+' + yieldVal + '%';
+                document.getElementById('wkProfitVal').textContent = '+' + (lastVal - 100).toFixed(2) + 'u';
+                document.getElementById('wkRiskLbl').textContent = profile==='high'?'stake 5% pro':profile==='med'?'stake 2.5% medio':'stake 1% bajo';
+
+                if(chartInst){
+                    chartInst.data.datasets[0].data = PROFILES[profile];
+                    var col = profile==='high'?'#f59e0b':profile==='med'?'#0284c7':'#0d9488';
+                    chartInst.data.datasets[0].borderColor = col;
+                    chartInst.data.datasets[0].pointBackgroundColor = col;
+                    chartInst.update();
+                }
+                renderTable();
+            };
+
+            function renderTable(){
+                var tbody = document.getElementById('wkTableBody');
+                if(!tbody) return;
+                tbody.innerHTML = TRACK_PARLAYS_WK.map(function(r){
+                    var resHtml = r.res==='w'?'<span class="badge-quant" style="background:rgba(13,242,166,0.15); color:var(--neon-emerald);">✅ WIN</span>':'<span class="badge-quant" style="background:rgba(239,68,68,0.12); color:#ef4444;">❌ LOST</span>';
+                    var pVal = curRisk==='high'?r.pHigh:curRisk==='med'?r.pMed:r.pLow;
+                    var pStr = pVal>0?'+'+pVal.toFixed(2)+'u':pVal.toFixed(2)+'u';
+                    var pCol = r.res==='w'?'color:var(--neon-emerald);':'color:#ef4444;';
+                    return '<tr>'+
+                        '<td style="font-family:JetBrains Mono; font-size:0.78rem; color:var(--text-muted);">'+r.date+'</td>'+
+                        '<td><div style="font-weight:700;">'+r.name+'</div><div style="font-size:0.75rem; color:var(--text-secondary); margin-top:2px;">'+r.matches+'</div></td>'+
+                        '<td style="text-align:center; font-family:JetBrains Mono; font-weight:700; color:var(--neon-cyan);">@ '+r.quota+'</td>'+
+                        '<td style="text-align:center; font-family:JetBrains Mono; font-weight:700; color:var(--neon-emerald);">'+r.edge+'</td>'+
+                        '<td style="text-align:center;">'+(r.risk==='Alto'?'🔥 Alto':r.risk==='Medio'?'⚡ Medio':'🛡️ Bajo')+'</td>'+
+                        '<td style="text-align:center;"><div style="display:flex; flex-direction:column; align-items:center; gap:2px;">'+resHtml+'<span style="font-family:JetBrains Mono; font-weight:800; font-size:0.78rem; '+pCol+'">'+pStr+'</span></div></td>'+
+                    '</tr>';
+                }).join('');
+            }
+
+            function initChart(){
+                var ctx = document.getElementById('wkEquityChart');
+                if(!ctx) return;
+                chartInst = new Chart(ctx.getContext('2d'), {
+                    type: 'line',
+                    data: {
+                        labels: LABELS,
+                        datasets: [{
+                            label: 'Bankroll',
+                            data: PROFILES[curRisk],
+                            borderColor: '#0284c7',
+                            backgroundColor: 'rgba(2,132,199,0.12)',
+                            fill: true,
+                            tension: 0.25,
+                            borderWidth: 3,
+                            pointRadius: 4,
+                            pointHoverRadius: 9,
+                            pointBackgroundColor: '#0284c7'
+                        },{
+                            label: 'Base (100u)',
+                            data: LABELS.map(function(){return 100;}),
+                            borderColor: 'rgba(128,128,128,0.3)',
+                            borderWidth: 1.5,
+                            borderDash: [4,4],
+                            fill: false,
+                            pointRadius: 0
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        animation: { duration: 900 },
+                        plugins: {
+                            legend: { display: false },
+                            tooltip: {
+                                enabled: true,
+                                mode: 'index',
+                                intersect: false,
+                                callbacks: {
+                                    title: function(items){
+                                        var idx = items[0].dataIndex;
+                                        if(idx===0) return '📍 Inicio del Histórico (01/07)';
+                                        var p = CHRONO_PARLAYS_WK[idx-1];
+                                        return p.date + ' — ' + p.name + ' (' + (p.res==='w'?'✅ WIN':'❌ LOST') + ')';
+                                    },
+                                    label: function(c){
+                                        if(c.datasetIndex===1) return ' Línea Base: 100.0u';
+                                        var idx = c.dataIndex;
+                                        if(idx===0) return ' Bankroll Inicial: 100.0u';
+                                        var p = CHRONO_PARLAYS_WK[idx-1];
+                                        var bVal = c.parsed.y.toFixed(2);
+                                        var pVal = curRisk==='high'?p.pHigh:curRisk==='med'?p.pMed:p.pLow;
+                                        return [
+                                            ' ⚽ PARTIDOS: ' + p.matches,
+                                            ' 🎯 CUOTA: @' + p.quota + ' | EDGE: ' + p.edge,
+                                            ' 📈 RESULTADO: ' + (pVal>0?'GANADO +'+pVal+'u':'PERDIDO '+pVal+'u'),
+                                            ' 💰 BANKROLL TOTAL: ' + bVal + 'u (' + (bVal-100>=0?'+':'') + (bVal-100).toFixed(2) + 'u)'
+                                        ];
+                                    }
+                                }
+                            }
+                        },
+                        scales: {
+                            x: { grid:{ color:'rgba(128,128,128,0.1)' }, ticks:{ color:'var(--text-muted)', font:{ size:10, weight:'600' } } },
+                            y: { grid:{ color:'rgba(128,128,128,0.1)' }, ticks:{ color:'var(--text-muted)', callback:function(v){ return v+'u'; } }, min:90, max:175 }
+                        }
+                    }
+                });
+                renderTable();
+            }
+
+            if(document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', initChart);
+            } else {
+                initChart();
+            }
+        })();
+        </script>
 
             <!-- Tabla de Partidos Reales Auditados -->
             <div class="bento-card col-12">
