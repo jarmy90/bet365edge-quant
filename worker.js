@@ -2438,9 +2438,9 @@ export default {
                             </svg>
                             Yield Acumulado
                         </div>
-                        <div class="card-subtitle">Varianza real del bankroll (+EV)</div>
+                        <div class="card-subtitle">Varianza real en 3 meses (20 combis)</div>
                     </div>
-                    <span style="font-family:JetBrains Mono; font-weight:800; color:var(--neon-emerald); font-size:0.95rem;">+138.4%</span>
+                    <span style="font-family:JetBrains Mono; font-weight:800; color:var(--neon-emerald); font-size:0.95rem;">+34.8%</span>
                 </div>
 
 
