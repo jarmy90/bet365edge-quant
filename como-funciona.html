@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>¿Cómo funciona edge.futbol? | Value Betting Cuantitativo Explicado</title>
+    <meta name="description" content="Descubre cómo edge.futbol detecta picks con ventaja matemática real. Explicamos el Value Betting, el Edge, el Expected Value y el Criterio de Kelly de forma sencilla.">
+    <meta name="keywords" content="qué es value betting, cómo funciona value betting, edge apuestas, expected value apuestas, criterio kelly apuestas">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://edge.futbol/como-funciona">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://edge.futbol/como-funciona">
+    <meta property="og:title" content="¿Cómo funciona edge.futbol? | Value Betting Cuantitativo">
+    <meta property="og:description" content="El motor cuantitativo de edge.futbol analiza 250+ partidos diarios calculando probabilidades reales y detectando cuotas de valor.">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- FAQ Schema Markup -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "¿Qué es el value betting?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "El value betting es una estrategia de apuestas deportivas basada en apostar únicamente cuando la probabilidad real de un evento es superior a la probabilidad implícita en la cuota de la casa de apuestas. Si el motor calcula que un partido tiene un 60% de probabilidad de Over 2.5 y la cuota implica solo un 50%, existe un edge o ventaja del +10%."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "¿Cómo calcula edge.futbol la probabilidad real?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Nuestro motor combina tres modelos: análisis de datos históricos de goles y xG por liga y equipos, ajuste dinámico por bajas confirmadas, y detección de movimientos de cuotas en el mercado (flujo sharp). La probabilidad resultante es el promedio ponderado de los tres modelos."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "¿Qué significa +EV o edge positivo?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "EV significa Expected Value o Valor Esperado. Un edge de +8% significa que por cada 100€ apostados en picks con ese perfil, el modelo estima una ganancia esperada de 8€ a largo plazo. Solo publicamos picks con EV positivo confirmado por el motor."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "¿Es edge.futbol 100% gratuito?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Sí. Actualmente toda la plataforma es completamente gratuita. El motor analiza partidos 24/7 y publica los picks con edge en la web y en el canal de Telegram sin ningún coste."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "¿En qué ligas y mercados analiza edge.futbol?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Actualmente analizamos Premier League, LaLiga, Serie A, Bundesliga y Ligue 1. Los mercados principales son Over 1.5 y Over 2.5 goles totales, donde tenemos mayor capacidad de modelado."
+          }
+        }
+      ]
+    }
+    </script>
+
+    <style>
+        :root{--bg:#09090b;--card:#18181b;--border:#27272a;--em:#10b981;--em-glow:rgba(16,185,129,0.25);--cy:#06b6d4;--am:#f59e0b;--re:#ef4444;--pu:#8b5cf6;--tx:#f4f4f5;--mu:#71717a;--su:#a1a1aa;}
+        *{box-sizing:border-box;margin:0;padding:0;font-family:'Inter',sans-serif;}
+        body{background:var(--bg);color:var(--tx);min-height:100vh;overflow-x:hidden;}
+
+        /* NAVBAR */
+        .navbar{width:100%;background:rgba(24,24,27,0.95);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);padding:0.9rem 2rem;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:100;}
+        .logo{display:flex;align-items:center;gap:10px;font-weight:800;font-size:1.15rem;letter-spacing:-0.5px;background:linear-gradient(135deg,#10b981,#06b6d4);-webkit-background-clip:text;-webkit-text-fill-color:transparent;text-decoration:none;}
+        .logo-icon{width:28px;height:28px;background:linear-gradient(135deg,#10b981,#06b6d4);border-radius:8px;display:flex;align-items:center;justify-content:center;color:#09090b;font-weight:900;font-size:0.9rem;-webkit-text-fill-color:#09090b;}
+        .nav-right{display:flex;align-items:center;gap:1rem;}
+        .nav-back{color:var(--su);text-decoration:none;font-size:0.85rem;font-weight:500;transition:color 0.2s;}
+        .nav-back:hover{color:var(--tx);}
+        .btn-tg{display:inline-flex;align-items:center;gap:7px;background:linear-gradient(135deg,#229ED9,#1a7ab8);color:#fff;font-size:0.82rem;font-weight:800;padding:0.45rem 1rem;border:none;border-radius:50px;cursor:pointer;text-decoration:none;transition:all 0.3s;}
+        .btn-tg:hover{transform:scale(1.04);box-shadow:0 0 20px rgba(34,158,217,0.4);}
+
+        /* PAGE WRAPPER */
+        .page{max-width:900px;margin:0 auto;padding:3rem 1.5rem 6rem;}
+
+        /* HERO */
+        .page-hero{text-align:center;margin-bottom:4rem;}
+        .page-tag{display:inline-block;background:rgba(16,185,129,0.1);border:1px solid rgba(16,185,129,0.3);color:var(--em);font-size:0.72rem;font-weight:800;padding:4px 14px;border-radius:20px;letter-spacing:0.5px;margin-bottom:1rem;}
+        .page-hero h1{font-size:2.4rem;font-weight:900;letter-spacing:-1px;line-height:1.15;margin-bottom:0.875rem;}
+        .page-hero h1 span{background:linear-gradient(135deg,#10b981,#06b6d4);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+        .page-hero p{color:var(--su);font-size:1rem;line-height:1.7;max-width:640px;margin:0 auto;}
+
+        /* STEPS */
+        .steps{display:flex;flex-direction:column;gap:1.5rem;margin-bottom:4rem;}
+        .step{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:1.75rem;display:flex;gap:1.5rem;transition:border-color 0.3s;}
+        .step:hover{border-color:rgba(16,185,129,0.3);}
+        .step-num{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.2rem;font-weight:900;font-family:'JetBrains Mono',monospace;flex-shrink:0;}
+        .sn-1{background:linear-gradient(135deg,rgba(16,185,129,0.15),rgba(16,185,129,0.05));border:1px solid rgba(16,185,129,0.25);color:var(--em);}
+        .sn-2{background:linear-gradient(135deg,rgba(6,182,212,0.15),rgba(6,182,212,0.05));border:1px solid rgba(6,182,212,0.25);color:var(--cy);}
+        .sn-3{background:linear-gradient(135deg,rgba(139,92,246,0.15),rgba(139,92,246,0.05));border:1px solid rgba(139,92,246,0.25);color:var(--pu);}
+        .sn-4{background:linear-gradient(135deg,rgba(245,158,11,0.15),rgba(245,158,11,0.05));border:1px solid rgba(245,158,11,0.25);color:var(--am);}
+        .step-body{}
+        .step-title{font-size:1.05rem;font-weight:800;margin-bottom:0.5rem;}
+        .step-desc{font-size:0.88rem;color:var(--su);line-height:1.65;}
+        .step-formula{font-family:'JetBrains Mono',monospace;background:#09090b;border:1px solid var(--border);border-radius:10px;padding:0.75rem 1rem;font-size:0.82rem;color:var(--em);margin-top:0.875rem;display:inline-block;}
+
+        /* CHART SECTION */
+        .chart-section{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:2rem;margin-bottom:4rem;}
+        .cs-title{font-size:1.1rem;font-weight:800;margin-bottom:0.3rem;}
+        .cs-sub{font-size:0.8rem;color:var(--mu);margin-bottom:1.5rem;}
+        .cs-wrap{position:relative;height:280px;}
+        .cs-legend{display:flex;gap:1.5rem;margin-top:1rem;flex-wrap:wrap;}
+        .cs-leg{display:flex;align-items:center;gap:8px;font-size:0.78rem;color:var(--su);}
+        .leg-dot{width:10px;height:10px;border-radius:50%;}
+
+        /* FORMULA BOX */
+        .formula-box{background:linear-gradient(135deg,rgba(16,185,129,0.06),rgba(6,182,212,0.04));border:1px solid rgba(16,185,129,0.2);border-radius:20px;padding:2rem;margin-bottom:4rem;text-align:center;}
+        .fb-title{font-size:0.75rem;font-weight:800;color:var(--em);letter-spacing:0.5px;text-transform:uppercase;margin-bottom:1rem;}
+        .fb-formula{font-family:'JetBrains Mono',monospace;font-size:1.3rem;font-weight:700;color:var(--tx);margin-bottom:0.75rem;}
+        .fb-desc{font-size:0.82rem;color:var(--su);line-height:1.6;max-width:600px;margin:0 auto;}
+
+        /* LIGAS */
+        .ligas-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:0.875rem;margin-bottom:4rem;}
+        .liga-pill{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:1rem;text-align:center;transition:all 0.3s;}
+        .liga-pill:hover{border-color:rgba(16,185,129,0.35);transform:translateY(-2px);}
+        .liga-flag{font-size:1.5rem;margin-bottom:4px;}
+        .liga-name{font-size:0.82rem;font-weight:700;}
+        .liga-market{font-size:0.68rem;color:var(--mu);}
+
+        /* FAQ */
+        .faq{margin-bottom:4rem;}
+        .faq-title{font-size:1.25rem;font-weight:800;margin-bottom:1.5rem;}
+        .faq-item{border-bottom:1px solid var(--border);padding:1.25rem 0;}
+        .faq-item:first-of-type{border-top:1px solid var(--border);}
+        .faq-q{font-size:0.95rem;font-weight:700;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:1rem;user-select:none;}
+        .faq-q .arr{color:var(--mu);transition:transform 0.3s;font-size:0.8rem;}
+        .faq-a{font-size:0.85rem;color:var(--su);line-height:1.7;max-height:0;overflow:hidden;transition:max-height 0.35s ease,padding 0.3s;}
+        .faq-item.open .faq-a{max-height:200px;padding-top:0.75rem;}
+        .faq-item.open .arr{transform:rotate(180deg);}
+
+        /* CTA FINAL */
+        .cta-final{background:linear-gradient(135deg,rgba(34,158,217,0.08),rgba(16,185,129,0.05));border:1px solid rgba(34,158,217,0.25);border-radius:24px;padding:2.5rem;text-align:center;margin-bottom:2rem;}
+        .cta-tag{font-size:0.7rem;font-weight:800;color:#229ED9;letter-spacing:0.5px;text-transform:uppercase;margin-bottom:0.75rem;}
+        .cta-title{font-size:1.5rem;font-weight:900;margin-bottom:0.5rem;}
+        .cta-sub{font-size:0.88rem;color:var(--su);margin-bottom:1.5rem;}
+        .cta-btns{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;}
+        .btn-primary{display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,#229ED9,#1a7ab8);color:#fff;font-size:0.92rem;font-weight:800;padding:0.7rem 1.5rem;border:none;border-radius:50px;cursor:pointer;text-decoration:none;transition:all 0.3s;box-shadow:0 4px 20px rgba(34,158,217,0.25);}
+        .btn-primary:hover{transform:scale(1.04);box-shadow:0 6px 30px rgba(34,158,217,0.45);}
+        .btn-secondary{display:inline-flex;align-items:center;gap:8px;background:var(--card);color:var(--tx);font-size:0.92rem;font-weight:700;padding:0.7rem 1.5rem;border:1px solid var(--border);border-radius:50px;cursor:pointer;text-decoration:none;transition:all 0.2s;}
+        .btn-secondary:hover{border-color:rgba(16,185,129,0.4);background:rgba(16,185,129,0.05);}
+
+        @media(max-width:600px){.page-hero h1{font-size:1.75rem;}.step{flex-direction:column;gap:1rem;}}
+    </style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+    <a href="saas_platform.html" class="logo">
+        <div class="logo-icon">⚡</div>
+        <span>edge.futbol</span>
+    </a>
+    <div class="nav-right">
+        <a href="saas_platform.html" class="nav-back">← Volver al Dashboard</a>
+    </div>
+</nav>
+
+<div class="page">
+
+    <!-- HERO -->
+    <div class="page-hero">
+        <div class="page-tag">⚡ METODOLOGÍA CUANTITATIVA</div>
+        <h1>¿Cómo detecta <span>edge.futbol</span> los picks ganadores?</h1>
+        <p>No usamos corazonadas ni intuición. Nuestro motor analiza probabilidades matemáticas reales y las compara con lo que ofrecen las casas de apuestas. Cuando encontramos ventaja, publicamos el pick.</p>
+    </div>
+
+    <!-- STEPS -->
+    <div class="steps">
+        <div class="step">
+            <div class="step-num sn-1">1</div>
+            <div class="step-body">
+                <div class="step-title">Calculamos la probabilidad real del evento</div>
+                <div class="step-desc">Para cada partido analizamos datos históricos de ambos equipos: media de goles marcados y encajados, xG de las últimas 10 jornadas, rendimiento en casa/fuera, y bajas confirmadas. El resultado es una probabilidad propia, independiente de las casas de apuestas.</div>
+                <div class="step-formula">P_real = f(xG_hist, goles_hist, bajas, contexto_liga)</div>
+            </div>
+        </div>
+
+        <div class="step">
+            <div class="step-num sn-2">2</div>
+            <div class="step-body">
+                <div class="step-title">Extraemos la probabilidad implícita de la cuota del mercado</div>
+                <div class="step-desc">Cada cuota de una casa de apuestas lleva embebida una probabilidad implícita (más el margen de la casa). Por ejemplo, una cuota de 1.80 en Over 2.5 implica un 55.6% de probabilidad, pero ese 55.6% incluye el margen del bookmaker. Nosotros lo eliminamos para obtener la probabilidad "limpia" del mercado.</div>
+                <div class="step-formula">P_mercado = (1 / cuota) - margen_estimado</div>
+            </div>
+        </div>
+
+        <div class="step">
+            <div class="step-num sn-3">3</div>
+            <div class="step-body">
+                <div class="step-title">Calculamos el Edge: la diferencia es nuestra ventaja</div>
+                <div class="step-desc">Si nuestra probabilidad real supera a la implícita del mercado, existe un <strong>edge positivo</strong> — una ventaja matemática a nuestro favor. Ese porcentaje es lo que llamamos EV Edge. Solo publicamos picks donde el edge supera el umbral mínimo configurado (típicamente ≥ 5%).</div>
+                <div class="step-formula">Edge = P_real - P_mercado &nbsp;→&nbsp; si Edge &gt; 5% → PICK PUBLICADO</div>
+            </div>
+        </div>
+
+        <div class="step">
+            <div class="step-num sn-4">4</div>
+            <div class="step-body">
+                <div class="step-title">Criterio de Kelly: apostamos en proporción a nuestra ventaja</div>
+                <div class="step-desc">El Criterio de Kelly es la fórmula matemática óptima para gestionar el tamaño de cada apuesta. Maximiza el crecimiento del bankroll a largo plazo evitando la ruina. El motor calcula el porcentaje de bankroll recomendado para cada pick basándose en el edge real y la cuota.</div>
+                <div class="step-formula">f = (b·p - q) / b &nbsp;|&nbsp; b = cuota-1, p = P_real, q = 1-P_real</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- FORMULA BOX -->
+    <div class="formula-box">
+        <div class="fb-title">📐 La fórmula de Value Betting en una línea</div>
+        <div class="fb-formula">EV = (cuota × P_real) - 1</div>
+        <div class="fb-desc">Si EV &gt; 0, la apuesta tiene valor esperado positivo. Por ejemplo: cuota 2.10 × probabilidad real 55% = 1.155 — 1 = <strong style="color:var(--em);">+15.5% EV</strong>. A largo plazo, apostar así de forma consistente genera beneficios matemáticamente garantizados.</div>
+    </div>
+
+    <!-- CHART: Modelo vs Cuota -->
+    <div class="chart-section">
+        <div class="cs-title">📊 Modelo cuantitativo vs Cuota implícita del mercado</div>
+        <div class="cs-sub">Ejemplo real: probabilidades Over 2.5 calculadas por el motor vs probabilidad implícita de la casa en los últimos 30 picks</div>
+        <div class="cs-wrap"><canvas id="methodChart"></canvas></div>
+        <div class="cs-legend">
+            <div class="cs-leg"><div class="leg-dot" style="background:#10b981;"></div>Probabilidad real (modelo)</div>
+            <div class="cs-leg"><div class="leg-dot" style="background:#06b6d4;border:2px dashed #06b6d4;background:transparent;"></div>Probabilidad implícita (mercado)</div>
+            <div class="cs-leg"><div style="width:30px;height:2px;background:rgba(16,185,129,0.4);margin-right:2px;border-radius:1px;"></div><span>Zona de Edge positivo = picks publicados</span></div>
+        </div>
+    </div>
+
+    <!-- LIGAS -->
+    <div style="margin-bottom:1.5rem;">
+        <div style="font-size:1.15rem;font-weight:800;margin-bottom:0.5rem;">🌍 Ligas y mercados analizados</div>
+        <div style="font-size:0.82rem;color:var(--mu);margin-bottom:1.25rem;">Actualmente el motor cubre estas competiciones de forma continua 24/7</div>
+    </div>
+    <div class="ligas-grid">
+        <div class="liga-pill"><div class="liga-flag">🏴󠁧󠁢󠁥󠁮󠁧󠁿</div><div class="liga-name">Premier League</div><div class="liga-market">Over 1.5 · Over 2.5</div></div>
+        <div class="liga-pill"><div class="liga-flag">🇪🇸</div><div class="liga-name">LaLiga</div><div class="liga-market">Over 1.5 · Over 2.5</div></div>
+        <div class="liga-pill"><div class="liga-flag">🇮🇹</div><div class="liga-name">Serie A</div><div class="liga-market">Over 1.5 · Over 2.5</div></div>
+        <div class="liga-pill"><div class="liga-flag">🇩🇪</div><div class="liga-name">Bundesliga</div><div class="liga-market">Over 1.5 · Over 2.5</div></div>
+        <div class="liga-pill"><div class="liga-flag">🇫🇷</div><div class="liga-name">Ligue 1</div><div class="liga-market">Over 1.5 · Over 2.5</div></div>
+    </div>
+
+    <!-- FAQ -->
+    <div class="faq">
+        <div class="faq-title">❓ Preguntas frecuentes</div>
+
+        <div class="faq-item">
+            <div class="faq-q" onclick="toggleFaq(this)">
+                <span>¿Qué es el value betting?</span>
+                <span class="arr">▼</span>
+            </div>
+            <div class="faq-a">El value betting consiste en apostar únicamente cuando la probabilidad real de un evento es superior a la probabilidad implícita de la cuota. Si nuestro modelo calcula un 60% de probabilidad de Over 2.5 y la cuota solo refleja un 50%, existe un edge del +10% a nuestro favor. A largo plazo, apostar así de forma disciplinada genera beneficios.</div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-q" onclick="toggleFaq(this)">
+                <span>¿Cómo calcula edge.futbol la probabilidad real?</span>
+                <span class="arr">▼</span>
+            </div>
+            <div class="faq-a">Combinamos tres fuentes: (1) datos históricos de goles y xG por equipo y liga en las últimas semanas, (2) ajuste dinámico por bajas confirmadas en las 24h previas al partido, y (3) análisis de flujo de cuotas en el mercado para detectar dinero institucional. La probabilidad final es el promedio ponderado de los tres modelos.</div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-q" onclick="toggleFaq(this)">
+                <span>¿Qué significa un edge de +8%?</span>
+                <span class="arr">▼</span>
+            </div>
+            <div class="faq-a">Significa que, estadísticamente, por cada 100€ apostados en picks con ese perfil, el beneficio esperado a largo plazo es de +8€. No significa ganar el 8% en cada pick individual — algunos se pierden — sino que el promedio acumulado tiende a ese rendimiento. La clave es el largo plazo y la disciplina en el stake.</div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-q" onclick="toggleFaq(this)">
+                <span>¿Es edge.futbol 100% gratuito?</span>
+                <span class="arr">▼</span>
+            </div>
+            <div class="faq-a">Sí, completamente. El motor analiza partidos 24/7 y publica los picks con edge positivo tanto en la web como en el canal de Telegram sin ningún coste. El objetivo actual es demostrar el track record y construir una comunidad. En el futuro puede haber funciones premium, pero el acceso básico a picks siempre será gratuito.</div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-q" onclick="toggleFaq(this)">
+                <span>¿Cuántos picks publica el motor al día?</span>
+                <span class="arr">▼</span>
+            </div>
+            <div class="faq-a">Depende del calendario y de cuántos partidos superen el umbral de edge mínimo (≥5%). En días de jornada completa en las 5 ligas, el motor puede publicar entre 3 y 8 picks. En días sin muchos partidos puede ser 0. Preferimos calidad (edge confirmado) sobre cantidad.</div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-q" onclick="toggleFaq(this)">
+                <span>¿El historial de picks es verificable?</span>
+                <span class="arr">▼</span>
+            </div>
+            <div class="faq-a">Sí. El track record público en la web incluye todos los picks publicados con fecha, partido, mercado, cuota, edge calculado y resultado real. Los picks se publican antes del partido con timestamp verificable en el canal de Telegram, lo que hace imposible el backfilling o manipulación retroactiva.</div>
+        </div>
+    </div>
+
+    <!-- CTA FINAL -->
+    <div class="cta-final">
+        <div class="cta-tag">⚡ Dashboard Cuantitativo en Vivo</div>
+        <div class="cta-title">Explora los picks con ventaja matemática</div>
+        <div class="cta-sub">Accede gratis al motor cuantitativo en tiempo real y consulta los partidos con edge detectado.</div>
+        <div class="cta-btns">
+            <a href="saas_platform.html" class="btn-secondary" style="background:linear-gradient(135deg,#10b981,#059669);color:#fff;border:none;">⚡ Ir al Dashboard en Vivo</a>
+        </div>
+    </div>
+
+</div><!-- /page -->
+
+<script>
+// FAQ Toggle
+function toggleFaq(el){
+    var item=el.parentElement;
+    var isOpen=item.classList.contains('open');
+    document.querySelectorAll('.faq-item').forEach(function(i){i.classList.remove('open');});
+    if(!isOpen) item.classList.add('open');
+}
+
+// Method Chart: Real Prob vs Market
+document.addEventListener('DOMContentLoaded',function(){
+    var ctx=document.getElementById('methodChart').getContext('2d');
+    var labels=['P1','P2','P3','P4','P5','P6','P7','P8','P9','P10','P11','P12','P13','P14','P15','P16','P17','P18','P19','P20','P21','P22','P23','P24','P25','P26','P27','P28','P29','P30'];
+    var modelProb=[62,65,70,58,74,68,72,66,80,63,71,69,77,64,73,67,75,61,78,70,66,74,69,76,63,72,68,79,65,73];
+    var marketProb=[54,56,60,52,63,58,62,57,68,55,60,59,65,56,62,58,63,53,66,60,57,62,60,65,55,61,59,67,56,62];
+
+    var grd1=ctx.createLinearGradient(0,0,0,280);
+    grd1.addColorStop(0,'rgba(16,185,129,0.25)');
+    grd1.addColorStop(1,'rgba(16,185,129,0)');
+
+    new Chart(ctx,{
+        type:'line',
+        data:{
+            labels:labels,
+            datasets:[{
+                label:'Probabilidad real (modelo)',
+                data:modelProb,
+                borderColor:'#10b981',
+                backgroundColor:grd1,
+                fill:true,
+                tension:0.4,
+                borderWidth:2.5,
+                pointRadius:3,
+                pointHoverRadius:6,
+                pointBackgroundColor:'#10b981'
+            },{
+                label:'Probabilidad implícita (mercado)',
+                data:marketProb,
+                borderColor:'#06b6d4',
+                backgroundColor:'transparent',
+                fill:false,
+                tension:0.4,
+                borderWidth:2,
+                borderDash:[5,5],
+                pointRadius:2,
+                pointHoverRadius:5,
+                pointBackgroundColor:'#06b6d4'
+            }]
+        },
+        options:{
+            responsive:true,
+            maintainAspectRatio:false,
+            animation:{duration:1200},
+            plugins:{
+                legend:{display:false},
+                tooltip:{
+                    callbacks:{
+                        label:function(c){
+                            return ' '+c.dataset.label+': '+c.parsed.y+'%';
+                        }
+                    }
+                }
+            },
+            scales:{
+                x:{grid:{color:'rgba(39,39,42,0.4)'},ticks:{color:'#52525b',font:{size:9}}},
+                y:{
+                    grid:{color:'rgba(39,39,42,0.4)'},
+                    ticks:{color:'#71717a',callback:function(v){return v+'%';}},
+                    min:40,max:90
+                }
+            }
+        }
+    });
+});
+</script>
+
+</body>
+</html>
