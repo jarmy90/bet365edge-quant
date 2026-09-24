@@ -830,7 +830,7 @@ export function construirFixturesSinAnalisis(candidatos, nowMs, opts) {
             evPct: null,
             ev: '-',
             confianza: 'SIN ANALISIS',
-            justificacion: 'Partido real capturado de ratingbet.com. Pendiente de analisis de edge (agente IA no disponible en este ciclo).',
+            justificacion: 'Partido real verificado en feeds en vivo. Pendiente de analisis de edge (ciclo de analisis en curso).',
             factores: [],
             noticiasUsadas: [],
             lineas: lineasTodas,
