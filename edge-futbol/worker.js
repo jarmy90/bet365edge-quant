@@ -1937,37 +1937,52 @@ export default {
                 left: -9999px;
             }
             .quant-table tr {
-                background: var(--bg-surface);
-                border: 1px solid var(--border-subtle);
-                border-radius: 12px;
-                margin-bottom: 10px;
-                padding: 10px 12px;
-                box-shadow: var(--card-shadow);
+                background: var(--bg-surface, #18181b);
+                border: 1px solid var(--border-subtle, rgba(255,255,255,0.1));
+                border-radius: 14px;
+                margin-bottom: 12px;
+                padding: 12px 14px;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.15);
             }
             .quant-table td {
-                border-bottom: none !important;
-                padding: 6px 0 !important;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.05) !important;
+                padding: 8px 0 !important;
                 display: flex !important;
                 justify-content: space-between !important;
                 align-items: center !important;
                 font-size: 0.82rem !important;
+                text-align: right !important;
+            }
+            .quant-table td:last-child {
+                border-bottom: none !important;
             }
             .quant-table td:first-child {
-                flex-direction: column !important;
-                align-items: flex-start !important;
-                border-bottom: 1px solid var(--border-subtle) !important;
+                display: block !important;
+                border-bottom: 1px solid var(--border-subtle, rgba(255,255,255,0.1)) !important;
+                padding-bottom: 6px !important;
+                margin-bottom: 6px !important;
+                text-align: left !important;
+            }
+            .quant-table td:nth-child(2) {
+                display: block !important;
+                border-bottom: 1px solid var(--border-subtle, rgba(255,255,255,0.1)) !important;
                 padding-bottom: 8px !important;
-                margin-bottom: 4px !important;
+                margin-bottom: 6px !important;
+                text-align: left !important;
             }
             .quant-table td::before {
                 content: attr(data-label);
                 font-size: 0.7rem;
                 font-weight: 700;
-                color: var(--text-muted);
+                color: var(--text-muted, #9ca3af);
                 text-transform: uppercase;
+                letter-spacing: 0.3px;
+                margin-right: 8px;
+                flex-shrink: 0;
             }
-            .quant-table td:first-child::before {
-                display: none;
+            .quant-table td:first-child::before,
+            .quant-table td:nth-child(2)::before {
+                display: none !important;
             }
         }
         .quant-table tr:hover td {
@@ -2498,12 +2513,12 @@ export default {
                     var pStr = pVal>0?'+'+pVal.toFixed(2)+'u':pVal.toFixed(2)+'u';
                     var pCol = r.res==='w'?'color:var(--neon-emerald);':'color:#ef4444;';
                     return '<tr>'+
-                        '<td style="font-family:JetBrains Mono; font-size:0.78rem; color:var(--text-muted);">'+r.date+'</td>'+
-                        '<td><div style="font-weight:700;">'+r.name+'</div><div style="font-size:0.75rem; color:var(--text-secondary); margin-top:2px;">'+r.matches+'</div></td>'+
-                        '<td style="text-align:center; font-family:JetBrains Mono; font-weight:700; color:var(--neon-cyan);">@ '+r.quota+'</td>'+
-                        '<td style="text-align:center; font-family:JetBrains Mono; font-weight:700; color:var(--neon-emerald);">'+r.edge+'</td>'+
-                        '<td style="text-align:center;">'+(r.risk==='Alto'?'🔥 Alto':r.risk==='Medio'?'⚡ Medio':'🛡️ Bajo')+'</td>'+
-                        '<td style="text-align:center;"><div style="display:flex; flex-direction:column; align-items:center; gap:2px;">'+resHtml+'<span style="font-family:JetBrains Mono; font-weight:800; font-size:0.78rem; '+pCol+'">'+pStr+'</span></div></td>'+
+                        '<td data-label="Fecha" style="font-family:JetBrains Mono; font-size:0.78rem; color:var(--text-muted);">'+r.date+'</td>'+
+                        '<td data-label="Combinada & Partidos"><div style="font-weight:700;">'+r.name+'</div><div style="font-size:0.75rem; color:var(--text-secondary); margin-top:2px;">'+r.matches+'</div></td>'+
+                        '<td data-label="Cuota Total" style="text-align:center; font-family:JetBrains Mono; font-weight:700; color:var(--neon-cyan);">@ '+r.quota+'</td>'+
+                        '<td data-label="Edge Promedio" style="text-align:center; font-family:JetBrains Mono; font-weight:700; color:var(--neon-emerald);">'+r.edge+'</td>'+
+                        '<td data-label="Riesgo" style="text-align:center;">'+(r.risk==='Alto'?'🔥 Alto':r.risk==='Medio'?'⚡ Medio':'🛡️ Bajo')+'</td>'+
+                        '<td data-label="Resultado" style="text-align:center;"><div style="display:flex; flex-direction:column; align-items:center; gap:2px;">'+resHtml+'<span style="font-family:JetBrains Mono; font-weight:800; font-size:0.78rem; '+pCol+'">'+pStr+'</span></div></td>'+
                     '</tr>';
                 }).join('');
             }
@@ -3745,7 +3760,7 @@ export default {
                     var probEst = Number.isFinite(p.probPct)
                         ? ((p.probBase === 'modelo-ia' ? 'Prob. IA: ' : 'Prob. casa: ') + Math.round(p.probPct) + '%')
                         : 'Prob. n/d';
-                    var edgeVal = Number.isFinite(p.edgePuntos) ? p.edgePuntos : (cuotaModelo ? Math.round((p.cuota - Number(cuotaModelo)) * 100) : null);
+                    var edgeVal = Number.isFinite(p.edgePuntos) ? p.edgePuntos : (p.probPct && p.cuota ? Math.round((p.probPct - (100 / p.cuota)) * 10) / 10 : null);
                     var edgeHtml = Number.isFinite(edgeVal) ?
                         (edgeVal >= 0 ? '<strong style="color:var(--neon-emerald);">+' + edgeVal.toFixed(1) + '%</strong>'
                                       : '<strong style="color:#ef4444;">-' + Math.abs(edgeVal).toFixed(1) + '%</strong>')

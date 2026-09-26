@@ -50,6 +50,7 @@ export function esLigaTopPermitida(match) {
     // Exclusiones explícitas primero
     const exclusiones = [
         'friendly', 'amistoso', 'reserve', 'reserves', 'juventud', 'youth', 'u21', 'u19', 'u23', 'femenino', 'women',
+        'rfef', 'federacion', 'federación', 'segunda b', 'tercera', 'promocion', 'promoción',
         'argentina', 'colombia', 'guatemala', 'honduras', 'mexico', 'méxico', 'russia', 'rusia',
         'belgium', 'bélgica', 'estonia', 'romania', 'rumanía', 'slovakia', 'eslovaquia',
         'ukraine', 'ucrania', 'norway', 'noruega', 'bulgaria', 'denmark', 'dinamarca', 'georgia',
@@ -897,15 +898,19 @@ export function seleccionDeFixture(f) {
         const pJusta = esOver ? l.pOverJusta : l.pUnderJusta;
         const pTip = Number.isFinite(l.tipProbPct) ? l.tipProbPct : null;
         const probUsada = pTip !== null ? pTip : pJusta;
-        const cuotaModelo = Number.isFinite(probUsada) && probUsada > 0 ? Math.round((100 / probUsada) * 100) / 100 : null;
-        const edgePuntos = (Number.isFinite(cuotaModelo) && Number.isFinite(cuota))
-            ? Math.round((cuota - cuotaModelo) * 100) : null;
+        const impliedBookie = cuota > 0 ? (100 / cuota) : null;
+        const edgePuntos = (Number.isFinite(probUsada) && impliedBookie !== null)
+            ? Math.round((probUsada - impliedBookie) * 10) / 10
+            : null;
+        const esPositivo = Number.isFinite(edgePuntos) && edgePuntos > 0;
         return {
             mercado: (esOver ? 'Over ' : 'Under ') + mTip[2] + ' Goles', cuota: cuota,
             probPct: probUsada,
             probBase: pTip !== null ? 'analisis-tip' : 'mercado-justo',
             edgePuntos: edgePuntos,
-            justificacion: 'Seleccion ' + (esOver ? 'Over' : 'Under') + ' ' + mTip[2] + ' goles validada por nuestro modelo cuantitativo.'
+            justificacion: esPositivo
+                ? 'Seleccion ' + (esOver ? 'Over' : 'Under') + ' ' + mTip[2] + ' goles validada con Edge positivo (+EV).'
+                : 'Mercado sin ventaja cuantitativa (+EV negativo).'
         };
     }
     // 3) fallback: Over 1.5 con probabilidad justa derivada de la cuota real
@@ -959,11 +964,11 @@ export function construirParlayRiesgo(pool, riskLevel, ahoraMs) {
             if (!f || f.jugado) return;
             if (!Number.isFinite(f.kickoffMs) || f.kickoffMs < nowMs) return;
             const s = seleccionDeFixture(f);
-            if (s && Number.isFinite(s.probPct) && s.probPct > 0) {
+            if (s && Number.isFinite(s.probPct) && s.probPct > 0 && Number.isFinite(s.edgePuntos) && s.edgePuntos > 0) {
                 destPool.push({ f: f, s: s });
             }
         });
-        destPool.sort(function (a, b) { return b.s.probPct - a.s.probPct; });
+        destPool.sort(function (a, b) { return b.s.edgePuntos - a.s.edgePuntos; });
         const dest = destPool.slice(0, 3).map(function (e, idx) {
             return {
                 clave: e.f.clave, partido: e.f.partido || (e.f.local && e.f.visitante ? (e.f.local + ' vs ' + e.f.visitante) : 'Partido'), local: e.f.local, visitante: e.f.visitante,
@@ -1039,12 +1044,12 @@ export function construirParlayRiesgo(pool, riskLevel, ahoraMs) {
             if (!f || f.jugado) return;
             if (!Number.isFinite(f.kickoffMs) || f.kickoffMs < nowMs) return;
             const s = seleccionDeFixture(f);
-            if (s && Number.isFinite(s.probPct) && s.probPct > 0) {
+            if (s && Number.isFinite(s.probPct) && s.probPct > 0 && Number.isFinite(s.edgePuntos) && s.edgePuntos > 0) {
                 destacadosPool.push({ f: f, s: s });
             }
         });
 
-        destacadosPool.sort(function (a, b) { const edgeA = Number.isFinite(a.s.edgePuntos) ? a.s.edgePuntos : (a.s.cuota - (100 / a.s.probPct)); const edgeB = Number.isFinite(b.s.edgePuntos) ? b.s.edgePuntos : (b.s.cuota - (100 / b.s.probPct)); return edgeB - edgeA; });
+        destacadosPool.sort(function (a, b) { return b.s.edgePuntos - a.s.edgePuntos; });
         const destacados = destacadosPool.slice(0, 3).map(function (e, idx) {
             return {
                 clave: e.f.clave, partido: e.f.partido || (e.f.local && e.f.visitante ? (e.f.local + ' vs ' + e.f.visitante) : 'Partido'), local: e.f.local, visitante: e.f.visitante,
