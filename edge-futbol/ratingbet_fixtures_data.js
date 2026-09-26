@@ -1,13 +1,13 @@
 // GENERADO AUTOMATICAMENTE por scrape_ratingbet.js - NO EDITAR A MANO
-// Capturado: sábado, 26 de septiembre de 2026, 8:51:07 (2026-09-26T06:51:07.602Z)
+// Capturado: sábado, 26 de septiembre de 2026, 9:08:59 (2026-09-26T07:08:59.075Z)
 // Origen: ratingbet.com con Chrome real (Cloudflare requiere navegador)
-// Partidos futuros validados: 631 de 631 capturados
+// Partidos futuros validados: 632 de 632 capturados
 // Zona horaria de negocio: Europe/Madrid | margen: 30 min
 
 export const CAPTURA = {
   "fuente": {
-    "generadoEnUtc": "2026-09-26T06:51:07.602Z",
-    "generadoEnMadrid": "sábado, 26 de septiembre de 2026, 8:51:07",
+    "generadoEnUtc": "2026-09-26T07:08:59.075Z",
+    "generadoEnMadrid": "sábado, 26 de septiembre de 2026, 9:08:59",
     "zonaHorariaNegocio": "Europe/Madrid",
     "margenMinutos": 30,
     "ventanaMaxDias": 14,
@@ -19,8 +19,8 @@ export const CAPTURA = {
       "1.5",
       "2.5"
     ],
-    "totalPartidos": 631,
-    "totalCapturadosBrutos": 631,
+    "totalPartidos": 632,
+    "totalCapturadosBrutos": 632,
     "descartados": 0,
     "muestraDescartados": [],
     "incidentes": []
@@ -43,27 +43,27 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
         "linea": "1.5",
         "cuotaOver": 1.14,
-        "probCasaOverPct": 79,
-        "cuotaUnder": 4.4,
-        "probCasaUnderPct": 21,
+        "probCasaOverPct": 80,
+        "cuotaUnder": 4.45,
+        "probCasaUnderPct": 20,
         "tip": "O1.5",
         "tipCuota": 1.14,
-        "tipProbPct": 79
+        "tipProbPct": 80
       },
       "2.5": {
         "linea": "2.5",
-        "cuotaOver": 1.58,
+        "cuotaOver": 1.57,
         "probCasaOverPct": 58,
-        "cuotaUnder": 2.18,
+        "cuotaUnder": 2.2,
         "probCasaUnderPct": 42,
         "tip": "O2.5",
-        "tipCuota": 1.58,
+        "tipCuota": 1.57,
         "tipProbPct": 58
       }
     }
@@ -83,27 +83,27 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 180,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
         "linea": "1.5",
-        "cuotaOver": 1.18,
+        "cuotaOver": 1.17,
         "probCasaOverPct": 77,
-        "cuotaUnder": 3.88,
+        "cuotaUnder": 3.95,
         "probCasaUnderPct": 23,
         "tip": "O1.5",
-        "tipCuota": 1.18,
+        "tipCuota": 1.17,
         "tipProbPct": 77
       },
       "2.5": {
         "linea": "2.5",
-        "cuotaOver": 1.68,
+        "cuotaOver": 1.66,
         "probCasaOverPct": 55,
-        "cuotaUnder": 2.02,
+        "cuotaUnder": 2.05,
         "probCasaUnderPct": 45,
         "tip": "O2.5",
-        "tipCuota": 1.68,
+        "tipCuota": 1.66,
         "tipProbPct": 55
       }
     }
@@ -123,14 +123,14 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
         "linea": "1.5",
         "cuotaOver": 1.19,
         "probCasaOverPct": 76,
-        "cuotaUnder": 3.75,
+        "cuotaUnder": 3.74,
         "probCasaUnderPct": 24,
         "tip": "O1.5",
         "tipCuota": 1.19,
@@ -138,12 +138,12 @@ export const PARTIDOS = [
       },
       "2.5": {
         "linea": "2.5",
-        "cuotaOver": 1.73,
+        "cuotaOver": 1.74,
         "probCasaOverPct": 53,
-        "cuotaUnder": 1.95,
+        "cuotaUnder": 1.94,
         "probCasaUnderPct": 47,
         "tip": "O2.5",
-        "tipCuota": 1.73,
+        "tipCuota": 1.74,
         "tipProbPct": 53
       }
     }
@@ -163,28 +163,28 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
         "linea": "1.5",
-        "cuotaOver": 1.27,
-        "probCasaOverPct": 71,
-        "cuotaUnder": 3.14,
-        "probCasaUnderPct": 29,
+        "cuotaOver": 1.25,
+        "probCasaOverPct": 72,
+        "cuotaUnder": 3.28,
+        "probCasaUnderPct": 28,
         "tip": "O1.5",
-        "tipCuota": 1.27,
-        "tipProbPct": 71
+        "tipCuota": 1.25,
+        "tipProbPct": 72
       },
       "2.5": {
         "linea": "2.5",
-        "cuotaOver": 1.89,
-        "probCasaOverPct": 49,
-        "cuotaUnder": 1.78,
-        "probCasaUnderPct": 51,
-        "tip": "U2.5",
-        "tipCuota": 1.78,
-        "tipProbPct": 52
+        "cuotaOver": 1.83,
+        "probCasaOverPct": 50,
+        "cuotaUnder": 1.83,
+        "probCasaUnderPct": 50,
+        "tip": "O2.5",
+        "tipCuota": 1.83,
+        "tipProbPct": 50
       }
     }
   },
@@ -203,7 +203,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -243,7 +243,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -283,28 +283,28 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
         "linea": "1.5",
-        "cuotaOver": 1.22,
-        "probCasaOverPct": 74,
-        "cuotaUnder": 3.48,
-        "probCasaUnderPct": 26,
+        "cuotaOver": 1.28,
+        "probCasaOverPct": 71,
+        "cuotaUnder": 3.08,
+        "probCasaUnderPct": 29,
         "tip": "O1.5",
-        "tipCuota": 1.22,
-        "tipProbPct": 74
+        "tipCuota": 1.28,
+        "tipProbPct": 71
       },
       "2.5": {
         "linea": "2.5",
-        "cuotaOver": 1.82,
-        "probCasaOverPct": 50,
-        "cuotaUnder": 1.85,
-        "probCasaUnderPct": 50,
-        "tip": "O2.5",
-        "tipCuota": 1.82,
-        "tipProbPct": 50
+        "cuotaOver": 1.95,
+        "probCasaOverPct": 47,
+        "cuotaUnder": 1.73,
+        "probCasaUnderPct": 53,
+        "tip": "U2.5",
+        "tipCuota": 1.73,
+        "tipProbPct": 53
       }
     }
   },
@@ -323,28 +323,28 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
         "linea": "1.5",
-        "cuotaOver": 1.23,
+        "cuotaOver": 1.22,
         "probCasaOverPct": 74,
-        "cuotaUnder": 3.42,
+        "cuotaUnder": 3.48,
         "probCasaUnderPct": 26,
         "tip": "O1.5",
-        "tipCuota": 1.23,
+        "tipCuota": 1.22,
         "tipProbPct": 74
       },
       "2.5": {
         "linea": "2.5",
-        "cuotaOver": 1.79,
-        "probCasaOverPct": 51,
-        "cuotaUnder": 1.88,
-        "probCasaUnderPct": 49,
+        "cuotaOver": 1.78,
+        "probCasaOverPct": 52,
+        "cuotaUnder": 1.89,
+        "probCasaUnderPct": 48,
         "tip": "O2.5",
-        "tipCuota": 1.79,
-        "tipProbPct": 51
+        "tipCuota": 1.78,
+        "tipProbPct": 52
       }
     }
   },
@@ -363,7 +363,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 100,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -403,28 +403,28 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
         "linea": "1.5",
-        "cuotaOver": 1.35,
-        "probCasaOverPct": 67,
-        "cuotaUnder": 2.74,
-        "probCasaUnderPct": 33,
+        "cuotaOver": 1.39,
+        "probCasaOverPct": 65,
+        "cuotaUnder": 2.59,
+        "probCasaUnderPct": 35,
         "tip": "O1.5",
-        "tipCuota": 1.35,
-        "tipProbPct": 67
+        "tipCuota": 1.39,
+        "tipProbPct": 65
       },
       "2.5": {
         "linea": "2.5",
-        "cuotaOver": 2.13,
-        "probCasaOverPct": 43,
-        "cuotaUnder": 1.61,
-        "probCasaUnderPct": 57,
+        "cuotaOver": 2.24,
+        "probCasaOverPct": 41,
+        "cuotaUnder": 1.55,
+        "probCasaUnderPct": 59,
         "tip": "U2.5",
-        "tipCuota": 1.61,
-        "tipProbPct": 57
+        "tipCuota": 1.55,
+        "tipProbPct": 59
       }
     }
   },
@@ -443,7 +443,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -483,28 +483,28 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
         "linea": "1.5",
-        "cuotaOver": 1.16,
-        "probCasaOverPct": 78,
-        "cuotaUnder": 4.1,
-        "probCasaUnderPct": 22,
+        "cuotaOver": 1.14,
+        "probCasaOverPct": 80,
+        "cuotaUnder": 4.45,
+        "probCasaUnderPct": 20,
         "tip": "O1.5",
-        "tipCuota": 1.16,
-        "tipProbPct": 78
+        "tipCuota": 1.14,
+        "tipProbPct": 80
       },
       "2.5": {
         "linea": "2.5",
-        "cuotaOver": 1.63,
-        "probCasaOverPct": 56,
-        "cuotaUnder": 2.1,
-        "probCasaUnderPct": 44,
+        "cuotaOver": 1.55,
+        "probCasaOverPct": 59,
+        "cuotaUnder": 2.24,
+        "probCasaUnderPct": 41,
         "tip": "O2.5",
-        "tipCuota": 1.63,
-        "tipProbPct": 56
+        "tipCuota": 1.55,
+        "tipProbPct": 59
       }
     }
   },
@@ -523,7 +523,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -538,12 +538,12 @@ export const PARTIDOS = [
       },
       "2.5": {
         "linea": "2.5",
-        "cuotaOver": 2.18,
+        "cuotaOver": 2.2,
         "probCasaOverPct": 42,
-        "cuotaUnder": 1.58,
+        "cuotaUnder": 1.57,
         "probCasaUnderPct": 58,
         "tip": "U2.5",
-        "tipCuota": 1.58,
+        "tipCuota": 1.57,
         "tipProbPct": 58
       }
     }
@@ -563,7 +563,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 100,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -603,7 +603,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -643,7 +643,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -658,13 +658,13 @@ export const PARTIDOS = [
       },
       "2.5": {
         "linea": "2.5",
-        "cuotaOver": 1.79,
-        "probCasaOverPct": 51,
-        "cuotaUnder": 1.88,
-        "probCasaUnderPct": 49,
+        "cuotaOver": 1.78,
+        "probCasaOverPct": 52,
+        "cuotaUnder": 1.89,
+        "probCasaUnderPct": 48,
         "tip": "O2.5",
-        "tipCuota": 1.79,
-        "tipProbPct": 51
+        "tipCuota": 1.78,
+        "tipProbPct": 52
       }
     }
   },
@@ -683,7 +683,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -723,7 +723,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -763,28 +763,28 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
         "linea": "1.5",
-        "cuotaOver": 1.06,
-        "probCasaOverPct": 89,
+        "cuotaOver": 1.05,
+        "probCasaOverPct": 90,
         "cuotaUnder": 9,
-        "probCasaUnderPct": 11,
+        "probCasaUnderPct": 10,
         "tip": "O1.5",
-        "tipCuota": 1.06,
-        "tipProbPct": 89
+        "tipCuota": 1.05,
+        "tipProbPct": 90
       },
       "2.5": {
         "linea": "2.5",
-        "cuotaOver": 1.27,
-        "probCasaOverPct": 73,
-        "cuotaUnder": 3.4,
-        "probCasaUnderPct": 27,
+        "cuotaOver": 1.18,
+        "probCasaOverPct": 78,
+        "cuotaUnder": 4.2,
+        "probCasaUnderPct": 22,
         "tip": "O2.5",
-        "tipCuota": 1.27,
-        "tipProbPct": 73
+        "tipCuota": 1.18,
+        "tipProbPct": 78
       }
     }
   },
@@ -803,28 +803,28 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
         "linea": "1.5",
-        "cuotaOver": 1.33,
-        "probCasaOverPct": 68,
-        "cuotaUnder": 2.81,
-        "probCasaUnderPct": 32,
+        "cuotaOver": 1.28,
+        "probCasaOverPct": 71,
+        "cuotaUnder": 3.08,
+        "probCasaUnderPct": 29,
         "tip": "O1.5",
-        "tipCuota": 1.33,
-        "tipProbPct": 68
+        "tipCuota": 1.28,
+        "tipProbPct": 71
       },
       "2.5": {
         "linea": "2.5",
-        "cuotaOver": 2.23,
-        "probCasaOverPct": 43,
-        "cuotaUnder": 1.67,
-        "probCasaUnderPct": 57,
+        "cuotaOver": 2.06,
+        "probCasaOverPct": 46,
+        "cuotaUnder": 1.78,
+        "probCasaUnderPct": 54,
         "tip": "U2.5",
-        "tipCuota": 1.67,
-        "tipProbPct": 57
+        "tipCuota": 1.78,
+        "tipProbPct": 54
       }
     }
   },
@@ -843,7 +843,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 180,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -883,7 +883,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -898,12 +898,12 @@ export const PARTIDOS = [
       },
       "2.5": {
         "linea": "2.5",
-        "cuotaOver": 1.47,
+        "cuotaOver": 1.46,
         "probCasaOverPct": 62,
-        "cuotaUnder": 2.35,
+        "cuotaUnder": 2.38,
         "probCasaUnderPct": 38,
         "tip": "O2.5",
-        "tipCuota": 1.47,
+        "tipCuota": 1.46,
         "tipProbPct": 62
       }
     }
@@ -923,18 +923,18 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
         "linea": "1.5",
         "cuotaOver": 1.2,
-        "probCasaOverPct": 75,
-        "cuotaUnder": 3.68,
-        "probCasaUnderPct": 25,
+        "probCasaOverPct": 76,
+        "cuotaUnder": 3.7,
+        "probCasaUnderPct": 24,
         "tip": "O1.5",
         "tipCuota": 1.2,
-        "tipProbPct": 75
+        "tipProbPct": 76
       },
       "2.5": {
         "linea": "2.5",
@@ -963,7 +963,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -1003,7 +1003,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -1043,7 +1043,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -1083,28 +1083,28 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": null,
     "confianzaEquipos": 0,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
         "linea": "1.5",
-        "cuotaOver": 1.31,
-        "probCasaOverPct": 69,
-        "cuotaUnder": 2.92,
-        "probCasaUnderPct": 31,
+        "cuotaOver": 1.27,
+        "probCasaOverPct": 71,
+        "cuotaUnder": 3.14,
+        "probCasaUnderPct": 29,
         "tip": "O1.5",
-        "tipCuota": 1.31,
-        "tipProbPct": 69
+        "tipCuota": 1.27,
+        "tipProbPct": 71
       },
       "2.5": {
         "linea": "2.5",
-        "cuotaOver": 2.05,
-        "probCasaOverPct": 45,
-        "cuotaUnder": 1.66,
-        "probCasaUnderPct": 55,
+        "cuotaOver": 1.93,
+        "probCasaOverPct": 48,
+        "cuotaUnder": 1.75,
+        "probCasaUnderPct": 52,
         "tip": "U2.5",
-        "tipCuota": 1.66,
-        "tipProbPct": 55
+        "tipCuota": 1.75,
+        "tipProbPct": 52
       }
     }
   },
@@ -1123,7 +1123,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 100,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -1163,7 +1163,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -1178,12 +1178,12 @@ export const PARTIDOS = [
       },
       "2.5": {
         "linea": "2.5",
-        "cuotaOver": 1.61,
+        "cuotaOver": 1.62,
         "probCasaOverPct": 57,
-        "cuotaUnder": 2.13,
+        "cuotaUnder": 2.12,
         "probCasaUnderPct": 43,
         "tip": "O2.5",
-        "tipCuota": 1.61,
+        "tipCuota": 1.62,
         "tipProbPct": 57
       }
     }
@@ -1203,7 +1203,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -1243,7 +1243,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -1283,7 +1283,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -1298,12 +1298,12 @@ export const PARTIDOS = [
       },
       "2.5": {
         "linea": "2.5",
-        "cuotaOver": 1.18,
+        "cuotaOver": 1.17,
         "probCasaOverPct": 77,
-        "cuotaUnder": 3.88,
+        "cuotaUnder": 3.98,
         "probCasaUnderPct": 23,
         "tip": "O2.5",
-        "tipCuota": 1.18,
+        "tipCuota": 1.17,
         "tipProbPct": 77
       }
     }
@@ -1323,28 +1323,28 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
         "linea": "1.5",
-        "cuotaOver": 1.08,
-        "probCasaOverPct": 87,
-        "cuotaUnder": 7,
-        "probCasaUnderPct": 13,
+        "cuotaOver": 1.07,
+        "probCasaOverPct": 88,
+        "cuotaUnder": 7.5,
+        "probCasaUnderPct": 12,
         "tip": "O1.5",
-        "tipCuota": 1.08,
-        "tipProbPct": 87
+        "tipCuota": 1.07,
+        "tipProbPct": 88
       },
       "2.5": {
         "linea": "2.5",
-        "cuotaOver": 1.28,
-        "probCasaOverPct": 71,
-        "cuotaUnder": 3.08,
-        "probCasaUnderPct": 29,
+        "cuotaOver": 1.24,
+        "probCasaOverPct": 73,
+        "cuotaUnder": 3.34,
+        "probCasaUnderPct": 27,
         "tip": "O2.5",
-        "tipCuota": 1.28,
-        "tipProbPct": 71
+        "tipCuota": 1.24,
+        "tipProbPct": 73
       }
     }
   },
@@ -1363,28 +1363,28 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 180,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
         "linea": "1.5",
-        "cuotaOver": 1.09,
-        "probCasaOverPct": 83,
-        "cuotaUnder": 5.3,
-        "probCasaUnderPct": 17,
+        "cuotaOver": 1.1,
+        "probCasaOverPct": 82,
+        "cuotaUnder": 5.15,
+        "probCasaUnderPct": 18,
         "tip": "O1.5",
-        "tipCuota": 1.09,
-        "tipProbPct": 83
+        "tipCuota": 1.1,
+        "tipProbPct": 82
       },
       "2.5": {
         "linea": "2.5",
-        "cuotaOver": 1.39,
-        "probCasaOverPct": 65,
-        "cuotaUnder": 2.59,
-        "probCasaUnderPct": 35,
+        "cuotaOver": 1.41,
+        "probCasaOverPct": 64,
+        "cuotaUnder": 2.52,
+        "probCasaUnderPct": 36,
         "tip": "O2.5",
-        "tipCuota": 1.39,
-        "tipProbPct": 65
+        "tipCuota": 1.41,
+        "tipProbPct": 64
       }
     }
   },
@@ -1403,28 +1403,28 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
         "linea": "1.5",
-        "cuotaOver": 1.03,
+        "cuotaOver": 1.02,
         "probCasaOverPct": 94,
-        "cuotaUnder": 15,
+        "cuotaUnder": 17,
         "probCasaUnderPct": 6,
         "tip": "O1.5",
-        "tipCuota": 1.03,
+        "tipCuota": 1.02,
         "tipProbPct": 94
       },
       "2.5": {
         "linea": "2.5",
-        "cuotaOver": 1.09,
-        "probCasaOverPct": 83,
-        "cuotaUnder": 5.3,
-        "probCasaUnderPct": 17,
+        "cuotaOver": 1.08,
+        "probCasaOverPct": 84,
+        "cuotaUnder": 5.7,
+        "probCasaUnderPct": 16,
         "tip": "O2.5",
-        "tipCuota": 1.09,
-        "tipProbPct": 83
+        "tipCuota": 1.08,
+        "tipProbPct": 84
       }
     }
   },
@@ -1443,28 +1443,28 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
         "linea": "1.5",
-        "cuotaOver": 1.04,
-        "probCasaOverPct": 91,
-        "cuotaUnder": 10,
-        "probCasaUnderPct": 9,
+        "cuotaOver": 1.03,
+        "probCasaOverPct": 93,
+        "cuotaUnder": 13,
+        "probCasaUnderPct": 7,
         "tip": "O1.5",
-        "tipCuota": 1.04,
-        "tipProbPct": 91
+        "tipCuota": 1.03,
+        "tipProbPct": 93
       },
       "2.5": {
         "linea": "2.5",
-        "cuotaOver": 1.15,
-        "probCasaOverPct": 78,
-        "cuotaUnder": 4.2,
-        "probCasaUnderPct": 22,
+        "cuotaOver": 1.1,
+        "probCasaOverPct": 83,
+        "cuotaUnder": 5.2,
+        "probCasaUnderPct": 17,
         "tip": "O2.5",
-        "tipCuota": 1.15,
-        "tipProbPct": 78
+        "tipCuota": 1.1,
+        "tipProbPct": 83
       }
     }
   },
@@ -1483,7 +1483,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -1523,7 +1523,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -1563,28 +1563,28 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
         "linea": "1.5",
-        "cuotaOver": 1.14,
+        "cuotaOver": 1.13,
         "probCasaOverPct": 80,
-        "cuotaUnder": 4.45,
+        "cuotaUnder": 4.55,
         "probCasaUnderPct": 20,
         "tip": "O1.5",
-        "tipCuota": 1.14,
+        "tipCuota": 1.13,
         "tipProbPct": 80
       },
       "2.5": {
         "linea": "2.5",
-        "cuotaOver": 1.57,
-        "probCasaOverPct": 58,
-        "cuotaUnder": 2.2,
-        "probCasaUnderPct": 42,
+        "cuotaOver": 1.55,
+        "probCasaOverPct": 59,
+        "cuotaUnder": 2.24,
+        "probCasaUnderPct": 41,
         "tip": "O2.5",
-        "tipCuota": 1.57,
-        "tipProbPct": 58
+        "tipCuota": 1.55,
+        "tipProbPct": 59
       }
     }
   },
@@ -1603,7 +1603,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 100,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -1618,13 +1618,13 @@ export const PARTIDOS = [
       },
       "2.5": {
         "linea": "2.5",
-        "cuotaOver": 1.46,
-        "probCasaOverPct": 62,
-        "cuotaUnder": 2.38,
-        "probCasaUnderPct": 38,
+        "cuotaOver": 1.44,
+        "probCasaOverPct": 63,
+        "cuotaUnder": 2.43,
+        "probCasaUnderPct": 37,
         "tip": "O2.5",
-        "tipCuota": 1.46,
-        "tipProbPct": 62
+        "tipCuota": 1.44,
+        "tipProbPct": 63
       }
     }
   },
@@ -1643,28 +1643,28 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
         "linea": "1.5",
-        "cuotaOver": 1.22,
-        "probCasaOverPct": 74,
-        "cuotaUnder": 3.5,
-        "probCasaUnderPct": 26,
+        "cuotaOver": 1.21,
+        "probCasaOverPct": 75,
+        "cuotaUnder": 3.58,
+        "probCasaUnderPct": 25,
         "tip": "O1.5",
-        "tipCuota": 1.22,
-        "tipProbPct": 74
+        "tipCuota": 1.21,
+        "tipProbPct": 75
       },
       "2.5": {
         "linea": "2.5",
-        "cuotaOver": 1.79,
-        "probCasaOverPct": 51,
-        "cuotaUnder": 1.88,
-        "probCasaUnderPct": 49,
+        "cuotaOver": 1.76,
+        "probCasaOverPct": 52,
+        "cuotaUnder": 1.92,
+        "probCasaUnderPct": 48,
         "tip": "O2.5",
-        "tipCuota": 1.79,
-        "tipProbPct": 51
+        "tipCuota": 1.76,
+        "tipProbPct": 52
       }
     }
   },
@@ -1683,7 +1683,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -1723,7 +1723,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 180,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -1763,7 +1763,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -1803,7 +1803,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -1843,14 +1843,14 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "2.5": {
         "linea": "2.5",
         "cuotaOver": 1.13,
         "probCasaOverPct": 82,
-        "cuotaUnder": 5,
+        "cuotaUnder": 5.25,
         "probCasaUnderPct": 18,
         "tip": "O2.5",
         "tipCuota": 1.13,
@@ -1873,7 +1873,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "2.5": {
@@ -1903,14 +1903,14 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
         "linea": "1.5",
         "cuotaOver": 1.19,
         "probCasaOverPct": 76,
-        "cuotaUnder": 3.78,
+        "cuotaUnder": 3.8,
         "probCasaUnderPct": 24,
         "tip": "O1.5",
         "tipCuota": 1.19,
@@ -1918,13 +1918,13 @@ export const PARTIDOS = [
       },
       "2.5": {
         "linea": "2.5",
-        "cuotaOver": 1.69,
-        "probCasaOverPct": 54,
-        "cuotaUnder": 2.01,
-        "probCasaUnderPct": 46,
+        "cuotaOver": 1.68,
+        "probCasaOverPct": 55,
+        "cuotaUnder": 2.02,
+        "probCasaUnderPct": 45,
         "tip": "O2.5",
-        "tipCuota": 1.69,
-        "tipProbPct": 54
+        "tipCuota": 1.68,
+        "tipProbPct": 55
       }
     }
   },
@@ -1943,7 +1943,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -1983,7 +1983,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -2023,7 +2023,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -2063,7 +2063,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -2078,12 +2078,12 @@ export const PARTIDOS = [
       },
       "2.5": {
         "linea": "2.5",
-        "cuotaOver": 1.5,
+        "cuotaOver": 1.51,
         "probCasaOverPct": 60,
-        "cuotaUnder": 2.28,
+        "cuotaUnder": 2.26,
         "probCasaUnderPct": 40,
         "tip": "O2.5",
-        "tipCuota": 1.5,
+        "tipCuota": 1.51,
         "tipProbPct": 60
       }
     }
@@ -2103,7 +2103,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 180,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -2143,14 +2143,14 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
         "linea": "1.5",
         "cuotaOver": 1.18,
         "probCasaOverPct": 77,
-        "cuotaUnder": 3.85,
+        "cuotaUnder": 3.88,
         "probCasaUnderPct": 23,
         "tip": "O1.5",
         "tipCuota": 1.18,
@@ -2158,12 +2158,12 @@ export const PARTIDOS = [
       },
       "2.5": {
         "linea": "2.5",
-        "cuotaOver": 1.67,
+        "cuotaOver": 1.66,
         "probCasaOverPct": 55,
-        "cuotaUnder": 2.04,
+        "cuotaUnder": 2.05,
         "probCasaUnderPct": 45,
         "tip": "O2.5",
-        "tipCuota": 1.67,
+        "tipCuota": 1.66,
         "tipProbPct": 55
       }
     }
@@ -2183,7 +2183,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -2223,28 +2223,28 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
         "linea": "1.5",
         "cuotaOver": 1.06,
-        "probCasaOverPct": 85,
-        "cuotaUnder": 6.15,
-        "probCasaUnderPct": 15,
+        "probCasaOverPct": 86,
+        "cuotaUnder": 6.35,
+        "probCasaUnderPct": 14,
         "tip": "O1.5",
         "tipCuota": 1.06,
-        "tipProbPct": 85
+        "tipProbPct": 86
       },
       "2.5": {
         "linea": "2.5",
-        "cuotaOver": 1.34,
-        "probCasaOverPct": 67,
-        "cuotaUnder": 2.78,
-        "probCasaUnderPct": 33,
+        "cuotaOver": 1.32,
+        "probCasaOverPct": 69,
+        "cuotaUnder": 2.88,
+        "probCasaUnderPct": 31,
         "tip": "O2.5",
-        "tipCuota": 1.34,
-        "tipProbPct": 67
+        "tipCuota": 1.32,
+        "tipProbPct": 69
       }
     }
   },
@@ -2263,7 +2263,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -2303,28 +2303,28 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
         "linea": "1.5",
-        "cuotaOver": 1.05,
-        "probCasaOverPct": 86,
-        "cuotaUnder": 6.4,
-        "probCasaUnderPct": 14,
+        "cuotaOver": 1.01,
+        "probCasaOverPct": 89,
+        "cuotaUnder": 8.4,
+        "probCasaUnderPct": 11,
         "tip": "O1.5",
-        "tipCuota": 1.05,
-        "tipProbPct": 86
+        "tipCuota": 1.01,
+        "tipProbPct": 89
       },
       "2.5": {
         "linea": "2.5",
-        "cuotaOver": 1.32,
-        "probCasaOverPct": 69,
-        "cuotaUnder": 2.88,
-        "probCasaUnderPct": 31,
+        "cuotaOver": 1.21,
+        "probCasaOverPct": 75,
+        "cuotaUnder": 3.58,
+        "probCasaUnderPct": 25,
         "tip": "O2.5",
-        "tipCuota": 1.32,
-        "tipProbPct": 69
+        "tipCuota": 1.21,
+        "tipProbPct": 75
       }
     }
   },
@@ -2343,7 +2343,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -2383,28 +2383,28 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
         "linea": "1.5",
-        "cuotaOver": 1.07,
+        "cuotaOver": 1.06,
         "probCasaOverPct": 85,
-        "cuotaUnder": 5.9,
+        "cuotaUnder": 6.05,
         "probCasaUnderPct": 15,
         "tip": "O1.5",
-        "tipCuota": 1.07,
+        "tipCuota": 1.06,
         "tipProbPct": 85
       },
       "2.5": {
         "linea": "2.5",
-        "cuotaOver": 1.33,
-        "probCasaOverPct": 68,
-        "cuotaUnder": 2.83,
-        "probCasaUnderPct": 32,
+        "cuotaOver": 1.32,
+        "probCasaOverPct": 69,
+        "cuotaUnder": 2.88,
+        "probCasaUnderPct": 31,
         "tip": "O2.5",
-        "tipCuota": 1.33,
-        "tipProbPct": 68
+        "tipCuota": 1.32,
+        "tipProbPct": 69
       }
     }
   },
@@ -2423,7 +2423,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -2463,7 +2463,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -2503,28 +2503,28 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
         "linea": "1.5",
-        "cuotaOver": 1.04,
-        "probCasaOverPct": 87,
-        "cuotaUnder": 7.1,
-        "probCasaUnderPct": 13,
+        "cuotaOver": 1.03,
+        "probCasaOverPct": 88,
+        "cuotaUnder": 7.3,
+        "probCasaUnderPct": 12,
         "tip": "O1.5",
-        "tipCuota": 1.04,
-        "tipProbPct": 87
+        "tipCuota": 1.03,
+        "tipProbPct": 88
       },
       "2.5": {
         "linea": "2.5",
-        "cuotaOver": 1.24,
-        "probCasaOverPct": 73,
-        "cuotaUnder": 3.34,
-        "probCasaUnderPct": 27,
+        "cuotaOver": 1.23,
+        "probCasaOverPct": 74,
+        "cuotaUnder": 3.42,
+        "probCasaUnderPct": 26,
         "tip": "O2.5",
-        "tipCuota": 1.24,
-        "tipProbPct": 73
+        "tipCuota": 1.23,
+        "tipProbPct": 74
       }
     }
   },
@@ -2543,14 +2543,14 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
         "linea": "1.5",
         "cuotaOver": 1.02,
         "probCasaOverPct": 94,
-        "cuotaUnder": 15,
+        "cuotaUnder": 17,
         "probCasaUnderPct": 6,
         "tip": "O1.5",
         "tipCuota": 1.02,
@@ -2558,13 +2558,13 @@ export const PARTIDOS = [
       },
       "2.5": {
         "linea": "2.5",
-        "cuotaOver": 1.08,
-        "probCasaOverPct": 84,
-        "cuotaUnder": 5.7,
-        "probCasaUnderPct": 16,
+        "cuotaOver": 1.1,
+        "probCasaOverPct": 85,
+        "cuotaUnder": 6,
+        "probCasaUnderPct": 15,
         "tip": "O2.5",
-        "tipCuota": 1.08,
-        "tipProbPct": 84
+        "tipCuota": 1.1,
+        "tipProbPct": 85
       }
     }
   },
@@ -2583,28 +2583,28 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
         "linea": "1.5",
         "cuotaOver": 1.01,
-        "probCasaOverPct": 90,
-        "cuotaUnder": 8.7,
-        "probCasaUnderPct": 10,
+        "probCasaOverPct": 89,
+        "cuotaUnder": 8.4,
+        "probCasaUnderPct": 11,
         "tip": "O1.5",
         "tipCuota": 1.01,
-        "tipProbPct": 90
+        "tipProbPct": 89
       },
       "2.5": {
         "linea": "2.5",
-        "cuotaOver": 1.18,
-        "probCasaOverPct": 77,
-        "cuotaUnder": 3.88,
-        "probCasaUnderPct": 23,
+        "cuotaOver": 1.19,
+        "probCasaOverPct": 76,
+        "cuotaUnder": 3.78,
+        "probCasaUnderPct": 24,
         "tip": "O2.5",
-        "tipCuota": 1.18,
-        "tipProbPct": 77
+        "tipCuota": 1.19,
+        "tipProbPct": 76
       }
     }
   },
@@ -2623,28 +2623,28 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
         "linea": "1.5",
-        "cuotaOver": 1.03,
-        "probCasaOverPct": 94,
-        "cuotaUnder": 15,
-        "probCasaUnderPct": 6,
+        "cuotaOver": 1.02,
+        "probCasaOverPct": 91,
+        "cuotaUnder": 10,
+        "probCasaUnderPct": 9,
         "tip": "O1.5",
-        "tipCuota": 1.03,
-        "tipProbPct": 94
+        "tipCuota": 1.02,
+        "tipProbPct": 91
       },
       "2.5": {
         "linea": "2.5",
-        "cuotaOver": 1.07,
-        "probCasaOverPct": 85,
-        "cuotaUnder": 5.9,
-        "probCasaUnderPct": 15,
+        "cuotaOver": 1.06,
+        "probCasaOverPct": 87,
+        "cuotaUnder": 6.96,
+        "probCasaUnderPct": 13,
         "tip": "O2.5",
-        "tipCuota": 1.07,
-        "tipProbPct": 85
+        "tipCuota": 1.06,
+        "tipProbPct": 87
       }
     }
   },
@@ -2663,7 +2663,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -2703,7 +2703,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -2743,7 +2743,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -2783,7 +2783,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 80,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -2823,7 +2823,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 180,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -2840,7 +2840,7 @@ export const PARTIDOS = [
         "linea": "2.5",
         "cuotaOver": 1.12,
         "probCasaOverPct": 81,
-        "cuotaUnder": 4.7,
+        "cuotaUnder": 4.75,
         "probCasaUnderPct": 19,
         "tip": "O2.5",
         "tipCuota": 1.12,
@@ -2863,7 +2863,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -2880,7 +2880,7 @@ export const PARTIDOS = [
         "linea": "2.5",
         "cuotaOver": 1.1,
         "probCasaOverPct": 82,
-        "cuotaUnder": 5.05,
+        "cuotaUnder": 5.1,
         "probCasaUnderPct": 18,
         "tip": "O2.5",
         "tipCuota": 1.1,
@@ -2903,7 +2903,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -2918,13 +2918,13 @@ export const PARTIDOS = [
       },
       "2.5": {
         "linea": "2.5",
-        "cuotaOver": 1.33,
-        "probCasaOverPct": 68,
-        "cuotaUnder": 2.83,
-        "probCasaUnderPct": 32,
+        "cuotaOver": 1.32,
+        "probCasaOverPct": 69,
+        "cuotaUnder": 2.88,
+        "probCasaUnderPct": 31,
         "tip": "O2.5",
-        "tipCuota": 1.33,
-        "tipProbPct": 68
+        "tipCuota": 1.32,
+        "tipProbPct": 69
       }
     }
   },
@@ -2943,7 +2943,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -2983,7 +2983,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -3023,7 +3023,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -3063,14 +3063,14 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
         "linea": "1.5",
         "cuotaOver": 1.19,
         "probCasaOverPct": 76,
-        "cuotaUnder": 3.74,
+        "cuotaUnder": 3.75,
         "probCasaUnderPct": 24,
         "tip": "O1.5",
         "tipCuota": 1.19,
@@ -3103,7 +3103,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -3143,7 +3143,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -3183,7 +3183,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -3223,7 +3223,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -3263,7 +3263,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 180,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -3278,13 +3278,13 @@ export const PARTIDOS = [
       },
       "2.5": {
         "linea": "2.5",
-        "cuotaOver": 2.22,
-        "probCasaOverPct": 41,
-        "cuotaUnder": 1.56,
-        "probCasaUnderPct": 59,
+        "cuotaOver": 2.2,
+        "probCasaOverPct": 42,
+        "cuotaUnder": 1.57,
+        "probCasaUnderPct": 58,
         "tip": "U2.5",
-        "tipCuota": 1.56,
-        "tipProbPct": 59
+        "tipCuota": 1.57,
+        "tipProbPct": 58
       }
     }
   },
@@ -3303,7 +3303,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -3343,17 +3343,17 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
         "linea": "1.5",
-        "cuotaOver": 1.28,
+        "cuotaOver": 1.29,
         "probCasaOverPct": 70,
         "cuotaUnder": 3.05,
         "probCasaUnderPct": 30,
         "tip": "O1.5",
-        "tipCuota": 1.28,
+        "tipCuota": 1.29,
         "tipProbPct": 70
       },
       "2.5": {
@@ -3383,7 +3383,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -3423,7 +3423,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -3463,7 +3463,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -3503,7 +3503,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -3543,7 +3543,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -3583,7 +3583,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -3598,13 +3598,13 @@ export const PARTIDOS = [
       },
       "2.5": {
         "linea": "2.5",
-        "cuotaOver": 2.16,
-        "probCasaOverPct": 43,
-        "cuotaUnder": 1.64,
-        "probCasaUnderPct": 57,
+        "cuotaOver": 2.14,
+        "probCasaOverPct": 44,
+        "cuotaUnder": 1.65,
+        "probCasaUnderPct": 56,
         "tip": "U2.5",
-        "tipCuota": 1.64,
-        "tipProbPct": 57
+        "tipCuota": 1.65,
+        "tipProbPct": 56
       }
     }
   },
@@ -3623,7 +3623,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -3663,7 +3663,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 180,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -3703,7 +3703,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -3720,7 +3720,7 @@ export const PARTIDOS = [
         "linea": "2.5",
         "cuotaOver": 1.44,
         "probCasaOverPct": 63,
-        "cuotaUnder": 2.42,
+        "cuotaUnder": 2.43,
         "probCasaUnderPct": 37,
         "tip": "O2.5",
         "tipCuota": 1.44,
@@ -3743,28 +3743,28 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 180,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
         "linea": "1.5",
-        "cuotaOver": 1.25,
+        "cuotaOver": 1.26,
         "probCasaOverPct": 72,
-        "cuotaUnder": 3.28,
+        "cuotaUnder": 3.2,
         "probCasaUnderPct": 28,
         "tip": "O1.5",
-        "tipCuota": 1.25,
+        "tipCuota": 1.26,
         "tipProbPct": 72
       },
       "2.5": {
         "linea": "2.5",
-        "cuotaOver": 1.87,
-        "probCasaOverPct": 49,
-        "cuotaUnder": 1.8,
-        "probCasaUnderPct": 51,
+        "cuotaOver": 1.9,
+        "probCasaOverPct": 48,
+        "cuotaUnder": 1.77,
+        "probCasaUnderPct": 52,
         "tip": "U2.5",
-        "tipCuota": 1.8,
-        "tipProbPct": 51
+        "tipCuota": 1.77,
+        "tipProbPct": 52
       }
     }
   },
@@ -3783,7 +3783,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 180,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -3798,13 +3798,13 @@ export const PARTIDOS = [
       },
       "2.5": {
         "linea": "2.5",
-        "cuotaOver": 1.33,
-        "probCasaOverPct": 68,
-        "cuotaUnder": 2.83,
-        "probCasaUnderPct": 32,
+        "cuotaOver": 1.32,
+        "probCasaOverPct": 69,
+        "cuotaUnder": 2.88,
+        "probCasaUnderPct": 31,
         "tip": "O2.5",
-        "tipCuota": 1.33,
-        "tipProbPct": 68
+        "tipCuota": 1.32,
+        "tipProbPct": 69
       }
     }
   },
@@ -3823,7 +3823,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -3863,7 +3863,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -3903,7 +3903,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -3943,7 +3943,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -3983,7 +3983,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -3998,13 +3998,13 @@ export const PARTIDOS = [
       },
       "2.5": {
         "linea": "2.5",
-        "cuotaOver": 1.44,
-        "probCasaOverPct": 63,
-        "cuotaUnder": 2.43,
-        "probCasaUnderPct": 37,
+        "cuotaOver": 1.42,
+        "probCasaOverPct": 64,
+        "cuotaUnder": 2.49,
+        "probCasaUnderPct": 36,
         "tip": "O2.5",
-        "tipCuota": 1.44,
-        "tipProbPct": 63
+        "tipCuota": 1.42,
+        "tipProbPct": 64
       }
     }
   },
@@ -4023,7 +4023,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -4063,7 +4063,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -4103,7 +4103,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -4143,14 +4143,14 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
         "linea": "1.5",
         "cuotaOver": 1.02,
         "probCasaOverPct": 89,
-        "cuotaUnder": 7.9,
+        "cuotaUnder": 8.3,
         "probCasaUnderPct": 11,
         "tip": "O1.5",
         "tipCuota": 1.02,
@@ -4158,13 +4158,13 @@ export const PARTIDOS = [
       },
       "2.5": {
         "linea": "2.5",
-        "cuotaOver": 1.23,
-        "probCasaOverPct": 74,
-        "cuotaUnder": 3.42,
-        "probCasaUnderPct": 26,
+        "cuotaOver": 1.21,
+        "probCasaOverPct": 75,
+        "cuotaUnder": 3.58,
+        "probCasaUnderPct": 25,
         "tip": "O2.5",
-        "tipCuota": 1.23,
-        "tipProbPct": 74
+        "tipCuota": 1.21,
+        "tipProbPct": 75
       }
     }
   },
@@ -4183,7 +4183,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -4223,7 +4223,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -4238,13 +4238,13 @@ export const PARTIDOS = [
       },
       "2.5": {
         "linea": "2.5",
-        "cuotaOver": 1.24,
-        "probCasaOverPct": 73,
-        "cuotaUnder": 3.34,
-        "probCasaUnderPct": 27,
+        "cuotaOver": 1.25,
+        "probCasaOverPct": 72,
+        "cuotaUnder": 3.28,
+        "probCasaUnderPct": 28,
         "tip": "O2.5",
-        "tipCuota": 1.24,
-        "tipProbPct": 73
+        "tipCuota": 1.25,
+        "tipProbPct": 72
       }
     }
   },
@@ -4263,7 +4263,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -4280,7 +4280,7 @@ export const PARTIDOS = [
         "linea": "2.5",
         "cuotaOver": 1.18,
         "probCasaOverPct": 77,
-        "cuotaUnder": 3.86,
+        "cuotaUnder": 3.85,
         "probCasaUnderPct": 23,
         "tip": "O2.5",
         "tipCuota": 1.18,
@@ -4303,7 +4303,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 180,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -4318,12 +4318,12 @@ export const PARTIDOS = [
       },
       "2.5": {
         "linea": "2.5",
-        "cuotaOver": 1.18,
+        "cuotaOver": 1.17,
         "probCasaOverPct": 77,
-        "cuotaUnder": 3.92,
+        "cuotaUnder": 3.94,
         "probCasaUnderPct": 23,
         "tip": "O2.5",
-        "tipCuota": 1.18,
+        "tipCuota": 1.17,
         "tipProbPct": 77
       }
     }
@@ -4343,7 +4343,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -4383,7 +4383,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 180,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -4423,7 +4423,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -4463,14 +4463,14 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 180,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
         "linea": "1.5",
         "cuotaOver": 1.01,
         "probCasaOverPct": 90,
-        "cuotaUnder": 8.9,
+        "cuotaUnder": 9,
         "probCasaUnderPct": 10,
         "tip": "O1.5",
         "tipCuota": 1.01,
@@ -4480,7 +4480,7 @@ export const PARTIDOS = [
         "linea": "2.5",
         "cuotaOver": 1.15,
         "probCasaOverPct": 79,
-        "cuotaUnder": 4.25,
+        "cuotaUnder": 4.3,
         "probCasaUnderPct": 21,
         "tip": "O2.5",
         "tipCuota": 1.15,
@@ -4503,28 +4503,28 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
         "linea": "1.5",
-        "cuotaOver": 1.11,
-        "probCasaOverPct": 84,
+        "cuotaOver": 1.1,
+        "probCasaOverPct": 85,
         "cuotaUnder": 6,
-        "probCasaUnderPct": 16,
+        "probCasaUnderPct": 15,
         "tip": "O1.5",
-        "tipCuota": 1.11,
-        "tipProbPct": 84
+        "tipCuota": 1.1,
+        "tipProbPct": 85
       },
       "2.5": {
         "linea": "2.5",
-        "cuotaOver": 1.35,
-        "probCasaOverPct": 67,
-        "cuotaUnder": 2.74,
-        "probCasaUnderPct": 33,
+        "cuotaOver": 1.33,
+        "probCasaOverPct": 68,
+        "cuotaUnder": 2.83,
+        "probCasaUnderPct": 32,
         "tip": "O2.5",
-        "tipCuota": 1.35,
-        "tipProbPct": 67
+        "tipCuota": 1.33,
+        "tipProbPct": 68
       }
     }
   },
@@ -4543,28 +4543,28 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
         "linea": "1.5",
-        "cuotaOver": 1.07,
-        "probCasaOverPct": 88,
-        "cuotaUnder": 7.5,
-        "probCasaUnderPct": 12,
+        "cuotaOver": 1.06,
+        "probCasaOverPct": 89,
+        "cuotaUnder": 8.5,
+        "probCasaUnderPct": 11,
         "tip": "O1.5",
-        "tipCuota": 1.07,
-        "tipProbPct": 88
+        "tipCuota": 1.06,
+        "tipProbPct": 89
       },
       "2.5": {
         "linea": "2.5",
-        "cuotaOver": 1.25,
-        "probCasaOverPct": 72,
-        "cuotaUnder": 3.28,
-        "probCasaUnderPct": 28,
+        "cuotaOver": 1.21,
+        "probCasaOverPct": 75,
+        "cuotaUnder": 3.58,
+        "probCasaUnderPct": 25,
         "tip": "O2.5",
-        "tipCuota": 1.25,
-        "tipProbPct": 72
+        "tipCuota": 1.21,
+        "tipProbPct": 75
       }
     }
   },
@@ -4583,28 +4583,28 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
         "linea": "1.5",
         "cuotaOver": 1.13,
-        "probCasaOverPct": 81,
-        "cuotaUnder": 4.8,
-        "probCasaUnderPct": 19,
+        "probCasaOverPct": 82,
+        "cuotaUnder": 5,
+        "probCasaUnderPct": 18,
         "tip": "O1.5",
         "tipCuota": 1.13,
-        "tipProbPct": 81
+        "tipProbPct": 82
       },
       "2.5": {
         "linea": "2.5",
-        "cuotaOver": 1.46,
-        "probCasaOverPct": 62,
-        "cuotaUnder": 2.38,
-        "probCasaUnderPct": 38,
+        "cuotaOver": 1.42,
+        "probCasaOverPct": 64,
+        "cuotaUnder": 2.49,
+        "probCasaUnderPct": 36,
         "tip": "O2.5",
-        "tipCuota": 1.46,
-        "tipProbPct": 62
+        "tipCuota": 1.42,
+        "tipProbPct": 64
       }
     }
   },
@@ -4623,28 +4623,28 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
         "linea": "1.5",
-        "cuotaOver": 1.27,
-        "probCasaOverPct": 71,
-        "cuotaUnder": 3.14,
-        "probCasaUnderPct": 29,
+        "cuotaOver": 1.21,
+        "probCasaOverPct": 75,
+        "cuotaUnder": 3.58,
+        "probCasaUnderPct": 25,
         "tip": "O1.5",
-        "tipCuota": 1.27,
-        "tipProbPct": 71
+        "tipCuota": 1.21,
+        "tipProbPct": 75
       },
       "2.5": {
         "linea": "2.5",
-        "cuotaOver": 1.94,
-        "probCasaOverPct": 47,
-        "cuotaUnder": 1.74,
-        "probCasaUnderPct": 53,
-        "tip": "U2.5",
-        "tipCuota": 1.74,
-        "tipProbPct": 53
+        "cuotaOver": 1.77,
+        "probCasaOverPct": 52,
+        "cuotaUnder": 1.9,
+        "probCasaUnderPct": 48,
+        "tip": "O2.5",
+        "tipCuota": 1.77,
+        "tipProbPct": 52
       }
     }
   },
@@ -4663,28 +4663,28 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
         "linea": "1.5",
-        "cuotaOver": 1.3,
-        "probCasaOverPct": 70,
-        "cuotaUnder": 2.97,
-        "probCasaUnderPct": 30,
+        "cuotaOver": 1.27,
+        "probCasaOverPct": 71,
+        "cuotaUnder": 3.14,
+        "probCasaUnderPct": 29,
         "tip": "O1.5",
-        "tipCuota": 1.3,
-        "tipProbPct": 70
+        "tipCuota": 1.27,
+        "tipProbPct": 71
       },
       "2.5": {
         "linea": "2.5",
-        "cuotaOver": 1.96,
-        "probCasaOverPct": 47,
-        "cuotaUnder": 1.72,
-        "probCasaUnderPct": 53,
+        "cuotaOver": 1.9,
+        "probCasaOverPct": 48,
+        "cuotaUnder": 1.77,
+        "probCasaUnderPct": 52,
         "tip": "U2.5",
-        "tipCuota": 1.72,
-        "tipProbPct": 53
+        "tipCuota": 1.77,
+        "tipProbPct": 52
       }
     }
   },
@@ -4703,7 +4703,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -4743,27 +4743,27 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
         "linea": "1.5",
-        "cuotaOver": 1.25,
+        "cuotaOver": 1.23,
         "probCasaOverPct": 74,
-        "cuotaUnder": 3.55,
+        "cuotaUnder": 3.42,
         "probCasaUnderPct": 26,
         "tip": "O1.5",
-        "tipCuota": 1.25,
+        "tipCuota": 1.23,
         "tipProbPct": 74
       },
       "2.5": {
         "linea": "2.5",
-        "cuotaOver": 1.8,
+        "cuotaOver": 1.79,
         "probCasaOverPct": 51,
-        "cuotaUnder": 1.9,
+        "cuotaUnder": 1.88,
         "probCasaUnderPct": 49,
         "tip": "O2.5",
-        "tipCuota": 1.8,
+        "tipCuota": 1.79,
         "tipProbPct": 51
       }
     }
@@ -4783,7 +4783,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -4823,7 +4823,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -4863,7 +4863,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -4903,7 +4903,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -4943,28 +4943,28 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
         "linea": "1.5",
-        "cuotaOver": 1.13,
+        "cuotaOver": 1.14,
         "probCasaOverPct": 81,
         "cuotaUnder": 4.8,
         "probCasaUnderPct": 19,
         "tip": "O1.5",
-        "tipCuota": 1.13,
+        "tipCuota": 1.14,
         "tipProbPct": 81
       },
       "2.5": {
         "linea": "2.5",
-        "cuotaOver": 1.48,
-        "probCasaOverPct": 61,
-        "cuotaUnder": 2.33,
-        "probCasaUnderPct": 39,
+        "cuotaOver": 1.46,
+        "probCasaOverPct": 62,
+        "cuotaUnder": 2.38,
+        "probCasaUnderPct": 38,
         "tip": "O2.5",
-        "tipCuota": 1.48,
-        "tipProbPct": 61
+        "tipCuota": 1.46,
+        "tipProbPct": 62
       }
     }
   },
@@ -4983,7 +4983,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -5023,7 +5023,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "2.5": {
@@ -5053,7 +5053,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 180,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "2.5": {
@@ -5083,7 +5083,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -5123,7 +5123,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -5163,7 +5163,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 100,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -5203,7 +5203,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -5243,7 +5243,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -5283,7 +5283,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -5323,7 +5323,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -5363,7 +5363,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 180,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -5403,7 +5403,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -5443,7 +5443,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -5483,7 +5483,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 100,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -5523,7 +5523,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 100,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -5563,7 +5563,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -5603,7 +5603,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 180,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "2.5": {
@@ -5633,7 +5633,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "2.5": {
@@ -5663,7 +5663,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -5703,7 +5703,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -5743,7 +5743,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -5783,7 +5783,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -5823,7 +5823,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -5863,27 +5863,27 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
         "linea": "1.5",
         "cuotaOver": 1.2,
-        "probCasaOverPct": 75,
-        "cuotaUnder": 3.68,
-        "probCasaUnderPct": 25,
+        "probCasaOverPct": 76,
+        "cuotaUnder": 3.72,
+        "probCasaUnderPct": 24,
         "tip": "O1.5",
         "tipCuota": 1.2,
-        "tipProbPct": 75
+        "tipProbPct": 76
       },
       "2.5": {
         "linea": "2.5",
-        "cuotaOver": 1.74,
+        "cuotaOver": 1.73,
         "probCasaOverPct": 54,
-        "cuotaUnder": 2.01,
+        "cuotaUnder": 2.02,
         "probCasaUnderPct": 46,
         "tip": "O2.5",
-        "tipCuota": 1.74,
+        "tipCuota": 1.73,
         "tipProbPct": 54
       }
     }
@@ -5903,7 +5903,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -5943,7 +5943,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -5983,7 +5983,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -6023,7 +6023,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -6038,13 +6038,13 @@ export const PARTIDOS = [
       },
       "2.5": {
         "linea": "2.5",
-        "cuotaOver": 1.8,
-        "probCasaOverPct": 52,
-        "cuotaUnder": 1.93,
-        "probCasaUnderPct": 48,
+        "cuotaOver": 1.81,
+        "probCasaOverPct": 51,
+        "cuotaUnder": 1.92,
+        "probCasaUnderPct": 49,
         "tip": "O2.5",
-        "tipCuota": 1.8,
-        "tipProbPct": 52
+        "tipCuota": 1.81,
+        "tipProbPct": 51
       }
     }
   },
@@ -6063,7 +6063,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -6103,7 +6103,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -6143,17 +6143,17 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
         "linea": "1.5",
-        "cuotaOver": 1.22,
+        "cuotaOver": 1.23,
         "probCasaOverPct": 74,
-        "cuotaUnder": 3.48,
+        "cuotaUnder": 3.42,
         "probCasaUnderPct": 26,
         "tip": "O1.5",
-        "tipCuota": 1.22,
+        "tipCuota": 1.23,
         "tipProbPct": 74
       },
       "2.5": {
@@ -6183,7 +6183,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -6223,7 +6223,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -6263,28 +6263,28 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 100,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
         "linea": "1.5",
-        "cuotaOver": 1.06,
+        "cuotaOver": 1.05,
         "probCasaOverPct": 86,
-        "cuotaUnder": 6.35,
+        "cuotaUnder": 6.4,
         "probCasaUnderPct": 14,
         "tip": "O1.5",
-        "tipCuota": 1.06,
+        "tipCuota": 1.05,
         "tipProbPct": 86
       },
       "2.5": {
         "linea": "2.5",
-        "cuotaOver": 1.31,
-        "probCasaOverPct": 69,
-        "cuotaUnder": 2.92,
-        "probCasaUnderPct": 31,
+        "cuotaOver": 1.3,
+        "probCasaOverPct": 70,
+        "cuotaUnder": 2.97,
+        "probCasaUnderPct": 30,
         "tip": "O2.5",
-        "tipCuota": 1.31,
-        "tipProbPct": 69
+        "tipCuota": 1.3,
+        "tipProbPct": 70
       }
     }
   },
@@ -6303,7 +6303,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -6343,7 +6343,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 180,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -6383,7 +6383,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 100,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -6423,7 +6423,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -6463,7 +6463,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 180,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -6503,7 +6503,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -6543,7 +6543,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -6583,7 +6583,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -6623,7 +6623,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -6663,7 +6663,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -6703,7 +6703,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -6743,7 +6743,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -6783,7 +6783,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -6823,7 +6823,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -6863,7 +6863,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -6903,7 +6903,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -6943,7 +6943,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -6983,7 +6983,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -7023,7 +7023,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -7063,7 +7063,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -7103,7 +7103,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -7143,7 +7143,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -7183,7 +7183,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 180,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -7223,7 +7223,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -7263,7 +7263,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -7303,7 +7303,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 100,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -7343,7 +7343,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -7383,7 +7383,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -7423,7 +7423,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -7463,7 +7463,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -7503,7 +7503,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -7543,7 +7543,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -7583,7 +7583,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -7623,7 +7623,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -7663,7 +7663,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -7703,7 +7703,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -7743,7 +7743,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -7783,7 +7783,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 180,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -7823,7 +7823,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 180,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -7863,7 +7863,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -7903,7 +7903,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -7943,7 +7943,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -7969,46 +7969,6 @@ export const PARTIDOS = [
     }
   },
   {
-    "clave": "biggleswade-fc-vs-three-bridges",
-    "url": "/football/match/biggleswade-fc-vs-three-bridges/",
-    "liga": "England: FA Trophy England",
-    "ligaUrl": null,
-    "local": "Biggleswade FC",
-    "visitante": "Three Bridges",
-    "fecha": "2026-09-26",
-    "hora": "16:00",
-    "kickoffIsoUtc": "2026-09-26T14:00:00.000Z",
-    "kickoffMs": 1790431200000,
-    "zonaHoraria": "Europe/Madrid",
-    "jugado": false,
-    "ordenDomCoincideSlug": true,
-    "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
-    "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
-    "lineas": {
-      "1.5": {
-        "linea": "1.5",
-        "cuotaOver": 1.11,
-        "probCasaOverPct": 83,
-        "cuotaUnder": 5.3,
-        "probCasaUnderPct": 17,
-        "tip": "O1.5",
-        "tipCuota": 1.11,
-        "tipProbPct": 83
-      },
-      "2.5": {
-        "linea": "2.5",
-        "cuotaOver": 1.4,
-        "probCasaOverPct": 65,
-        "cuotaUnder": 2.56,
-        "probCasaUnderPct": 35,
-        "tip": "O2.5",
-        "tipCuota": 1.4,
-        "tipProbPct": 65
-      }
-    }
-  },
-  {
     "clave": "chertsey-town-vs-welling",
     "url": "/football/match/chertsey-town-vs-welling/",
     "liga": "England: FA Trophy England",
@@ -8023,7 +7983,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -8063,7 +8023,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -8103,7 +8063,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -8143,7 +8103,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -8183,7 +8143,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -8223,7 +8183,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -8263,7 +8223,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -8303,7 +8263,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -8343,14 +8303,14 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
         "linea": "1.5",
         "cuotaOver": 1.02,
         "probCasaOverPct": 89,
-        "cuotaUnder": 8.1,
+        "cuotaUnder": 8,
         "probCasaUnderPct": 11,
         "tip": "O1.5",
         "tipCuota": 1.02,
@@ -8383,7 +8343,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -8423,7 +8383,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -8463,7 +8423,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -8503,7 +8463,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -8543,7 +8503,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -8583,7 +8543,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -8623,7 +8583,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -8663,7 +8623,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -8703,7 +8663,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -8743,7 +8703,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -8783,7 +8743,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -8823,7 +8783,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 180,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -8863,27 +8823,27 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
         "linea": "1.5",
-        "cuotaOver": 1.22,
+        "cuotaOver": 1.2,
         "probCasaOverPct": 76,
-        "cuotaUnder": 3.85,
+        "cuotaUnder": 3.7,
         "probCasaUnderPct": 24,
         "tip": "O1.5",
-        "tipCuota": 1.22,
+        "tipCuota": 1.2,
         "tipProbPct": 76
       },
       "2.5": {
         "linea": "2.5",
-        "cuotaOver": 1.75,
+        "cuotaOver": 1.74,
         "probCasaOverPct": 53,
-        "cuotaUnder": 1.95,
+        "cuotaUnder": 1.94,
         "probCasaUnderPct": 47,
         "tip": "O2.5",
-        "tipCuota": 1.75,
+        "tipCuota": 1.74,
         "tipProbPct": 53
       }
     }
@@ -8903,18 +8863,18 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
         "linea": "1.5",
-        "cuotaOver": 1.08,
-        "probCasaOverPct": 88,
-        "cuotaUnder": 8,
-        "probCasaUnderPct": 12,
+        "cuotaOver": 1.05,
+        "probCasaOverPct": 87,
+        "cuotaUnder": 7.2,
+        "probCasaUnderPct": 13,
         "tip": "O1.5",
-        "tipCuota": 1.08,
-        "tipProbPct": 88
+        "tipCuota": 1.05,
+        "tipProbPct": 87
       },
       "2.5": {
         "linea": "2.5",
@@ -8943,7 +8903,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 100,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -8983,28 +8943,28 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
         "linea": "1.5",
-        "cuotaOver": 1.07,
-        "probCasaOverPct": 89,
-        "cuotaUnder": 8.5,
-        "probCasaUnderPct": 11,
+        "cuotaOver": 1.08,
+        "probCasaOverPct": 85,
+        "cuotaUnder": 6.1,
+        "probCasaUnderPct": 15,
         "tip": "O1.5",
-        "tipCuota": 1.07,
-        "tipProbPct": 89
+        "tipCuota": 1.08,
+        "tipProbPct": 85
       },
       "2.5": {
         "linea": "2.5",
-        "cuotaOver": 1.25,
-        "probCasaOverPct": 72,
-        "cuotaUnder": 3.28,
-        "probCasaUnderPct": 28,
+        "cuotaOver": 1.3,
+        "probCasaOverPct": 70,
+        "cuotaUnder": 2.97,
+        "probCasaUnderPct": 30,
         "tip": "O2.5",
-        "tipCuota": 1.25,
-        "tipProbPct": 72
+        "tipCuota": 1.3,
+        "tipProbPct": 70
       }
     }
   },
@@ -9023,7 +8983,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -9038,12 +8998,12 @@ export const PARTIDOS = [
       },
       "2.5": {
         "linea": "2.5",
-        "cuotaOver": 1.37,
+        "cuotaOver": 1.38,
         "probCasaOverPct": 66,
-        "cuotaUnder": 2.66,
+        "cuotaUnder": 2.63,
         "probCasaUnderPct": 34,
         "tip": "O2.5",
-        "tipCuota": 1.37,
+        "tipCuota": 1.38,
         "tipProbPct": 66
       }
     }
@@ -9063,18 +9023,18 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
         "linea": "1.5",
-        "cuotaOver": 1.1,
-        "probCasaOverPct": 87,
-        "cuotaUnder": 7.5,
-        "probCasaUnderPct": 13,
+        "cuotaOver": 1.07,
+        "probCasaOverPct": 86,
+        "cuotaUnder": 6.6,
+        "probCasaUnderPct": 14,
         "tip": "O1.5",
-        "tipCuota": 1.1,
-        "tipProbPct": 87
+        "tipCuota": 1.07,
+        "tipProbPct": 86
       },
       "2.5": {
         "linea": "2.5",
@@ -9103,7 +9063,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -9143,7 +9103,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -9158,13 +9118,13 @@ export const PARTIDOS = [
       },
       "2.5": {
         "linea": "2.5",
-        "cuotaOver": 1.53,
-        "probCasaOverPct": 59,
-        "cuotaUnder": 2.21,
-        "probCasaUnderPct": 41,
+        "cuotaOver": 1.55,
+        "probCasaOverPct": 58,
+        "cuotaUnder": 2.17,
+        "probCasaUnderPct": 42,
         "tip": "O2.5",
-        "tipCuota": 1.53,
-        "tipProbPct": 59
+        "tipCuota": 1.55,
+        "tipProbPct": 58
       }
     }
   },
@@ -9183,7 +9143,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -9223,18 +9183,18 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
         "linea": "1.5",
-        "cuotaOver": 1.08,
-        "probCasaOverPct": 88,
-        "cuotaUnder": 8,
-        "probCasaUnderPct": 12,
+        "cuotaOver": 1.06,
+        "probCasaOverPct": 87,
+        "cuotaUnder": 6.8,
+        "probCasaUnderPct": 13,
         "tip": "O1.5",
-        "tipCuota": 1.08,
-        "tipProbPct": 88
+        "tipCuota": 1.06,
+        "tipProbPct": 87
       },
       "2.5": {
         "linea": "2.5",
@@ -9263,7 +9223,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -9303,7 +9263,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -9343,7 +9303,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -9383,7 +9343,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -9398,13 +9358,13 @@ export const PARTIDOS = [
       },
       "2.5": {
         "linea": "2.5",
-        "cuotaOver": 1.28,
-        "probCasaOverPct": 71,
-        "cuotaUnder": 3.08,
-        "probCasaUnderPct": 29,
+        "cuotaOver": 1.29,
+        "probCasaOverPct": 70,
+        "cuotaUnder": 3.04,
+        "probCasaUnderPct": 30,
         "tip": "O2.5",
-        "tipCuota": 1.28,
-        "tipProbPct": 71
+        "tipCuota": 1.29,
+        "tipProbPct": 70
       }
     }
   },
@@ -9423,7 +9383,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -9463,7 +9423,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 180,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -9503,7 +9463,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -9543,7 +9503,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -9583,7 +9543,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -9623,7 +9583,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -9663,7 +9623,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -9703,7 +9663,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -9743,7 +9703,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -9758,13 +9718,13 @@ export const PARTIDOS = [
       },
       "2.5": {
         "linea": "2.5",
-        "cuotaOver": 1.25,
-        "probCasaOverPct": 72,
-        "cuotaUnder": 3.28,
-        "probCasaUnderPct": 28,
+        "cuotaOver": 1.24,
+        "probCasaOverPct": 73,
+        "cuotaUnder": 3.34,
+        "probCasaUnderPct": 27,
         "tip": "O2.5",
-        "tipCuota": 1.25,
-        "tipProbPct": 72
+        "tipCuota": 1.24,
+        "tipProbPct": 73
       }
     }
   },
@@ -9783,7 +9743,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -9823,7 +9783,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "2.5": {
@@ -9853,7 +9813,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "2.5": {
@@ -9883,7 +9843,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "2.5": {
@@ -9913,7 +9873,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "2.5": {
@@ -9943,7 +9903,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "2.5": {
@@ -9973,7 +9933,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -10013,7 +9973,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -10053,7 +10013,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -10093,7 +10053,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -10133,7 +10093,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -10173,7 +10133,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -10213,7 +10173,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -10253,18 +10213,18 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 180,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "2.5": {
         "linea": "2.5",
-        "cuotaOver": 1.17,
-        "probCasaOverPct": 79,
-        "cuotaUnder": 4.5,
-        "probCasaUnderPct": 21,
+        "cuotaOver": 1.14,
+        "probCasaOverPct": 82,
+        "cuotaUnder": 5.25,
+        "probCasaUnderPct": 18,
         "tip": "O2.5",
-        "tipCuota": 1.17,
-        "tipProbPct": 79
+        "tipCuota": 1.14,
+        "tipProbPct": 82
       }
     }
   },
@@ -10283,7 +10243,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -10323,7 +10283,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -10363,7 +10323,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -10403,7 +10363,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 180,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -10418,13 +10378,13 @@ export const PARTIDOS = [
       },
       "2.5": {
         "linea": "2.5",
-        "cuotaOver": 1.47,
-        "probCasaOverPct": 62,
-        "cuotaUnder": 2.35,
-        "probCasaUnderPct": 38,
+        "cuotaOver": 1.44,
+        "probCasaOverPct": 63,
+        "cuotaUnder": 2.42,
+        "probCasaUnderPct": 37,
         "tip": "O2.5",
-        "tipCuota": 1.47,
-        "tipProbPct": 62
+        "tipCuota": 1.44,
+        "tipProbPct": 63
       }
     }
   },
@@ -10443,7 +10403,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -10483,7 +10443,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -10523,7 +10483,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 100,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -10563,7 +10523,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "2.5": {
@@ -10593,7 +10553,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "2.5": {
@@ -10623,7 +10583,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -10663,7 +10623,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -10703,7 +10663,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 180,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -10743,7 +10703,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -10783,7 +10743,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -10823,7 +10783,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -10863,7 +10823,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 100,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -10903,7 +10863,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -10943,7 +10903,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -10983,7 +10943,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "2.5": {
@@ -11013,7 +10973,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 100,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -11053,7 +11013,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 180,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -11093,7 +11053,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 100,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -11133,14 +11093,14 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
         "linea": "1.5",
         "cuotaOver": 1.04,
         "probCasaOverPct": 87,
-        "cuotaUnder": 6.95,
+        "cuotaUnder": 7.1,
         "probCasaUnderPct": 13,
         "tip": "O1.5",
         "tipCuota": 1.04,
@@ -11148,13 +11108,13 @@ export const PARTIDOS = [
       },
       "2.5": {
         "linea": "2.5",
-        "cuotaOver": 1.27,
-        "probCasaOverPct": 71,
-        "cuotaUnder": 3.14,
-        "probCasaUnderPct": 29,
+        "cuotaOver": 1.26,
+        "probCasaOverPct": 72,
+        "cuotaUnder": 3.2,
+        "probCasaUnderPct": 28,
         "tip": "O2.5",
-        "tipCuota": 1.27,
-        "tipProbPct": 71
+        "tipCuota": 1.26,
+        "tipProbPct": 72
       }
     }
   },
@@ -11173,7 +11133,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -11213,7 +11173,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -11253,7 +11213,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -11293,7 +11253,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -11333,7 +11293,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -11373,7 +11333,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -11413,7 +11373,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 180,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -11453,7 +11413,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -11468,12 +11428,12 @@ export const PARTIDOS = [
       },
       "2.5": {
         "linea": "2.5",
-        "cuotaOver": 2.06,
+        "cuotaOver": 2.08,
         "probCasaOverPct": 44,
-        "cuotaUnder": 1.65,
+        "cuotaUnder": 1.64,
         "probCasaUnderPct": 56,
         "tip": "U2.5",
-        "tipCuota": 1.65,
+        "tipCuota": 1.64,
         "tipProbPct": 56
       }
     }
@@ -11493,7 +11453,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -11533,7 +11493,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -11573,7 +11533,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -11613,7 +11573,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -11653,7 +11613,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 100,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -11668,12 +11628,12 @@ export const PARTIDOS = [
       },
       "2.5": {
         "linea": "2.5",
-        "cuotaOver": 1.96,
+        "cuotaOver": 1.97,
         "probCasaOverPct": 49,
-        "cuotaUnder": 1.88,
+        "cuotaUnder": 1.87,
         "probCasaUnderPct": 51,
         "tip": "U2.5",
-        "tipCuota": 1.88,
+        "tipCuota": 1.87,
         "tipProbPct": 51
       }
     }
@@ -11693,7 +11653,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -11733,18 +11693,18 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
         "linea": "1.5",
-        "cuotaOver": 1.11,
-        "probCasaOverPct": 83,
-        "cuotaUnder": 5.5,
-        "probCasaUnderPct": 17,
+        "cuotaOver": 1.12,
+        "probCasaOverPct": 82,
+        "cuotaUnder": 5,
+        "probCasaUnderPct": 18,
         "tip": "O1.5",
-        "tipCuota": 1.11,
-        "tipProbPct": 83
+        "tipCuota": 1.12,
+        "tipProbPct": 82
       },
       "2.5": {
         "linea": "2.5",
@@ -11773,7 +11733,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -11813,7 +11773,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -11853,14 +11813,14 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
         "linea": "1.5",
         "cuotaOver": 1.12,
         "probCasaOverPct": 81,
-        "cuotaUnder": 4.75,
+        "cuotaUnder": 4.7,
         "probCasaUnderPct": 19,
         "tip": "O1.5",
         "tipCuota": 1.12,
@@ -11868,13 +11828,53 @@ export const PARTIDOS = [
       },
       "2.5": {
         "linea": "2.5",
-        "cuotaOver": 1.46,
+        "cuotaOver": 1.47,
         "probCasaOverPct": 62,
-        "cuotaUnder": 2.38,
+        "cuotaUnder": 2.35,
         "probCasaUnderPct": 38,
         "tip": "O2.5",
-        "tipCuota": 1.46,
+        "tipCuota": 1.47,
         "tipProbPct": 62
+      }
+    }
+  },
+  {
+    "clave": "fana-vs-vard-haugesund",
+    "url": "/football/match/fana-vs-vard-haugesund/",
+    "liga": "Norway: 3. Divisjon Norway",
+    "ligaUrl": null,
+    "local": "Fana",
+    "visitante": "Vard Haugesund",
+    "fecha": "2026-09-26",
+    "hora": "19:00",
+    "kickoffIsoUtc": "2026-09-26T17:00:00.000Z",
+    "kickoffMs": 1790442000000,
+    "zonaHoraria": "Europe/Madrid",
+    "jugado": false,
+    "ordenDomCoincideSlug": false,
+    "confianzaEquipos": 200,
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
+    "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
+    "lineas": {
+      "1.5": {
+        "linea": "1.5",
+        "cuotaOver": 1.03,
+        "probCasaOverPct": 88,
+        "cuotaUnder": 7.3,
+        "probCasaUnderPct": 12,
+        "tip": "O1.5",
+        "tipCuota": 1.03,
+        "tipProbPct": 88
+      },
+      "2.5": {
+        "linea": "2.5",
+        "cuotaOver": 1.23,
+        "probCasaOverPct": 74,
+        "cuotaUnder": 3.42,
+        "probCasaUnderPct": 26,
+        "tip": "O2.5",
+        "tipCuota": 1.23,
+        "tipProbPct": 74
       }
     }
   },
@@ -11893,14 +11893,14 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
         "linea": "1.5",
         "cuotaOver": 1.15,
         "probCasaOverPct": 79,
-        "cuotaUnder": 4.25,
+        "cuotaUnder": 4.3,
         "probCasaUnderPct": 21,
         "tip": "O1.5",
         "tipCuota": 1.15,
@@ -11908,12 +11908,12 @@ export const PARTIDOS = [
       },
       "2.5": {
         "linea": "2.5",
-        "cuotaOver": 1.61,
+        "cuotaOver": 1.6,
         "probCasaOverPct": 57,
-        "cuotaUnder": 2.13,
+        "cuotaUnder": 2.15,
         "probCasaUnderPct": 43,
         "tip": "O2.5",
-        "tipCuota": 1.61,
+        "tipCuota": 1.6,
         "tipProbPct": 57
       }
     }
@@ -11933,7 +11933,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "2.5": {
@@ -11963,7 +11963,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -12003,7 +12003,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -12043,7 +12043,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -12083,7 +12083,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -12123,28 +12123,28 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
         "linea": "1.5",
-        "cuotaOver": 1.44,
-        "probCasaOverPct": 64,
-        "cuotaUnder": 2.52,
-        "probCasaUnderPct": 36,
+        "cuotaOver": 1.42,
+        "probCasaOverPct": 65,
+        "cuotaUnder": 2.59,
+        "probCasaUnderPct": 35,
         "tip": "O1.5",
-        "tipCuota": 1.44,
-        "tipProbPct": 64
+        "tipCuota": 1.42,
+        "tipProbPct": 65
       },
       "2.5": {
         "linea": "2.5",
-        "cuotaOver": 2.3,
-        "probCasaOverPct": 39,
-        "cuotaUnder": 1.49,
-        "probCasaUnderPct": 61,
+        "cuotaOver": 2.24,
+        "probCasaOverPct": 40,
+        "cuotaUnder": 1.52,
+        "probCasaUnderPct": 60,
         "tip": "U2.5",
-        "tipCuota": 1.49,
-        "tipProbPct": 61
+        "tipCuota": 1.52,
+        "tipProbPct": 60
       }
     }
   },
@@ -12163,7 +12163,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -12203,7 +12203,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -12243,7 +12243,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -12283,7 +12283,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -12323,7 +12323,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -12363,7 +12363,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 180,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -12403,7 +12403,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -12443,7 +12443,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -12483,7 +12483,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -12523,7 +12523,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -12563,7 +12563,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -12603,7 +12603,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -12643,7 +12643,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -12683,7 +12683,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -12723,7 +12723,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -12763,7 +12763,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -12803,7 +12803,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -12843,7 +12843,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "2.5": {
@@ -12873,7 +12873,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -12913,7 +12913,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -12953,7 +12953,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -12993,7 +12993,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -13033,7 +13033,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -13073,7 +13073,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -13113,7 +13113,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -13153,7 +13153,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 160,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -13193,7 +13193,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -13233,7 +13233,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -13273,7 +13273,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -13313,7 +13313,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -13353,7 +13353,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -13393,7 +13393,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -13433,7 +13433,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -13473,7 +13473,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -13513,7 +13513,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -13553,7 +13553,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 100,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -13593,7 +13593,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -13633,28 +13633,28 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
         "linea": "1.5",
-        "cuotaOver": 1.39,
+        "cuotaOver": 1.4,
         "probCasaOverPct": 66,
-        "cuotaUnder": 2.72,
+        "cuotaUnder": 2.68,
         "probCasaUnderPct": 34,
         "tip": "O1.5",
-        "tipCuota": 1.39,
+        "tipCuota": 1.4,
         "tipProbPct": 66
       },
       "2.5": {
         "linea": "2.5",
-        "cuotaOver": 2.32,
-        "probCasaOverPct": 42,
-        "cuotaUnder": 1.67,
-        "probCasaUnderPct": 58,
+        "cuotaOver": 2.35,
+        "probCasaOverPct": 41,
+        "cuotaUnder": 1.65,
+        "probCasaUnderPct": 59,
         "tip": "U2.5",
-        "tipCuota": 1.67,
-        "tipProbPct": 58
+        "tipCuota": 1.65,
+        "tipProbPct": 59
       }
     }
   },
@@ -13673,7 +13673,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -13713,7 +13713,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -13753,7 +13753,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -13793,7 +13793,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -13833,7 +13833,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -13873,17 +13873,17 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 100,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
         "linea": "1.5",
-        "cuotaOver": 1.13,
+        "cuotaOver": 1.09,
         "probCasaOverPct": 84,
-        "cuotaUnder": 6,
+        "cuotaUnder": 5.6,
         "probCasaUnderPct": 16,
         "tip": "O1.5",
-        "tipCuota": 1.13,
+        "tipCuota": 1.09,
         "tipProbPct": 84
       },
       "2.5": {
@@ -13913,28 +13913,28 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
         "linea": "1.5",
-        "cuotaOver": 1.3,
-        "probCasaOverPct": 70,
-        "cuotaUnder": 2.97,
-        "probCasaUnderPct": 30,
+        "cuotaOver": 1.25,
+        "probCasaOverPct": 72,
+        "cuotaUnder": 3.28,
+        "probCasaUnderPct": 28,
         "tip": "O1.5",
-        "tipCuota": 1.3,
-        "tipProbPct": 70
+        "tipCuota": 1.25,
+        "tipProbPct": 72
       },
       "2.5": {
         "linea": "2.5",
-        "cuotaOver": 2.02,
-        "probCasaOverPct": 45,
-        "cuotaUnder": 1.68,
-        "probCasaUnderPct": 55,
+        "cuotaOver": 1.87,
+        "probCasaOverPct": 49,
+        "cuotaUnder": 1.8,
+        "probCasaUnderPct": 51,
         "tip": "U2.5",
-        "tipCuota": 1.68,
-        "tipProbPct": 55
+        "tipCuota": 1.8,
+        "tipProbPct": 51
       }
     }
   },
@@ -13953,7 +13953,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -13993,7 +13993,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -14033,7 +14033,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -14073,7 +14073,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -14113,7 +14113,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -14153,7 +14153,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -14193,7 +14193,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -14233,7 +14233,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -14273,7 +14273,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -14299,6 +14299,46 @@ export const PARTIDOS = [
     }
   },
   {
+    "clave": "atletico-nublense-vs-puerto-montt",
+    "url": "/football/match/atletico-nublense-vs-puerto-montt/",
+    "liga": "Chile: Chile Cup",
+    "ligaUrl": null,
+    "local": "CD Nublense",
+    "visitante": "Puerto Montt",
+    "fecha": "2026-09-26",
+    "hora": "22:30",
+    "kickoffIsoUtc": "2026-09-26T20:30:00.000Z",
+    "kickoffMs": 1790454600000,
+    "zonaHoraria": "Europe/Madrid",
+    "jugado": false,
+    "ordenDomCoincideSlug": true,
+    "confianzaEquipos": 100,
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
+    "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
+    "lineas": {
+      "1.5": {
+        "linea": "1.5",
+        "cuotaOver": 1.27,
+        "probCasaOverPct": 71,
+        "cuotaUnder": 3.14,
+        "probCasaUnderPct": 29,
+        "tip": "O1.5",
+        "tipCuota": 1.27,
+        "tipProbPct": 71
+      },
+      "2.5": {
+        "linea": "2.5",
+        "cuotaOver": 1.92,
+        "probCasaOverPct": 49,
+        "cuotaUnder": 1.81,
+        "probCasaUnderPct": 51,
+        "tip": "U2.5",
+        "tipCuota": 1.81,
+        "tipProbPct": 51
+      }
+    }
+  },
+  {
     "clave": "deportivo-pereira-vs-la-equidad",
     "url": "/football/match/deportivo-pereira-vs-la-equidad/",
     "liga": "Colombia: Primera A Colombia",
@@ -14313,7 +14353,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 100,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -14353,7 +14393,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -14393,7 +14433,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -14433,7 +14473,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -14473,7 +14513,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 100,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -14513,7 +14553,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -14553,7 +14593,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -14593,7 +14633,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -14633,7 +14673,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -14673,7 +14713,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -14713,7 +14753,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -14753,7 +14793,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 180,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -14793,7 +14833,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -14833,7 +14873,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -14873,7 +14913,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -14913,7 +14953,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -14953,7 +14993,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -14993,7 +15033,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -15033,7 +15073,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -15073,7 +15113,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -15113,7 +15153,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -15153,7 +15193,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -15193,7 +15233,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -15233,7 +15273,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -15273,7 +15313,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -15313,7 +15353,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -15353,7 +15393,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -15393,7 +15433,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -15433,7 +15473,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -15473,7 +15513,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -15513,7 +15553,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 100,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -15553,7 +15593,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -15593,7 +15633,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -15633,7 +15673,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -15673,7 +15713,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -15713,7 +15753,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -15753,7 +15793,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -15793,7 +15833,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -15833,7 +15873,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -15873,7 +15913,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -15913,7 +15953,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -15953,7 +15993,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -15993,7 +16033,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 180,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -16033,7 +16073,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -16073,7 +16113,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -16113,7 +16153,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -16153,7 +16193,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -16193,7 +16233,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -16233,7 +16273,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -16273,7 +16313,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -16313,7 +16353,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -16353,7 +16393,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -16393,7 +16433,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -16433,7 +16473,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -16473,7 +16513,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -16513,7 +16553,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 180,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -16553,7 +16593,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -16593,7 +16633,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -16633,7 +16673,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -16673,7 +16713,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -16713,7 +16753,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -16753,7 +16793,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -16793,7 +16833,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -16833,7 +16873,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -16873,7 +16913,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -16913,7 +16953,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -16953,7 +16993,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -16993,7 +17033,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -17033,7 +17073,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -17073,7 +17113,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 180,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -17113,7 +17153,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -17153,7 +17193,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -17193,7 +17233,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -17233,7 +17273,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -17273,7 +17313,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -17313,7 +17353,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -17353,7 +17393,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -17393,7 +17433,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -17433,7 +17473,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 100,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -17473,7 +17513,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -17513,7 +17553,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -17553,7 +17593,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -17593,7 +17633,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -17633,7 +17673,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -17673,7 +17713,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 100,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -17713,7 +17753,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -17753,7 +17793,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -17793,7 +17833,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 100,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -17833,7 +17873,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -17873,7 +17913,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -17913,7 +17953,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -17953,7 +17993,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -17993,7 +18033,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -18033,7 +18073,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -18073,7 +18113,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 180,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -18113,7 +18153,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -18153,7 +18193,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -18193,7 +18233,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -18233,7 +18273,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 100,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -18273,7 +18313,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -18313,7 +18353,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -18353,7 +18393,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -18393,7 +18433,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 180,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -18433,7 +18473,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 100,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -18473,7 +18513,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -18513,7 +18553,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -18553,7 +18593,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -18593,7 +18633,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 180,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -18633,7 +18673,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -18673,7 +18713,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -18713,7 +18753,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 180,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -18753,7 +18793,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -18793,7 +18833,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -18833,7 +18873,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -18873,7 +18913,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -18913,7 +18953,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -18953,7 +18993,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -18993,7 +19033,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 180,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -19033,7 +19073,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -19073,7 +19113,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 180,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -19113,7 +19153,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -19153,7 +19193,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -19193,7 +19233,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -19233,7 +19273,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -19273,7 +19313,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -19313,7 +19353,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -19353,7 +19393,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -19393,7 +19433,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -19433,7 +19473,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -19473,7 +19513,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -19513,7 +19553,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -19553,7 +19593,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -19593,7 +19633,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -19633,7 +19673,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -19673,7 +19713,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -19713,7 +19753,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -19753,7 +19793,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -19793,7 +19833,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 100,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -19833,7 +19873,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 180,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -19873,7 +19913,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -19913,7 +19953,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -19953,7 +19993,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -19993,7 +20033,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 180,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -20033,7 +20073,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -20073,7 +20113,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -20113,7 +20153,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -20153,7 +20193,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 100,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -20193,7 +20233,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -20233,7 +20273,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -20273,7 +20313,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -20313,7 +20353,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -20353,7 +20393,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -20393,7 +20433,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -20433,7 +20473,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -20473,7 +20513,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -20513,7 +20553,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -20553,7 +20593,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -20593,7 +20633,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -20633,7 +20673,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -20673,7 +20713,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -20713,7 +20753,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 100,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -20753,7 +20793,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -20793,7 +20833,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -20833,7 +20873,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 180,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -20873,7 +20913,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 100,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -20913,7 +20953,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -20953,7 +20993,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -20993,7 +21033,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -21033,7 +21073,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -21073,7 +21113,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -21113,7 +21153,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -21153,7 +21193,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -21193,7 +21233,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -21233,7 +21273,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 180,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -21273,7 +21313,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -21313,7 +21353,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -21353,7 +21393,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -21393,7 +21433,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -21433,7 +21473,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -21473,7 +21513,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 180,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -21513,7 +21553,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -21553,7 +21593,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 80,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -21593,7 +21633,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -21633,7 +21673,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -21673,7 +21713,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -21713,7 +21753,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -21753,7 +21793,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -21793,7 +21833,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -21833,7 +21873,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -21873,7 +21913,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -21913,7 +21953,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 180,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -21953,7 +21993,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -21993,7 +22033,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -22033,7 +22073,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -22073,7 +22113,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -22113,7 +22153,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -22153,7 +22193,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -22193,7 +22233,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -22233,7 +22273,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -22273,7 +22313,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 100,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -22313,7 +22353,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -22353,7 +22393,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -22393,7 +22433,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -22433,7 +22473,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -22473,7 +22513,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -22513,7 +22553,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -22553,7 +22593,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -22593,7 +22633,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -22633,7 +22673,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -22673,7 +22713,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 100,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -22713,7 +22753,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 100,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -22753,7 +22793,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -22793,7 +22833,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -22833,7 +22873,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -22873,7 +22913,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 180,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -22913,7 +22953,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -22953,7 +22993,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -22993,7 +23033,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -23033,7 +23073,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "2.5": {
@@ -23063,7 +23103,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -23103,7 +23143,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -23143,7 +23183,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -23183,7 +23223,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -23223,7 +23263,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -23263,7 +23303,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -23303,7 +23343,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -23343,7 +23383,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -23383,7 +23423,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -23423,7 +23463,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 100,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -23463,7 +23503,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -23503,7 +23543,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -23543,7 +23583,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -23583,7 +23623,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -23623,7 +23663,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -23663,7 +23703,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -23703,7 +23743,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -23743,7 +23783,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -23783,7 +23823,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -23823,7 +23863,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -23863,7 +23903,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -23903,7 +23943,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -23943,7 +23983,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -23983,7 +24023,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -24023,7 +24063,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 180,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -24063,7 +24103,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -24103,7 +24143,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -24143,7 +24183,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -24183,7 +24223,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -24223,7 +24263,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -24263,7 +24303,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -24303,7 +24343,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -24343,7 +24383,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -24383,7 +24423,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -24423,7 +24463,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -24463,7 +24503,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -24503,7 +24543,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -24543,7 +24583,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -24583,7 +24623,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -24623,7 +24663,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -24663,7 +24703,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -24703,7 +24743,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -24743,7 +24783,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -24783,7 +24823,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -24823,7 +24863,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -24863,7 +24903,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -24903,7 +24943,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 180,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -24943,7 +24983,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -24983,7 +25023,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -25023,7 +25063,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": false,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
@@ -25063,7 +25103,7 @@ export const PARTIDOS = [
     "jugado": false,
     "ordenDomCoincideSlug": true,
     "confianzaEquipos": 200,
-    "capturadoEnUtc": "2026-09-26T06:51:07.602Z",
+    "capturadoEnUtc": "2026-09-26T07:08:59.075Z",
     "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
     "lineas": {
       "1.5": {
