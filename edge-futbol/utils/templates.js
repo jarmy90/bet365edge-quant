@@ -13,7 +13,7 @@ export const TEMPLATES = [
 
 ⚽ ${f.match} ${f.league ? `(${f.league})` : ''}
 🎯 Mercado: ${f.market}
-💰 Cuota Bet365: ${f.odds}
+💰 Cuota (bet365 y otras casas): ${f.odds}
 📈 Ventaja Cuantitativa: ${f.edge}
 
 Análisis cuantitativo completo 24/7:

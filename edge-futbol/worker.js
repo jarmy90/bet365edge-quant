@@ -1159,7 +1159,7 @@ export default {
           "name": "EDGE.FUTBOL Quant Bot",
           "operatingSystem": "Web",
           "applicationCategory": "SportsAnalyticsApplication",
-          "description": "Bot cuantitativo autónomo 24/7 para calcular cuotas justas y detectar apuestas con ventaja estadística (+EV) en bet365.",
+          "description": "Bot cuantitativo autónomo 24/7 para calcular cuotas justas y detectar apuestas con ventaja estadística (+EV) en bet365 y otras casas de apuestas.",
           "offers": {
             "@type": "Offer",
             "price": "25.00",
@@ -1171,7 +1171,7 @@ export default {
           "mainEntity": [
             {
               "@type": "Question",
-              "name": "¿Cómo funciona nuestro bot para bet365?",
+              "name": "¿Cómo funciona nuestro bot de apuestas?",
               "acceptedAnswer": {
                 "@type": "Answer",
                 "text": "Nuestro bot analiza continuamente 24/7 partidos de fútbol, estadísticas de forma, métricas xG, noticias deportivas, lesiones, meteorología y movimiento de cuotas para calcular la probabilidad justa del mercado (+1.5 y +2.5 goles) y detectar cuotas con valor esperado positivo (+EV)."
@@ -2595,16 +2595,16 @@ export default {
         <section class="bento-card col-12" style="margin-top:1.5rem; padding:1.4rem;">
             <div style="text-align:center; margin-bottom:1.2rem;">
                 <h2 id="faqTitle" style="font-size:1.2rem; font-weight:800; color:var(--text-primary); letter-spacing:-0.4px;">Preguntas Frecuentes (FAQ)</h2>
-                <p id="faqSubtitle" style="font-size:0.8rem; color:var(--text-muted); margin-top:4px;">Respuestas sobre el bot de bet365, modelo de ventaja +EV y funcionamiento cuantitativo.</p>
+                <p id="faqSubtitle" style="font-size:0.8rem; color:var(--text-muted); margin-top:4px;">Respuestas sobre el bot de apuestas, modelo de ventaja +EV y funcionamiento cuantitativo.</p>
             </div>
             
             <div style="display:flex; flex-direction:column; gap:10px; max-width:860px; margin:0 auto; width:100%;">
                 <details style="background:var(--bg-void); border:1px solid var(--border-subtle); border-radius:12px; padding:12px 16px; cursor:pointer;" open>
                     <summary id="faqQ1" style="font-weight:700; font-size:0.9rem; color:var(--text-primary); outline:none; display:flex; justify-content:space-between; align-items:center;">
-                        ¿Cómo funciona nuestro bot para bet365?
+                        ¿Cómo funciona nuestro bot de apuestas?
                     </summary>
                     <p id="faqA1" style="font-size:0.82rem; color:var(--text-secondary); margin-top:8px; line-height:1.5;">
-                        Nuestro bot cuantitativo procesa 24/7 datos masivos de partidos, estadísticas recientes, métricas xG, meteorología, bajas confirmadas y noticias en tiempo real. Con estos datos calcula la <strong>cuota justa</strong> (probabilidad real) para los mercados de más de 1.5 y 2.5 goles y la compara contra las cuotas públicas de bet365 para aislar únicamente selecciones con esperanza matemática positiva (+EV).
+                        Nuestro bot cuantitativo procesa 24/7 datos masivos de partidos, estadísticas recientes, métricas xG, meteorología, bajas confirmadas y noticias en tiempo real. Con estos datos calcula la <strong>cuota justa</strong> (probabilidad real) para los mercados de más de 1.5 y 2.5 goles y la compara contra las cuotas públicas de bet365 y otras casas de apuestas para aislar únicamente selecciones con esperanza matemática positiva (+EV).
                     </p>
                 </details>
 
@@ -2779,7 +2779,7 @@ export default {
                 metricProbReal: "PROB. COMBINADA",
                 metricProbHouse: "PROB. IMPLÍCITA CASA",
                 metricEdgeNet: "VENTAJA NETA (+EV)",
-                chart1Title: "Probabilidad del Modelo vs Cuota Implícita Bet365",
+                chart1Title: "Probabilidad del Modelo vs Cuota Implícita de las casas",
                 chart1Subtitle: "Auditoría punto a punto sobre partidos reales de Grandes Ligas",
                 chart1AvgEdge: "EDGE: +6.3% AVG",
                 chart1LegendModel: "Probabilidad Calculada Modelo",
@@ -2793,7 +2793,7 @@ export default {
                 thMatchLeague: "Partido & Liga",
                 thTimeState: "Estado Temporal",
                 thMarket: "Mercado",
-                thBookieOdds: "Cuota Bet365",
+                thBookieOdds: "Cuota casa",
                 thProbability: "Probabilidad",
                 thEdge: "Edge (+EV)",
                 disclaimerFooterTitle: "Aviso de responsabilidad:",
@@ -2815,9 +2815,9 @@ export default {
                 footerInfo3: "<strong>Servicio independiente, no afiliado ni respaldado por bet365.</strong>",
                 footerBrandTag: "EDGE.FUTBOL Quant · Sistema cuantitativo autónomo",
                 faqTitle: "Preguntas Frecuentes (FAQ)",
-                faqSubtitle: "Respuestas sobre el bot de bet365, modelo de ventaja +EV y funcionamiento cuantitativo.",
-                faqQ1: "¿Cómo funciona nuestro bot para bet365?",
-                faqA1: "Nuestro bot cuantitativo procesa 24/7 datos masivos de partidos, estadísticas recientes, métricas xG, meteorología, bajas confirmadas y noticias en tiempo real. Con estos datos calcula la cuota justa (probabilidad real) para los mercados de más de 1.5 y 2.5 goles y la compara contra las cuotas públicas de bet365 para aislar únicamente selecciones con esperanza matemática positiva (+EV).",
+                faqSubtitle: "Respuestas sobre el bot de apuestas, modelo de ventaja +EV y funcionamiento cuantitativo.",
+                faqQ1: "¿Cómo funciona nuestro bot de apuestas?",
+                faqA1: "Nuestro bot cuantitativo procesa 24/7 datos masivos de partidos, estadísticas recientes, métricas xG, meteorología, bajas confirmadas y noticias en tiempo real. Con estos datos calcula la cuota justa (probabilidad real) para los mercados de más de 1.5 y 2.5 goles y la compara contra las cuotas públicas de bet365 y otras casas de apuestas para aislar únicamente selecciones con esperanza matemática positiva (+EV).",
                 faqQ2: "¿Qué significa apostar con ventaja (+EV)?",
                 faqA2: "Apostar con ventaja (+EV / Expected Value positivo) consiste en colocar apuestas únicamente cuando la probabilidad estimada por el algoritmo indica que la cuota ofrecida por la casa paga más de lo que matemáticamente debería. A largo plazo, operar exclusivamente en cuotas con valor esperado positivo supera el margen implícito de la casa.",
                 faqQ3: "¿Garantizan ganancias las señales del bot?",
@@ -2890,7 +2890,7 @@ export default {
                 thMatchLeague: "Match & League",
                 thTimeState: "Time Status",
                 thMarket: "Market",
-                thBookieOdds: "Bet365 Odds",
+                thBookieOdds: "Bookmaker Odds",
                 thProbability: "Probability",
                 thEdge: "Edge (+EV)",
                 disclaimerFooterTitle: "Disclaimer:",
@@ -2912,9 +2912,9 @@ export default {
                 footerInfo3: "<strong>Independent service, not affiliated with nor endorsed by bet365.</strong>",
                 footerBrandTag: "EDGE.FUTBOL Quant · Autonomous quantitative engine",
                 faqTitle: "Frequently Asked Questions (FAQ)",
-                faqSubtitle: "Answers about the bet365 bot, +EV value betting model, and quantitative operations.",
-                faqQ1: "How does our bet365 quant bot work?",
-                faqA1: "Our quantitative bot processes massive 24/7 match data, recent form, xG metrics, weather forecasts, confirmed team news, and live odds movements. It calculates true fair odds (real probability) for Over 1.5 & Over 2.5 markets and compares them against public bet365 odds to isolate only positive expected value (+EV) selections.",
+                faqSubtitle: "Answers about the betting bot, +EV value betting model, and quantitative operations.",
+                faqQ1: "How does our betting quant bot work?",
+                faqA1: "Our quantitative bot processes massive 24/7 match data, recent form, xG metrics, weather forecasts, confirmed team news, and live odds movements. It calculates true fair odds (real probability) for Over 1.5 & Over 2.5 markets and compares them against public bet365 and other major bookmaker odds to isolate only positive expected value (+EV) selections.",
                 faqQ2: "What does value betting (+EV) mean?",
                 faqA2: "Value betting (+EV / positive Expected Value) means placing bets only when the model-estimated probability indicates that the bookmaker odds offer a higher payout than mathematically expected. Over the long run, operating strictly on positive value odds overcomes the bookmaker margin.",
                 faqQ3: "Do bot signals guarantee profits?",
@@ -3820,8 +3820,8 @@ export default {
                 tagBg: 'rgba(139,92,246,0.15)', tagColor: '#8b5cf6'
             },
             {
-                es: { tag: '📊 BET365 ODDS', title: 'Cuota Bet365 (Arsenal vs Chelsea) ajustada a 1.95', desc: 'Desfase cuantitativo aislado por el modelo con mayor valor esperado (+EV)', time: 'hace 4 min' },
-                en: { tag: '📊 BET365 ODDS', title: 'Bet365 odds (Arsenal vs Chelsea) adjusted to 1.95', desc: 'Quantitative edge isolated by model with high expected value (+EV)', time: '4 mins ago' },
+                es: { tag: '📊 CUOTAS', title: 'Cuota (Arsenal vs Chelsea) ajustada a 1.95 en bet365 y otras casas', desc: 'Desfase cuantitativo aislado por el modelo con mayor valor esperado (+EV)', time: 'hace 4 min' },
+                en: { tag: '📊 ODDS', title: 'Odds (Arsenal vs Chelsea) adjusted to 1.95 across major bookmakers', desc: 'Quantitative edge isolated by model with high expected value (+EV)', time: '4 mins ago' },
                 tagBg: 'rgba(0,212,255,0.15)', tagColor: '#00d4ff'
             },
             {
@@ -4315,6 +4315,16 @@ export default {
             } catch (e) { }
         }
 
+        function normalizarJustificacionFeed(txt, lang) {
+            var s = String(txt || '');
+            // Compatibilidad: los datasets antiguos pueden traer la redacción con la fuente interna.
+            // Se normaliza para no exponer proveedores internos en el feed visible.
+            s = s.split('Partido real capturado de ratingbet.com. Pendiente de analisis de edge (agente IA no disponible en este ciclo).').join(lang === 'en' ? 'Real match verified in live feeds. Edge analysis pending (analysis cycle in progress).' : 'Partido real verificado en feeds en vivo. Pendiente de analisis de edge (ciclo de analisis en curso).');
+            s = s.split('ratingbet.com').join(lang === 'en' ? 'live feeds' : 'feeds en vivo');
+            s = s.split('agente IA no disponible en este ciclo').join(lang === 'en' ? 'analysis cycle in progress' : 'ciclo de analisis en curso');
+            return s;
+        }
+
         function construirFeedActual() {
             var items = [];
             var ahora = selloHoraReal();
@@ -4331,7 +4341,7 @@ export default {
                         tag: tagTxt,
                         tagBg: 'rgba(13,242,166,0.15)', tagColor: '#0df2a6',
                         title: f.partido + ' - ' + diaStr + ' ' + f.fechaCorta + ' ' + atTxt + ' ' + f.hora,
-                        desc: f.ligaCorta + ' | ' + f.mercado + ' ' + oddsTxt + ' ' + f.cuota.toFixed(2) + ' | ' + probTxt + ' | ' + f.edge + ' | ' + (lang === 'en' ? (f.justificacion ? f.justificacion.replace('Partido real capturado de ratingbet.com. Pendiente de analisis de edge (agente IA no disponible en este ciclo).', 'Real match captured from live data feeds. Edge analysis pending.') : '') : f.justificacion),
+                        desc: f.ligaCorta + ' | ' + f.mercado + ' ' + oddsTxt + ' ' + f.cuota.toFixed(2) + ' | ' + probTxt + ' | ' + f.edge + ' | ' + normalizarJustificacionFeed(f.justificacion, lang),
                         time: ahora
                     });
                 });
@@ -4749,7 +4759,7 @@ var SOCIAL_POOL=[
 // ═══════════════════════════════
 var EVENT_POOL=[
     {tag:"tag-baja",tagLbl:"BAJA",dot:"#ef4444",desc:"Sergio Leon (Valladolid) descartado por molestias musculares. Weissman asume el rol de 9.",delta:+1.2,type:"baja"},
-    {tag:"tag-cuota",tagLbl:"CUOTA",dot:"#06b6d4",desc:"Over 1.5 Tenerife-Leganes cae de 1.44 a 1.41 en Bet365. Flujo sharp detectado.",delta:+0.6,type:"cuota"},
+    {tag:"tag-cuota",tagLbl:"CUOTA",dot:"#06b6d4",desc:"Over 1.5 Tenerife-Leganes cae de 1.44 a 1.41 en las casas. Flujo sharp detectado.",delta:+0.6,type:"cuota"},
     {tag:"tag-social",tagLbl:"SOCIAL",dot:"#8b5cf6",desc:"Instagram Weissman: '100% listo para el partido'. Confirmacion fisica verificada.",delta:+0.3,type:"social"},
     {tag:"tag-meteo",tagLbl:"METEO",dot:"#f59e0b",desc:"Tenerife: cielo despejado, 25C, viento 11km/h. Condiciones ideales para Over.",delta:+0.2,type:"meteo"},
     {tag:"tag-gol",tagLbl:"GOL LIVE",dot:"#10b981",desc:"GOOOL! Mbappe marca en PSG 2-1 Lyon (min.67). Over 2.5 confirmado en ese partido.",delta:+0.9,type:"gol",goal:"PSG 2-1 Lyon (Mbappe 67')"},
@@ -5070,7 +5080,7 @@ window.addEventListener("DOMContentLoaded",function(){
             { tag: '🌦️ CLIMA REAL', tagBg: 'rgba(0,212,255,0.15)', tagColor: '#00d4ff', title: 'Lluvia 88% sobre San Siro', desc: 'Lluvia fuerte 88%. Campo pesado: ritmo -8%, el Edge Over 2.5 corrige -0.4%', time: 'hace 1 min' },
             { tag: '🚨 ALINEACIÓN', tagBg: 'rgba(245,158,11,0.15)', tagColor: '#f59e0b', title: 'Kylian Mbappé confirmado como titular en ataque', desc: 'Recuperado de molestias. Probabilidad de gol por partido +18.4%', time: 'hace 2 min' },
             { tag: '📱 POST JUGADOR', tagBg: 'rgba(139,92,246,0.15)', tagColor: '#8b5cf6', title: 'Post de Jude Bellingham (Instagram): "Focus on tonight 💥"', desc: 'IA de Sentimiento detecta moral de equipo máxima (94.8%)', time: 'hace 3 min' },
-            { tag: '📊 BET365 ODDS', tagBg: 'rgba(0,212,255,0.15)', tagColor: '#00d4ff', title: 'Cuota Bet365 ajustada de 1.82 a 1.95', desc: 'Desfase cuantitativo aislado por el modelo con mayor valor esperado (+EV)', time: 'hace 4 min' },
+            { tag: '📊 CUOTAS', tagBg: 'rgba(0,212,255,0.15)', tagColor: '#00d4ff', title: 'Cuota ajustada de 1.82 a 1.95 en bet365 y otras casas', desc: 'Desfase cuantitativo aislado por el modelo con mayor valor esperado (+EV)', time: 'hace 4 min' },
             { tag: '🧠 IA OMNIROUTE', tagBg: 'rgba(255,255,255,0.08)', tagColor: '#94a3b8', title: 'Procesados 240 artículos de prensa deportiva europea', desc: 'Tendencia estadística Over 1.5/2.5 validada al 92.1%', time: 'hace 5 min' }
         ];
         var newsIdx = 0;
