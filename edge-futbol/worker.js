@@ -774,11 +774,12 @@ export default {
                 const { dataset, diag: diagDataset } = await cargarDatasetRatingbet(nowMs, force);
 
                 // -- 2. Validar candidatos temporalmente -----------------------------------
-                const { candidatos, diag: diagCandidatos } = construirCandidatos(dataset, nowMs, {
+                const { candidatos: candidatosRaw, diag: diagCandidatos } = construirCandidatos(dataset, nowMs, {
                     margenMinutos: MARGEN_MIN,
                     maxDias: VENTANA_DIAS,
                     maxAntiguedadMin: MAX_ANTIGUEDAD
                 });
+                const candidatos = candidatosRaw.filter(esLigaTopPermitida);
 
                 let pool = [];
                 const diagFinal = {
