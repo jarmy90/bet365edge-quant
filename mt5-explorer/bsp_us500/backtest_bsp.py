@@ -159,6 +159,23 @@ def sim(o, h, l, c, atr, ema, ei, ep, st0, risk, atrp, lvl, supp, ex, point):
             px = st - point * P["slipPts"] if supp else st + point * P["slipPts"]
             return px, i, "STOP_FIRST_CONSERVATIVE"
         if ht:
+            px = tp - point * P["slipPts"] if supp else tp + point * P["slipPts"]
+            return px, i, "TARGET"
+        if ex == "TIME_FAST" and i - ei + 1 >= 24:
+            px = c[i] - point * P["slipPts"] if supp else c[i] + point * P["slipPts"]
+            return px, i, "TIME_FAST"
+        if ex == "TIME_SLOW" and i - ei + 1 >= 72:
+            px = c[i] - point * P["slipPts"] if supp else c[i] + point * P["slipPts"]
+            return px, i, "TIME_SLOW"
+        if ex == "EMA_CLOSE" and ((supp and c[i] < ema[i]) or (not supp and c[i] > ema[i])):
+            px = c[i] - point * P["slipPts"] if supp else c[i] + point * P["slipPts"]
+            return px, i, "EMA_CLOSE"
+        if i == lastb:
+            px = c[i] - point * P["slipPts"] if supp else c[i] + point * P["slipPts"]
+            return px, i, "MAX_HOLD"
+    return ep, ei, "NO_DATA"
+
+
 def run(df, point=0.25):
     o = df.open.values
     h = df.high.values
@@ -270,18 +287,3 @@ if __name__ == "__main__":
         print("casos=" + str(cases) + " filas=" + str(len(t)))
         if len(t):
             report(t, nm)
-            px = tp - point * P["slipPts"] if supp else tp + point * P["slipPts"]
-            return px, i, "TARGET"
-        if ex == "TIME_FAST" and i - ei + 1 >= 24:
-            px = c[i] - point * P["slipPts"] if supp else c[i] + point * P["slipPts"]
-            return px, i, "TIME_FAST"
-        if ex == "TIME_SLOW" and i - ei + 1 >= 72:
-            px = c[i] - point * P["slipPts"] if supp else c[i] + point * P["slipPts"]
-            return px, i, "TIME_SLOW"
-        if ex == "EMA_CLOSE" and ((supp and c[i] < ema[i]) or (not supp and c[i] > ema[i])):
-            px = c[i] - point * P["slipPts"] if supp else c[i] + point * P["slipPts"]
-            return px, i, "EMA_CLOSE"
-        if i == lastb:
-            px = c[i] - point * P["slipPts"] if supp else c[i] + point * P["slipPts"]
-            return px, i, "MAX_HOLD"
-    return ep, ei, "NO_DATA"
