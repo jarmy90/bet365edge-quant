@@ -76,8 +76,10 @@ jobs:
         with:
           node-version: '22'
           cache: npm
+          cache-dependency-path: edge-futbol/package-lock.json
 
       - name: Dependencias (puppeteer-core)
+        working-directory: edge-futbol
         run: npm ci
 
 # ----------------------------------------------------------------------
@@ -105,6 +107,7 @@ jobs:
       # ----------------------------------------------------------------------
       - name: Diagnostico Cloudflare (informativo)
         continue-on-error: true
+        working-directory: edge-futbol
         run: node tools_diag_cloudflare.js
 
       # ----------------------------------------------------------------------
@@ -112,6 +115,7 @@ jobs:
       #    --modo=info = captura sin publicar; la publicacion la hace el paso 5.
       # ----------------------------------------------------------------------
       - name: Capturar fixtures de ratingbet
+        working-directory: edge-futbol
         run: node tools_publicar_dataset.js --modo=info --dias=${{ github.event.inputs.dias || '2' }}
 
       # ----------------------------------------------------------------------
@@ -125,6 +129,7 @@ jobs:
       # ----------------------------------------------------------------------
       - name: Publicar el dataset en un gist PUBLICO
         if: ${{ env.GH_GIST_TOKEN != '' }}
+        working-directory: edge-futbol
         env:
           GITHUB_TOKEN: ${{ env.GH_GIST_TOKEN }}
           GITHUB_GIST_ID: ${{ env.GIST_ID }}
@@ -160,13 +165,13 @@ jobs:
           # fixtures_data.js). Se guarda el JSON y se descartan esos cambios ANTES
           # de cambiar de rama: si no, git aborta con
           # "Your local changes ... would be overwritten by checkout".
-          cp ratingbet_fixtures.json "$RUNNER_TEMP/dataset.json"
+          cp edge-futbol/ratingbet_fixtures.json "$RUNNER_TEMP/dataset.json"
           git reset --hard HEAD
 
           git fetch origin dataset --depth=1
           git checkout dataset
-          cp "$RUNNER_TEMP/dataset.json" ratingbet_fixtures.json
-          git add ratingbet_fixtures.json
+          cp "$RUNNER_TEMP/dataset.json" edge-futbol/ratingbet_fixtures.json
+          git add edge-futbol/ratingbet_fixtures.json
 
           if git diff --cached --quiet; then
             echo "Sin cambios respecto a la captura anterior: nada que publicar."
@@ -183,9 +188,10 @@ jobs:
       # ----------------------------------------------------------------------
       - name: Comprobar que la captura publicada se puede leer
         if: ${{ env.RATINGBET_DATASET_URL != '' || env.DATASET_TOKEN != '' }}
+        working-directory: edge-futbol
         run: |
           set -uo pipefail
-          URL="${RATINGBET_DATASET_URL:-https://raw.githubusercontent.com/${GITHUB_REPOSITORY}/dataset/ratingbet_fixtures.json}"
+          URL="${RATINGBET_DATASET_URL:-https://raw.githubusercontent.com/${GITHUB_REPOSITORY}/dataset/edge-futbol/ratingbet_fixtures.json}"
           echo "Comprobando: $URL"
           node tools_verifica_nube.js --url="$URL" || true
 
@@ -198,7 +204,7 @@ jobs:
         with:
           name: captura-${{ github.run_id }}
           path: |
-            ratingbet_fixtures.json
-            ratingbet_fixtures_data.js
+            edge-futbol/ratingbet_fixtures.json
+            edge-futbol/ratingbet_fixtures_data.js
           retention-days: 7
           if-no-files-found: warn

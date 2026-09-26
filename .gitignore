@@ -43,6 +43,23 @@ tools_dom*.html
 tools_dom*.txt
 tools_probe_*.html
 
+# --- Bot de Twitter: datos sensibles ---
+# Las cookies de sesión se gestionan como GitHub Secret, no se suben al repo
+edge-futbol/data/x_session_data/
+edge-futbol/data/twitter_posted_history.json
+edge-futbol/data/match_card_temp.png
+edge-futbol/bot_output.log
+
+# --- MT5 explorer: datos pesados (mantener fuera de git por defecto) ---
+mt5-explorer/download/*.csv
+mt5-explorer/vdpm_results/*_trades.csv
+mt5-explorer/vdpm_results/*_signals.csv
+mt5-explorer/vdpm_results/*.log
+mt5-explorer/vdpm_results/*.ex5
+!mt5-explorer/vdpm_results/*.mq5
+!mt5-explorer/vdpm_results/*.py
+!mt5-explorer/vdpm_results/*_summary.csv
+
 # --- Sistema ---
 Thumbs.db
 .DS_Store

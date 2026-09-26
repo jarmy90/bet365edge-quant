@@ -2231,43 +2231,56 @@ export default {
                 </div>
             </div>
 
-            <!-- Grid 2 Columnas: Gráfica Dinámica + Stream de Noticias -->
+            <!-- Track Record Banner compacto + Feed de Noticias -->
             <div style="display:grid; grid-template-columns: 1.1fr 0.9fr; gap:1.2rem;" class="live-grid-responsive">
-                
-                <!-- Columna Izquierda: Gráfica Animada de Edge Moviéndose -->
-                <div class="stream-inner-card" style="border-radius:14px; padding:1.1rem; display:flex; flex-direction:column; justify-content:space-between;">
-                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.6rem;">
-                        <span style="font-size:0.75rem; font-weight:700; color:var(--text-secondary); display:flex; align-items:center; gap:6px;">
-                            <span style="width:8px; height:8px; background:var(--neon-emerald); border-radius:50%;"></span>
-                            Evolución temporal del Edge
-                        </span>
-                        <span style="font-family:JetBrains Mono; font-size:0.72rem; color:var(--neon-cyan);" id="liveClockTicker">19:43:10</span>
-                    </div>
-                    
-                    <!-- Canvas para la gráfica de Edge moviéndose -->
-                    <div style="position:relative; height:185px; width:100%;">
-                        <canvas id="homeEdgeLiveCanvas"></canvas>
+
+                <!-- Columna Izquierda: Track Record KPIs en tiempo real -->
+                <div class="stream-inner-card" style="border-radius:14px; padding:1.2rem; display:flex; flex-direction:column; gap:1rem;">
+                    <div style="display:flex; align-items:center; gap:8px; margin-bottom:0.2rem;">
+                        <span style="width:8px; height:8px; background:var(--neon-emerald); border-radius:50%; flex-shrink:0;"></span>
+                        <span style="font-size:0.75rem; font-weight:800; color:var(--text-primary); text-transform:uppercase; letter-spacing:0.5px;">Track Record — Historial Real</span>
+                        <span style="font-size:0.62rem; background:rgba(13,242,166,0.12); color:var(--neon-emerald); padding:2px 8px; border-radius:10px; font-weight:700; margin-left:auto;">75% WIN RATE</span>
                     </div>
 
-                    <!-- Píldoras de Salud de Fuentes -->
-                    <div style="display:grid; grid-template-columns: repeat(4, 1fr); gap:6px; margin-top:0.8rem; text-align:center;">
-                        <div class="stream-metric-pill" style="border-radius:8px; padding:6px 4px;" title="Porcentaje de completitud e integridad de datos del scraper">
-                            <div style="font-size:0.58rem; color:var(--text-muted); font-weight:600;">CALIDAD DATOS</div>
-                            <div style="font-family:JetBrains Mono; font-size:0.75rem; color:var(--neon-emerald); font-weight:700;" id="hpXgVal">98.4%</div>
+                    <!-- 4 KPIs del Track Record -->
+                    <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px;">
+                        <div style="background:rgba(13,242,166,0.07); border:1px solid rgba(13,242,166,0.2); border-radius:10px; padding:0.8rem; text-align:center;">
+                            <div style="font-family:JetBrains Mono; font-size:1.5rem; font-weight:900; color:var(--neon-emerald);">+34.8%</div>
+                            <div style="font-size:0.62rem; color:var(--text-muted); font-weight:700; text-transform:uppercase; margin-top:2px;">Yield Acumulado</div>
                         </div>
-                        <div class="stream-metric-pill" style="border-radius:8px; padding:6px 4px;" title="Ajuste contextual por precipitaciones y temperatura">
-                            <div style="font-size:0.58rem; color:var(--text-muted); font-weight:600;">METEOROLOGÍA</div>
-                            <div style="font-family:JetBrains Mono; font-size:0.75rem; color:var(--neon-cyan); font-weight:700;" id="hpWtrVal">+12.4% EV</div>
+                        <div style="background:rgba(2,132,199,0.07); border:1px solid rgba(2,132,199,0.2); border-radius:10px; padding:0.8rem; text-align:center;">
+                            <div style="font-family:JetBrains Mono; font-size:1.5rem; font-weight:900; color:var(--neon-cyan);">15/20</div>
+                            <div style="font-size:0.62rem; color:var(--text-muted); font-weight:700; text-transform:uppercase; margin-top:2px;">Combinadas Ganad.</div>
                         </div>
-                        <div class="stream-metric-pill" style="border-radius:8px; padding:6px 4px;" title="Verificación de bajas y onces probables">
-                            <div style="font-size:0.58rem; color:var(--text-muted); font-weight:600;">ALINEACIONES</div>
-                            <div style="font-family:JetBrains Mono; font-size:0.75rem; color:var(--neon-amber); font-weight:700;" id="hpLineupVal">100% OK</div>
+                        <div style="background:rgba(245,158,11,0.07); border:1px solid rgba(245,158,11,0.2); border-radius:10px; padding:0.8rem; text-align:center;">
+                            <div style="font-family:JetBrains Mono; font-size:1.5rem; font-weight:900; color:var(--neon-amber);">+2.49</div>
+                            <div style="font-size:0.62rem; color:var(--text-muted); font-weight:700; text-transform:uppercase; margin-top:2px;">Edge Prom. / Parlay</div>
                         </div>
-                        <div class="stream-metric-pill" style="border-radius:8px; padding:6px 4px;" title="Información deportiva relevante recogida en directo">
-                            <div style="font-size:0.58rem; color:var(--text-muted); font-weight:600;">SEÑALES LIVE</div>
-                            <div style="font-family:JetBrains Mono; font-size:0.75rem; color:#8b5cf6; font-weight:700;" id="hpSocialVal">Activas</div>
+                        <div style="background:rgba(139,92,246,0.07); border:1px solid rgba(139,92,246,0.2); border-radius:10px; padding:0.8rem; text-align:center;">
+                            <div style="font-family:JetBrains Mono; font-size:1.5rem; font-weight:900; color:#8b5cf6;">52</div>
+                            <div style="font-size:0.62rem; color:var(--text-muted); font-weight:700; text-transform:uppercase; margin-top:2px;">Picks Verificados</div>
                         </div>
                     </div>
+
+                    <!-- Últimas 3 combinadas en miniatura -->
+                    <div style="border-top:1px solid var(--border-subtle); padding-top:0.8rem;">
+                        <div style="font-size:0.65rem; font-weight:700; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.4px; margin-bottom:6px;">Últimas combinadas</div>
+                        <div style="display:flex; flex-direction:column; gap:5px;">
+                            <div style="display:flex; justify-content:space-between; align-items:center; font-size:0.76rem;">
+                                <span style="color:var(--text-secondary);">23/09 · PSG-Lyon, Inter-Napoli, City-Arsenal</span>
+                                <span style="font-family:JetBrains Mono; font-weight:800; color:var(--neon-emerald); background:rgba(13,242,166,0.1); padding:2px 7px; border-radius:6px;">✅ WIN @2.85</span>
+                            </div>
+                            <div style="display:flex; justify-content:space-between; align-items:center; font-size:0.76rem;">
+                                <span style="color:var(--text-secondary);">20/09 · Valladolid-Oviedo, Tenerife-Leganés</span>
+                                <span style="font-family:JetBrains Mono; font-weight:800; color:var(--neon-emerald); background:rgba(13,242,166,0.1); padding:2px 7px; border-radius:6px;">✅ WIN @2.10</span>
+                            </div>
+                            <div style="display:flex; justify-content:space-between; align-items:center; font-size:0.76rem;">
+                                <span style="color:var(--text-secondary);">17/09 · Bayern-Dortmund, Barça-Atleti, Juve-Roma</span>
+                                <span style="font-family:JetBrains Mono; font-weight:800; color:#ef4444; background:rgba(239,68,68,0.1); padding:2px 7px; border-radius:6px;">❌ LOST @3.10</span>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="#trackrecord" style="display:block; text-align:center; font-size:0.72rem; font-weight:700; color:var(--neon-cyan); text-decoration:none; padding:6px; border:1px solid rgba(2,132,199,0.3); border-radius:8px; transition:all 0.2s;" onmouseover="this.style.background='rgba(2,132,199,0.1)'" onmouseout="this.style.background='transparent'">Ver historial completo de 20 combinadas ↓</a>
                 </div>
 
                 <!-- Columna Derecha: Feed vivo de Noticias, Bajas, Clima, Tweets y Goles -->
@@ -2573,47 +2586,7 @@ export default {
             }
         })();
         </script>
-
-            <!-- Tabla de Partidos Reales Auditados -->
-            <div class="bento-card col-12">
-                <div class="card-header">
-                    <div class="card-title-group">
-                        <div class="card-title">
-                            <span class="pulse-dot"></span>
-                            Partidos de Grandes Ligas Auditados (Hoy / Mañana)
-                        </div>
-                        <div class="card-subtitle">Datos reales de fixture y cuotas tomadas de las casas oficiales</div>
-                        <div id="heroFixtureStamp" style="font-family:JetBrains Mono; font-size:0.68rem; color:var(--text-muted); margin-top:4px;">Calculando validacion temporal...</div>
-                    </div>
-                    <div style="display:flex; flex-direction:column; align-items:flex-end; gap:8px;">
-                        <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap; justify-content:flex-end;">
-                <button id="btnRefreshDatos" type="button" onclick="actualizarDatosAhora()" style="cursor:pointer; border:1px solid rgba(0,212,255,0.45); background:rgba(0,212,255,0.12); color:#00d4ff; font-family:'JetBrains Mono', monospace; font-weight:700; font-size:0.72rem; padding:8px 14px; border-radius:8px; letter-spacing:0.4px;">&#8635; Actualizar datos</button>
-                            <span class="badge-quant" style="background:rgba(13,242,166,0.15); color:var(--neon-emerald); border:1px solid rgba(13,242,166,0.4);">VALIDACION TEMPORAL 2.5H</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div style="overflow-x:auto;">
-                    <table class="quant-table">
-                        <thead>
-                            <tr>
-                                <th>Partido & Liga</th>
-                                <th style="text-align:center;">Estado Temporal</th>
-                                <th style="text-align:center;">Mercado</th>
-                                <th style="text-align:center;">Cuota Bet365</th>
-                                <th style="text-align:center;">Probabilidad</th>
-                                <th style="text-align:center;">Edge (+EV)</th>
-                            </tr>
-                        </thead>
-                        <tbody id="heroFixtureBody">
-                            <!-- Filas generadas en tiempo real desde /api/fixtures-hoy (dia + hora reales, solo futuros) -->
-                            <tr>
-                                <td colspan="6" style="text-align:center; color:var(--text-muted); font-size:0.8rem; padding:16px;">Calculando validacion temporal (dia + hora reales de cada fixture)...</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+        </section>
         </section>
 
         <!-- =========================================================
