@@ -43,7 +43,7 @@ import {
 } from './ratingbet_pipeline.js';
 import datasetLocal from './ratingbet_fixtures_data.js';
 
-const BUILD_ID = 'ratingbet-v9.1-2026-09-26-positive-edge-only';
+const BUILD_ID = 'ratingbet-v9.2-2026-09-28-groq-gemini-multi-provider';
 
 // =============================================================================
 // ACCESO_LIBRE: modo gratuito (fase de captacion de trafico).
@@ -243,10 +243,20 @@ function paginaGuiaSeo() {
 const FIXTURES_SOURCE = RATINGBET_FUENTE;
 const FIXTURES_CACHE_MS = 5 * 60 * 1000;   // cache del pool en el isolate
 const DATASET_CACHE_MS = 5 * 60 * 1000;    // cache del dataset remoto
-const OMNIROUTE_MODEL_DEFAULT = 'google/gemini-2.5-flash';
-const OMNIROUTE_ENDPOINT_DEFAULT = 'https://openrouter.ai/api/v1/chat/completions';
-const DAHL_KEY_DEFAULT = 'dahl_4XqJcdUZ9eyFnhwYcaAkv5pusP7V8tpdT';
+const OMNIROUTE_MODEL_DEFAULT = 'qwen/qwen3.8-27b';
+const OMNIROUTE_ENDPOINT_DEFAULT = 'https://api.groq.com/openai/v1/chat/completions';
+const DAHL_KEY_DEFAULT = '';   // configurar en Vercel: DAHL_API_KEY
 const DAHL_ENDPOINT_DEFAULT = 'https://inference.dahl.global/v1/chat/completions';
+// Claves de respaldo: se configuran en Vercel > Settings > Environment Variables
+// GROQ_API_KEY, GROQ_API_KEY2, GEMINI_API_KEY, GEMINI_API_KEY2
+const GROQ_KEY1_DEFAULT = '';
+const GROQ_KEY2_DEFAULT = '';
+const GROQ_MODEL_DEFAULT = 'qwen/qwen3.8-27b';
+const GROQ_ENDPOINT = 'https://api.groq.com/openai/v1/chat/completions';
+const GEMINI_KEY1_DEFAULT = '';
+const GEMINI_KEY2_DEFAULT = '';
+const GEMINI_MODEL_DEFAULT = 'gemini-3.8-flash';
+const GEMINI_ENDPOINT_BASE = 'https://generativelanguage.googleapis.com/v1beta/models/';
 
 // Cache + single-flight de la fuente de fixtures
 let fixturesCache = { at: -Infinity, pool: [], diag: null, key: null };
@@ -819,48 +829,80 @@ export default {
                     // 3c. Construir prompt
                     const { system, user } = construirPromptAnalisis(paraAnalisis, feedNoticias, nowMs);
 
-                    // 3d. Llamar al LLM (cadena de proveedores: OpenRouter / Omniroute -> Dahl Global)
-                    const proveedoresAProbar = [];
-                    if (apiKeyPrimary) {
-                        const primaryEp = omniUrl || OMNIROUTE_ENDPOINT_DEFAULT;
-                        const modelos = [
-                            env.OMNIROUTE_MODEL || OMNIROUTE_MODEL_DEFAULT,
-                            'nex-agi/nex-n2.5-mini:free',
-                            'openrouter/auto'
-                        ];
-                        modelos.forEach(m => proveedoresAProbar.push({ endpoint: primaryEp, apiKey: apiKeyPrimary, model: m }));
+                    // 3d. Llamar al LLM — cadena multi-proveedor robusta (Groq x2 -> Gemini nativo x2 -> Dahl)
+                    const groqKey1 = env.GROQ_API_KEY || GROQ_KEY1_DEFAULT;
+                    const groqKey2 = env.GROQ_API_KEY2 || GROQ_KEY2_DEFAULT;
+                    const geminiKey1 = env.GEMINI_API_KEY || GEMINI_KEY1_DEFAULT;
+                    const geminiKey2 = env.GEMINI_API_KEY2 || GEMINI_KEY2_DEFAULT;
+                    const groqModel = env.GROQ_MODEL || GROQ_MODEL_DEFAULT;
+                    const geminiModel = env.GEMINI_MODEL || GEMINI_MODEL_DEFAULT;
+
+                    const proveedoresAProbar = [
+                        { endpoint: GROQ_ENDPOINT, apiKey: groqKey1, model: groqModel, tipo: 'openai' },
+                        { endpoint: GROQ_ENDPOINT, apiKey: groqKey2, model: groqModel, tipo: 'openai' },
+                        { endpoint: GEMINI_ENDPOINT_BASE + geminiModel + ':generateContent?key=' + geminiKey1, apiKey: '', model: geminiModel, tipo: 'gemini' },
+                        { endpoint: GEMINI_ENDPOINT_BASE + geminiModel + ':generateContent?key=' + geminiKey2, apiKey: '', model: geminiModel, tipo: 'gemini' },
+                        { endpoint: dahlEndpoint, apiKey: dahlApiKey, model: 'deepseek-ai/DeepSeek-V4-Flash-0731', tipo: 'openai' },
+                        { endpoint: dahlEndpoint, apiKey: dahlApiKey, model: 'MiniMaxAI/MiniMax-M2.7', tipo: 'openai' },
+                    ];
+                    // Si hay config personalizada via env, la pone primero
+                    if (apiKeyPrimary && omniUrl) {
+                        proveedoresAProbar.unshift({ endpoint: omniUrl, apiKey: apiKeyPrimary, model: env.OMNIROUTE_MODEL || OMNIROUTE_MODEL_DEFAULT, tipo: 'openai' });
                     }
-                    // Respaldo secundario: Dahl Global API
-                    proveedoresAProbar.push({ endpoint: dahlEndpoint, apiKey: dahlApiKey, model: 'google/gemini-2.5-flash' });
-                    proveedoresAProbar.push({ endpoint: dahlEndpoint, apiKey: dahlApiKey, model: 'dahl/default' });
+
+                    // Adaptador para Gemini nativo (formato distinto al OpenAI)
+                    async function llamarGeminiNativo(endpoint, systemText, userText) {
+                        return fetch(endpoint, {
+                            method: 'POST',
+                            signal: AbortSignal.timeout(25000),
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({
+                                contents: [{ role: 'user', parts: [{ text: systemText + '\n\n' + userText }] }],
+                                generationConfig: { temperature: 0.15, maxOutputTokens: 2000 }
+                            })
+                        });
+                    }
 
                     let iaRes = null;
+                    let iaRaw = null;  // texto crudo (Gemini nativo)
                     let ultimoError = null;
 
                     for (const prov of proveedoresAProbar) {
                         try {
-                            const r = await fetch(prov.endpoint, {
-                                method: 'POST',
-                                signal: AbortSignal.timeout(20000),
-                                headers: {
-                                    'Authorization': 'Bearer ' + prov.apiKey,
-                                    'Content-Type': 'application/json',
-                                    'HTTP-Referer': 'https://bet365edge-quant.vercel.app',
-                                    'X-Title': 'BetEdge Quant'
-                                },
-                                body: JSON.stringify({
-                                    model: prov.model,
-                                    temperature: 0.15,
-                                    max_tokens: 2000,
-                                    messages: [
-                                        { role: 'system', content: system },
-                                        { role: 'user',   content: user   }
-                                    ]
-                                })
-                            });
+                            let r;
+                            if (prov.tipo === 'gemini') {
+                                r = await llamarGeminiNativo(prov.endpoint, system, user);
+                            } else {
+                                r = await fetch(prov.endpoint, {
+                                    method: 'POST',
+                                    signal: AbortSignal.timeout(25000),
+                                    headers: {
+                                        'Authorization': 'Bearer ' + prov.apiKey,
+                                        'Content-Type': 'application/json',
+                                        'HTTP-Referer': 'https://bet365edge-quant.vercel.app',
+                                        'X-Title': 'BetEdge Quant'
+                                    },
+                                    body: JSON.stringify({
+                                        model: prov.model,
+                                        temperature: 0.15,
+                                        max_tokens: 2000,
+                                        messages: [
+                                            { role: 'system', content: system },
+                                            { role: 'user',   content: user   }
+                                        ]
+                                    })
+                                });
+                            }
                             if (r.ok) {
-                                iaRes = r;
-                                break;
+                                if (prov.tipo === 'gemini') {
+                                    const gData = await r.json();
+                                    const gText = gData && gData.candidates && gData.candidates[0] &&
+                                        gData.candidates[0].content && gData.candidates[0].content.parts &&
+                                        gData.candidates[0].content.parts[0] ? gData.candidates[0].content.parts[0].text : null;
+                                    if (gText) { iaRaw = gText; break; }
+                                } else {
+                                    iaRes = r; break;
+                                }
                             } else {
                                 const errText = await r.text();
                                 ultimoError = { status: r.status, model: prov.model, endpoint: prov.endpoint, body: errText.slice(0, 300) };
@@ -870,12 +912,17 @@ export default {
                         }
                     }
 
-                    if (!iaRes) {
+                    if (!iaRes && !iaRaw) {
                         diagFinal.diagIA = ultimoError || { error: 'Ningún proveedor de IA respondió' };
                     } else {
-                        const iaData  = await iaRes.json();
-                        const textoIA = iaData && iaData.choices && iaData.choices[0] && iaData.choices[0].message
-                            ? iaData.choices[0].message.content : null;
+                        // Obtener texto: iaRaw ya tiene el texto (Gemini nativo), o lo extraemos del response OpenAI
+                        let textoIA = iaRaw || null;
+                        if (!textoIA && iaRes && iaRes !== true) {
+                            const iaData = await iaRes.json();
+                            textoIA = iaData && iaData.choices && iaData.choices[0] && iaData.choices[0].message
+                                ? iaData.choices[0].message.content : null;
+                            if (!textoIA) diagFinal.diagIA = { error: 'IA respondio sin contenido', iaData: JSON.stringify(iaData).slice(0, 300) };
+                        }
 
                         if (textoIA) {
                             // 3e. Parsear veredictos: solo acepta claves reales del scraper
@@ -899,8 +946,6 @@ export default {
                                 // IA respondio pero sin veredictos con edge
                                 diagFinal.modoAnalisis = 'solo-cuotas-reales';
                             }
-                        } else {
-                            diagFinal.diagIA = { error: 'IA respondio sin contenido', iaData: JSON.stringify(iaData).slice(0, 300) };
                         }
                     }
                 } catch (iaErr) { diagFinal.diagIA = { error: String(iaErr && iaErr.message || iaErr).slice(0, 300) }; }
