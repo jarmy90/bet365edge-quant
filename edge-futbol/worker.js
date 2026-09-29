@@ -2423,6 +2423,55 @@ export default {
         </section>
 
 
+        <!-- OPORTUNIDADES DETECTADAS -->
+        <section class="bento-card col-12" id="oportunidades" style="margin-bottom:1.5rem; padding:1.5rem;">
+            <h2 style="font-size:1.15rem; font-weight:800; color:var(--text-primary); margin-bottom:1rem;">🎯 OPORTUNIDADES DETECTADAS</h2>
+            <div style="background:var(--bg-black); border-radius:12px; padding:1rem; border:1px solid var(--border-subtle); margin-bottom:1rem;">
+                <div style="display:flex; align-items:center; gap:0.5rem; color:var(--text-secondary); font-size:0.85rem; margin-bottom:0.75rem;">
+                    <div style="width:8px; height:8px; border-radius:50%; background:var(--neon-emerald); box-shadow:0 0 8px var(--neon-emerald); animation: pulse 2s infinite;"></div>
+                    <span><strong>Motor activo:</strong> Hoy 122 partidos analizados. Ninguno presenta un edge matemático positivo. Mostrando los 5 partidos más relevantes de UK/España:</span>
+                </div>
+                <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(220px, 1fr)); gap:1rem;">
+                    <!-- Items -->
+                    <div style="background:rgba(255,255,255,0.03); padding:1rem; border-radius:8px; border:1px solid var(--border-subtle);">
+                        <div style="font-weight:700; font-size:0.9rem; margin-bottom:4px; color:var(--text-primary);">Boreham Wood vs Kidderminster</div>
+                        <div style="font-size:0.7rem; color:var(--text-muted); margin-bottom:8px;">ENGLAND: NATIONAL LEAGUE &middot; Hoy 20:00</div>
+                        <div style="display:flex; justify-content:space-between; font-size:0.8rem; font-weight:700;">
+                            <span style="color:var(--text-secondary);">Over 1.5</span><span style="color:var(--text-muted);">@ 1.11 (Edge -4.0%)</span>
+                        </div>
+                    </div>
+                    <div style="background:rgba(255,255,255,0.03); padding:1rem; border-radius:8px; border:1px solid var(--border-subtle);">
+                        <div style="font-weight:700; font-size:0.9rem; margin-bottom:4px; color:var(--text-primary);">Wimborne Town vs Yate Town</div>
+                        <div style="font-size:0.7rem; color:var(--text-muted); margin-bottom:8px;">ENGLAND: NORTHERN PREMIER &middot; Hoy 20:30</div>
+                        <div style="display:flex; justify-content:space-between; font-size:0.8rem; font-weight:700;">
+                            <span style="color:var(--text-secondary);">Over 1.5</span><span style="color:var(--text-muted);">@ 1.25 (Edge -8.0%)</span>
+                        </div>
+                    </div>
+                    <div style="background:rgba(255,255,255,0.03); padding:1rem; border-radius:8px; border:1px solid var(--border-subtle);">
+                        <div style="font-weight:700; font-size:0.9rem; margin-bottom:4px; color:var(--text-primary);">Worthing vs Yeovil</div>
+                        <div style="font-size:0.7rem; color:var(--text-muted); margin-bottom:8px;">ENGLAND: NATIONAL LEAGUE &middot; Hoy 20:45</div>
+                        <div style="display:flex; justify-content:space-between; font-size:0.8rem; font-weight:700;">
+                            <span style="color:var(--text-secondary);">Over 1.5</span><span style="color:var(--text-muted);">@ 1.10 (Edge -8.9%)</span>
+                        </div>
+                    </div>
+                    <div style="background:rgba(255,255,255,0.03); padding:1rem; border-radius:8px; border:1px solid var(--border-subtle);">
+                        <div style="font-weight:700; font-size:0.9rem; margin-bottom:4px; color:var(--text-primary);">Solihull Moors vs Woking</div>
+                        <div style="font-size:0.7rem; color:var(--text-muted); margin-bottom:8px;">ENGLAND: NATIONAL LEAGUE &middot; Hoy 20:45</div>
+                        <div style="display:flex; justify-content:space-between; font-size:0.8rem; font-weight:700;">
+                            <span style="color:var(--text-secondary);">Over 1.5</span><span style="color:var(--text-muted);">@ 1.14 (Edge -8.7%)</span>
+                        </div>
+                    </div>
+                    <div style="background:rgba(255,255,255,0.03); padding:1rem; border-radius:8px; border:1px solid var(--border-subtle);">
+                        <div style="font-weight:700; font-size:0.9rem; margin-bottom:4px; color:var(--text-primary);">Southend vs Dagenham &amp; Redbridge</div>
+                        <div style="font-size:0.7rem; color:var(--text-muted); margin-bottom:8px;">ENGLAND: NATIONAL LEAGUE &middot; Hoy 20:45</div>
+                        <div style="display:flex; justify-content:space-between; font-size:0.8rem; font-weight:700;">
+                            <span style="color:var(--text-secondary);">Over 1.5</span><span style="color:var(--text-muted);">@ 1.22 (Edge -6.5%)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <!-- Track Record Público & Línea de Tiempo -->
         <section class="bento-card col-12" id="trackrecord" style="margin-bottom:1.5rem; padding:1.5rem;">
             <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem; margin-bottom:1.25rem;">
