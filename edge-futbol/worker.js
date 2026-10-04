@@ -808,24 +808,8 @@ export default {
         ];
 
         async function fetchRssNoticias() {
-            const noticias = [];
-            for (const feed of RSS_FEEDS) {
-                try {
-                    const r = await fetch(feed.url, { headers: { 'Accept': 'application/rss+xml, application/xml, text/xml' } });
-                    if (!r.ok) continue;
-                    const txt = await r.text();
-                    const items = txt.match(/<item[^>]*>[\s\S]*?<\/item>/gi) || [];
-                    for (const item of items.slice(0, 15)) {
-                        const title = (item.match(/<title[^>]*><!\[CDATA\[(.*?)\]\]><\/title>/i) ||
-                                       item.match(/<title[^>]*>(.*?)<\/title>/i) || [])[1] || '';
-                        const fecha = (item.match(/<pubDate[^>]*>(.*?)<\/pubDate>/i) ||
-                                       item.match(/<dc:date[^>]*>(.*?)<\/dc:date>/i) || [])[1] || '';
-                        const link  = (item.match(/<link[^>]*>(.*?)<\/link>/i) || [])[1] || '';
-                        if (title) noticias.push({ titulo: title.trim(), fecha: fecha.trim(), fuente: feed.fuente, url: link.trim() });
-                    }
-                } catch (_) { /* RSS opcional: si falla no bloquea */ }
-            }
-            return noticias;
+            // Desactivado a peticion del usuario para ahorrar tokens en la IA
+            return [];
         }
 
         // --- Cache de analisis completo (dataset -> edge) ---
