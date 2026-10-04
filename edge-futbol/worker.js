@@ -241,8 +241,8 @@ function paginaGuiaSeo() {
 
 // Procedencia del catalogo de fixtures publicado por la API publica.
 const FIXTURES_SOURCE = RATINGBET_FUENTE;
-const FIXTURES_CACHE_MS = 5 * 60 * 1000;   // cache del pool en el isolate
-const DATASET_CACHE_MS = 5 * 60 * 1000;    // cache del dataset remoto
+const FIXTURES_CACHE_MS = 6 * 60 * 60 * 1000;   // cache del pool (6 horas para ahorrar cuota API)
+const DATASET_CACHE_MS = 6 * 60 * 60 * 1000;    // cache del dataset remoto (6 horas)
 const OMNIROUTE_MODEL_DEFAULT = 'google/gemini-2.5-flash';
 const OMNIROUTE_ENDPOINT_DEFAULT = 'https://openrouter.ai/api/v1/chat/completions';
 const DAHL_KEY_DEFAULT = '';
