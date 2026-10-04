@@ -1,0 +1,41 @@
+{
+  "source_file": "C:\\Users\\hp\\Documents\\Nueva carpeta (2)\\mt5-explorer\\nq_databento\\duka_raw\\usatechidxusd\\2025-07-01\\usatechidxusd_2025-07-01_tick.csv",
+  "sha256": "d45b157261994e75b08b0d8a61f5416e39f051e365d56cd83db542fd37afab78",
+  "rows": 229172,
+  "timestamp_first_utc": "2025-07-01 00:00:00.229000+00:00",
+  "timestamp_last_utc": "2025-07-01 23:59:59.898000+00:00",
+  "sessions_et": 2,
+  "duplicate_timestamps_preserved": 0,
+  "exact_duplicate_rows": 0,
+  "out_of_order_rows": 0,
+  "gaps_gt_1s": 15117,
+  "gaps_gt_5s": 540,
+  "gaps_gt_10s": 37,
+  "gaps_gt_60s": 2,
+  "bid_gt_ask": 0,
+  "spread_nonpositive": 0,
+  "spread_quantiles": {
+    "0.0": 1.0020000000004075,
+    "0.01": 1.1919999999990978,
+    "0.5": 1.526000000001659,
+    "0.95": 3.525999999998021,
+    "0.99": 3.558000000000902,
+    "1.0": 3.5800000000017462
+  },
+  "valid_bid_ask_pct": 100.0,
+  "trade_field_present_pct": 0.0,
+  "ticks_per_second": {
+    "0.0": 1.0,
+    "0.5": 3.0,
+    "0.95": 6.0,
+    "0.99": 7.0,
+    "1.0": 10.0
+  },
+  "utc_offsets_new_york": [
+    "-0400"
+  ],
+  "window_0920_1110_rows": 37860,
+  "window_minutes_by_et_date": {
+    "2025-07-01": 37860
+  }
+}

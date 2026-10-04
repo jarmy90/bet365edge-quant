@@ -1,0 +1,18 @@
+{
+  "status": "WAITING_FOR_MT5_EXPORT",
+  "symbol": null,
+  "digits": null,
+  "tick_size": null,
+  "tick_value": null,
+  "tick_value_profit": null,
+  "tick_value_loss": null,
+  "contract_size": null,
+  "volume_min": null,
+  "volume_step": null,
+  "volume_max": null,
+  "currency_profit": null,
+  "currency_base": null,
+  "currency_margin": null,
+  "account_currency": null,
+  "note": "Do not use Dukascopy USATECHIDXUSD values as IC Markets USTEC contract specification. Run export_mt5_ticks.py on the MT5 export to generate this file."
+}

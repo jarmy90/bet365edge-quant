@@ -1,0 +1,11 @@
+Traceback (most recent call last):
+  File "C:\Users\hp\Documents\Nueva carpeta (2)\mt5-explorer\tm3_pf\dl_duka_ticks.py", line 136, in <module>
+    main()
+    ~~~~^^
+  File "C:\Users\hp\Documents\Nueva carpeta (2)\mt5-explorer\tm3_pf\dl_duka_ticks.py", line 112, in main
+    ticks, derr = decode(body)
+                  ~~~~~~^^^^^^
+  File "C:\Users\hp\Documents\Nueva carpeta (2)\mt5-explorer\tm3_pf\dl_duka_ticks.py", line 78, in decode
+    return struct.unpack(">" + "iiif" * (len(data) // 20), data), None
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+struct.error: unpack requires a buffer of 340768 bytes

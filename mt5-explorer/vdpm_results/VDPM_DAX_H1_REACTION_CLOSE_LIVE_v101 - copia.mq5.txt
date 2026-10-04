@@ -1,0 +1,364 @@
+//+------------------------------------------------------------------+
+//| VDPM_DAX_H1_REACTION_CLOSE_LIVE.mq5                              |
+//| Live MT5 EA for IC Markets DAX / DE40                            |
+//| Default candidate: H1 + REACTION_CLOSE + ATR100_TP1R5            |
+//| Concept (c) BigBeluga, CC BY-NC-SA 4.0                           |
+//| https://creativecommons.org/licenses/by-nc-sa/4.0/               |
+//| Research derivative. Validate on demo before live deployment.    |
+//+------------------------------------------------------------------+
+#property copyright "BigBeluga concept; Quantora MQL5 live implementation"
+#property link      "https://creativecommons.org/licenses/by-nc-sa/4.0/"
+#property version   "1.01"
+#property strict
+
+#include <Trade/Trade.mqh>
+CTrade trade;
+
+enum ENUM_VDPM_EXIT_MODE
+  {
+   EXIT_ATR100_TP1R5=0,     // provisional main candidate
+   EXIT_ATR075_TP1R5=1,
+   EXIT_ATR150_TP1R5=2,
+   EXIT_TIME6_ATR1=3,
+   EXIT_TIME12_ATR1=4,
+   EXIT_TRAIL_A20_D10=5,
+   EXIT_ADAPTIVE_MFE=6
+  };
+
+input group "=== Candidate configuration ==="
+input ENUM_TIMEFRAMES InpSignalTF          = PERIOD_H1;
+input int             InpSwingLength       = 5;
+input int             InpMaxActiveLevels   = 10;
+input double          InpMinimumDeltaPct   = 20.0;
+input double          InpTouchToleranceATR = 0.10;
+input int             InpATRLength         = 14;
+input ENUM_VDPM_EXIT_MODE InpExitMode      = EXIT_ATR100_TP1R5;
+input double          InpTakeProfitR       = 1.50;
+input int             InpMaxBarsInTrade    = 500;
+
+input group "=== Volume and risk ==="
+input bool   InpUseRiskMoney               = false;
+input double InpFixedLots                  = 0.05;
+input double InpRiskMoney                  = 30.0;
+input double InpMaximumLots                = 2.00;
+
+input group "=== Execution ==="
+input ulong  InpMagic                      = 26092640;
+input string InpComment                    = "VDPM_H1_REACTION";
+input bool   InpAllowLong                  = true;
+input bool   InpAllowShort                 = true;
+input bool   InpOnePositionAtATime         = true;
+input bool   InpBlockAnyDaxPosition        = true;
+input int    InpMaxTradesPerDay            = 5;       // 0 = unlimited; 1-5 recommended (server day)
+input int    InpMaxSpreadBrokerPoints      = 0; // 0 = no filter
+input int    InpDeviationBrokerPoints      = 20;
+input bool   InpRequireDaxName             = true;
+input int    InpHistoryBars                = 2500;
+
+input group "=== Session filter (server time) ==="
+input bool InpUseHourFilter                = false;
+input int  InpStartHour                    = 0;
+input int  InpEndHour                      = 24;
+input bool InpMonday                       = true;
+input bool InpTuesday                      = true;
+input bool InpWednesday                    = true;
+input bool InpThursday                     = true;
+input bool InpFriday                       = true;
+
+input group "=== Visual and audit ==="
+input bool   InpShowLevels                 = true;
+input bool   InpShowDashboard              = true;
+input color  InpSupportColor               = clrLimeGreen;
+input color  InpResistanceColor            = clrTomato;
+input bool   InpWriteCSV                   = true;
+input bool   InpCommonCSVFolder            = true;
+input string InpCSVPrefix                  = "VDPM_DAX_H1_LIVE";
+
+#define MAX_LEVEL_STORAGE 80
+
+struct PivotLevel
+  {
+   double price;
+   double delta;
+   double pct;
+   bool support;
+   bool active;
+   datetime pivot_time;
+   datetime confirmed_time;
+   long id;
+  };
+
+PivotLevel g_levels[];
+long g_level_seq=0;
+datetime g_last_bar=0;
+datetime g_last_signal_bar=0;
+long g_last_signal_level=0;
+double g_point=0,g_tick_size=0,g_tick_value=0,g_contract=0,g_vol_min=0,g_vol_max=0,g_vol_step=0;
+int g_digits=0,g_csv=INVALID_HANDLE;
+string g_prefix="VDPM_LIVE_";
+
+int FileFlags(){return FILE_CSV|FILE_ANSI|FILE_READ|FILE_WRITE|FILE_SHARE_READ|FILE_SHARE_WRITE|(InpCommonCSVFolder?FILE_COMMON:0);}
+string TS(datetime t){return TimeToString(t,TIME_DATE|TIME_MINUTES|TIME_SECONDS);}
+double NP(double p){return NormalizeDouble(MathRound(p/g_tick_size)*g_tick_size,g_digits);}
+int VolumeDigits(){int d=0;double s=g_vol_step;while(d<8&&MathAbs(s-NormalizeDouble(s,d))>1e-12)d++;return d;}
+double NormalizeVolumeDown(double v)
+  {
+   if(g_vol_step<=0||g_vol_min<=0||g_vol_max<=0)return 0;
+   v=MathMin(v,MathMin(g_vol_max,InpMaximumLots));
+   if(v<g_vol_min)return 0;
+   v=g_vol_min+MathFloor((v-g_vol_min+1e-12)/g_vol_step)*g_vol_step;
+   return NormalizeDouble(v,VolumeDigits());
+  }
+
+void LogCSV(string event,string detail,long level_id=0,double level=0,double delta=0,double pct=0,
+            double entry=0,double sl=0,double tp=0,double lots=0,long retcode=0)
+  {
+   Print(event," | ",detail);
+   if(!InpWriteCSV||g_csv==INVALID_HANDLE)return;
+   FileSeek(g_csv,0,SEEK_END);
+   FileWrite(g_csv,TS(TimeCurrent()),event,detail,_Symbol,EnumToString(InpSignalTF),level_id,
+             DoubleToString(level,g_digits),DoubleToString(delta,0),DoubleToString(pct,2),
+             DoubleToString(entry,g_digits),DoubleToString(sl,g_digits),DoubleToString(tp,g_digits),
+             DoubleToString(lots,2),retcode);
+   FileFlush(g_csv);
+  }
+
+double CalcATR(MqlRates &rates[],int i,int n)
+  {
+   if(i<n)return 0;
+   double sum=0;
+   for(int k=i-n+1;k<=i;k++)
+     {
+      double pc=(k>0?rates[k-1].close:rates[k].close);
+      sum+=MathMax(rates[k].high-rates[k].low,MathMax(MathAbs(rates[k].high-pc),MathAbs(rates[k].low-pc)));
+     }
+   return sum/n;
+  }
+bool PivotHigh(MqlRates &r[],int p,int L){for(int k=1;k<=L;k++)if(r[p].high<=r[p-k].high||r[p].high<=r[p+k].high)return false;return true;}
+bool PivotLow(MqlRates &r[],int p,int L){for(int k=1;k<=L;k++)if(r[p].low>=r[p-k].low||r[p].low>=r[p+k].low)return false;return true;}
+
+void AddLevel(double price,double delta,bool support,datetime pt,datetime ct)
+  {
+   int n=ArraySize(g_levels);
+   if(n>=MAX_LEVEL_STORAGE){for(int i=1;i<n;i++)g_levels[i-1]=g_levels[i];n--;ArrayResize(g_levels,n);}
+   PivotLevel l;l.price=price;l.delta=delta;l.pct=100;l.support=support;l.active=true;
+   l.pivot_time=pt;l.confirmed_time=ct;l.id=++g_level_seq;
+   ArrayResize(g_levels,n+1);g_levels[n]=l;
+  }
+void RecalculateLevels()
+  {
+   int n=ArraySize(g_levels);double maxdelta=0;
+   for(int i=0;i<n;i++)if(g_levels[i].active)maxdelta=MathMax(maxdelta,MathAbs(g_levels[i].delta));
+   for(int i=0;i<n;i++)
+     {
+      g_levels[i].pct=maxdelta>0?100.0*MathAbs(g_levels[i].delta)/maxdelta:0;
+      if(g_levels[i].pct<InpMinimumDeltaPct)g_levels[i].active=false;
+     }
+   int count=0;
+   for(int i=n-1;i>=0;i--)if(g_levels[i].active){count++;if(count>InpMaxActiveLevels)g_levels[i].active=false;}
+  }
+void BuildHistory()
+  {
+   ArrayResize(g_levels,0);g_level_seq=0;
+   MqlRates r[];ArraySetAsSeries(r,false);
+   int got=CopyRates(_Symbol,InpSignalTF,1,InpHistoryBars,r);
+   if(got<100){Print("Insufficient history: ",got);return;}
+   int L=InpSwingLength;
+   for(int c=2*L;c<got;c++)
+     {
+      int p=c-L;bool ph=PivotHigh(r,p,L),pl=PivotLow(r,p,L);
+      if(ph||pl)
+        {
+         double d=0;for(int k=p-L;k<=p+L;k++)d+=(r[k].close>=r[k].open?(double)r[k].tick_volume:-(double)r[k].tick_volume);
+         if(ph)AddLevel(r[p].high,d,false,r[p].time,r[c].time);
+         if(pl)AddLevel(r[p].low,d,true,r[p].time,r[c].time);
+        }
+      for(int j=0;j<ArraySize(g_levels);j++)if(g_levels[j].active)
+        {
+         if(g_levels[j].support&&r[c].close<=g_levels[j].price)g_levels[j].active=false;
+         if(!g_levels[j].support&&r[c].close>=g_levels[j].price)g_levels[j].active=false;
+        }
+     }
+   RecalculateLevels();
+  }
+
+bool FindOwnPosition(ulong &ticket,long &type,datetime &open_time)
+  {
+   ticket=0;type=-1;open_time=0;
+   for(int i=PositionsTotal()-1;i>=0;i--)
+     {
+      ulong t=PositionGetTicket(i);if(t==0)continue;
+      if(PositionGetString(POSITION_SYMBOL)==_Symbol&&(ulong)PositionGetInteger(POSITION_MAGIC)==InpMagic)
+        {ticket=t;type=PositionGetInteger(POSITION_TYPE);open_time=(datetime)PositionGetInteger(POSITION_TIME);return true;}
+     }
+   return false;
+  }
+bool AnySymbolPosition()
+  {
+   for(int i=PositionsTotal()-1;i>=0;i--){ulong t=PositionGetTicket(i);if(t>0&&PositionGetString(POSITION_SYMBOL)==_Symbol)return true;}
+   return false;
+  }
+int CountOwnPositions()
+  {
+   int c=0;
+   for(int i=PositionsTotal()-1;i>=0;i--)
+     {
+      ulong t=PositionGetTicket(i);if(t==0)continue;
+      if(PositionGetString(POSITION_SYMBOL)==_Symbol&&(ulong)PositionGetInteger(POSITION_MAGIC)==InpMagic)c++;
+     }
+   return c;
+  }
+bool ForeignPositionExists()
+  {
+   for(int i=PositionsTotal()-1;i>=0;i--)
+     {
+      ulong t=PositionGetTicket(i);if(t==0)continue;
+      if(PositionGetString(POSITION_SYMBOL)==_Symbol&&(ulong)PositionGetInteger(POSITION_MAGIC)!=InpMagic)return true;
+     }
+   return false;
+  }
+int TradesOpenedToday()
+  {
+   MqlDateTime d;TimeToStruct(TimeCurrent(),d);
+   datetime from=TimeCurrent()-(datetime)(d.hour*3600+d.min*60+d.sec);
+   if(!HistorySelect(from,TimeCurrent()))return 0;
+   int c=0;
+   for(int i=HistoryDealsTotal()-1;i>=0;i--)
+     {
+      ulong h=HistoryDealGetTicket(i);if(h==0)continue;
+      if(HistoryDealGetString(h,DEAL_SYMBOL)!=_Symbol)continue;
+      if((ulong)HistoryDealGetInteger(h,DEAL_MAGIC)!=InpMagic)continue;
+      long en=HistoryDealGetInteger(h,DEAL_ENTRY);
+      if(en==DEAL_ENTRY_IN||en==DEAL_ENTRY_INOUT)c++;
+     }
+   return c;
+  }
+bool SessionOK(datetime t)
+  {
+   MqlDateTime d;TimeToStruct(t,d);bool day=(d.day_of_week==1&&InpMonday)||(d.day_of_week==2&&InpTuesday)||(d.day_of_week==3&&InpWednesday)||(d.day_of_week==4&&InpThursday)||(d.day_of_week==5&&InpFriday);
+   if(!day)return false;if(!InpUseHourFilter)return true;if(InpStartHour==InpEndHour)return true;
+   return InpStartHour<InpEndHour?(d.hour>=InpStartHour&&d.hour<InpEndHour):(d.hour>=InpStartHour||d.hour<InpEndHour);
+  }
+
+bool StopsValid(int side,double entry,double sl,double tp,string &why)
+  {
+   double md=(double)MathMax((long)SymbolInfoInteger(_Symbol,SYMBOL_TRADE_STOPS_LEVEL),(long)SymbolInfoInteger(_Symbol,SYMBOL_TRADE_FREEZE_LEVEL))*g_point;
+   if(side>0&&!(sl<entry)){why="BUY SL invalid";return false;}
+   if(side<0&&!(sl>entry)){why="SELL SL invalid";return false;}
+   if(tp>0&&side>0&&!(tp>entry)){why="BUY TP invalid";return false;}
+   if(tp>0&&side<0&&!(tp<entry)){why="SELL TP invalid";return false;}
+   if(MathAbs(entry-sl)<md||(tp>0&&MathAbs(tp-entry)<md)){why="broker minimum stop distance";return false;}
+   return true;
+  }
+double CalculateLots(int side,double entry,double sl)
+  {
+   if(!InpUseRiskMoney)return NormalizeVolumeDown(InpFixedLots);
+   double one_lot=0;ENUM_ORDER_TYPE ot=(side>0?ORDER_TYPE_BUY:ORDER_TYPE_SELL);
+   if(!OrderCalcProfit(ot,_Symbol,1.0,entry,sl,one_lot)||one_lot==0)return 0;
+   return NormalizeVolumeDown(InpRiskMoney/MathAbs(one_lot));
+  }
+
+void DrawAll()
+  {
+   if(!InpShowLevels)return;
+   ObjectsDeleteAll(0,g_prefix);
+   for(int i=0;i<ArraySize(g_levels);i++)if(g_levels[i].active)
+     {
+      string n=g_prefix+"L_"+IntegerToString(g_levels[i].id);color c=g_levels[i].support?InpSupportColor:InpResistanceColor;
+      if(ObjectCreate(0,n,OBJ_TREND,0,g_levels[i].pivot_time,g_levels[i].price,TimeCurrent(),g_levels[i].price))
+        {ObjectSetInteger(0,n,OBJPROP_COLOR,c);ObjectSetInteger(0,n,OBJPROP_WIDTH,2);ObjectSetInteger(0,n,OBJPROP_RAY_RIGHT,true);ObjectSetInteger(0,n,OBJPROP_SELECTABLE,false);}
+      string tx=n+"_TXT";if(ObjectCreate(0,tx,OBJ_TEXT,0,TimeCurrent(),g_levels[i].price))
+        {ObjectSetString(0,tx,OBJPROP_TEXT,(g_levels[i].support?"SUP ":"RES ")+DoubleToString(g_levels[i].pct,0)+"%  "+DoubleToString(g_levels[i].price,g_digits));ObjectSetInteger(0,tx,OBJPROP_COLOR,c);ObjectSetInteger(0,tx,OBJPROP_FONTSIZE,8);ObjectSetInteger(0,tx,OBJPROP_SELECTABLE,false);}
+     }
+   ChartRedraw();
+  }
+void Dashboard(double atr)
+  {
+   if(!InpShowDashboard)return;string n=g_prefix+"DASH";if(ObjectFind(0,n)<0)ObjectCreate(0,n,OBJ_LABEL,0,0,0);
+   ulong tk;long ty;datetime ot;string pos=FindOwnPosition(tk,ty,ot)?"OPEN":"FLAT";
+   string txt="VDPM DAX LIVE\nH1 REACTION_CLOSE\nExit: "+EnumToString(InpExitMode)+"\nLots: "+(InpUseRiskMoney?("risk EUR "+DoubleToString(InpRiskMoney,2)):DoubleToString(InpFixedLots,2))+"\nATR: "+DoubleToString(atr,1)+"\nPosition: "+pos+"\nToday: "+IntegerToString(TradesOpenedToday())+"/"+(InpMaxTradesPerDay>0?IntegerToString(InpMaxTradesPerDay):"inf");
+   ObjectSetString(0,n,OBJPROP_TEXT,txt);ObjectSetString(0,n,OBJPROP_FONT,"Consolas");ObjectSetInteger(0,n,OBJPROP_FONTSIZE,10);ObjectSetInteger(0,n,OBJPROP_COLOR,clrWhite);ObjectSetInteger(0,n,OBJPROP_CORNER,CORNER_LEFT_UPPER);ObjectSetInteger(0,n,OBJPROP_XDISTANCE,12);ObjectSetInteger(0,n,OBJPROP_YDISTANCE,20);
+  }
+
+void ExecuteReaction(int side,PivotLevel &l,double atr,datetime signal_bar)
+  {
+   if(signal_bar==g_last_signal_bar&&l.id==g_last_signal_level)return;
+   if(side>0&&!InpAllowLong)return;if(side<0&&!InpAllowShort)return;if(!SessionOK(signal_bar))return;
+   ulong own;long typ;datetime ot;if(InpOnePositionAtATime&&FindOwnPosition(own,typ,ot)){LogCSV("FILTER","own position already open",l.id,l.price,l.delta,l.pct);return;}
+   if(InpOnePositionAtATime&&InpBlockAnyDaxPosition&&AnySymbolPosition()){LogCSV("FILTER","another DAX position exists",l.id,l.price,l.delta,l.pct);return;}
+   if(InpMaxTradesPerDay>0&&TradesOpenedToday()>=InpMaxTradesPerDay){LogCSV("FILTER","daily max "+IntegerToString(InpMaxTradesPerDay)+" reached",l.id,l.price,l.delta,l.pct);return;}
+   if(!TerminalInfoInteger(TERMINAL_TRADE_ALLOWED)||!MQLInfoInteger(MQL_TRADE_ALLOWED)||!AccountInfoInteger(ACCOUNT_TRADE_ALLOWED)){LogCSV("BLOCK","trading permission disabled",l.id,l.price,l.delta,l.pct);return;}
+   if(SymbolInfoInteger(_Symbol,SYMBOL_TRADE_MODE)!=SYMBOL_TRADE_MODE_FULL){LogCSV("BLOCK","symbol trade mode is not FULL",l.id,l.price,l.delta,l.pct);return;}
+   MqlTick q;if(!SymbolInfoTick(_Symbol,q))return;double spread=(q.ask-q.bid)/g_point;
+   if(InpMaxSpreadBrokerPoints>0&&spread>InpMaxSpreadBrokerPoints){LogCSV("FILTER","spread too high",l.id,l.price,l.delta,l.pct);return;}
+   double entry=(side>0?q.ask:q.bid),mult=1.0;
+   if(InpExitMode==EXIT_ATR075_TP1R5)mult=.75;else if(InpExitMode==EXIT_ATR150_TP1R5)mult=1.5;
+   double risk=MathMax(mult*atr,g_tick_size),sl=NP(entry-side*risk);
+   bool use_tp=(InpExitMode==EXIT_ATR075_TP1R5||InpExitMode==EXIT_ATR100_TP1R5||InpExitMode==EXIT_ATR150_TP1R5);
+   double tp=use_tp?NP(entry+side*InpTakeProfitR*risk):0.0; // TIME/TRAIL/ADAPTIVE backtest has NO TP (tp=0)
+   string why;if(!StopsValid(side,entry,sl,tp,why)){LogCSV("BLOCK",why,l.id,l.price,l.delta,l.pct,entry,sl,tp);return;}
+   double lots=CalculateLots(side,entry,sl);if(lots<=0){LogCSV("BLOCK","invalid volume",l.id,l.price,l.delta,l.pct,entry,sl,tp);return;}
+   trade.SetExpertMagicNumber(InpMagic);trade.SetDeviationInPoints(InpDeviationBrokerPoints);trade.SetTypeFillingBySymbol(_Symbol);trade.SetAsyncMode(false);
+   bool sent=(side>0?trade.Buy(lots,_Symbol,0,sl,tp,InpComment):trade.Sell(lots,_Symbol,0,sl,tp,InpComment));
+   long rc=trade.ResultRetcode();bool ok=sent&&(rc==TRADE_RETCODE_DONE||rc==TRADE_RETCODE_DONE_PARTIAL||rc==TRADE_RETCODE_PLACED);
+   LogCSV(ok?"ORDER_OPENED":"ORDER_FAILED",trade.ResultRetcodeDescription(),l.id,l.price,l.delta,l.pct,trade.ResultPrice()>0?trade.ResultPrice():entry,sl,tp,lots,rc);
+   if(ok){g_last_signal_bar=signal_bar;g_last_signal_level=l.id;GlobalVariableSet(g_prefix+_Symbol+"_BAR",(double)signal_bar);GlobalVariableSet(g_prefix+_Symbol+"_LVL",(double)l.id);}
+  }
+
+void ProcessClosedBar()
+  {
+   int L=InpSwingLength,need=2*L+InpATRLength+5;MqlRates r[];ArraySetAsSeries(r,false);int got=CopyRates(_Symbol,InpSignalTF,1,need,r);if(got<need)return;
+   int c=got-1,p=c-L;double atr=CalcATR(r,c,InpATRLength);
+   bool ph=PivotHigh(r,p,L),pl=PivotLow(r,p,L);
+   if(ph||pl){double d=0;for(int k=p-L;k<=p+L;k++)d+=(r[k].close>=r[k].open?(double)r[k].tick_volume:-(double)r[k].tick_volume);if(ph)AddLevel(r[p].high,d,false,r[p].time,r[c].time);if(pl)AddLevel(r[p].low,d,true,r[p].time,r[c].time);RecalculateLevels();}
+   double tol=atr*InpTouchToleranceATR;bool found=false;PivotLevel chosen;int side=0;
+   for(int i=ArraySize(g_levels)-1;i>=0;i--)
+     {
+      if(!g_levels[i].active)continue;
+      PivotLevel l=g_levels[i];
+      if(!found&&l.support&&r[c].low<=l.price+tol&&r[c].close>l.price){chosen=l;side=1;found=true;}
+      if(!found&&!l.support&&r[c].high>=l.price-tol&&r[c].close<l.price){chosen=l;side=-1;found=true;}
+      if(l.support&&r[c].close<=l.price)g_levels[i].active=false;
+      if(!l.support&&r[c].close>=l.price)g_levels[i].active=false;
+     }
+   RecalculateLevels();DrawAll();Dashboard(atr);
+   if(found)ExecuteReaction(side,chosen,atr,r[c].time);
+  }
+
+void ManagePosition()
+  {
+   ulong ticket;long type;datetime open_time;if(!FindOwnPosition(ticket,type,open_time))return;
+   MqlTick q;if(!SymbolInfoTick(_Symbol,q))return;int side=(type==POSITION_TYPE_BUY?1:-1);double entry=PositionGetDouble(POSITION_PRICE_OPEN),sl=PositionGetDouble(POSITION_SL),tp=PositionGetDouble(POSITION_TP),mark=side>0?q.bid:q.ask,fav=(mark-entry)*side;
+   int bars=iBarShift(_Symbol,InpSignalTF,open_time,false);
+   if((InpExitMode==EXIT_TIME6_ATR1&&bars>=6)||(InpExitMode==EXIT_TIME12_ATR1&&bars>=12)||(InpMaxBarsInTrade>0&&bars>=InpMaxBarsInTrade))
+     {trade.PositionClose(ticket,InpDeviationBrokerPoints);return;}
+   double target=0;
+   if(InpExitMode==EXIT_TRAIL_A20_D10&&fav>=20.0)target=NP(mark-side*10.0);
+   if(InpExitMode==EXIT_ADAPTIVE_MFE)
+     {
+      string key=g_prefix+_Symbol+"_MFE_"+IntegerToString((long)PositionGetInteger(POSITION_IDENTIFIER));double mfe=GlobalVariableCheck(key)?GlobalVariableGet(key):0;mfe=MathMax(mfe,fav);GlobalVariableSet(key,mfe);double gb=0;if(mfe>=120)gb=45;else if(mfe>=80)gb=35;else if(mfe>=40)gb=20;if(gb>0)target=NP(entry+side*(mfe-gb));
+     }
+   if(target>0&&((side>0&&(sl<=0||target>sl))||(side<0&&(sl<=0||target<sl))))trade.PositionModify(ticket,target,tp);
+  }
+
+int OnInit()
+  {
+   string u=_Symbol;StringToUpper(u);if(InpRequireDaxName&&StringFind(u,"DE40")<0&&StringFind(u,"GER40")<0&&StringFind(u,"DAX")<0&&StringFind(u,"GERMANY 40")<0){Print("ERROR: attach to DAX/DE40 symbol. Current=",_Symbol);return INIT_PARAMETERS_INCORRECT;}
+   if(InpSignalTF!=PERIOD_H1){Print("ERROR: validated candidate requires H1.");return INIT_PARAMETERS_INCORRECT;}
+   g_point=SymbolInfoDouble(_Symbol,SYMBOL_POINT);g_tick_size=SymbolInfoDouble(_Symbol,SYMBOL_TRADE_TICK_SIZE);g_tick_value=SymbolInfoDouble(_Symbol,SYMBOL_TRADE_TICK_VALUE);g_contract=SymbolInfoDouble(_Symbol,SYMBOL_TRADE_CONTRACT_SIZE);g_vol_min=SymbolInfoDouble(_Symbol,SYMBOL_VOLUME_MIN);g_vol_max=SymbolInfoDouble(_Symbol,SYMBOL_VOLUME_MAX);g_vol_step=SymbolInfoDouble(_Symbol,SYMBOL_VOLUME_STEP);g_digits=(int)SymbolInfoInteger(_Symbol,SYMBOL_DIGITS);
+   if(g_point<=0||g_tick_size<=0||g_vol_step<=0)return INIT_FAILED;g_prefix="VDPM_LIVE_"+_Symbol+"_"+IntegerToString((long)InpMagic)+"_";
+   if(InpWriteCSV){string n=InpCSVPrefix+"_"+_Symbol+"_log.csv";g_csv=FileOpen(n,FileFlags(),';');if(g_csv!=INVALID_HANDLE&&FileSize(g_csv)==0)FileWrite(g_csv,"server_time","event","detail","symbol","tf","level_id","level_price","delta","delta_pct","entry","sl","tp","lots","retcode");}
+   string kb=g_prefix+_Symbol+"_BAR",kl=g_prefix+_Symbol+"_LVL";if(GlobalVariableCheck(kb))g_last_signal_bar=(datetime)GlobalVariableGet(kb);if(GlobalVariableCheck(kl))g_last_signal_level=(long)GlobalVariableGet(kl);
+   BuildHistory();g_last_bar=iTime(_Symbol,InpSignalTF,0);DrawAll();trade.SetExpertMagicNumber(InpMagic);trade.SetTypeFillingBySymbol(_Symbol);trade.SetAsyncMode(false);EventSetTimer(1);LogCSV("EA_START","H1 REACTION_CLOSE live candidate");return INIT_SUCCEEDED;
+  }
+void OnTick(){ManagePosition();datetime b=iTime(_Symbol,InpSignalTF,0);if(b!=0&&b!=g_last_bar){g_last_bar=b;ProcessClosedBar();}}
+void OnTimer(){ManagePosition();}
+void OnTradeTransaction(const MqlTradeTransaction &trans,const MqlTradeRequest &request,const MqlTradeResult &result)
+  {
+   if(trans.type!=TRADE_TRANSACTION_DEAL_ADD||trans.deal==0||!HistoryDealSelect(trans.deal))return;
+   if(HistoryDealGetString(trans.deal,DEAL_SYMBOL)!=_Symbol||(ulong)HistoryDealGetInteger(trans.deal,DEAL_MAGIC)!=InpMagic)return;
+   long en=HistoryDealGetInteger(trans.deal,DEAL_ENTRY);double net=HistoryDealGetDouble(trans.deal,DEAL_PROFIT)+HistoryDealGetDouble(trans.deal,DEAL_SWAP)+HistoryDealGetDouble(trans.deal,DEAL_COMMISSION);
+   LogCSV((en==DEAL_ENTRY_OUT||en==DEAL_ENTRY_OUT_BY)?"DEAL_CLOSE":"DEAL_OPEN","net="+DoubleToString(net,2),0,0,0,0,HistoryDealGetDouble(trans.deal,DEAL_PRICE),0,0,HistoryDealGetDouble(trans.deal,DEAL_VOLUME),result.retcode);
+  }
+void OnDeinit(const int reason){EventKillTimer();LogCSV("EA_STOP","reason="+IntegerToString(reason));if(g_csv!=INVALID_HANDLE){FileFlush(g_csv);FileClose(g_csv);}Comment("");}
+//+------------------------------------------------------------------+

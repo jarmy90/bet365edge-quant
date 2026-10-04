@@ -1,0 +1,12 @@
+{
+  "2025-07-01": {
+    "file": "usatechidxusd_2025-07-01_tick.csv",
+    "sha256": "d45b157261994e75b08b0d8a61f5416e39f051e365d56cd83db542fd37afab78",
+    "bytes": 11416661
+  },
+  "2025-07-02": {
+    "file": "usatechidxusd_2025-07-02_tick.csv",
+    "sha256": "0f45566621d14a53db4cf24f0a8e49e787e8703ef88d580fc3d89f72f1e60341",
+    "bytes": 11331421
+  }
+}

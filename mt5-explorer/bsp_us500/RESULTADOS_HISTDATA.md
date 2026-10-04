@@ -1,0 +1,263 @@
+# BSP v2 en HistData SPX/USD M1 → H1 (coste 0.5, minRisk 0.30)
+
+Datos: HistData.com SPX/USD M1 GENERIC_ASCII 2023-01 → 2026-09 (zips en
+`histdata_spx/`), fusionado a `histdata_spx/spxusd_m1_all.csv` (hora EST→UTC),
+remuestreado a `histdata_spx/spxusd_h1.csv`:
+barras H1 = 21161 (2023-01-02 23:00 → 2026-09-18 21:00 UTC).
+Motor: `backtest_bsp_v2.py` (stops diferidos N+1, gaps a open, geometría,
+coste 0.5 pt/lado, minRisk 0.30 ATR, signal_id).
+Resultado: signals = 1872, trades = 10636, invalid_stop = 878.
+CSV: `es_hist_h1_v2_trades.csv`. Auditoría extra: `audit_hist.py`.
+
+> LIMITACIÓN CRÍTICA: HistData SPX trae vol=0 en todas las barras.
+> El motor usa peso uniforme (v=1) → el perfil es "perfil de rango",
+> NO volumen real. absorption = 0 siempre, volume_score = 0 siempre.
+> El score queda en 30-62 (media 42.6) solo por evidence+wick.
+> Conclusión válida para estructura/niveles, NO para la parte de volumen.
+
+## (a) Top combos (base)
+
+
+ side       entry_mode    exit_model  n_signals  trades    net_R  avg_R  mediana_R  trim5   win%    PF  avg_bars  net_exTop5    %top5  net_winsor5  avg_winsor5
+ LONG     RETEST_TOUCH       TP_2ATR      405.0   405.0   76.452  0.189     -1.046  0.039 32.840 1.252     3.348      48.400   36.693       73.944        0.183
+ LONG RETEST_CONFIRMED BE_THEN_TRAIL      472.0   472.0   61.943  0.131     -1.015 -0.074 45.339 1.228     8.720      13.300   78.529       35.563        0.075
+ LONG     RETEST_TOUCH BE_THEN_TRAIL      405.0   405.0   46.683  0.115     -0.257 -0.215 39.506 1.219     3.807     -19.031  140.767       -7.525       -0.019
+ LONG    CLOSE_CONFIRM BE_THEN_TRAIL      997.0   997.0   20.212  0.020     -0.121 -0.094 47.643 1.040    31.184     -11.564  157.213       13.436        0.013
+SHORT     RETEST_TOUCH       TP_1ATR      401.0   401.0   -7.121 -0.018     -1.035 -0.070 43.890 0.972     3.027     -22.026 -209.308       -7.121       -0.018
+ LONG RETEST_CONFIRMED       TP_2ATR      472.0   472.0  -10.055 -0.021     -1.025 -0.133 38.136 0.969     5.199     -35.331 -251.362       -8.557       -0.018
+SHORT    CLOSE_CONFIRM       TP_1ATR      875.0   875.0  -12.804 -0.015      0.271 -0.040 64.114 0.961     7.280     -25.030  -95.493      -12.804       -0.015
+ LONG    CLOSE_CONFIRM       TP_2ATR      997.0   997.0  -18.834 -0.019      0.329 -0.065 53.260 0.961    13.336     -37.750 -100.438      -18.834       -0.019
+SHORT     RETEST_TOUCH       TP_2ATR      401.0   401.0  -26.718 -0.067     -1.050 -0.236 27.431 0.918     4.534     -56.069 -109.851      -31.690       -0.079
+SHORT    CLOSE_CONFIRM       TP_2ATR      875.0   875.0  -47.621 -0.054     -1.008 -0.147 47.086 0.902    11.270     -68.171  -43.155      -48.080       -0.055
+SHORT RETEST_CONFIRMED       TP_2ATR      446.0   446.0  -58.541 -0.131     -1.032 -0.284 32.960 0.816     5.513     -83.830  -43.199      -59.816       -0.134
+SHORT     RETEST_TOUCH   SWING_TRAIL      401.0   401.0  -60.143 -0.150     -0.537 -0.475 12.718 0.742     4.085    -124.448 -106.919     -116.647       -0.291
+SHORT    CLOSE_CONFIRM   SWING_TRAIL      875.0   875.0  -66.099 -0.076     -0.317 -0.229 22.286 0.786     8.421    -108.468  -64.099      -84.290       -0.096
+SHORT     RETEST_TOUCH     TIME_FAST      401.0   401.0  -87.778 -0.219     -1.060 -0.755 12.718 0.773     7.591    -177.118 -101.779     -209.156       -0.522
+SHORT RETEST_CONFIRMED   SWING_TRAIL      446.0   446.0  -87.804 -0.197     -0.672 -0.448 21.525 0.679     6.170    -135.394  -54.200     -116.194       -0.261
+SHORT RETEST_CONFIRMED       TP_1ATR      446.0   446.0  -94.592 -0.212     -1.022 -0.278 43.498 0.647     3.709    -107.460  -13.604      -94.592       -0.212
+SHORT    CLOSE_CONFIRM     TIME_FAST      875.0   875.0 -109.637 -0.125     -1.014 -0.342 30.514 0.810    15.632    -152.622  -39.207     -140.590       -0.161
+SHORT RETEST_CONFIRMED     TIME_FAST      446.0   446.0 -150.751 -0.338     -1.038 -0.681 16.592 0.609     9.619    -205.715  -36.460     -198.861       -0.446
+
+## (a2) Sin top5/winsor
+
+ side       entry_mode    exit_model  trades    net_R  net_exTop5    %top5  net_winsor5  avg_winsor5  mediana_R    PF
+ LONG     RETEST_TOUCH       TP_2ATR   405.0   76.452      48.400   36.693       73.944        0.183     -1.046 1.252
+ LONG RETEST_CONFIRMED BE_THEN_TRAIL   472.0   61.943      13.300   78.529       35.563        0.075     -1.015 1.228
+ LONG    CLOSE_CONFIRM BE_THEN_TRAIL   997.0   20.212     -11.564  157.213       13.436        0.013     -0.121 1.040
+ LONG     RETEST_TOUCH BE_THEN_TRAIL   405.0   46.683     -19.031  140.767       -7.525       -0.019     -0.257 1.219
+SHORT     RETEST_TOUCH       TP_1ATR   401.0   -7.121     -22.026 -209.308       -7.121       -0.018     -1.035 0.972
+SHORT    CLOSE_CONFIRM       TP_1ATR   875.0  -12.804     -25.030  -95.493      -12.804       -0.015      0.271 0.961
+ LONG RETEST_CONFIRMED       TP_2ATR   472.0  -10.055     -35.331 -251.362       -8.557       -0.018     -1.025 0.969
+ LONG    CLOSE_CONFIRM       TP_2ATR   997.0  -18.834     -37.750 -100.438      -18.834       -0.019      0.329 0.961
+SHORT     RETEST_TOUCH       TP_2ATR   401.0  -26.718     -56.069 -109.851      -31.690       -0.079     -1.050 0.918
+SHORT    CLOSE_CONFIRM       TP_2ATR   875.0  -47.621     -68.171  -43.155      -48.080       -0.055     -1.008 0.902
+SHORT RETEST_CONFIRMED       TP_2ATR   446.0  -58.541     -83.830  -43.199      -59.816       -0.134     -1.032 0.816
+SHORT RETEST_CONFIRMED       TP_1ATR   446.0  -94.592    -107.460  -13.604      -94.592       -0.212     -1.022 0.647
+SHORT    CLOSE_CONFIRM   SWING_TRAIL   875.0  -66.099    -108.468  -64.099      -84.290       -0.096     -0.317 0.786
+SHORT     RETEST_TOUCH   SWING_TRAIL   401.0  -60.143    -124.448 -106.919     -116.647       -0.291     -0.537 0.742
+SHORT RETEST_CONFIRMED   SWING_TRAIL   446.0  -87.804    -135.394  -54.200     -116.194       -0.261     -0.672 0.679
+SHORT    CLOSE_CONFIRM     TIME_FAST   875.0 -109.637    -152.622  -39.207     -140.590       -0.161     -1.014 0.810
+SHORT     RETEST_TOUCH     TIME_FAST   401.0  -87.778    -177.118 -101.779     -209.156       -0.522     -1.060 0.773
+SHORT RETEST_CONFIRMED     TIME_FAST   446.0 -150.751    -205.715  -36.460     -198.861       -0.446     -1.038 0.609
+
+## (b) Entradas
+
+      entry_mode  n_signals  trades    net_R  avg_R  mediana_R  trim5   win%    PF  avg_bars  net_exTop5    %top5  net_winsor5  avg_winsor5
+   CLOSE_CONFIRM     1872.0  5494.0 -234.782 -0.043     -0.297 -0.162 44.430 0.913    14.864    -281.569  -19.928     -291.161       -0.053
+RETEST_CONFIRMED      918.0  2728.0 -339.800 -0.125     -1.023 -0.323 33.174 0.815     6.497    -401.852  -18.261     -442.456       -0.162
+    RETEST_TOUCH      806.0  2414.0  -58.626 -0.024     -1.039 -0.299 28.210 0.966     4.396    -150.134 -156.090     -298.196       -0.124
+
+## (c) Sensibilidad
+
+ cost  minrisk                               combo  trades     net    avg
+ 0.25      0.2    LONG|CLOSE_CONFIRM|BE_THEN_TRAIL     997   37.81  0.038
+ 0.25      0.2          LONG|CLOSE_CONFIRM|TP_2ATR     997    2.40  0.002
+ 0.25      0.2 LONG|RETEST_CONFIRMED|BE_THEN_TRAIL     477   79.30  0.166
+ 0.25      0.2       LONG|RETEST_CONFIRMED|TP_2ATR     477   20.48  0.043
+ 0.25      0.2     LONG|RETEST_TOUCH|BE_THEN_TRAIL     430   88.68  0.206
+ 0.25      0.2           LONG|RETEST_TOUCH|TP_2ATR     430  137.83  0.321
+ 0.25      0.2     SHORT|CLOSE_CONFIRM|SWING_TRAIL     875  -40.68 -0.046
+ 0.25      0.2       SHORT|CLOSE_CONFIRM|TIME_FAST     875  -84.88 -0.097
+ 0.25      0.2         SHORT|CLOSE_CONFIRM|TP_1ATR     875   17.33  0.020
+ 0.25      0.2         SHORT|CLOSE_CONFIRM|TP_2ATR     875  -23.23 -0.027
+ 0.25      0.2  SHORT|RETEST_CONFIRMED|SWING_TRAIL     462  -77.19 -0.167
+ 0.25      0.2    SHORT|RETEST_CONFIRMED|TIME_FAST     462 -101.83 -0.220
+ 0.25      0.2      SHORT|RETEST_CONFIRMED|TP_1ATR     462  -73.12 -0.158
+ 0.25      0.2      SHORT|RETEST_CONFIRMED|TP_2ATR     462  -16.10 -0.035
+ 0.25      0.2      SHORT|RETEST_TOUCH|SWING_TRAIL     426  -16.05 -0.038
+ 0.25      0.2        SHORT|RETEST_TOUCH|TIME_FAST     426  -56.53 -0.133
+ 0.25      0.2          SHORT|RETEST_TOUCH|TP_1ATR     426   42.21  0.099
+ 0.25      0.2          SHORT|RETEST_TOUCH|TP_2ATR     426   55.78  0.131
+ 0.50      0.2    LONG|CLOSE_CONFIRM|BE_THEN_TRAIL     997   20.21  0.020
+ 0.50      0.2          LONG|CLOSE_CONFIRM|TP_2ATR     997  -18.83 -0.019
+ 0.50      0.2 LONG|RETEST_CONFIRMED|BE_THEN_TRAIL     479   56.04  0.117
+ 0.50      0.2       LONG|RETEST_CONFIRMED|TP_2ATR     479   -9.22 -0.019
+ 0.50      0.2     LONG|RETEST_TOUCH|BE_THEN_TRAIL     439   41.08  0.094
+ 0.50      0.2           LONG|RETEST_TOUCH|TP_2ATR     439   84.38  0.192
+ 0.50      0.2     SHORT|CLOSE_CONFIRM|SWING_TRAIL     875  -66.10 -0.076
+ 0.50      0.2       SHORT|CLOSE_CONFIRM|TIME_FAST     875 -109.64 -0.125
+ 0.50      0.2         SHORT|CLOSE_CONFIRM|TP_1ATR     875  -12.80 -0.015
+ 0.50      0.2         SHORT|CLOSE_CONFIRM|TP_2ATR     875  -47.62 -0.054
+ 0.50      0.2  SHORT|RETEST_CONFIRMED|SWING_TRAIL     462  -99.17 -0.215
+ 0.50      0.2    SHORT|RETEST_CONFIRMED|TIME_FAST     462 -125.57 -0.272
+ 0.50      0.2      SHORT|RETEST_CONFIRMED|TP_1ATR     462  -93.83 -0.203
+ 0.50      0.2      SHORT|RETEST_CONFIRMED|TP_2ATR     462  -42.72 -0.092
+ 0.50      0.2      SHORT|RETEST_TOUCH|SWING_TRAIL     432  -51.55 -0.119
+ 0.50      0.2        SHORT|RETEST_TOUCH|TIME_FAST     432  -87.29 -0.202
+ 0.50      0.2          SHORT|RETEST_TOUCH|TP_1ATR     432   12.63  0.029
+ 0.50      0.2          SHORT|RETEST_TOUCH|TP_2ATR     432   18.41  0.043
+ 0.75      0.2    LONG|CLOSE_CONFIRM|BE_THEN_TRAIL     997    5.77  0.006
+ 0.75      0.2          LONG|CLOSE_CONFIRM|TP_2ATR     997  -40.62 -0.041
+ 0.75      0.2 LONG|RETEST_CONFIRMED|BE_THEN_TRAIL     484   24.70  0.051
+ 0.75      0.2       LONG|RETEST_CONFIRMED|TP_2ATR     484  -35.26 -0.073
+ 0.75      0.2     LONG|RETEST_TOUCH|BE_THEN_TRAIL     445  -11.44 -0.026
+ 0.75      0.2           LONG|RETEST_TOUCH|TP_2ATR     445   39.45  0.089
+ 0.75      0.2     SHORT|CLOSE_CONFIRM|SWING_TRAIL     875  -90.35 -0.103
+ 0.75      0.2       SHORT|CLOSE_CONFIRM|TIME_FAST     875 -133.29 -0.152
+ 0.75      0.2         SHORT|CLOSE_CONFIRM|TP_1ATR     875  -43.67 -0.050
+ 0.75      0.2         SHORT|CLOSE_CONFIRM|TP_2ATR     875  -69.48 -0.079
+ 0.75      0.2  SHORT|RETEST_CONFIRMED|SWING_TRAIL     467 -126.14 -0.270
+ 0.75      0.2    SHORT|RETEST_CONFIRMED|TIME_FAST     467 -153.88 -0.329
+ 0.75      0.2      SHORT|RETEST_CONFIRMED|TP_1ATR     467 -122.14 -0.262
+ 0.75      0.2      SHORT|RETEST_CONFIRMED|TP_2ATR     467  -74.09 -0.159
+ 0.75      0.2      SHORT|RETEST_TOUCH|SWING_TRAIL     438  -89.82 -0.205
+ 0.75      0.2        SHORT|RETEST_TOUCH|TIME_FAST     438 -127.98 -0.292
+ 0.75      0.2          SHORT|RETEST_TOUCH|TP_1ATR     438  -31.43 -0.072
+ 0.75      0.2          SHORT|RETEST_TOUCH|TP_2ATR     438  -22.46 -0.051
+ 0.25      0.3    LONG|CLOSE_CONFIRM|BE_THEN_TRAIL     997   37.81  0.038
+ 0.25      0.3          LONG|CLOSE_CONFIRM|TP_2ATR     997    2.40  0.002
+ 0.25      0.3 LONG|RETEST_CONFIRMED|BE_THEN_TRAIL     467   87.95  0.188
+ 0.25      0.3       LONG|RETEST_CONFIRMED|TP_2ATR     467   21.57  0.046
+ 0.25      0.3     LONG|RETEST_TOUCH|BE_THEN_TRAIL     397   83.67  0.211
+ 0.25      0.3           LONG|RETEST_TOUCH|TP_2ATR     397  114.58  0.289
+ 0.25      0.3     SHORT|CLOSE_CONFIRM|SWING_TRAIL     875  -40.68 -0.046
+ 0.25      0.3       SHORT|CLOSE_CONFIRM|TIME_FAST     875  -84.88 -0.097
+ 0.25      0.3         SHORT|CLOSE_CONFIRM|TP_1ATR     875   17.33  0.020
+ 0.25      0.3         SHORT|CLOSE_CONFIRM|TP_2ATR     875  -23.23 -0.027
+ 0.25      0.3  SHORT|RETEST_CONFIRMED|SWING_TRAIL     444  -65.15 -0.147
+ 0.25      0.3    SHORT|RETEST_CONFIRMED|TIME_FAST     444 -129.70 -0.292
+ 0.25      0.3      SHORT|RETEST_CONFIRMED|TP_1ATR     444  -73.87 -0.166
+ 0.25      0.3      SHORT|RETEST_CONFIRMED|TP_2ATR     444  -33.01 -0.074
+ 0.25      0.3      SHORT|RETEST_TOUCH|SWING_TRAIL     396  -29.98 -0.076
+ 0.25      0.3        SHORT|RETEST_TOUCH|TIME_FAST     396  -82.75 -0.209
+ 0.25      0.3          SHORT|RETEST_TOUCH|TP_1ATR     396   19.34  0.049
+ 0.25      0.3          SHORT|RETEST_TOUCH|TP_2ATR     396   -2.70 -0.007
+ 0.50      0.3    LONG|CLOSE_CONFIRM|BE_THEN_TRAIL     997   20.21  0.020
+ 0.50      0.3          LONG|CLOSE_CONFIRM|TP_2ATR     997  -18.83 -0.019
+ 0.50      0.3 LONG|RETEST_CONFIRMED|BE_THEN_TRAIL     472   61.94  0.131
+ 0.50      0.3       LONG|RETEST_CONFIRMED|TP_2ATR     472  -10.06 -0.021
+ 0.50      0.3     LONG|RETEST_TOUCH|BE_THEN_TRAIL     405   46.68  0.115
+ 0.50      0.3           LONG|RETEST_TOUCH|TP_2ATR     405   76.45  0.189
+ 0.50      0.3     SHORT|CLOSE_CONFIRM|SWING_TRAIL     875  -66.10 -0.076
+ 0.50      0.3       SHORT|CLOSE_CONFIRM|TIME_FAST     875 -109.64 -0.125
+ 0.50      0.3         SHORT|CLOSE_CONFIRM|TP_1ATR     875  -12.80 -0.015
+ 0.50      0.3         SHORT|CLOSE_CONFIRM|TP_2ATR     875  -47.62 -0.054
+ 0.50      0.3  SHORT|RETEST_CONFIRMED|SWING_TRAIL     446  -87.80 -0.197
+ 0.50      0.3    SHORT|RETEST_CONFIRMED|TIME_FAST     446 -150.75 -0.338
+ 0.50      0.3      SHORT|RETEST_CONFIRMED|TP_1ATR     446  -94.59 -0.212
+ 0.50      0.3      SHORT|RETEST_CONFIRMED|TP_2ATR     446  -58.54 -0.131
+ 0.50      0.3      SHORT|RETEST_TOUCH|SWING_TRAIL     401  -60.14 -0.150
+ 0.50      0.3        SHORT|RETEST_TOUCH|TIME_FAST     401  -87.78 -0.219
+ 0.50      0.3          SHORT|RETEST_TOUCH|TP_1ATR     401   -7.12 -0.018
+ 0.50      0.3          SHORT|RETEST_TOUCH|TP_2ATR     401  -26.72 -0.067
+ 0.75      0.3    LONG|CLOSE_CONFIRM|BE_THEN_TRAIL     997    5.77  0.006
+ 0.75      0.3          LONG|CLOSE_CONFIRM|TP_2ATR     997  -40.62 -0.041
+ 0.75      0.3 LONG|RETEST_CONFIRMED|BE_THEN_TRAIL     473   36.86  0.078
+ 0.75      0.3       LONG|RETEST_CONFIRMED|TP_2ATR     473  -29.16 -0.062
+ 0.75      0.3     LONG|RETEST_TOUCH|BE_THEN_TRAIL     414   10.89  0.026
+ 0.75      0.3           LONG|RETEST_TOUCH|TP_2ATR     414   56.43  0.136
+ 0.75      0.3     SHORT|CLOSE_CONFIRM|SWING_TRAIL     875  -90.35 -0.103
+ 0.75      0.3       SHORT|CLOSE_CONFIRM|TIME_FAST     875 -133.29 -0.152
+ 0.75      0.3         SHORT|CLOSE_CONFIRM|TP_1ATR     875  -43.67 -0.050
+ 0.75      0.3         SHORT|CLOSE_CONFIRM|TP_2ATR     875  -69.48 -0.079
+ 0.75      0.3  SHORT|RETEST_CONFIRMED|SWING_TRAIL     448 -108.66 -0.243
+ 0.75      0.3    SHORT|RETEST_CONFIRMED|TIME_FAST     448 -170.93 -0.382
+ 0.75      0.3      SHORT|RETEST_CONFIRMED|TP_1ATR     448 -117.04 -0.261
+ 0.75      0.3      SHORT|RETEST_CONFIRMED|TP_2ATR     448  -83.09 -0.185
+ 0.75      0.3      SHORT|RETEST_TOUCH|SWING_TRAIL     405  -81.05 -0.200
+ 0.75      0.3        SHORT|RETEST_TOUCH|TIME_FAST     405 -118.87 -0.294
+ 0.75      0.3          SHORT|RETEST_TOUCH|TP_1ATR     405  -40.61 -0.100
+ 0.75      0.3          SHORT|RETEST_TOUCH|TP_2ATR     405  -40.57 -0.100
+ 0.25      0.4    LONG|CLOSE_CONFIRM|BE_THEN_TRAIL     992   39.10  0.039
+ 0.25      0.4          LONG|CLOSE_CONFIRM|TP_2ATR     992   -4.75 -0.005
+ 0.25      0.4 LONG|RETEST_CONFIRMED|BE_THEN_TRAIL     458   66.66  0.146
+ 0.25      0.4       LONG|RETEST_CONFIRMED|TP_2ATR     458    5.12  0.011
+ 0.25      0.4     LONG|RETEST_TOUCH|BE_THEN_TRAIL     347   56.83  0.164
+ 0.25      0.4           LONG|RETEST_TOUCH|TP_2ATR     347  107.24  0.309
+ 0.25      0.4     SHORT|CLOSE_CONFIRM|SWING_TRAIL     868  -38.42 -0.044
+ 0.25      0.4       SHORT|CLOSE_CONFIRM|TIME_FAST     868  -77.54 -0.089
+ 0.25      0.4         SHORT|CLOSE_CONFIRM|TP_1ATR     868   12.98  0.015
+ 0.25      0.4         SHORT|CLOSE_CONFIRM|TP_2ATR     868  -22.65 -0.026
+ 0.25      0.4  SHORT|RETEST_CONFIRMED|SWING_TRAIL     428  -53.71 -0.125
+ 0.25      0.4    SHORT|RETEST_CONFIRMED|TIME_FAST     428 -118.82 -0.278
+ 0.25      0.4      SHORT|RETEST_CONFIRMED|TP_1ATR     428  -76.17 -0.178
+ 0.25      0.4      SHORT|RETEST_CONFIRMED|TP_2ATR     428  -42.35 -0.099
+ 0.25      0.4      SHORT|RETEST_TOUCH|SWING_TRAIL     344  -20.54 -0.060
+ 0.25      0.4        SHORT|RETEST_TOUCH|TIME_FAST     344  -54.18 -0.158
+ 0.25      0.4          SHORT|RETEST_TOUCH|TP_1ATR     344   12.63  0.037
+ 0.25      0.4          SHORT|RETEST_TOUCH|TP_2ATR     344   -0.02 -0.000
+ 0.50      0.4    LONG|CLOSE_CONFIRM|BE_THEN_TRAIL     993   21.69  0.022
+ 0.50      0.4          LONG|CLOSE_CONFIRM|TP_2ATR     993  -20.47 -0.021
+ 0.50      0.4 LONG|RETEST_CONFIRMED|BE_THEN_TRAIL     460   47.90  0.104
+ 0.50      0.4       LONG|RETEST_CONFIRMED|TP_2ATR     460  -15.89 -0.035
+ 0.50      0.4     LONG|RETEST_TOUCH|BE_THEN_TRAIL     355   59.26  0.167
+ 0.50      0.4           LONG|RETEST_TOUCH|TP_2ATR     355   80.95  0.228
+ 0.50      0.4     SHORT|CLOSE_CONFIRM|SWING_TRAIL     869  -63.77 -0.073
+ 0.50      0.4       SHORT|CLOSE_CONFIRM|TIME_FAST     869 -103.08 -0.119
+ 0.50      0.4         SHORT|CLOSE_CONFIRM|TP_1ATR     869  -14.11 -0.016
+ 0.50      0.4         SHORT|CLOSE_CONFIRM|TP_2ATR     869  -47.60 -0.055
+ 0.50      0.4  SHORT|RETEST_CONFIRMED|SWING_TRAIL     431  -74.58 -0.173
+ 0.50      0.4    SHORT|RETEST_CONFIRMED|TIME_FAST     431 -139.75 -0.324
+ 0.50      0.4      SHORT|RETEST_CONFIRMED|TP_1ATR     431  -89.53 -0.208
+ 0.50      0.4      SHORT|RETEST_CONFIRMED|TP_2ATR     431  -55.36 -0.128
+ 0.50      0.4      SHORT|RETEST_TOUCH|SWING_TRAIL     354  -48.61 -0.137
+ 0.50      0.4        SHORT|RETEST_TOUCH|TIME_FAST     354  -87.66 -0.248
+ 0.50      0.4          SHORT|RETEST_TOUCH|TP_1ATR     354   -4.89 -0.014
+ 0.50      0.4          SHORT|RETEST_TOUCH|TP_2ATR     354  -21.94 -0.062
+ 0.75      0.4    LONG|CLOSE_CONFIRM|BE_THEN_TRAIL     995    7.25  0.007
+ 0.75      0.4          LONG|CLOSE_CONFIRM|TP_2ATR     995  -38.34 -0.039
+ 0.75      0.4 LONG|RETEST_CONFIRMED|BE_THEN_TRAIL     463   39.02  0.084
+ 0.75      0.4       LONG|RETEST_CONFIRMED|TP_2ATR     463  -30.31 -0.065
+ 0.75      0.4     LONG|RETEST_TOUCH|BE_THEN_TRAIL     370   29.87  0.081
+ 0.75      0.4           LONG|RETEST_TOUCH|TP_2ATR     370   65.72  0.178
+ 0.75      0.4     SHORT|CLOSE_CONFIRM|SWING_TRAIL     871  -88.71 -0.102
+ 0.75      0.4       SHORT|CLOSE_CONFIRM|TIME_FAST     871 -128.83 -0.148
+ 0.75      0.4         SHORT|CLOSE_CONFIRM|TP_1ATR     871  -46.83 -0.054
+ 0.75      0.4         SHORT|CLOSE_CONFIRM|TP_2ATR     871  -71.35 -0.082
+ 0.75      0.4  SHORT|RETEST_CONFIRMED|SWING_TRAIL     435  -96.00 -0.221
+ 0.75      0.4    SHORT|RETEST_CONFIRMED|TIME_FAST     435 -155.62 -0.358
+ 0.75      0.4      SHORT|RETEST_CONFIRMED|TP_1ATR     435 -109.40 -0.252
+ 0.75      0.4      SHORT|RETEST_CONFIRMED|TP_2ATR     435  -74.76 -0.172
+ 0.75      0.4      SHORT|RETEST_TOUCH|SWING_TRAIL     368  -82.93 -0.225
+ 0.75      0.4        SHORT|RETEST_TOUCH|TIME_FAST     368 -124.50 -0.338
+ 0.75      0.4          SHORT|RETEST_TOUCH|TP_1ATR     368  -47.39 -0.129
+ 0.75      0.4          SHORT|RETEST_TOUCH|TP_2ATR     368  -57.64 -0.157
+
+
+## (d) Temporal dev/val/test (por signal_id)
+
+Solo LONG|RETEST_TOUCH|TP_2ATR es verde en los 3 tramos (dev 33.9 / val 19.8 / test 22.8). LONG|RETEST_CONFIRMED|BE_THEN_TRAIL: dev 39.5 / val -11.6 / test 34.1 (val negativo). Todos los SHORT negativos en dev y casi todos en val/test.
+
+## (e) Mensual/trimestral + bootstrap + score
+
+
+=== MENSUAL/TRIMESTRAL (top4 combos) ===
+LONG|RETEST_TOUCH|TP_2ATR: n=405 meses+=26/44 trim+=10/15 mejor_trim=24.6 peor_trim=-10.1 %top5=36.7%
+LONG|RETEST_CONFIRMED|BE_THEN_TRAIL: n=472 meses+=23/44 trim+=9/15 mejor_trim=35.5 peor_trim=-12.8 %top5=78.5%
+LONG|RETEST_TOUCH|BE_THEN_TRAIL: n=405 meses+=24/44 trim+=9/15 mejor_trim=19.8 peor_trim=-10.0 %top5=140.8%
+LONG|CLOSE_CONFIRM|BE_THEN_TRAIL: n=997 meses+=22/44 trim+=7/15 mejor_trim=36.5 peor_trim=-20.2 %top5=157.2%
+
+=== BOOTSTRAP x signal_id (300 reps, net_R y PF) ===
+LONG|RETEST_TOUCH|TP_2ATR: n=405 net_mean=80.9 p5=16.7 p95=150.3 PF_mean=1.25 PF_p5=1.05 PF_p95=1.48
+LONG|RETEST_CONFIRMED|BE_THEN_TRAIL: n=472 net_mean=58.1 p5=-7.4 p95=126.5 PF_mean=1.24 PF_p5=1.00 PF_p95=1.55
+LONG|RETEST_TOUCH|BE_THEN_TRAIL: n=405 net_mean=43.2 p5=-26.4 p95=115.3 PF_mean=1.22 PF_p5=0.90 PF_p95=1.56
+LONG|CLOSE_CONFIRM|BE_THEN_TRAIL: n=997 net_mean=17.4 p5=-63.9 p95=88.8 PF_mean=1.04 PF_p5=0.90 PF_p95=1.20
+SHORT|RETEST_TOUCH|TP_1ATR: n=401 net_mean=-5.9 p5=-49.0 p95=37.2 PF_mean=0.98 PF_p5=0.82 PF_p95=1.15
+LONG|RETEST_CONFIRMED|TP_2ATR: n=472 net_mean=-9.9 p5=-63.1 p95=48.2 PF_mean=0.97 PF_p5=0.81 PF_p95=1.14
+
+=== SCORE: correlaciones y terciles vs R ===
+corr(evidence,R)=-0.0018
+    count   mean      sum
+q                        
+T1   3550 -0.046 -165.012
+T2   3548 -0.039 -138.839

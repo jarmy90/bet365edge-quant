@@ -1,0 +1,66 @@
+====================================================================================================
+1) SANIDAD
+====================================================================================================
+filas: 28,620  columnas: ['side', 'entry_mode', 'exit_model', 'r_multiple', 'score', 'evidence', 'node_strength', 'bars_held', 'reason']
+
+side:
+side
+LONG     14640
+SHORT    13980
+
+entry_mode:
+entry_mode
+CLOSE_CONFIRM      18120
+INTRABAR_RETEST    10500
+
+exit_model:
+exit_model
+TP_1R                 1908
+TP_2R                 1908
+TP_3R                 1908
+TP_1ATR               1908
+TP_2ATR               1908
+TRAIL_1ATR            1908
+TRAIL_2ATR            1908
+BE_THEN_2R            1908
+BE_THEN_TRAIL         1908
+STEP_TRAIL            1908
+TIME_FAST             1908
+TIME_SLOW             1908
+EMA_CLOSE             1908
+SWING_TRAIL           1908
+LEVEL_INVALIDATION    1908
+
+ duplicados exactos: 0
+
+SUMA r_multiple = 1,854.79 R  | media = 0.0648 R
+
+====================================================================================================
+2) TOP COMBINACIONES (TF x entrada x salida, min 20 trades)
+====================================================================================================
+Traceback (most recent call last):
+  File "c:\Users\hp\Documents\Nueva carpeta (2)\mt5-explorer\bsp_us500\audit_bsp_us500.py", line 72, in <module>
+    main()
+    ~~~~^^
+  File "c:\Users\hp\Documents\Nueva carpeta (2)\mt5-explorer\bsp_us500\audit_bsp_us500.py", line 45, in main
+    g = t.groupby(["timeframe", "entry_mode", "exit_model"]).apply(agg, include_groups=False).reset_index()
+        ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\hp\miniconda3\Lib\site-packages\pandas\core\frame.py", line 9183, in groupby
+    return DataFrameGroupBy(
+        obj=self,
+    ...<7 lines>...
+        dropna=dropna,
+    )
+  File "C:\Users\hp\miniconda3\Lib\site-packages\pandas\core\groupby\groupby.py", line 1329, in __init__
+    grouper, exclusions, obj = get_grouper(
+                               ~~~~~~~~~~~^
+        obj,
+        ^^^^
+    ...<5 lines>...
+        dropna=self.dropna,
+        ^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\hp\miniconda3\Lib\site-packages\pandas\core\groupby\grouper.py", line 1043, in get_grouper
+    raise KeyError(gpr)
+KeyError: 'timeframe'

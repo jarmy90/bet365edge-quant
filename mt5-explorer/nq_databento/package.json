@@ -1,0 +1,9 @@
+{
+  "name": "tm3-free-market-data-tools",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Free Dukascopy tick acquisition tools for TM3 research; never downloads full history by default",
+  "devDependencies": {
+    "dukascopy-node": "^1.44.0"
+  }
+}

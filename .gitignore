@@ -1,0 +1,65 @@
+# --- Secretos: NUNCA subir ---
+.env
+.env.*
+!.env.example
+
+# --- Credenciales de plataformas ---
+.vercel
+.wrangler
+# wrangler.toml lleva claves LIVE en [vars]: no se sube (el CI no lo necesita).
+# Para publicar secretos en Cloudflare usa: npx wrangler secret put NOMBRE
+wrangler.toml
+
+# --- Dependencias ---
+node_modules/
+
+# --- Trazas y salidas de diagnostico ---
+*.log
+salida_test.txt
+herramientas_salida.txt
+out_client.txt
+env_ls.txt
+# Salidas temporales de las herramientas de diagnostico/publicacion
+scrape*.txt
+gist*.txt
+run*_logs.txt
+deploy_out.txt
+cr_out.txt
+sec_out.txt
+p_out.txt
+v_out.txt
+health_out*.txt
+push_err.txt
+commit_msg.txt
+
+# --- Copias de seguridad / ficheros corruptos ---
+*.bak
+*.bak_v3
+*.broken
+*.corrupt
+
+# --- Volcados de DOM de pruebas ---
+tools_dom*.html
+tools_dom*.txt
+tools_probe_*.html
+
+# --- Bot de Twitter: datos sensibles ---
+# Las cookies de sesión se gestionan como GitHub Secret, no se suben al repo
+edge-futbol/data/x_session_data/
+edge-futbol/data/twitter_posted_history.json
+edge-futbol/data/match_card_temp.png
+edge-futbol/bot_output.log
+
+# --- MT5 explorer: datos pesados (mantener fuera de git por defecto) ---
+mt5-explorer/download/*.csv
+mt5-explorer/vdpm_results/*_trades.csv
+mt5-explorer/vdpm_results/*_signals.csv
+mt5-explorer/vdpm_results/*.log
+mt5-explorer/vdpm_results/*.ex5
+!mt5-explorer/vdpm_results/*.mq5
+!mt5-explorer/vdpm_results/*.py
+!mt5-explorer/vdpm_results/*_summary.csv
+
+# --- Sistema ---
+Thumbs.db
+.DS_Store

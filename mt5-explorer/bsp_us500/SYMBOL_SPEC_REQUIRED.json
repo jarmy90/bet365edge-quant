@@ -1,0 +1,16 @@
+{
+  "status": "REQUIRED_FROM_IC_MARKETS_MT5_SYMBOL_SPECIFICATION",
+  "symbol": null,
+  "tick_size": null,
+  "tick_value_profit": null,
+  "tick_value_loss": null,
+  "contract_size": null,
+  "volume_min": null,
+  "volume_step": null,
+  "volume_max": null,
+  "account_currency": null,
+  "profit_currency": null,
+  "source_server": null,
+  "exported_at_utc": null,
+  "notes": "Fill from the exact IC Markets symbol properties / SymbolInfoDouble export. Do not infer from SPX/USD, USTEC, NSX or NQ naming."
+}
