@@ -2396,8 +2396,8 @@ export default {
                 </div>
             </div>
 
-            <!-- Track Record Banner compacto + Feed de Noticias -->
-            <div style="display:grid; grid-template-columns: 1.1fr 0.9fr; gap:1.2rem;" class="live-grid-responsive">
+            <!-- Track Record Banner -->
+            <div style="display:grid; grid-template-columns: 1fr; gap:1.2rem;">
 
                 <!-- Columna Izquierda: Track Record KPIs en tiempo real -->
                 <div class="stream-inner-card" style="border-radius:14px; padding:1.2rem; display:flex; flex-direction:column; gap:1rem;">
@@ -2446,20 +2446,6 @@ export default {
                         </div>
                     </div>
                     <a href="#trackrecord" style="display:block; text-align:center; font-size:0.72rem; font-weight:700; color:var(--neon-cyan); text-decoration:none; padding:6px; border:1px solid rgba(2,132,199,0.3); border-radius:8px; transition:all 0.2s;" onmouseover="this.style.background='rgba(2,132,199,0.1)'" onmouseout="this.style.background='transparent'">Ver historial completo de 20 combinadas ↓</a>
-                </div>
-
-                <!-- Columna Derecha: Feed vivo de Noticias, Bajas, Clima, Tweets y Goles -->
-                <div class="stream-inner-card" style="border-radius:14px; padding:1.1rem; display:flex; flex-direction:column; height:320px; overflow:hidden;">
-                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.75rem; border-bottom:1px solid var(--border-subtle); padding-bottom:0.5rem;">
-                        <span style="font-size:0.75rem; font-weight:800; color:var(--text-primary); text-transform:uppercase; letter-spacing:0.5px;">FLUJO DE EVENTOS &amp; NOTICIAS</span>
-                        <span style="font-size:0.62rem; background:rgba(13,242,166,0.12); color:var(--neon-emerald); padding:2px 8px; border-radius:10px; font-weight:700;" id="hpFeedSpeed">28 fuentes/min</span>
-                        <span id="hpFeedUpdated" style="font-size:0.62rem; color:var(--text-muted); font-family:JetBrains Mono; margin-left:8px;">Actualizando...</span>
-                    </div>
-
-                    <!-- Lista de noticias dinámicas -->
-                    <div id="homeLiveNewsFeed" style="flex:1; overflow-y:auto; display:flex; flex-direction:column; gap:8px; padding-right:4px;">
-                        <!-- Inyectado por JS -->
-                    </div>
                 </div>
 
             </div>
