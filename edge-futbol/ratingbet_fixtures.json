@@ -1,442 +1,26 @@
 {
   "version": "ratingbet-fixtures-v1",
   "fuente": {
-    "generadoEnUtc": "2026-10-06T16:03:10.945Z",
-    "generadoEnMadrid": "martes, 6 de octubre de 2026, 18:03:10",
+    "generadoEnUtc": "2026-10-06T22:42:53.619Z",
+    "generadoEnMadrid": "miércoles, 7 de octubre de 2026, 0:42:53",
     "zonaHorariaNegocio": "Europe/Madrid",
     "margenMinutos": 30,
     "ventanaMaxDias": 14,
     "fechas": [
-      "2026-10-06",
-      "2026-10-07"
+      "2026-10-07",
+      "2026-10-08"
     ],
     "lineas": [
       "1.5",
       "2.5"
     ],
-    "totalPartidos": 53,
-    "totalCapturadosBrutos": 141,
-    "descartados": 88,
-    "muestraDescartados": [
-      {
-        "clave": "nigeria-vs-russia",
-        "local": "Nigeria",
-        "visitante": "Russia",
-        "hora": "11:00",
-        "motivo": "ya-empezado-o-inminente (margen 30min)"
-      },
-      {
-        "clave": "austria-u21-vs-wales-u21",
-        "local": "Austria U21",
-        "visitante": "Wales U21",
-        "hora": "11:30",
-        "motivo": "ya-empezado-o-inminente (margen 30min)"
-      },
-      {
-        "clave": "belgium-u21-vs-denmark-u21",
-        "local": "Belgium U21",
-        "visitante": "Denmark U21",
-        "hora": "11:30",
-        "motivo": "ya-empezado-o-inminente (margen 30min)"
-      },
-      {
-        "clave": "czech-republic-u21-vs-portugal-u21",
-        "local": "Czechia U21",
-        "visitante": "Portugal U21",
-        "hora": "11:30",
-        "motivo": "ya-empezado-o-inminente (margen 30min)"
-      },
-      {
-        "clave": "bulgaria-u21-vs-scotland-u21",
-        "local": "Bulgaria U21",
-        "visitante": "Scotland U21",
-        "hora": "11:30",
-        "motivo": "ya-empezado-o-inminente (margen 30min)"
-      },
-      {
-        "clave": "israel-u21-vs-norway-u21",
-        "local": "Israel U21",
-        "visitante": "Norway U21",
-        "hora": "11:45",
-        "motivo": "ya-empezado-o-inminente (margen 30min)"
-      },
-      {
-        "clave": "bosnia-and-herzegovina-u21-vs-netherlands-u21",
-        "local": "Bosnia and Herzegovina U21",
-        "visitante": "Netherlands U21",
-        "hora": "11:45",
-        "motivo": "ya-empezado-o-inminente (margen 30min)"
-      },
-      {
-        "clave": "jordan-vs-venezuela",
-        "local": "Jordan",
-        "visitante": "Venezuela",
-        "hora": "12:00",
-        "motivo": "ya-empezado-o-inminente (margen 30min)"
-      },
-      {
-        "clave": "algeria-vs-niger",
-        "local": "Algeria",
-        "visitante": "Niger",
-        "hora": "12:00",
-        "motivo": "ya-empezado-o-inminente (margen 30min)"
-      },
-      {
-        "clave": "centro-espanol-vs-leandro-n-alem",
-        "local": "Centro Espanol",
-        "visitante": "Leandro N. Alem",
-        "hora": "12:00",
-        "motivo": "ya-empezado-o-inminente (margen 30min)"
-      },
-      {
-        "clave": "atlas-3-vs-ca-fenix",
-        "local": "Atlas",
-        "visitante": "CA Fenix",
-        "hora": "12:00",
-        "motivo": "ya-empezado-o-inminente (margen 30min)"
-      },
-      {
-        "clave": "claypole-vs-deportivo-espanol",
-        "local": "Claypole",
-        "visitante": "Deportivo Espanol",
-        "hora": "12:00",
-        "motivo": "ya-empezado-o-inminente (margen 30min)"
-      },
-      {
-        "clave": "central-ballester-vs-deportivo-muniz",
-        "local": "Central Ballester",
-        "visitante": "Deportivo Muniz",
-        "hora": "12:00",
-        "motivo": "ya-empezado-o-inminente (margen 30min)"
-      },
-      {
-        "clave": "hungary-u21-vs-turkey-u21",
-        "local": "Hungary U21",
-        "visitante": "Turkiye U21",
-        "hora": "12:00",
-        "motivo": "ya-empezado-o-inminente (margen 30min)"
-      },
-      {
-        "clave": "croatia-u21-vs-lithuania-u21",
-        "local": "Croatia U21",
-        "visitante": "Lithuania U21",
-        "hora": "12:00",
-        "motivo": "ya-empezado-o-inminente (margen 30min)"
-      },
-      {
-        "clave": "england-u21-vs-ireland-u21",
-        "local": "England U21",
-        "visitante": "Ireland U21",
-        "hora": "12:00",
-        "motivo": "ya-empezado-o-inminente (margen 30min)"
-      },
-      {
-        "clave": "andorra-u21-vs-slovakia-u21",
-        "local": "Andorra U21",
-        "visitante": "Slovakia U21",
-        "hora": "12:00",
-        "motivo": "ya-empezado-o-inminente (margen 30min)"
-      },
-      {
-        "clave": "faroe-islands-u21-vs-iceland-u21",
-        "local": "Faroe Islands U21",
-        "visitante": "Iceland U21",
-        "hora": "12:00",
-        "motivo": "ya-empezado-o-inminente (margen 30min)"
-      },
-      {
-        "clave": "france-u21-vs-switzerland-u21",
-        "local": "France U21",
-        "visitante": "Switzerland U21",
-        "hora": "12:00",
-        "motivo": "ya-empezado-o-inminente (margen 30min)"
-      },
-      {
-        "clave": "estonia-u21-vs-luxembourg-u21",
-        "local": "Estonia U21",
-        "visitante": "Luxembourg U21",
-        "hora": "12:00",
-        "motivo": "ya-empezado-o-inminente (margen 30min)"
-      },
-      {
-        "clave": "finland-u21-vs-kosovo-u21",
-        "local": "Finland U21",
-        "visitante": "Kosovo U21",
-        "hora": "12:00",
-        "motivo": "ya-empezado-o-inminente (margen 30min)"
-      },
-      {
-        "clave": "cyprus-u21-vs-san-marino-u21",
-        "local": "Cyprus U21",
-        "visitante": "San Marino U21",
-        "hora": "12:00",
-        "motivo": "ya-empezado-o-inminente (margen 30min)"
-      },
-      {
-        "clave": "romania-u21-vs-spain-u21",
-        "local": "Romania U21",
-        "visitante": "Spain U21",
-        "hora": "12:00",
-        "motivo": "ya-empezado-o-inminente (margen 30min)"
-      },
-      {
-        "clave": "bristol-rovers-vs-wycombe",
-        "local": "Bristol Rovers",
-        "visitante": "Wycombe",
-        "hora": "13:00",
-        "motivo": "ya-empezado-o-inminente (margen 30min)"
-      },
-      {
-        "clave": "ipswich-academy-vs-peterborough",
-        "local": "Ipswich Academy",
-        "visitante": "Peterborough",
-        "hora": "13:00",
-        "motivo": "ya-empezado-o-inminente (margen 30min)"
-      }
-    ],
+    "totalPartidos": 68,
+    "totalCapturadosBrutos": 68,
+    "descartados": 0,
+    "muestraDescartados": [],
     "incidentes": []
   },
   "partidos": [
-    {
-      "clave": "colombia-vs-peru",
-      "url": "/football/match/colombia-vs-peru/",
-      "liga": "International: Friendly International",
-      "ligaUrl": "/football/friendlies/",
-      "local": "Colombia",
-      "visitante": "Peru",
-      "fecha": "2026-10-06",
-      "hora": "18:45",
-      "kickoffIsoUtc": "2026-10-06T16:45:00.000Z",
-      "kickoffMs": 1791305100000,
-      "zonaHoraria": "Europe/Madrid",
-      "jugado": false,
-      "ordenDomCoincideSlug": true,
-      "confianzaEquipos": 200,
-      "capturadoEnUtc": "2026-10-06T16:03:10.945Z",
-      "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
-      "lineas": {
-        "1.5": {
-          "linea": "1.5",
-          "cuotaOver": 1.29,
-          "probCasaOverPct": 70,
-          "cuotaUnder": 3.04,
-          "probCasaUnderPct": 30,
-          "tip": "O1.5",
-          "tipCuota": 1.29,
-          "tipProbPct": 70
-        },
-        "2.5": {
-          "linea": "2.5",
-          "cuotaOver": 2.09,
-          "probCasaOverPct": 47,
-          "cuotaUnder": 1.84,
-          "probCasaUnderPct": 53,
-          "tip": "U2.5",
-          "tipCuota": 1.84,
-          "tipProbPct": 53
-        }
-      }
-    },
-    {
-      "clave": "canada-vs-usa",
-      "url": "/football/match/canada-vs-usa/",
-      "liga": "International: Friendly International",
-      "ligaUrl": "/football/friendlies/",
-      "local": "Canada",
-      "visitante": "USA",
-      "fecha": "2026-10-06",
-      "hora": "19:00",
-      "kickoffIsoUtc": "2026-10-06T17:00:00.000Z",
-      "kickoffMs": 1791306000000,
-      "zonaHoraria": "Europe/Madrid",
-      "jugado": false,
-      "ordenDomCoincideSlug": false,
-      "confianzaEquipos": 200,
-      "capturadoEnUtc": "2026-10-06T16:03:10.945Z",
-      "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
-      "lineas": {
-        "1.5": {
-          "linea": "1.5",
-          "cuotaOver": 1.16,
-          "probCasaOverPct": 78,
-          "cuotaUnder": 4.1,
-          "probCasaUnderPct": 22,
-          "tip": "O1.5",
-          "tipCuota": 1.16,
-          "tipProbPct": 78
-        },
-        "2.5": {
-          "linea": "2.5",
-          "cuotaOver": 1.72,
-          "probCasaOverPct": 57,
-          "cuotaUnder": 2.29,
-          "probCasaUnderPct": 43,
-          "tip": "O2.5",
-          "tipCuota": 1.72,
-          "tipProbPct": 57
-        }
-      }
-    },
-    {
-      "clave": "chicago-fire-fc-vs-vancouver-whitecaps",
-      "url": "/football/match/chicago-fire-fc-vs-vancouver-whitecaps/",
-      "liga": "USA: MLS USA",
-      "ligaUrl": "/football/usa-major-league-soccer/",
-      "local": "Chicago Fire FC",
-      "visitante": "Vancouver Whitecaps",
-      "fecha": "2026-10-06",
-      "hora": "19:30",
-      "kickoffIsoUtc": "2026-10-06T17:30:00.000Z",
-      "kickoffMs": 1791307800000,
-      "zonaHoraria": "Europe/Madrid",
-      "jugado": false,
-      "ordenDomCoincideSlug": true,
-      "confianzaEquipos": 200,
-      "capturadoEnUtc": "2026-10-06T16:03:10.945Z",
-      "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
-      "lineas": {
-        "1.5": {
-          "linea": "1.5",
-          "cuotaOver": 1.08,
-          "probCasaOverPct": 85,
-          "cuotaUnder": 6.16,
-          "probCasaUnderPct": 15,
-          "tip": "O1.5",
-          "tipCuota": 1.08,
-          "tipProbPct": 85
-        },
-        "2.5": {
-          "linea": "2.5",
-          "cuotaOver": 1.41,
-          "probCasaOverPct": 67,
-          "cuotaUnder": 2.81,
-          "probCasaUnderPct": 33,
-          "tip": "O2.5",
-          "tipCuota": 1.41,
-          "tipProbPct": 67
-        }
-      }
-    },
-    {
-      "clave": "juventude-vs-ponte-preta",
-      "url": "/football/match/juventude-vs-ponte-preta/",
-      "liga": "Brazil: Serie B Brazil",
-      "ligaUrl": "/football/brazil-serie-b/",
-      "local": "Juventude",
-      "visitante": "Ponte Preta",
-      "fecha": "2026-10-06",
-      "hora": "19:35",
-      "kickoffIsoUtc": "2026-10-06T17:35:00.000Z",
-      "kickoffMs": 1791308100000,
-      "zonaHoraria": "Europe/Madrid",
-      "jugado": false,
-      "ordenDomCoincideSlug": false,
-      "confianzaEquipos": 200,
-      "capturadoEnUtc": "2026-10-06T16:03:10.945Z",
-      "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
-      "lineas": {
-        "1.5": {
-          "linea": "1.5",
-          "cuotaOver": 1.21,
-          "probCasaOverPct": 75,
-          "cuotaUnder": 3.58,
-          "probCasaUnderPct": 25,
-          "tip": "O1.5",
-          "tipCuota": 1.21,
-          "tipProbPct": 75
-        },
-        "2.5": {
-          "linea": "2.5",
-          "cuotaOver": 1.78,
-          "probCasaOverPct": 52,
-          "cuotaUnder": 1.95,
-          "probCasaUnderPct": 48,
-          "tip": "O2.5",
-          "tipCuota": 1.78,
-          "tipProbPct": 52
-        }
-      }
-    },
-    {
-      "clave": "belize-vs-french-guiana",
-      "url": "/football/match/belize-vs-french-guiana/",
-      "liga": "International: CONCACAF Nations League",
-      "ligaUrl": null,
-      "local": "Belize",
-      "visitante": "French Guiana",
-      "fecha": "2026-10-06",
-      "hora": "21:00",
-      "kickoffIsoUtc": "2026-10-06T19:00:00.000Z",
-      "kickoffMs": 1791313200000,
-      "zonaHoraria": "Europe/Madrid",
-      "jugado": false,
-      "ordenDomCoincideSlug": false,
-      "confianzaEquipos": 200,
-      "capturadoEnUtc": "2026-10-06T16:03:10.945Z",
-      "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
-      "lineas": {
-        "1.5": {
-          "linea": "1.5",
-          "cuotaOver": 1.33,
-          "probCasaOverPct": 68,
-          "cuotaUnder": 2.81,
-          "probCasaUnderPct": 32,
-          "tip": "O1.5",
-          "tipCuota": 1.33,
-          "tipProbPct": 68
-        },
-        "2.5": {
-          "linea": "2.5",
-          "cuotaOver": 2.17,
-          "probCasaOverPct": 43,
-          "cuotaUnder": 1.63,
-          "probCasaUnderPct": 57,
-          "tip": "U2.5",
-          "tipCuota": 1.63,
-          "tipProbPct": 57
-        }
-      }
-    },
-    {
-      "clave": "chile-vs-mexico",
-      "url": "/football/match/chile-vs-mexico/",
-      "liga": "International: Friendly International",
-      "ligaUrl": "/football/friendlies/",
-      "local": "Chile",
-      "visitante": "Mexico",
-      "fecha": "2026-10-06",
-      "hora": "21:30",
-      "kickoffIsoUtc": "2026-10-06T19:30:00.000Z",
-      "kickoffMs": 1791315000000,
-      "zonaHoraria": "Europe/Madrid",
-      "jugado": false,
-      "ordenDomCoincideSlug": false,
-      "confianzaEquipos": 200,
-      "capturadoEnUtc": "2026-10-06T16:03:10.945Z",
-      "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
-      "lineas": {
-        "1.5": {
-          "linea": "1.5",
-          "cuotaOver": 1.22,
-          "probCasaOverPct": 74,
-          "cuotaUnder": 3.5,
-          "probCasaUnderPct": 26,
-          "tip": "O1.5",
-          "tipCuota": 1.22,
-          "tipProbPct": 74
-        },
-        "2.5": {
-          "linea": "2.5",
-          "cuotaOver": 1.86,
-          "probCasaOverPct": 53,
-          "cuotaUnder": 2.07,
-          "probCasaUnderPct": 47,
-          "tip": "O2.5",
-          "tipCuota": 1.86,
-          "tipProbPct": 53
-        }
-      }
-    },
     {
       "clave": "omiya-ardija-vs-urawa-red-diamonds",
       "url": "/football/match/omiya-ardija-vs-urawa-red-diamonds/",
@@ -452,7 +36,7 @@
       "jugado": false,
       "ordenDomCoincideSlug": false,
       "confianzaEquipos": 180,
-      "capturadoEnUtc": "2026-10-06T16:03:10.945Z",
+      "capturadoEnUtc": "2026-10-06T22:42:53.619Z",
       "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
       "lineas": {
         "1.5": {
@@ -492,7 +76,7 @@
       "jugado": false,
       "ordenDomCoincideSlug": false,
       "confianzaEquipos": 200,
-      "capturadoEnUtc": "2026-10-06T16:03:10.945Z",
+      "capturadoEnUtc": "2026-10-06T22:42:53.619Z",
       "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
       "lineas": {
         "1.5": {
@@ -532,7 +116,7 @@
       "jugado": false,
       "ordenDomCoincideSlug": true,
       "confianzaEquipos": 200,
-      "capturadoEnUtc": "2026-10-06T16:03:10.945Z",
+      "capturadoEnUtc": "2026-10-06T22:42:53.619Z",
       "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
       "lineas": {
         "1.5": {
@@ -572,7 +156,7 @@
       "jugado": false,
       "ordenDomCoincideSlug": true,
       "confianzaEquipos": 200,
-      "capturadoEnUtc": "2026-10-06T16:03:10.945Z",
+      "capturadoEnUtc": "2026-10-06T22:42:53.619Z",
       "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
       "lineas": {
         "1.5": {
@@ -612,7 +196,7 @@
       "jugado": false,
       "ordenDomCoincideSlug": true,
       "confianzaEquipos": 200,
-      "capturadoEnUtc": "2026-10-06T16:03:10.945Z",
+      "capturadoEnUtc": "2026-10-06T22:42:53.619Z",
       "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
       "lineas": {
         "1.5": {
@@ -652,7 +236,7 @@
       "jugado": false,
       "ordenDomCoincideSlug": true,
       "confianzaEquipos": 200,
-      "capturadoEnUtc": "2026-10-06T16:03:10.945Z",
+      "capturadoEnUtc": "2026-10-06T22:42:53.619Z",
       "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
       "lineas": {
         "1.5": {
@@ -692,7 +276,7 @@
       "jugado": false,
       "ordenDomCoincideSlug": true,
       "confianzaEquipos": 200,
-      "capturadoEnUtc": "2026-10-06T16:03:10.945Z",
+      "capturadoEnUtc": "2026-10-06T22:42:53.619Z",
       "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
       "lineas": {
         "1.5": {
@@ -732,7 +316,7 @@
       "jugado": false,
       "ordenDomCoincideSlug": true,
       "confianzaEquipos": 200,
-      "capturadoEnUtc": "2026-10-06T16:03:10.945Z",
+      "capturadoEnUtc": "2026-10-06T22:42:53.619Z",
       "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
       "lineas": {
         "1.5": {
@@ -772,28 +356,28 @@
       "jugado": false,
       "ordenDomCoincideSlug": true,
       "confianzaEquipos": 200,
-      "capturadoEnUtc": "2026-10-06T16:03:10.945Z",
+      "capturadoEnUtc": "2026-10-06T22:42:53.619Z",
       "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
       "lineas": {
         "1.5": {
           "linea": "1.5",
-          "cuotaOver": 1.25,
-          "probCasaOverPct": 72,
-          "cuotaUnder": 3.28,
-          "probCasaUnderPct": 28,
+          "cuotaOver": 1.23,
+          "probCasaOverPct": 74,
+          "cuotaUnder": 3.42,
+          "probCasaUnderPct": 26,
           "tip": "O1.5",
-          "tipCuota": 1.25,
-          "tipProbPct": 72
+          "tipCuota": 1.23,
+          "tipProbPct": 74
         },
         "2.5": {
           "linea": "2.5",
-          "cuotaOver": 1.87,
-          "probCasaOverPct": 50,
-          "cuotaUnder": 1.86,
-          "probCasaUnderPct": 50,
-          "tip": "U2.5",
-          "tipCuota": 1.86,
-          "tipProbPct": 50
+          "cuotaOver": 1.81,
+          "probCasaOverPct": 51,
+          "cuotaUnder": 1.92,
+          "probCasaUnderPct": 49,
+          "tip": "O2.5",
+          "tipCuota": 1.81,
+          "tipProbPct": 51
         }
       }
     },
@@ -812,28 +396,28 @@
       "jugado": false,
       "ordenDomCoincideSlug": false,
       "confianzaEquipos": 200,
-      "capturadoEnUtc": "2026-10-06T16:03:10.945Z",
+      "capturadoEnUtc": "2026-10-06T22:42:53.619Z",
       "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
       "lineas": {
         "1.5": {
           "linea": "1.5",
-          "cuotaOver": 1.21,
-          "probCasaOverPct": 75,
-          "cuotaUnder": 3.58,
-          "probCasaUnderPct": 25,
+          "cuotaOver": 1.18,
+          "probCasaOverPct": 77,
+          "cuotaUnder": 3.9,
+          "probCasaUnderPct": 23,
           "tip": "O1.5",
-          "tipCuota": 1.21,
-          "tipProbPct": 75
+          "tipCuota": 1.18,
+          "tipProbPct": 77
         },
         "2.5": {
           "linea": "2.5",
-          "cuotaOver": 1.74,
-          "probCasaOverPct": 53,
-          "cuotaUnder": 1.94,
-          "probCasaUnderPct": 47,
+          "cuotaOver": 1.66,
+          "probCasaOverPct": 55,
+          "cuotaUnder": 2.05,
+          "probCasaUnderPct": 45,
           "tip": "O2.5",
-          "tipCuota": 1.74,
-          "tipProbPct": 53
+          "tipCuota": 1.66,
+          "tipProbPct": 55
         }
       }
     },
@@ -852,7 +436,7 @@
       "jugado": false,
       "ordenDomCoincideSlug": true,
       "confianzaEquipos": 200,
-      "capturadoEnUtc": "2026-10-06T16:03:10.945Z",
+      "capturadoEnUtc": "2026-10-06T22:42:53.619Z",
       "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
       "lineas": {
         "1.5": {
@@ -892,28 +476,28 @@
       "jugado": false,
       "ordenDomCoincideSlug": true,
       "confianzaEquipos": 100,
-      "capturadoEnUtc": "2026-10-06T16:03:10.945Z",
+      "capturadoEnUtc": "2026-10-06T22:42:53.619Z",
       "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
       "lineas": {
         "1.5": {
           "linea": "1.5",
-          "cuotaOver": 1.17,
-          "probCasaOverPct": 77,
-          "cuotaUnder": 3.98,
-          "probCasaUnderPct": 23,
+          "cuotaOver": 1.15,
+          "probCasaOverPct": 79,
+          "cuotaUnder": 4.25,
+          "probCasaUnderPct": 21,
           "tip": "O1.5",
-          "tipCuota": 1.17,
-          "tipProbPct": 77
+          "tipCuota": 1.15,
+          "tipProbPct": 79
         },
         "2.5": {
           "linea": "2.5",
-          "cuotaOver": 1.67,
-          "probCasaOverPct": 55,
-          "cuotaUnder": 2.04,
-          "probCasaUnderPct": 45,
+          "cuotaOver": 1.61,
+          "probCasaOverPct": 57,
+          "cuotaUnder": 2.13,
+          "probCasaUnderPct": 43,
           "tip": "O2.5",
-          "tipCuota": 1.67,
-          "tipProbPct": 55
+          "tipCuota": 1.61,
+          "tipProbPct": 57
         }
       }
     },
@@ -932,28 +516,28 @@
       "jugado": false,
       "ordenDomCoincideSlug": true,
       "confianzaEquipos": 200,
-      "capturadoEnUtc": "2026-10-06T16:03:10.945Z",
+      "capturadoEnUtc": "2026-10-06T22:42:53.619Z",
       "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
       "lineas": {
         "1.5": {
           "linea": "1.5",
-          "cuotaOver": 1.02,
-          "probCasaOverPct": 91,
-          "cuotaUnder": 10,
-          "probCasaUnderPct": 9,
+          "cuotaOver": 1.03,
+          "probCasaOverPct": 90,
+          "cuotaUnder": 9,
+          "probCasaUnderPct": 10,
           "tip": "O1.5",
-          "tipCuota": 1.02,
-          "tipProbPct": 91
+          "tipCuota": 1.03,
+          "tipProbPct": 90
         },
         "2.5": {
           "linea": "2.5",
-          "cuotaOver": 1.17,
-          "probCasaOverPct": 79,
-          "cuotaUnder": 4.3,
-          "probCasaUnderPct": 21,
+          "cuotaOver": 1.19,
+          "probCasaOverPct": 77,
+          "cuotaUnder": 4,
+          "probCasaUnderPct": 23,
           "tip": "O2.5",
-          "tipCuota": 1.17,
-          "tipProbPct": 79
+          "tipCuota": 1.19,
+          "tipProbPct": 77
         }
       }
     },
@@ -972,7 +556,7 @@
       "jugado": false,
       "ordenDomCoincideSlug": false,
       "confianzaEquipos": 200,
-      "capturadoEnUtc": "2026-10-06T16:03:10.945Z",
+      "capturadoEnUtc": "2026-10-06T22:42:53.619Z",
       "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
       "lineas": {
         "1.5": {
@@ -1012,7 +596,7 @@
       "jugado": false,
       "ordenDomCoincideSlug": false,
       "confianzaEquipos": 100,
-      "capturadoEnUtc": "2026-10-06T16:03:10.945Z",
+      "capturadoEnUtc": "2026-10-06T22:42:53.619Z",
       "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
       "lineas": {
         "1.5": {
@@ -1052,7 +636,7 @@
       "jugado": false,
       "ordenDomCoincideSlug": false,
       "confianzaEquipos": 100,
-      "capturadoEnUtc": "2026-10-06T16:03:10.945Z",
+      "capturadoEnUtc": "2026-10-06T22:42:53.619Z",
       "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
       "lineas": {
         "1.5": {
@@ -1092,7 +676,7 @@
       "jugado": false,
       "ordenDomCoincideSlug": false,
       "confianzaEquipos": 200,
-      "capturadoEnUtc": "2026-10-06T16:03:10.945Z",
+      "capturadoEnUtc": "2026-10-06T22:42:53.619Z",
       "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
       "lineas": {
         "1.5": {
@@ -1132,7 +716,7 @@
       "jugado": false,
       "ordenDomCoincideSlug": false,
       "confianzaEquipos": 200,
-      "capturadoEnUtc": "2026-10-06T16:03:10.945Z",
+      "capturadoEnUtc": "2026-10-06T22:42:53.619Z",
       "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
       "lineas": {
         "2.5": {
@@ -1162,28 +746,28 @@
       "jugado": false,
       "ordenDomCoincideSlug": false,
       "confianzaEquipos": 200,
-      "capturadoEnUtc": "2026-10-06T16:03:10.945Z",
+      "capturadoEnUtc": "2026-10-06T22:42:53.619Z",
       "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
       "lineas": {
         "1.5": {
           "linea": "1.5",
           "cuotaOver": 1.2,
-          "probCasaOverPct": 76,
-          "cuotaUnder": 3.72,
-          "probCasaUnderPct": 24,
+          "probCasaOverPct": 75,
+          "cuotaUnder": 3.68,
+          "probCasaUnderPct": 25,
           "tip": "O1.5",
           "tipCuota": 1.2,
-          "tipProbPct": 76
+          "tipProbPct": 75
         },
         "2.5": {
           "linea": "2.5",
-          "cuotaOver": 1.74,
-          "probCasaOverPct": 54,
-          "cuotaUnder": 2.02,
-          "probCasaUnderPct": 46,
+          "cuotaOver": 1.75,
+          "probCasaOverPct": 53,
+          "cuotaUnder": 2.01,
+          "probCasaUnderPct": 47,
           "tip": "O2.5",
-          "tipCuota": 1.74,
-          "tipProbPct": 54
+          "tipCuota": 1.75,
+          "tipProbPct": 53
         }
       }
     },
@@ -1202,7 +786,7 @@
       "jugado": false,
       "ordenDomCoincideSlug": false,
       "confianzaEquipos": 100,
-      "capturadoEnUtc": "2026-10-06T16:03:10.945Z",
+      "capturadoEnUtc": "2026-10-06T22:42:53.619Z",
       "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
       "lineas": {
         "1.5": {
@@ -1242,7 +826,7 @@
       "jugado": false,
       "ordenDomCoincideSlug": true,
       "confianzaEquipos": 200,
-      "capturadoEnUtc": "2026-10-06T16:03:10.945Z",
+      "capturadoEnUtc": "2026-10-06T22:42:53.619Z",
       "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
       "lineas": {
         "1.5": {
@@ -1282,7 +866,7 @@
       "jugado": false,
       "ordenDomCoincideSlug": null,
       "confianzaEquipos": 0,
-      "capturadoEnUtc": "2026-10-06T16:03:10.945Z",
+      "capturadoEnUtc": "2026-10-06T22:42:53.619Z",
       "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
       "lineas": {
         "1.5": {
@@ -1322,27 +906,27 @@
       "jugado": false,
       "ordenDomCoincideSlug": true,
       "confianzaEquipos": 200,
-      "capturadoEnUtc": "2026-10-06T16:03:10.945Z",
+      "capturadoEnUtc": "2026-10-06T22:42:53.619Z",
       "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
       "lineas": {
         "1.5": {
           "linea": "1.5",
-          "cuotaOver": 1.44,
-          "probCasaOverPct": 63,
-          "cuotaUnder": 2.42,
-          "probCasaUnderPct": 37,
+          "cuotaOver": 1.45,
+          "probCasaOverPct": 62,
+          "cuotaUnder": 2.41,
+          "probCasaUnderPct": 38,
           "tip": "O1.5",
-          "tipCuota": 1.44,
-          "tipProbPct": 63
+          "tipCuota": 1.45,
+          "tipProbPct": 62
         },
         "2.5": {
           "linea": "2.5",
-          "cuotaOver": 2.41,
+          "cuotaOver": 2.44,
           "probCasaOverPct": 38,
-          "cuotaUnder": 1.48,
+          "cuotaUnder": 1.47,
           "probCasaUnderPct": 62,
           "tip": "U2.5",
-          "tipCuota": 1.48,
+          "tipCuota": 1.47,
           "tipProbPct": 62
         }
       }
@@ -1362,7 +946,7 @@
       "jugado": false,
       "ordenDomCoincideSlug": true,
       "confianzaEquipos": 200,
-      "capturadoEnUtc": "2026-10-06T16:03:10.945Z",
+      "capturadoEnUtc": "2026-10-06T22:42:53.619Z",
       "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
       "lineas": {
         "1.5": {
@@ -1402,7 +986,7 @@
       "jugado": false,
       "ordenDomCoincideSlug": true,
       "confianzaEquipos": 200,
-      "capturadoEnUtc": "2026-10-06T16:03:10.945Z",
+      "capturadoEnUtc": "2026-10-06T22:42:53.619Z",
       "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
       "lineas": {
         "1.5": {
@@ -1442,7 +1026,7 @@
       "jugado": false,
       "ordenDomCoincideSlug": true,
       "confianzaEquipos": 200,
-      "capturadoEnUtc": "2026-10-06T16:03:10.945Z",
+      "capturadoEnUtc": "2026-10-06T22:42:53.619Z",
       "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
       "lineas": {
         "1.5": {
@@ -1457,12 +1041,12 @@
         },
         "2.5": {
           "linea": "2.5",
-          "cuotaOver": 1.51,
+          "cuotaOver": 1.5,
           "probCasaOverPct": 60,
-          "cuotaUnder": 2.26,
+          "cuotaUnder": 2.28,
           "probCasaUnderPct": 40,
           "tip": "O2.5",
-          "tipCuota": 1.51,
+          "tipCuota": 1.5,
           "tipProbPct": 60
         }
       }
@@ -1482,27 +1066,27 @@
       "jugado": false,
       "ordenDomCoincideSlug": true,
       "confianzaEquipos": 200,
-      "capturadoEnUtc": "2026-10-06T16:03:10.945Z",
+      "capturadoEnUtc": "2026-10-06T22:42:53.619Z",
       "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
       "lineas": {
         "1.5": {
           "linea": "1.5",
-          "cuotaOver": 1.3,
+          "cuotaOver": 1.29,
           "probCasaOverPct": 70,
-          "cuotaUnder": 2.97,
+          "cuotaUnder": 3.04,
           "probCasaUnderPct": 30,
           "tip": "O1.5",
-          "tipCuota": 1.3,
+          "tipCuota": 1.29,
           "tipProbPct": 70
         },
         "2.5": {
           "linea": "2.5",
-          "cuotaOver": 1.95,
+          "cuotaOver": 1.94,
           "probCasaOverPct": 47,
-          "cuotaUnder": 1.73,
+          "cuotaUnder": 1.74,
           "probCasaUnderPct": 53,
           "tip": "U2.5",
-          "tipCuota": 1.73,
+          "tipCuota": 1.74,
           "tipProbPct": 53
         }
       }
@@ -1522,7 +1106,7 @@
       "jugado": false,
       "ordenDomCoincideSlug": false,
       "confianzaEquipos": 100,
-      "capturadoEnUtc": "2026-10-06T16:03:10.945Z",
+      "capturadoEnUtc": "2026-10-06T22:42:53.619Z",
       "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
       "lineas": {
         "1.5": {
@@ -1562,7 +1146,7 @@
       "jugado": false,
       "ordenDomCoincideSlug": false,
       "confianzaEquipos": 200,
-      "capturadoEnUtc": "2026-10-06T16:03:10.945Z",
+      "capturadoEnUtc": "2026-10-06T22:42:53.619Z",
       "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
       "lineas": {
         "1.5": {
@@ -1602,7 +1186,7 @@
       "jugado": false,
       "ordenDomCoincideSlug": true,
       "confianzaEquipos": 200,
-      "capturadoEnUtc": "2026-10-06T16:03:10.945Z",
+      "capturadoEnUtc": "2026-10-06T22:42:53.619Z",
       "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
       "lineas": {
         "1.5": {
@@ -1642,28 +1226,28 @@
       "jugado": false,
       "ordenDomCoincideSlug": false,
       "confianzaEquipos": 200,
-      "capturadoEnUtc": "2026-10-06T16:03:10.945Z",
+      "capturadoEnUtc": "2026-10-06T22:42:53.619Z",
       "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
       "lineas": {
         "1.5": {
           "linea": "1.5",
-          "cuotaOver": 1.25,
-          "probCasaOverPct": 72,
-          "cuotaUnder": 3.28,
-          "probCasaUnderPct": 28,
+          "cuotaOver": 1.28,
+          "probCasaOverPct": 71,
+          "cuotaUnder": 3.08,
+          "probCasaUnderPct": 29,
           "tip": "O1.5",
-          "tipCuota": 1.25,
-          "tipProbPct": 72
+          "tipCuota": 1.28,
+          "tipProbPct": 71
         },
         "2.5": {
           "linea": "2.5",
-          "cuotaOver": 1.87,
-          "probCasaOverPct": 50,
-          "cuotaUnder": 1.86,
-          "probCasaUnderPct": 50,
+          "cuotaOver": 1.97,
+          "probCasaOverPct": 47,
+          "cuotaUnder": 1.77,
+          "probCasaUnderPct": 53,
           "tip": "U2.5",
-          "tipCuota": 1.86,
-          "tipProbPct": 50
+          "tipCuota": 1.77,
+          "tipProbPct": 53
         }
       }
     },
@@ -1682,28 +1266,28 @@
       "jugado": false,
       "ordenDomCoincideSlug": true,
       "confianzaEquipos": 200,
-      "capturadoEnUtc": "2026-10-06T16:03:10.945Z",
+      "capturadoEnUtc": "2026-10-06T22:42:53.619Z",
       "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
       "lineas": {
         "1.5": {
           "linea": "1.5",
-          "cuotaOver": 1.42,
-          "probCasaOverPct": 64,
-          "cuotaUnder": 2.49,
-          "probCasaUnderPct": 36,
+          "cuotaOver": 1.36,
+          "probCasaOverPct": 67,
+          "cuotaUnder": 2.7,
+          "probCasaUnderPct": 33,
           "tip": "O1.5",
-          "tipCuota": 1.42,
-          "tipProbPct": 64
+          "tipCuota": 1.36,
+          "tipProbPct": 67
         },
         "2.5": {
           "linea": "2.5",
-          "cuotaOver": 2.38,
-          "probCasaOverPct": 39,
-          "cuotaUnder": 1.49,
-          "probCasaUnderPct": 61,
+          "cuotaOver": 2.2,
+          "probCasaOverPct": 42,
+          "cuotaUnder": 1.57,
+          "probCasaUnderPct": 58,
           "tip": "U2.5",
-          "tipCuota": 1.49,
-          "tipProbPct": 62
+          "tipCuota": 1.57,
+          "tipProbPct": 58
         }
       }
     },
@@ -1722,7 +1306,7 @@
       "jugado": false,
       "ordenDomCoincideSlug": false,
       "confianzaEquipos": 200,
-      "capturadoEnUtc": "2026-10-06T16:03:10.945Z",
+      "capturadoEnUtc": "2026-10-06T22:42:53.619Z",
       "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
       "lineas": {
         "1.5": {
@@ -1762,7 +1346,7 @@
       "jugado": false,
       "ordenDomCoincideSlug": false,
       "confianzaEquipos": 200,
-      "capturadoEnUtc": "2026-10-06T16:03:10.945Z",
+      "capturadoEnUtc": "2026-10-06T22:42:53.619Z",
       "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
       "lineas": {
         "1.5": {
@@ -1802,7 +1386,7 @@
       "jugado": false,
       "ordenDomCoincideSlug": false,
       "confianzaEquipos": 200,
-      "capturadoEnUtc": "2026-10-06T16:03:10.945Z",
+      "capturadoEnUtc": "2026-10-06T22:42:53.619Z",
       "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
       "lineas": {
         "1.5": {
@@ -1842,7 +1426,7 @@
       "jugado": false,
       "ordenDomCoincideSlug": true,
       "confianzaEquipos": 200,
-      "capturadoEnUtc": "2026-10-06T16:03:10.945Z",
+      "capturadoEnUtc": "2026-10-06T22:42:53.619Z",
       "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
       "lineas": {
         "1.5": {
@@ -1882,17 +1466,17 @@
       "jugado": false,
       "ordenDomCoincideSlug": false,
       "confianzaEquipos": 200,
-      "capturadoEnUtc": "2026-10-06T16:03:10.945Z",
+      "capturadoEnUtc": "2026-10-06T22:42:53.619Z",
       "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
       "lineas": {
         "1.5": {
           "linea": "1.5",
-          "cuotaOver": 1.32,
+          "cuotaOver": 1.31,
           "probCasaOverPct": 69,
-          "cuotaUnder": 2.88,
+          "cuotaUnder": 2.92,
           "probCasaUnderPct": 31,
           "tip": "O1.5",
-          "tipCuota": 1.32,
+          "tipCuota": 1.31,
           "tipProbPct": 69
         },
         "2.5": {
@@ -1922,7 +1506,7 @@
       "jugado": false,
       "ordenDomCoincideSlug": false,
       "confianzaEquipos": 200,
-      "capturadoEnUtc": "2026-10-06T16:03:10.945Z",
+      "capturadoEnUtc": "2026-10-06T22:42:53.619Z",
       "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
       "lineas": {
         "1.5": {
@@ -1962,7 +1546,7 @@
       "jugado": false,
       "ordenDomCoincideSlug": true,
       "confianzaEquipos": 200,
-      "capturadoEnUtc": "2026-10-06T16:03:10.945Z",
+      "capturadoEnUtc": "2026-10-06T22:42:53.619Z",
       "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
       "lineas": {
         "1.5": {
@@ -2002,7 +1586,7 @@
       "jugado": false,
       "ordenDomCoincideSlug": true,
       "confianzaEquipos": 200,
-      "capturadoEnUtc": "2026-10-06T16:03:10.945Z",
+      "capturadoEnUtc": "2026-10-06T22:42:53.619Z",
       "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
       "lineas": {
         "1.5": {
@@ -2042,7 +1626,7 @@
       "jugado": false,
       "ordenDomCoincideSlug": false,
       "confianzaEquipos": 200,
-      "capturadoEnUtc": "2026-10-06T16:03:10.945Z",
+      "capturadoEnUtc": "2026-10-06T22:42:53.619Z",
       "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
       "lineas": {
         "1.5": {
@@ -2082,7 +1666,7 @@
       "jugado": false,
       "ordenDomCoincideSlug": true,
       "confianzaEquipos": 200,
-      "capturadoEnUtc": "2026-10-06T16:03:10.945Z",
+      "capturadoEnUtc": "2026-10-06T22:42:53.619Z",
       "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
       "lineas": {
         "1.5": {
@@ -2122,7 +1706,7 @@
       "jugado": false,
       "ordenDomCoincideSlug": false,
       "confianzaEquipos": 200,
-      "capturadoEnUtc": "2026-10-06T16:03:10.945Z",
+      "capturadoEnUtc": "2026-10-06T22:42:53.619Z",
       "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
       "lineas": {
         "1.5": {
@@ -2162,28 +1746,28 @@
       "jugado": false,
       "ordenDomCoincideSlug": false,
       "confianzaEquipos": 200,
-      "capturadoEnUtc": "2026-10-06T16:03:10.945Z",
+      "capturadoEnUtc": "2026-10-06T22:42:53.619Z",
       "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
       "lineas": {
         "1.5": {
           "linea": "1.5",
-          "cuotaOver": 1.26,
+          "cuotaOver": 1.25,
           "probCasaOverPct": 72,
-          "cuotaUnder": 3.2,
+          "cuotaUnder": 3.28,
           "probCasaUnderPct": 28,
           "tip": "O1.5",
-          "tipCuota": 1.26,
+          "tipCuota": 1.25,
           "tipProbPct": 72
         },
         "2.5": {
           "linea": "2.5",
-          "cuotaOver": 1.94,
-          "probCasaOverPct": 48,
-          "cuotaUnder": 1.79,
-          "probCasaUnderPct": 52,
+          "cuotaOver": 1.92,
+          "probCasaOverPct": 49,
+          "cuotaUnder": 1.81,
+          "probCasaUnderPct": 51,
           "tip": "U2.5",
-          "tipCuota": 1.79,
-          "tipProbPct": 52
+          "tipCuota": 1.81,
+          "tipProbPct": 51
         }
       }
     },
@@ -2202,7 +1786,7 @@
       "jugado": false,
       "ordenDomCoincideSlug": true,
       "confianzaEquipos": 200,
-      "capturadoEnUtc": "2026-10-06T16:03:10.945Z",
+      "capturadoEnUtc": "2026-10-06T22:42:53.619Z",
       "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
       "lineas": {
         "1.5": {
@@ -2242,7 +1826,7 @@
       "jugado": false,
       "ordenDomCoincideSlug": true,
       "confianzaEquipos": 200,
-      "capturadoEnUtc": "2026-10-06T16:03:10.945Z",
+      "capturadoEnUtc": "2026-10-06T22:42:53.619Z",
       "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
       "lineas": {
         "1.5": {
@@ -2282,7 +1866,7 @@
       "jugado": false,
       "ordenDomCoincideSlug": true,
       "confianzaEquipos": 200,
-      "capturadoEnUtc": "2026-10-06T16:03:10.945Z",
+      "capturadoEnUtc": "2026-10-06T22:42:53.619Z",
       "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
       "lineas": {
         "1.5": {
@@ -2304,6 +1888,836 @@
           "tip": "O2.5",
           "tipCuota": 1.77,
           "tipProbPct": 53
+        }
+      }
+    },
+    {
+      "clave": "hjk-vs-vps",
+      "url": "/football/match/hjk-vs-vps/",
+      "liga": "Finland: Veikkausliiga Finland",
+      "ligaUrl": null,
+      "local": "HJK",
+      "visitante": "VPS",
+      "fecha": "2026-10-08",
+      "hora": "10:00",
+      "kickoffIsoUtc": "2026-10-08T08:00:00.000Z",
+      "kickoffMs": 1791446400000,
+      "zonaHoraria": "Europe/Madrid",
+      "jugado": false,
+      "ordenDomCoincideSlug": true,
+      "confianzaEquipos": 200,
+      "capturadoEnUtc": "2026-10-06T22:42:53.619Z",
+      "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
+      "lineas": {
+        "1.5": {
+          "linea": "1.5",
+          "cuotaOver": 1.16,
+          "probCasaOverPct": 78,
+          "cuotaUnder": 4.2,
+          "probCasaUnderPct": 22,
+          "tip": "O1.5",
+          "tipCuota": 1.16,
+          "tipProbPct": 78
+        },
+        "2.5": {
+          "linea": "2.5",
+          "cuotaOver": 1.65,
+          "probCasaOverPct": 57,
+          "cuotaUnder": 2.15,
+          "probCasaUnderPct": 43,
+          "tip": "O2.5",
+          "tipCuota": 1.65,
+          "tipProbPct": 57
+        }
+      }
+    },
+    {
+      "clave": "asu-politehnica-timisoara-vs-steaua-bucuresti",
+      "url": "/football/match/asu-politehnica-timisoara-vs-steaua-bucuresti/",
+      "liga": "Romania: Liga 2 Romania",
+      "ligaUrl": null,
+      "local": "ASU Politehnica Timisoara",
+      "visitante": "Steaua Bucuresti",
+      "fecha": "2026-10-08",
+      "hora": "10:00",
+      "kickoffIsoUtc": "2026-10-08T08:00:00.000Z",
+      "kickoffMs": 1791446400000,
+      "zonaHoraria": "Europe/Madrid",
+      "jugado": false,
+      "ordenDomCoincideSlug": true,
+      "confianzaEquipos": 200,
+      "capturadoEnUtc": "2026-10-06T22:42:53.619Z",
+      "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
+      "lineas": {
+        "1.5": {
+          "linea": "1.5",
+          "cuotaOver": 1.23,
+          "probCasaOverPct": 74,
+          "cuotaUnder": 3.42,
+          "probCasaUnderPct": 26,
+          "tip": "O1.5",
+          "tipCuota": 1.23,
+          "tipProbPct": 74
+        },
+        "2.5": {
+          "linea": "2.5",
+          "cuotaOver": 1.79,
+          "probCasaOverPct": 51,
+          "cuotaUnder": 1.88,
+          "probCasaUnderPct": 49,
+          "tip": "O2.5",
+          "tipCuota": 1.79,
+          "tipProbPct": 51
+        }
+      }
+    },
+    {
+      "clave": "al-mosul-vs-al-quwa-al-jawiya",
+      "url": "/football/match/al-mosul-vs-al-quwa-al-jawiya/",
+      "liga": "Iraq: Premier League Iraq",
+      "ligaUrl": null,
+      "local": "Al-Mosul",
+      "visitante": "Al Quwa Al Jawiya",
+      "fecha": "2026-10-08",
+      "hora": "10:00",
+      "kickoffIsoUtc": "2026-10-08T08:00:00.000Z",
+      "kickoffMs": 1791446400000,
+      "zonaHoraria": "Europe/Madrid",
+      "jugado": false,
+      "ordenDomCoincideSlug": true,
+      "confianzaEquipos": 200,
+      "capturadoEnUtc": "2026-10-06T22:42:53.619Z",
+      "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
+      "lineas": {
+        "2.5": {
+          "linea": "2.5",
+          "cuotaOver": 2.15,
+          "probCasaOverPct": 44,
+          "cuotaUnder": 1.66,
+          "probCasaUnderPct": 56,
+          "tip": "U2.5",
+          "tipCuota": 1.66,
+          "tipProbPct": 56
+        }
+      }
+    },
+    {
+      "clave": "ac-oulu-vs-kups",
+      "url": "/football/match/ac-oulu-vs-kups/",
+      "liga": "Finland: Veikkausliiga Finland",
+      "ligaUrl": null,
+      "local": "AC Oulu",
+      "visitante": "KuPS",
+      "fecha": "2026-10-08",
+      "hora": "11:00",
+      "kickoffIsoUtc": "2026-10-08T09:00:00.000Z",
+      "kickoffMs": 1791450000000,
+      "zonaHoraria": "Europe/Madrid",
+      "jugado": false,
+      "ordenDomCoincideSlug": false,
+      "confianzaEquipos": 200,
+      "capturadoEnUtc": "2026-10-06T22:42:53.619Z",
+      "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
+      "lineas": {
+        "1.5": {
+          "linea": "1.5",
+          "cuotaOver": 1.24,
+          "probCasaOverPct": 73,
+          "cuotaUnder": 3.34,
+          "probCasaUnderPct": 27,
+          "tip": "O1.5",
+          "tipCuota": 1.24,
+          "tipProbPct": 73
+        },
+        "2.5": {
+          "linea": "2.5",
+          "cuotaOver": 1.85,
+          "probCasaOverPct": 51,
+          "cuotaUnder": 1.89,
+          "probCasaUnderPct": 49,
+          "tip": "O2.5",
+          "tipCuota": 1.85,
+          "tipProbPct": 51
+        }
+      }
+    },
+    {
+      "clave": "js-saoura-vs-olympique-akbou",
+      "url": "/football/match/js-saoura-vs-olympique-akbou/",
+      "liga": "Algeria: Ligue 1 Algeria",
+      "ligaUrl": "/football/algeria-ligue-1/",
+      "local": "JS Saoura",
+      "visitante": "Olympique Akbou",
+      "fecha": "2026-10-08",
+      "hora": "12:00",
+      "kickoffIsoUtc": "2026-10-08T10:00:00.000Z",
+      "kickoffMs": 1791453600000,
+      "zonaHoraria": "Europe/Madrid",
+      "jugado": false,
+      "ordenDomCoincideSlug": true,
+      "confianzaEquipos": 200,
+      "capturadoEnUtc": "2026-10-06T22:42:53.619Z",
+      "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
+      "lineas": {
+        "1.5": {
+          "linea": "1.5",
+          "cuotaOver": 1.42,
+          "probCasaOverPct": 64,
+          "cuotaUnder": 2.49,
+          "probCasaUnderPct": 36,
+          "tip": "O1.5",
+          "tipCuota": 1.42,
+          "tipProbPct": 64
+        },
+        "2.5": {
+          "linea": "2.5",
+          "cuotaOver": 2.33,
+          "probCasaOverPct": 39,
+          "cuotaUnder": 1.51,
+          "probCasaUnderPct": 61,
+          "tip": "U2.5",
+          "tipCuota": 1.51,
+          "tipProbPct": 61
+        }
+      }
+    },
+    {
+      "clave": "mb-rouissat-vs-usm-alger",
+      "url": "/football/match/mb-rouissat-vs-usm-alger/",
+      "liga": "Algeria: Ligue 1 Algeria",
+      "ligaUrl": "/football/algeria-ligue-1/",
+      "local": "MB Rouissat",
+      "visitante": "USM Alger",
+      "fecha": "2026-10-08",
+      "hora": "12:00",
+      "kickoffIsoUtc": "2026-10-08T10:00:00.000Z",
+      "kickoffMs": 1791453600000,
+      "zonaHoraria": "Europe/Madrid",
+      "jugado": false,
+      "ordenDomCoincideSlug": true,
+      "confianzaEquipos": 200,
+      "capturadoEnUtc": "2026-10-06T22:42:53.619Z",
+      "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
+      "lineas": {
+        "1.5": {
+          "linea": "1.5",
+          "cuotaOver": 1.54,
+          "probCasaOverPct": 60,
+          "cuotaUnder": 2.27,
+          "probCasaUnderPct": 40,
+          "tip": "O1.5",
+          "tipCuota": 1.54,
+          "tipProbPct": 60
+        },
+        "2.5": {
+          "linea": "2.5",
+          "cuotaOver": 2.62,
+          "probCasaOverPct": 35,
+          "cuotaUnder": 1.38,
+          "probCasaUnderPct": 65,
+          "tip": "U2.5",
+          "tipCuota": 1.38,
+          "tipProbPct": 66
+        }
+      }
+    },
+    {
+      "clave": "independiente-juniors-vs-nueve-de-octubre",
+      "url": "/football/match/independiente-juniors-vs-nueve-de-octubre/",
+      "liga": "Ecuador: Serie B Ecuador",
+      "ligaUrl": null,
+      "local": "Independiente Juniors",
+      "visitante": "Nueve de Octubre",
+      "fecha": "2026-10-08",
+      "hora": "12:00",
+      "kickoffIsoUtc": "2026-10-08T10:00:00.000Z",
+      "kickoffMs": 1791453600000,
+      "zonaHoraria": "Europe/Madrid",
+      "jugado": false,
+      "ordenDomCoincideSlug": true,
+      "confianzaEquipos": 200,
+      "capturadoEnUtc": "2026-10-06T22:42:53.619Z",
+      "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
+      "lineas": {
+        "1.5": {
+          "linea": "1.5",
+          "cuotaOver": 1.57,
+          "probCasaOverPct": 58,
+          "cuotaUnder": 2.2,
+          "probCasaUnderPct": 42,
+          "tip": "O1.5",
+          "tipCuota": 1.57,
+          "tipProbPct": 58
+        },
+        "2.5": {
+          "linea": "2.5",
+          "cuotaOver": 2.7,
+          "probCasaOverPct": 34,
+          "cuotaUnder": 1.36,
+          "probCasaUnderPct": 66,
+          "tip": "U2.5",
+          "tipCuota": 1.36,
+          "tipProbPct": 67
+        }
+      }
+    },
+    {
+      "clave": "cfr-cluj-vs-universitatea-cluj",
+      "url": "/football/match/cfr-cluj-vs-universitatea-cluj/",
+      "liga": "Romania: Liga 1 Romania",
+      "ligaUrl": null,
+      "local": "CFR Cluj",
+      "visitante": "Universitatea Cluj",
+      "fecha": "2026-10-08",
+      "hora": "12:30",
+      "kickoffIsoUtc": "2026-10-08T10:30:00.000Z",
+      "kickoffMs": 1791455400000,
+      "zonaHoraria": "Europe/Madrid",
+      "jugado": false,
+      "ordenDomCoincideSlug": true,
+      "confianzaEquipos": 200,
+      "capturadoEnUtc": "2026-10-06T22:42:53.619Z",
+      "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
+      "lineas": {
+        "1.5": {
+          "linea": "1.5",
+          "cuotaOver": 1.21,
+          "probCasaOverPct": 75,
+          "cuotaUnder": 3.58,
+          "probCasaUnderPct": 25,
+          "tip": "O1.5",
+          "tipCuota": 1.21,
+          "tipProbPct": 75
+        },
+        "2.5": {
+          "linea": "2.5",
+          "cuotaOver": 1.77,
+          "probCasaOverPct": 53,
+          "cuotaUnder": 1.97,
+          "probCasaUnderPct": 47,
+          "tip": "O2.5",
+          "tipCuota": 1.77,
+          "tipProbPct": 53
+        }
+      }
+    },
+    {
+      "clave": "cienciano-vs-universidad-cesar-vallejo-moquegua",
+      "url": "/football/match/cienciano-vs-universidad-cesar-vallejo-moquegua/",
+      "liga": "Peru: Liga 1 Peru",
+      "ligaUrl": null,
+      "local": "Cienciano",
+      "visitante": "Club Deportivo Moquegua",
+      "fecha": "2026-10-08",
+      "hora": "13:00",
+      "kickoffIsoUtc": "2026-10-08T11:00:00.000Z",
+      "kickoffMs": 1791457200000,
+      "zonaHoraria": "Europe/Madrid",
+      "jugado": false,
+      "ordenDomCoincideSlug": false,
+      "confianzaEquipos": 100,
+      "capturadoEnUtc": "2026-10-06T22:42:53.619Z",
+      "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
+      "lineas": {
+        "1.5": {
+          "linea": "1.5",
+          "cuotaOver": 1.24,
+          "probCasaOverPct": 73,
+          "cuotaUnder": 3.34,
+          "probCasaUnderPct": 27,
+          "tip": "O1.5",
+          "tipCuota": 1.24,
+          "tipProbPct": 73
+        },
+        "2.5": {
+          "linea": "2.5",
+          "cuotaOver": 1.83,
+          "probCasaOverPct": 51,
+          "cuotaUnder": 1.89,
+          "probCasaUnderPct": 49,
+          "tip": "O2.5",
+          "tipCuota": 1.83,
+          "tipProbPct": 51
+        }
+      }
+    },
+    {
+      "clave": "es-setif-vs-mc-oran",
+      "url": "/football/match/es-setif-vs-mc-oran/",
+      "liga": "Algeria: Ligue 1 Algeria",
+      "ligaUrl": "/football/algeria-ligue-1/",
+      "local": "ES Setif",
+      "visitante": "MC Oran",
+      "fecha": "2026-10-08",
+      "hora": "14:00",
+      "kickoffIsoUtc": "2026-10-08T12:00:00.000Z",
+      "kickoffMs": 1791460800000,
+      "zonaHoraria": "Europe/Madrid",
+      "jugado": false,
+      "ordenDomCoincideSlug": false,
+      "confianzaEquipos": 200,
+      "capturadoEnUtc": "2026-10-06T22:42:53.619Z",
+      "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
+      "lineas": {
+        "1.5": {
+          "linea": "1.5",
+          "cuotaOver": 1.48,
+          "probCasaOverPct": 62,
+          "cuotaUnder": 2.41,
+          "probCasaUnderPct": 38,
+          "tip": "O1.5",
+          "tipCuota": 1.48,
+          "tipProbPct": 62
+        },
+        "2.5": {
+          "linea": "2.5",
+          "cuotaOver": 2.46,
+          "probCasaOverPct": 37,
+          "cuotaUnder": 1.43,
+          "probCasaUnderPct": 63,
+          "tip": "U2.5",
+          "tipCuota": 1.43,
+          "tipProbPct": 63
+        }
+      }
+    },
+    {
+      "clave": "drogheda-united-vs-shamrock-rovers",
+      "url": "/football/match/drogheda-united-vs-shamrock-rovers/",
+      "liga": "Ireland: Premier Division Ireland",
+      "ligaUrl": "/football/ireland-premier-division/",
+      "local": "Drogheda United",
+      "visitante": "Shamrock Rovers",
+      "fecha": "2026-10-08",
+      "hora": "14:00",
+      "kickoffIsoUtc": "2026-10-08T12:00:00.000Z",
+      "kickoffMs": 1791460800000,
+      "zonaHoraria": "Europe/Madrid",
+      "jugado": false,
+      "ordenDomCoincideSlug": false,
+      "confianzaEquipos": 200,
+      "capturadoEnUtc": "2026-10-06T22:42:53.619Z",
+      "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
+      "lineas": {
+        "1.5": {
+          "linea": "1.5",
+          "cuotaOver": 1.17,
+          "probCasaOverPct": 77,
+          "cuotaUnder": 3.95,
+          "probCasaUnderPct": 23,
+          "tip": "O1.5",
+          "tipCuota": 1.17,
+          "tipProbPct": 77
+        },
+        "2.5": {
+          "linea": "2.5",
+          "cuotaOver": 1.7,
+          "probCasaOverPct": 55,
+          "cuotaUnder": 2.08,
+          "probCasaUnderPct": 45,
+          "tip": "O2.5",
+          "tipCuota": 1.7,
+          "tipProbPct": 55
+        }
+      }
+    },
+    {
+      "clave": "atletico-grau-vs-los-chankas",
+      "url": "/football/match/atletico-grau-vs-los-chankas/",
+      "liga": "Peru: Liga 1 Peru",
+      "ligaUrl": null,
+      "local": "Atletico Grau",
+      "visitante": "Los Chankas",
+      "fecha": "2026-10-08",
+      "hora": "15:30",
+      "kickoffIsoUtc": "2026-10-08T13:30:00.000Z",
+      "kickoffMs": 1791466200000,
+      "zonaHoraria": "Europe/Madrid",
+      "jugado": false,
+      "ordenDomCoincideSlug": true,
+      "confianzaEquipos": 200,
+      "capturadoEnUtc": "2026-10-06T22:42:53.619Z",
+      "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
+      "lineas": {
+        "1.5": {
+          "linea": "1.5",
+          "cuotaOver": 1.25,
+          "probCasaOverPct": 72,
+          "cuotaUnder": 3.28,
+          "probCasaUnderPct": 28,
+          "tip": "O1.5",
+          "tipCuota": 1.25,
+          "tipProbPct": 72
+        },
+        "2.5": {
+          "linea": "2.5",
+          "cuotaOver": 1.91,
+          "probCasaOverPct": 49,
+          "cuotaUnder": 1.82,
+          "probCasaUnderPct": 51,
+          "tip": "U2.5",
+          "tipCuota": 1.82,
+          "tipProbPct": 51
+        }
+      }
+    },
+    {
+      "clave": "flamengo-vs-santos-fc",
+      "url": "/football/match/flamengo-vs-santos-fc/",
+      "liga": "Brazil: Serie A Brazil",
+      "ligaUrl": "/football/brazil-serie-a/",
+      "local": "Flamengo",
+      "visitante": "Santos FC",
+      "fecha": "2026-10-08",
+      "hora": "17:30",
+      "kickoffIsoUtc": "2026-10-08T15:30:00.000Z",
+      "kickoffMs": 1791473400000,
+      "zonaHoraria": "Europe/Madrid",
+      "jugado": false,
+      "ordenDomCoincideSlug": false,
+      "confianzaEquipos": 200,
+      "capturadoEnUtc": "2026-10-06T22:42:53.619Z",
+      "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
+      "lineas": {
+        "1.5": {
+          "linea": "1.5",
+          "cuotaOver": 1.21,
+          "probCasaOverPct": 75,
+          "cuotaUnder": 3.58,
+          "probCasaUnderPct": 25,
+          "tip": "O1.5",
+          "tipCuota": 1.21,
+          "tipProbPct": 75
+        },
+        "2.5": {
+          "linea": "2.5",
+          "cuotaOver": 1.81,
+          "probCasaOverPct": 53,
+          "cuotaUnder": 2.04,
+          "probCasaUnderPct": 47,
+          "tip": "O2.5",
+          "tipCuota": 1.81,
+          "tipProbPct": 53
+        }
+      }
+    },
+    {
+      "clave": "nautico-vs-novorizontino",
+      "url": "/football/match/nautico-vs-novorizontino/",
+      "liga": "Brazil: Serie B Brazil",
+      "ligaUrl": "/football/brazil-serie-b/",
+      "local": "Nautico",
+      "visitante": "Novorizontino",
+      "fecha": "2026-10-08",
+      "hora": "17:30",
+      "kickoffIsoUtc": "2026-10-08T15:30:00.000Z",
+      "kickoffMs": 1791473400000,
+      "zonaHoraria": "Europe/Madrid",
+      "jugado": false,
+      "ordenDomCoincideSlug": true,
+      "confianzaEquipos": 200,
+      "capturadoEnUtc": "2026-10-06T22:42:53.619Z",
+      "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
+      "lineas": {
+        "1.5": {
+          "linea": "1.5",
+          "cuotaOver": 1.24,
+          "probCasaOverPct": 73,
+          "cuotaUnder": 3.34,
+          "probCasaUnderPct": 27,
+          "tip": "O1.5",
+          "tipCuota": 1.24,
+          "tipProbPct": 73
+        },
+        "2.5": {
+          "linea": "2.5",
+          "cuotaOver": 1.87,
+          "probCasaOverPct": 50,
+          "cuotaUnder": 1.86,
+          "probCasaUnderPct": 50,
+          "tip": "U2.5",
+          "tipCuota": 1.86,
+          "tipProbPct": 50
+        }
+      }
+    },
+    {
+      "clave": "ceara-vs-criciuma",
+      "url": "/football/match/ceara-vs-criciuma/",
+      "liga": "Brazil: Serie B Brazil",
+      "ligaUrl": "/football/brazil-serie-b/",
+      "local": "Ceara",
+      "visitante": "Criciuma",
+      "fecha": "2026-10-08",
+      "hora": "17:30",
+      "kickoffIsoUtc": "2026-10-08T15:30:00.000Z",
+      "kickoffMs": 1791473400000,
+      "zonaHoraria": "Europe/Madrid",
+      "jugado": false,
+      "ordenDomCoincideSlug": true,
+      "confianzaEquipos": 200,
+      "capturadoEnUtc": "2026-10-06T22:42:53.619Z",
+      "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
+      "lineas": {
+        "1.5": {
+          "linea": "1.5",
+          "cuotaOver": 1.41,
+          "probCasaOverPct": 64,
+          "cuotaUnder": 2.52,
+          "probCasaUnderPct": 36,
+          "tip": "O1.5",
+          "tipCuota": 1.41,
+          "tipProbPct": 64
+        },
+        "2.5": {
+          "linea": "2.5",
+          "cuotaOver": 2.36,
+          "probCasaOverPct": 39,
+          "cuotaUnder": 1.54,
+          "probCasaUnderPct": 61,
+          "tip": "U2.5",
+          "tipCuota": 1.54,
+          "tipProbPct": 61
+        }
+      }
+    },
+    {
+      "clave": "athletico-paranaense-vs-atletico-mg",
+      "url": "/football/match/athletico-paranaense-vs-atletico-mg/",
+      "liga": "Brazil: Serie A Brazil",
+      "ligaUrl": "/football/brazil-serie-a/",
+      "local": "Athletico Paranaense",
+      "visitante": "Atletico MG",
+      "fecha": "2026-10-08",
+      "hora": "18:00",
+      "kickoffIsoUtc": "2026-10-08T16:00:00.000Z",
+      "kickoffMs": 1791475200000,
+      "zonaHoraria": "Europe/Madrid",
+      "jugado": false,
+      "ordenDomCoincideSlug": true,
+      "confianzaEquipos": 200,
+      "capturadoEnUtc": "2026-10-06T22:42:53.619Z",
+      "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
+      "lineas": {
+        "1.5": {
+          "linea": "1.5",
+          "cuotaOver": 1.3,
+          "probCasaOverPct": 70,
+          "cuotaUnder": 2.97,
+          "probCasaUnderPct": 30,
+          "tip": "O1.5",
+          "tipCuota": 1.3,
+          "tipProbPct": 70
+        },
+        "2.5": {
+          "linea": "2.5",
+          "cuotaOver": 2.07,
+          "probCasaOverPct": 46,
+          "cuotaUnder": 1.79,
+          "probCasaUnderPct": 54,
+          "tip": "U2.5",
+          "tipCuota": 1.79,
+          "tipProbPct": 54
+        }
+      }
+    },
+    {
+      "clave": "bahia-vs-palmeiras",
+      "url": "/football/match/bahia-vs-palmeiras/",
+      "liga": "Brazil: Serie A Brazil",
+      "ligaUrl": "/football/brazil-serie-a/",
+      "local": "Bahia",
+      "visitante": "Palmeiras",
+      "fecha": "2026-10-08",
+      "hora": "19:30",
+      "kickoffIsoUtc": "2026-10-08T17:30:00.000Z",
+      "kickoffMs": 1791480600000,
+      "zonaHoraria": "Europe/Madrid",
+      "jugado": false,
+      "ordenDomCoincideSlug": false,
+      "confianzaEquipos": 200,
+      "capturadoEnUtc": "2026-10-06T22:42:53.619Z",
+      "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
+      "lineas": {
+        "1.5": {
+          "linea": "1.5",
+          "cuotaOver": 1.17,
+          "probCasaOverPct": 77,
+          "cuotaUnder": 4,
+          "probCasaUnderPct": 23,
+          "tip": "O1.5",
+          "tipCuota": 1.17,
+          "tipProbPct": 77
+        },
+        "2.5": {
+          "linea": "2.5",
+          "cuotaOver": 1.7,
+          "probCasaOverPct": 57,
+          "cuotaUnder": 2.21,
+          "probCasaUnderPct": 43,
+          "tip": "O2.5",
+          "tipCuota": 1.7,
+          "tipProbPct": 57
+        }
+      }
+    },
+    {
+      "clave": "coritiba-vs-fluminense",
+      "url": "/football/match/coritiba-vs-fluminense/",
+      "liga": "Brazil: Serie A Brazil",
+      "ligaUrl": "/football/brazil-serie-a/",
+      "local": "Coritiba",
+      "visitante": "Fluminense",
+      "fecha": "2026-10-08",
+      "hora": "19:30",
+      "kickoffIsoUtc": "2026-10-08T17:30:00.000Z",
+      "kickoffMs": 1791480600000,
+      "zonaHoraria": "Europe/Madrid",
+      "jugado": false,
+      "ordenDomCoincideSlug": false,
+      "confianzaEquipos": 200,
+      "capturadoEnUtc": "2026-10-06T22:42:53.619Z",
+      "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
+      "lineas": {
+        "1.5": {
+          "linea": "1.5",
+          "cuotaOver": 1.24,
+          "probCasaOverPct": 73,
+          "cuotaUnder": 3.34,
+          "probCasaUnderPct": 27,
+          "tip": "O1.5",
+          "tipCuota": 1.24,
+          "tipProbPct": 73
+        },
+        "2.5": {
+          "linea": "2.5",
+          "cuotaOver": 1.9,
+          "probCasaOverPct": 51,
+          "cuotaUnder": 1.94,
+          "probCasaUnderPct": 49,
+          "tip": "O2.5",
+          "tipCuota": 1.9,
+          "tipProbPct": 51
+        }
+      }
+    },
+    {
+      "clave": "alebrijes-oaxaca-vs-correcaminos-de-la-uat",
+      "url": "/football/match/alebrijes-oaxaca-vs-correcaminos-de-la-uat/",
+      "liga": "Mexico: Ascenso MX Mexico",
+      "ligaUrl": null,
+      "local": "Alebrijes Oaxaca",
+      "visitante": "Correcaminos de la UAT",
+      "fecha": "2026-10-08",
+      "hora": "20:00",
+      "kickoffIsoUtc": "2026-10-08T18:00:00.000Z",
+      "kickoffMs": 1791482400000,
+      "zonaHoraria": "Europe/Madrid",
+      "jugado": false,
+      "ordenDomCoincideSlug": true,
+      "confianzaEquipos": 200,
+      "capturadoEnUtc": "2026-10-06T22:42:53.619Z",
+      "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
+      "lineas": {
+        "1.5": {
+          "linea": "1.5",
+          "cuotaOver": 1.17,
+          "probCasaOverPct": 77,
+          "cuotaUnder": 4,
+          "probCasaUnderPct": 23,
+          "tip": "O1.5",
+          "tipCuota": 1.17,
+          "tipProbPct": 77
+        },
+        "2.5": {
+          "linea": "2.5",
+          "cuotaOver": 1.65,
+          "probCasaOverPct": 56,
+          "cuotaUnder": 2.06,
+          "probCasaUnderPct": 44,
+          "tip": "O2.5",
+          "tipCuota": 1.65,
+          "tipProbPct": 56
+        }
+      }
+    },
+    {
+      "clave": "fortaleza-fc-vs-millonarios",
+      "url": "/football/match/fortaleza-fc-vs-millonarios/",
+      "liga": "Colombia: Primera A Colombia",
+      "ligaUrl": null,
+      "local": "Fortaleza FC",
+      "visitante": "Millonarios",
+      "fecha": "2026-10-08",
+      "hora": "20:10",
+      "kickoffIsoUtc": "2026-10-08T18:10:00.000Z",
+      "kickoffMs": 1791483000000,
+      "zonaHoraria": "Europe/Madrid",
+      "jugado": false,
+      "ordenDomCoincideSlug": true,
+      "confianzaEquipos": 200,
+      "capturadoEnUtc": "2026-10-06T22:42:53.619Z",
+      "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
+      "lineas": {
+        "1.5": {
+          "linea": "1.5",
+          "cuotaOver": 1.29,
+          "probCasaOverPct": 70,
+          "cuotaUnder": 3.04,
+          "probCasaUnderPct": 30,
+          "tip": "O1.5",
+          "tipCuota": 1.29,
+          "tipProbPct": 70
+        },
+        "2.5": {
+          "linea": "2.5",
+          "cuotaOver": 1.99,
+          "probCasaOverPct": 47,
+          "cuotaUnder": 1.75,
+          "probCasaUnderPct": 53,
+          "tip": "U2.5",
+          "tipCuota": 1.75,
+          "tipProbPct": 53
+        }
+      }
+    },
+    {
+      "clave": "inter-san-carlos-vs-municipal-perez-zeledon",
+      "url": "/football/match/inter-san-carlos-vs-municipal-perez-zeledon/",
+      "liga": "Costa Rica: Primera Division Costa Rica",
+      "ligaUrl": null,
+      "local": "Inter San Carlos",
+      "visitante": "Municipal Perez Zeledon",
+      "fecha": "2026-10-08",
+      "hora": "21:00",
+      "kickoffIsoUtc": "2026-10-08T19:00:00.000Z",
+      "kickoffMs": 1791486000000,
+      "zonaHoraria": "Europe/Madrid",
+      "jugado": false,
+      "ordenDomCoincideSlug": true,
+      "confianzaEquipos": 200,
+      "capturadoEnUtc": "2026-10-06T22:42:53.619Z",
+      "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
+      "lineas": {
+        "1.5": {
+          "linea": "1.5",
+          "cuotaOver": 1.16,
+          "probCasaOverPct": 78,
+          "cuotaUnder": 4.05,
+          "probCasaUnderPct": 22,
+          "tip": "O1.5",
+          "tipCuota": 1.16,
+          "tipProbPct": 78
+        },
+        "2.5": {
+          "linea": "2.5",
+          "cuotaOver": 1.61,
+          "probCasaOverPct": 57,
+          "cuotaUnder": 2.13,
+          "probCasaUnderPct": 43,
+          "tip": "O2.5",
+          "tipCuota": 1.61,
+          "tipProbPct": 57
         }
       }
     }
