@@ -43,7 +43,7 @@ import {
 } from './ratingbet_pipeline.js';
 import datasetLocal from './ratingbet_fixtures_data.js';
 
-const BUILD_ID = 'ratingbet-v9.2-2026-09-28-groq-gemini-multi-provider';
+const BUILD_ID = 'ratingbet-v9.3-2026-10-12-multikey-rotation';
 
 // =============================================================================
 // ACCESO_LIBRE: modo gratuito (fase de captacion de trafico).
@@ -903,7 +903,13 @@ export default {
                     const geminiKey2 = env.GEMINI_API_KEY2 || GEMINI_KEY2_DEFAULT;
                     const groqModel = env.GROQ_MODEL || GROQ_MODEL_DEFAULT;
                     const geminiModel = env.GEMINI_MODEL || GEMINI_MODEL_DEFAULT;
-                    // Claves adicionales para rotación extendida
+                    // Claves adicionales para rotación extendida (v9.3: cada var acepta
+                    // lista separada por comas; splitKeys las expande a N intentos).
+                    function splitKeys(v) {
+                        return String(v || '').split(',').map(function (s) { return s.trim(); }).filter(Boolean);
+                    }
+                    const groqKeys = splitKeys(groqKey1).concat(splitKeys(groqKey2));
+                    const geminiKeys = splitKeys(geminiKey1).concat(splitKeys(geminiKey2));
                     const omniKey1 = env.OMNIROUTE_API_KEY || '';
                     const omniKey2 = env.OMNIROUTE_API_KEY2 || '';
                     const omniEndpoint = env.OMNIROUTE_API_URL || OMNIROUTE_ENDPOINT_DEFAULT;
@@ -912,30 +918,51 @@ export default {
                     const tokenharborEndpoint = env.TOKENHARBOR_API_URL || TOKENHARBOR_ENDPOINT_DEFAULT;
                     const nvidiaKey = env.NVIDIA_API_KEY || NVIDIA_KEY_DEFAULT;
                     const dahlKey2 = env.DAHL_API_KEY2 || DAHL_KEY2_DEFAULT;
-                    const openrouterKey = env.OPENROUTER_API_KEY || OPENROUTER_KEY_DEFAULT;
+                    const openrouterKeys = splitKeys(env.OPENROUTER_API_KEY || OPENROUTER_KEY_DEFAULT)
+                        .concat(splitKeys(env.OPENROUTER_API_KEY2 || ''));
+                    const omniKeys = splitKeys(omniKey1).concat(splitKeys(omniKey2));
+                    const dahlKeys = splitKeys(dahlApiKey).concat(splitKeys(dahlKey2));
+                    const tokenharborKeys = splitKeys(tokenharborKey);
+                    const nvidiaKeys = splitKeys(nvidiaKey);
 
-                    // Pipeline multi-proveedor extendido — 12 intentos antes de fallback estadístico
+                    // Pipeline multi-proveedor extendido v9.3 — hasta ~20 intentos antes de fallback estadístico
                     // Orden: rapidez + quota budget. Groq primero (más rápido), luego Gemini nativo,
-                    // luego Omniroute x2, OpenRouter, TokenHarbor, Nvidia, Dahl x2.
+                    // luego Omniroute xN, OpenRouter xN, TokenHarbor, Nvidia, Dahl xN.
                     const proveedoresAProbar = [
-                        // 1-2. Groq Cloud (llama-3.3-70b, 2 claves)
-                        { endpoint: GROQ_ENDPOINT, apiKey: groqKey1, model: groqModel, tipo: 'openai', label: 'Groq-1' },
-                        { endpoint: GROQ_ENDPOINT, apiKey: groqKey2, model: groqModel, tipo: 'openai', label: 'Groq-2' },
-                        // 3-4. Gemini nativo (2 claves, gemini-2.0-flash)
-                        { endpoint: GEMINI_ENDPOINT_BASE + geminiModel + ':generateContent?key=' + geminiKey1, apiKey: '', model: geminiModel, tipo: 'gemini', label: 'Gemini-1' },
-                        { endpoint: GEMINI_ENDPOINT_BASE + geminiModel + ':generateContent?key=' + geminiKey2, apiKey: '', model: geminiModel, tipo: 'gemini', label: 'Gemini-2' },
-                        // 5-6. Omniroute (2 claves via OpenRouter)
-                        ...(omniKey1 ? [{ endpoint: omniEndpoint, apiKey: omniKey1, model: omniModel, tipo: 'openai', label: 'Omniroute-1' }] : []),
-                        ...(omniKey2 ? [{ endpoint: omniEndpoint, apiKey: omniKey2, model: omniModel, tipo: 'openai', label: 'Omniroute-2' }] : []),
-                        // 7. OpenRouter directo
-                        ...(openrouterKey ? [{ endpoint: OPENROUTER_ENDPOINT, apiKey: openrouterKey, model: 'google/gemini-2.0-flash-lite-001:free', tipo: 'openai', label: 'OpenRouter' }] : []),
-                        // 8. TokenHarbor
-                        ...(tokenharborKey ? [{ endpoint: tokenharborEndpoint, apiKey: tokenharborKey, model: 'gpt-4o-mini', tipo: 'openai', label: 'TokenHarbor' }] : []),
-                        // 9. Nvidia NIM
-                        ...(nvidiaKey ? [{ endpoint: NVIDIA_ENDPOINT, apiKey: nvidiaKey, model: 'meta/llama-3.3-70b-instruct', tipo: 'openai', label: 'Nvidia' }] : []),
-                        // 10-11. Dahl (2 claves, DeepSeek + MiniMax)
-                        { endpoint: dahlEndpoint, apiKey: dahlApiKey, model: 'deepseek-ai/DeepSeek-V4-Flash-0731', tipo: 'openai', label: 'Dahl-1-DeepSeek' },
-                        ...(dahlKey2 ? [{ endpoint: dahlEndpoint, apiKey: dahlKey2, model: 'MiniMaxAI/MiniMax-M2.7', tipo: 'openai', label: 'Dahl-2-MiniMax' }] : []),
+                        // 1-N. Groq Cloud (todas las claves configuradas)
+                        ...groqKeys.map(function (k, i) {
+                            return { endpoint: GROQ_ENDPOINT, apiKey: k, model: groqModel, tipo: 'openai', label: 'Groq-' + (i + 1) };
+                        }),
+                        // N+1.. Gemini nativo (todas las claves, gemini-2.0-flash)
+                        ...geminiKeys.map(function (k, i) {
+                            return { endpoint: GEMINI_ENDPOINT_BASE + geminiModel + ':generateContent?key=' + k, apiKey: '', model: geminiModel, tipo: 'gemini', label: 'Gemini-' + (i + 1) };
+                        }),
+                        // Omniroute (todas las claves via OpenRouter)
+                        ...omniKeys.map(function (k, i) {
+                            return { endpoint: omniEndpoint, apiKey: k, model: omniModel, tipo: 'openai', label: 'Omniroute-' + (i + 1) };
+                        }),
+                        // OpenRouter directo (todas las claves, 2 modelos free por clave)
+                        ...openrouterKeys.flatMap(function (k, i) {
+                            return [
+                                { endpoint: OPENROUTER_ENDPOINT, apiKey: k, model: 'google/gemini-2.0-flash-lite-001:free', tipo: 'openai', label: 'OpenRouter-' + (i + 1) + 'a' },
+                                { endpoint: OPENROUTER_ENDPOINT, apiKey: k, model: 'meta-llama/llama-3.3-70b-instruct:free', tipo: 'openai', label: 'OpenRouter-' + (i + 1) + 'b' }
+                            ];
+                        }),
+                        // TokenHarbor (todas las claves)
+                        ...tokenharborKeys.map(function (k, i) {
+                            return { endpoint: tokenharborEndpoint, apiKey: k, model: 'gpt-4o-mini', tipo: 'openai', label: 'TokenHarbor-' + (i + 1) };
+                        }),
+                        // Nvidia NIM (todas las claves)
+                        ...nvidiaKeys.map(function (k, i) {
+                            return { endpoint: NVIDIA_ENDPOINT, apiKey: k, model: 'meta/llama-3.3-70b-instruct', tipo: 'openai', label: 'Nvidia-' + (i + 1) };
+                        }),
+                        // Dahl (todas las claves, 2 modelos por clave)
+                        ...dahlKeys.flatMap(function (k, i) {
+                            return [
+                                { endpoint: dahlEndpoint, apiKey: k, model: 'deepseek-ai/DeepSeek-V4-Flash-0731', tipo: 'openai', label: 'Dahl-' + (i + 1) + '-DeepSeek' },
+                                { endpoint: dahlEndpoint, apiKey: k, model: 'MiniMaxAI/MiniMax-M2.7', tipo: 'openai', label: 'Dahl-' + (i + 1) + '-MiniMax' }
+                            ];
+                        }),
                     ].filter(p => p.apiKey !== '' || p.tipo === 'gemini');
 
                     // Si hay config personalizada via env, la pone primero
@@ -1138,9 +1165,9 @@ export default {
             const nowMs = Date.now();
             const pMadrid = madridParts(nowMs);
 
-            // Valores embebidos en el codigo: se usan SOLO para detectarlos, nunca se devuelven.
+            // Valores embebidos historicos en el codigo: se detectan para avisar
+            // que hay que moverlos a Vercel env. Nunca se devuelven valores.
             const EMBEBIDOS = {
-                OPENROUTER_API_KEY: 'sk-238e42ad970dbbc7-9e7385-de935c2e',
                 STRIPE_SECRET_KEY: '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'
             };
             function estadoDeClave(nombre, valor) {
@@ -1152,14 +1179,24 @@ export default {
             }
 
             const envVars = {
-                // --- Agente de IA (Omniroute / OpenRouter) ---
+                // --- Agente de IA: rotador multi-proveedor v9.3 (conteo de keys, sin valores) ---
+                GROQ_KEYS: String(E.GROQ_API_KEY || '').split(',').filter(s => s.trim()).length
+                    + String(E.GROQ_API_KEY2 || '').split(',').filter(s => s.trim()).length + ' clave(s)',
+                GEMINI_KEYS: String(E.GEMINI_API_KEY || '').split(',').filter(s => s.trim()).length
+                    + String(E.GEMINI_API_KEY2 || '').split(',').filter(s => s.trim()).length + ' clave(s)',
+                OPENROUTER_KEYS: String(E.OPENROUTER_API_KEY || '').split(',').filter(s => s.trim()).length
+                    + String(E.OPENROUTER_API_KEY2 || '').split(',').filter(s => s.trim()).length + ' clave(s)',
+                OMNIROUTE_KEYS: String(E.OMNIROUTE_API_KEY || '').split(',').filter(s => s.trim()).length
+                    + String(E.OMNIROUTE_API_KEY2 || '').split(',').filter(s => s.trim()).length + ' clave(s)',
+                TOKENHARBOR_KEYS: String(E.TOKENHARBOR_API_KEY || '').split(',').filter(s => s.trim()).length + ' clave(s)',
+                NVIDIA_KEYS: String(E.NVIDIA_API_KEY || '').split(',').filter(s => s.trim()).length + ' clave(s)',
+                DAHL_KEYS: String(E.DAHL_API_KEY || '').split(',').filter(s => s.trim()).length
+                    + String(E.DAHL_API_KEY2 || '').split(',').filter(s => s.trim()).length + ' clave(s)',
                 OMNIROUTE_API_URL: E.OMNIROUTE_API_URL
-                    ? '\u2713 Configurada (endpoint personalizado del agente)'
-                    : (E.OMNIRUTE_API_URL ? '\u2713 Configurada (via alias OMNIRUTE_API_URL)' : '\u2717 FALTA (opcional: se usa el endpoint OpenRouter por defecto)'),
-                OMNIROUTE_API_KEY: estadoDeClave('OMNIROUTE_API_KEY', E.OMNIROUTE_API_KEY),
-                OPENROUTER_API_KEY: estadoDeClave('OPENROUTER_API_KEY', E.OPENROUTER_API_KEY),
+                    ? '✓ Configurada (endpoint personalizado del agente)'
+                    : (E.OMNIRUTE_API_URL ? '✓ Configurada (via alias OMNIRUTE_API_URL)' : '✗ FALTA (opcional: se usa el endpoint OpenRouter por defecto)'),
                 STRIPE_SECRET_KEY: estadoDeClave('STRIPE_SECRET_KEY', E.STRIPE_SECRET_KEY),
-                STRIPE_PRICE_ID: E.STRIPE_PRICE_ID ? '\u2713 Configurada' : '\u2717 FALTA',
+                STRIPE_PRICE_ID: E.STRIPE_PRICE_ID ? '✓ Configurada' : '✗ FALTA',
 
                 // --- Dataset del scraper (de donde salen partidos y cuotas) ---
                 RATINGBET_DATASET_URL: E.RATINGBET_DATASET_URL

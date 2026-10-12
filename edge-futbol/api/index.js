@@ -7,13 +7,12 @@ export const config = {
 // Valores de respaldo historicos. Solo se aplican si la variable NO existe en
 // Vercel > Settings > Environment Variables. Se declaran aqui para poder
 // DETECTARLOS y avisarlo en /api/health en lugar de degradar en silencio.
+// NOTA v9.3: las keys de IA YA NO llevan fallback embebido (una key muerta
+// tumbaba todo el edge). Si falta env, se informa y el rotador salta al
+// siguiente proveedor.
 const FALLBACKS = {
     STRIPE_SECRET_KEY: "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",
     STRIPE_PRICE_ID: "prod_VFk8GE0foCM9qJ",
-    // OpenRouter real key — probada y funciona para llamadas a /chat/completions
-    OPENROUTER_API_KEY: "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",
-    // Omniroute key (rotador de modelos gratuitos) — usa su propio endpoint si OMNIROUTE_API_URL esta definida
-    OMNIROUTE_API_KEY: "sk-238e42ad970dbbc7-1bddd1-ede9145e"
 };
 
 export default async function handler(request) {
@@ -23,16 +22,30 @@ export default async function handler(request) {
     const fallbacksActivos = [];
     if (!process.env.STRIPE_SECRET_KEY) fallbacksActivos.push('STRIPE_SECRET_KEY');
     if (!process.env.STRIPE_PRICE_ID) fallbacksActivos.push('STRIPE_PRICE_ID');
-    if (!process.env.OPENROUTER_API_KEY) fallbacksActivos.push('OPENROUTER_API_KEY');
-    if (!process.env.OMNIROUTE_API_KEY) fallbacksActivos.push('OMNIROUTE_API_KEY');
 
     const env = {
-        // --- IA: agente Omniroute / OpenRouter ---
-        OPENROUTER_API_KEY: process.env.OPENROUTER_API_KEY || FALLBACKS.OPENROUTER_API_KEY,
-        OMNIROUTE_API_KEY: process.env.OMNIROUTE_API_KEY || FALLBACKS.OMNIROUTE_API_KEY,
+        // --- IA: rotador multi-proveedor v9.3 ---
+        // Cada var acepta lista separada por comas (round-robin + failover).
+        // NUNCA poner keys reales aqui: solo en Vercel > Settings > Environment Variables.
+        GROQ_API_KEY: process.env.GROQ_API_KEY || '',
+        GROQ_API_KEY2: process.env.GROQ_API_KEY2 || '',
+        GEMINI_API_KEY: process.env.GEMINI_API_KEY || '',
+        GEMINI_API_KEY2: process.env.GEMINI_API_KEY2 || '',
+        OPENROUTER_API_KEY: process.env.OPENROUTER_API_KEY || '',
+        OPENROUTER_API_KEY2: process.env.OPENROUTER_API_KEY2 || '',
+        OMNIROUTE_API_KEY: process.env.OMNIROUTE_API_KEY || '',
+        OMNIROUTE_API_KEY2: process.env.OMNIROUTE_API_KEY2 || '',
         OMNIROUTE_API_URL: process.env.OMNIROUTE_API_URL || '',
         // Alias con el typo historico (OMNIRUTE_API_URL) por compatibilidad
         OMNIRUTE_API_URL: process.env.OMNIRUTE_API_URL || '',
+        OMNIROUTE_MODEL: process.env.OMNIROUTE_MODEL || '',
+        NVIDIA_API_KEY: process.env.NVIDIA_API_KEY || '',
+        TOKENHARBOR_API_KEY: process.env.TOKENHARBOR_API_KEY || '',
+        TOKENHARBOR_API_URL: process.env.TOKENHARBOR_API_URL || '',
+        DAHL_API_KEY: process.env.DAHL_API_KEY || '',
+        DAHL_API_KEY2: process.env.DAHL_API_KEY2 || '',
+        DAHL_API_URL: process.env.DAHL_API_URL || '',
+        DAHL_FINGERPRINT: process.env.DAHL_FINGERPRINT || '',
 
         // --- Stripe ---
         STRIPE_SECRET_KEY: process.env.STRIPE_SECRET_KEY || FALLBACKS.STRIPE_SECRET_KEY,
