@@ -865,6 +865,15 @@ function enBanda(banda, cuota) {
 
 // Seleccion de mercado de un fixture publicado. Devuelve SIEMPRE una
 // probabilidad real (IA / tip / mercado justo) o null si no hay cuotas validas.
+// Boost bet365 por combinada (ej 5 = +5% sobre cuota total). Configurable via RATINGBET_COMBO_BOOST_PCT.
+export function comboBoostPct() {
+    const v = parseFloat((typeof process !== 'undefined' && process.env && process.env.RATINGBET_COMBO_BOOST_PCT) || '');
+    return Number.isFinite(v) && v >= 0 && v <= 50 ? v : 0;
+}
+export function edgePorCuotas(cuotaCasa, cuotaJustaModelo) {
+    if (!Number.isFinite(cuotaCasa) || !Number.isFinite(cuotaJustaModelo) || cuotaCasa <= 1 || cuotaJustaModelo <= 1) return null;
+    return Math.round((cuotaCasa / cuotaJustaModelo - 1) * 1000) / 10;
+}
 export function seleccionDeFixture(f) {
     if (!f || !f.lineas) return null;
     // 1) veredicto de la IA sobre el fixture
