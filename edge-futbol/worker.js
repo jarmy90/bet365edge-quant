@@ -43,7 +43,7 @@ import {
 } from './ratingbet_pipeline.js';
 import datasetLocal from './ratingbet_fixtures_data.js';
 
-const BUILD_ID = 'ratingbet-v9.5-2026-10-13-fix504-light';
+const BUILD_ID = 'ratingbet-v9.6-2026-10-13-ia24-cache';
 
 // =============================================================================
 // ACCESO_LIBRE: modo gratuito (fase de captacion de trafico).
@@ -891,7 +891,7 @@ export default {
                     try { feedNoticias = await fetchRssNoticias(); } catch (_) {}
 
                     // 3b. Seleccionar los mejores candidatos para el prompt (8 partidos max para token budget)
-                    const paraAnalisis = seleccionarParaAnalisis(candidatos, 8);
+                    const paraAnalisis = seleccionarParaAnalisis(candidatos, 24);
 
                     // 3c. Construir prompt
                     const { system, user } = construirPromptAnalisis(paraAnalisis, feedNoticias, nowMs);
@@ -1301,15 +1301,22 @@ export default {
 
         if (url.pathname === '/api/parlays-by-risk') {
             const riskLevel = url.searchParams.get('risk') || 'medio'; // bajo, medio, alto
-            // FIX 504 v2: pool ligero SIN IA (dataset + validacion temporal). Nunca llama al LLM,
-            // asi responde en <2s incluso en cold start de Vercel Hobby (limite 10s).
+            // Flujo correcto: combinadas sobre el pool CON veredictos IA cuando la cache esta caliente;
+            // en cold start usa ligero sin IA para nunca dar 504. Nunca llama al LLM desde aqui.
             let realMatchesPool = [];
             try {
                 const nowL = Date.now();
-                const dl = await cargarDatasetRatingbet(nowL, false);
-                const cl = construirCandidatos(dl.dataset, nowL, { margenMinutos: MARGEN_MIN, maxDias: VENTANA_DIAS, maxAntiguedadMin: MAX_ANTIGUEDAD });
-                const fl = filtrarPublicables((cl.candidatos || []).filter(esLigaTopPermitida), nowL, { margenMinutos: MARGEN_PUBLICACION_MIN });
-                realMatchesPool = fl.publicables || [];
+                const ck = analisisCacheKey();
+                const cacheCaliente = analisisCache.diag && analisisCache.key === ck && (nowL - analisisCache.at) < FIXTURES_CACHE_MS && (analisisCache.pool || []).length;
+                if (cacheCaliente) {
+                    const fl = filtrarPublicables(analisisCache.pool, nowL, { margenMinutos: MARGEN_PUBLICACION_MIN });
+                    realMatchesPool = (fl.publicables || []).filter(esLigaTopPermitida);
+                } else {
+                    const dl = await cargarDatasetRatingbet(nowL, false);
+                    const cl = construirCandidatos(dl.dataset, nowL, { margenMinutos: MARGEN_MIN, maxDias: VENTANA_DIAS, maxAntiguedadMin: MAX_ANTIGUEDAD });
+                    const fl = filtrarPublicables((cl.candidatos || []).filter(esLigaTopPermitida), nowL, { margenMinutos: MARGEN_PUBLICACION_MIN });
+                    realMatchesPool = fl.publicables || [];
+                }
             } catch (e) {
                 realMatchesPool = [];
             }
