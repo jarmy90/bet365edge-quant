@@ -898,9 +898,9 @@ export function seleccionDeFixture(f) {
         const pJusta = esOver ? l.pOverJusta : l.pUnderJusta;
         const pTip = Number.isFinite(l.tipProbPct) ? l.tipProbPct : null;
         const probUsada = pTip !== null ? pTip : pJusta;
-        const impliedBookie = cuota > 0 ? (100 / cuota) : null;
-        const edgePuntos = (Number.isFinite(probUsada) && impliedBookie !== null)
-            ? Math.round((probUsada - impliedBookie) * 10) / 10
+        const cuotaModelo = (Number.isFinite(probUsada) && probUsada > 0) ? (100 / probUsada) : null;
+        const edgePuntos = (Number.isFinite(cuotaModelo) && cuotaModelo > 1)
+            ? Math.round((cuota - cuotaModelo) * 1000) / 10
             : null;
         const esPositivo = Number.isFinite(edgePuntos) && edgePuntos > 0;
         return {
@@ -917,9 +917,9 @@ export function seleccionDeFixture(f) {
     const l15 = f.lineas['1.5'];
     if (l15 && Number.isFinite(l15.cuotaOver) && l15.cuotaOver > 1) {
         const probFallback = Number.isFinite(l15.pOverJusta) ? l15.pOverJusta : probImplicita(l15.cuotaOver);
-        const impliedFallback = l15.cuotaOver > 0 ? Math.round((1 / l15.cuotaOver) * 1000) / 10 : null;
-        const edgeFallback = (Number.isFinite(probFallback) && impliedFallback !== null)
-            ? Math.round((probFallback - impliedFallback) * 10) / 10 : null;
+        const cuotaModeloFb = (Number.isFinite(probFallback) && probFallback > 0) ? (100 / probFallback) : null;
+        const edgeFallback = (Number.isFinite(cuotaModeloFb) && cuotaModeloFb > 1)
+            ? Math.round((l15.cuotaOver - cuotaModeloFb) * 1000) / 10 : null;
         return {
             mercado: 'Over 1.5 Goles', cuota: l15.cuotaOver,
             probPct: probFallback,
