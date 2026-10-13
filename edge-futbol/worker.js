@@ -3963,7 +3963,7 @@ export default {
 
                 // Cabecera: LA apuesta clara de un vistazo o aviso de partidos destacados
                 var head = document.createElement('div');
-                var cModeloTotalHead = data.cuotaModeloTotal ? data.cuotaModeloTotal.toFixed(2) : (data.probabilidadReal ? (100 / data.probabilidadReal).toFixed(2) : null);
+                var cModeloTotalHead = data.probBase === 'modelo-ia' && data.cuotaModeloTotal ? data.cuotaModeloTotal.toFixed(2) : (data.probabilidadReal ? (100 / data.probabilidadReal).toFixed(2) : null);
                 if (esCombinadaValida) {
                     head.style.cssText = 'grid-column:1/-1; width:100%; padding:12px 14px; background:linear-gradient(135deg, rgba(13,242,166,0.12), rgba(0,212,255,0.05)); border:1px solid var(--border-highlight); border-radius:12px;';
                     head.innerHTML =
@@ -3973,7 +3973,7 @@ export default {
                                 '<span style="font-size:0.75rem; color:var(--text-muted); font-weight:700;">Cuota Casa</span>' +
                                 '<span style="font-family:JetBrains Mono; font-size:1.8rem; font-weight:800; color:var(--neon-emerald);">' + (data.cuotaTotal ? data.cuotaTotal.toFixed(2) : '—') + '</span>' +
                             '</div>' +
-                            (cModeloTotalHead ?
+                            (data.probBase === 'modelo-ia' ?
                             '<div style="display:flex; align-items:baseline; gap:5px; background:rgba(0,212,255,0.1); border:1px solid rgba(0,212,255,0.3); padding:3px 10px; border-radius:8px;">' +
                                 '<span style="font-size:0.75rem; color:var(--neon-cyan); font-weight:700;">Cuota Modelo</span>' +
                                 '<span style="font-family:JetBrains Mono; font-size:1.4rem; font-weight:800; color:var(--neon-cyan);">' + cModeloTotalHead + '</span>' +
@@ -3994,15 +3994,16 @@ export default {
                 data.partidos.forEach(function (p) {
                     var card = document.createElement('div');
                     card.className = 'bet-card';
-                    var cuotaModelo = (Number.isFinite(p.probPct) && p.probPct > 0) ? (100 / p.probPct).toFixed(2) : null;
+                    var probBaseIA = p.probBase === 'modelo-ia';
+                    var cuotaModelo = probBaseIA && Number.isFinite(p.probPct) && p.probPct > 0 ? (100 / p.probPct).toFixed(2) : null;
                     var probEst = Number.isFinite(p.probPct)
-                        ? ((p.probBase === 'modelo-ia' ? 'Prob. IA: ' : 'Prob. casa: ') + Math.round(p.probPct) + '%')
+                        ? (probBaseIA ? 'Prob. IA: ' : 'Prob. casa: ') + Math.round(p.probPct) + '%'
                         : 'Prob. n/d';
-                    var edgeVal = Number.isFinite(p.edgePuntos) ? p.edgePuntos : (p.probPct && p.cuota ? Math.round((p.probPct - (100 / p.cuota)) * 10) / 10 : null);
-                    var edgeHtml = Number.isFinite(edgeVal) ?
+                    var edgeVal = probBaseIA && Number.isFinite(p.edgePuntos) ? p.edgePuntos : (p.probPct && p.cuota ? Math.round((p.probPct - (100 / p.cuota)) * 10) / 10 : null);
+                    var edgeHtml = probBaseIA && Number.isFinite(edgeVal) ?
                         (edgeVal >= 0 ? '<strong style="color:var(--neon-emerald);">+' + edgeVal.toFixed(1) + '%</strong>'
                                       : '<strong style="color:#ef4444;">-' + Math.abs(edgeVal).toFixed(1) + '%</strong>')
-                        : '+EV';
+                        : probBaseIA ? '+EV' : '—';
 
                     card.innerHTML =
                         '<div class="bet-card-top">' +
@@ -4017,7 +4018,7 @@ export default {
                             '<span style="color:var(--neon-emerald); font-weight:800;">' + p.mercado + '</span>' +
                             '<div style="display:flex; align-items:center; gap:8px; font-family:JetBrains Mono; font-weight:800; font-size:0.82rem;">' +
                                 '<span style="color:var(--neon-emerald); background:rgba(13,242,166,0.1); padding:2px 6px; border-radius:6px;">Casa ' + p.cuota.toFixed(2) + '</span>' +
-                                (cuotaModelo ? '<span style="color:var(--neon-cyan); background:rgba(0,212,255,0.12); border:1px solid rgba(0,212,255,0.3); padding:2px 6px; border-radius:6px;">Modelo ' + cuotaModelo + '</span>' : '') +
+                                (cuotaModelo ? '<span style="color:var(--neon-cyan); background:rgba(0,212,255,0.12); border:1px solid rgba(0,212,255,0.3); padding:2px 6px; border-radius:6px;">Modelo ' + cuotaModelo + '</span>' : '<span style="color:var(--neon-cyan); background:rgba(0,212,255,0.12); border:1px solid rgba(0,212,255,0.3); padding:2px 6px; border-radius:6px;">Sin veredicto IA</span>') +
                             '</div>' +
                         '</div>' +
                         '<div style="display:flex; justify-content:space-between; font-size:0.75rem; margin-bottom:8px;">' +
@@ -4336,7 +4337,7 @@ export default {
                         '</td>' +
                         '<td data-label="Mercado" style="text-align:center;"><span style="font-weight:700; color:var(--text-primary);">' + f.mercado + '</span></td>' +
                         '<td data-label="Cuota Casa" style="text-align:center; font-family:JetBrains Mono; font-weight:800; color:var(--neon-cyan);">' + f.cuota.toFixed(2) + '</td>' +
-                        '<td data-label="Prob. Modelo" style="text-align:center; font-family:JetBrains Mono; font-weight:800; color:var(--neon-emerald);">' + (Number.isFinite(f.modelProb) ? f.modelProb + '%' : (function () { var ln = f.lineas && (f.lineas['1.5'] || f.lineas['2.5']); return (ln && Number.isFinite(ln.pOverJusta)) ? '≈' + Math.round(ln.pOverJusta) + '%' : 'n/d'; })()) + '</td>' +
+                        '<td data-label="Prob. Modelo" style="text-align:center; font-family:JetBrains Mono; font-weight:800; color:var(--neon-emerald);">' + (f.probBase === 'modelo-ia' && Number.isFinite(f.modelProb) ? f.modelProb + '%' : '—') + (f.probBase !== 'modelo-ia' ? ' sin veredicto IA' : '') + '</td>' +
                         '<td data-label="Edge (+EV)" style="text-align:center; font-family:JetBrains Mono; font-weight:800; color:var(--neon-emerald);">' + f.edge + '</td>' +
                         '</tr>';
                 });

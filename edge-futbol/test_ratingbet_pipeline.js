@@ -165,7 +165,56 @@ ok(promptSinFeed.user.indexOf('CONTEXTO DE NOTICIAS') === -1 && promptSinFeed.to
     'sin feed el prompt sigue siendo valido (el feed es opcional, no obligatorio)');
 ok(JSON.stringify(promptSinFeed.user).indexOf('NaN') === -1 && JSON.stringify(promptSinFeed.user).indexOf('undefined') === -1,
     'el JSON del prompt no lleva NaN ni undefined');
-ok(promptSinFeed.user.indexOf('"cuotas"') !== -1, 'cada partido viaja con sus cuotas reales por linea');
+// MODELO CIEGO A LA CUOTA: el prompt NO puede filtrar precios ni probabilidades
+// implicitas. Ojo: la palabra "cuotas" SI aparece en prosa ("SIN cuotas: estima
+// tu probabilidad..."); lo prohibido son los VALORES y los campos de precio.
+const listaPrompt = (function () {
+    // Extrae el primer array JSON balanceado del user prompt (el de la lista).
+    const u = promptSinFeed.user;
+    const a = u.indexOf('[');
+    if (a === -1) return null;
+    let dentro = false, depth = 0;
+    for (let i = a; i < u.length; i++) {
+        const ch = u[i];
+        if (ch === '"') { dentro = !dentro; continue; }
+        if (dentro) continue;
+        if (ch === '[') depth++;
+        else if (ch === ']') {
+            depth--;
+            if (depth === 0) { try { return JSON.parse(u.slice(a, i + 1)); } catch (e) { return null; } }
+        }
+    }
+    return null;
+})();
+ok(Array.isArray(listaPrompt) && listaPrompt.length === sel.length,
+    'la lista cerrada viaja como JSON parseable', listaPrompt ? listaPrompt.length : 'no-parseable');
+if (listaPrompt) {
+    const CLAVES_OK = ['clave', 'partido', 'local', 'visitante', 'liga', 'kickoffIsoUtc', 'horasRestantes', 'lineasDisponibles'];
+    ok(listaPrompt.every(o => Object.keys(o).every(k => CLAVES_OK.indexOf(k) !== -1)),
+        'MODELO CIEGO: cada partido viaja SOLO con identidad + lineas disponibles (sin precio)',
+        listaPrompt.length ? Object.keys(listaPrompt[0]).join(',') : '-');
+    ok(listaPrompt.every(o => !('cuota' in o) && !('cuotaOver' in o) && !('cuotaUnder' in o)
+        && !('probImplicita' in o) && !('probabilidadImplicita' in o) && !('probModelo' in o)),
+        'MODELO CIEGO: ningun partido trae cuotas ni probabilidades implicitas');
+    const c15 = sel.find(c => c.lineas['1.5']);
+    const entrada = c15 && listaPrompt.find(o => o.clave === c15.clave);
+    ok(!!entrada && Array.isArray(entrada.lineasDisponibles) && entrada.lineasDisponibles.indexOf('1.5') !== -1,
+        'el modelo recibe QUE lineas existen, no a que precio');
+    // La cuota real del dataset no puede filtrarse en el prompt del usuario
+    const cuotaRealEjemplo = sel.find(c => c.lineas['1.5'] && c.lineas['1.5'].cuotaOver > 1);
+    const enPrompt = cuotaRealEjemplo && prompt.user.indexOf('"cuotaOver": ' + cuotaRealEjemplo.lineas['1.5'].cuotaOver) !== -1;
+    ok(!enPrompt, 'MODELO CIEGO: la cuota real de ratingbet no aparece en el prompt',
+        cuotaRealEjemplo ? cuotaRealEjemplo.lineas['1.5'].cuotaOver : '-');
+}
+ok(!/"cuota(Over|Under|Modelo)?"/.test(prompt.user)
+    && prompt.user.indexOf('probabilidadImplicita') === -1
+    && prompt.user.indexOf('probImplicita') === -1,
+    'MODELO CIEGO: el user prompt no contiene campos de cuota ni probabilidad implicita');
+ok(!/"cuota(Over|Under|Modelo)?"/.test(prompt.system)
+    && prompt.system.indexOf('probabilidadImplicita') === -1,
+    'MODELO CIEGO: el system prompt tampoco filtra precios');
+ok(/NO ves las cuotas|ciega? a la cuota|ciego a la cuota/i.test(prompt.system),
+    'el system declara explicitamente el modelo ciego a la cuota');
 
 // ---------------------------------------------------------------------------
 // Bateria 6: PARSEO DE VEREDICTOS (anti-alucinacion de claves)
@@ -222,8 +271,11 @@ const cuotaReal = cEdge.lineas['1.5'].cuotaOver;
 ok(a1.cuota === cuotaReal, 'la cuota publicada es la cuota REAL capturada de ratingbet', a1.cuota);
 const pJusta = probJusta(cuotaReal, cEdge.lineas['1.5'].cuotaUnder);
 ok(a1.justaProb === pJusta, 'la probabilidad justa sale de las dos cuotas reales (sin margen)', a1.justaProb);
-ok(Math.abs(a1.edgePuntos - (a1.modelProb - pJusta)) < 0.05,
-    'el edge = prob. modelo - prob. justa (calculado por el sistema, no inventado por la IA)', a1.edge);
+const cuotaModeloTeo = 100 / a1.modelProb;
+const edgeTeo = (cuotaReal - cuotaModeloTeo) * 100;
+ok(Math.abs(a1.edgePuntos - edgeTeo) < 0.11,
+    'edge = (cuotaCasa - 100/probModelo) * 100 (calculado por el sistema, no inventado por la IA)',
+    a1.edgePuntos + ' vs ' + edgeTeo.toFixed(2));
 const evTeorico = (a1.modelProb / 100) * a1.cuota - 1;
 ok(Math.abs(a1.evPct / 100 - evTeorico) < 0.001, 'el EV sale de la cuota real y la probabilidad del modelo', a1.ev);
 ok(a1.edge === (a1.edgePuntos >= 0 ? '+' : '') + a1.edgePuntos + '%', 'el edge se muestra con signo', a1.edge);
@@ -248,6 +300,68 @@ const analisisTarde = aplicarVeredictos(sel, pv.veredictos, inicioMs + 3600000);
 ok(analisisTarde.every(a => Number.isFinite(a.horasRestantes)), 'las horas restantes se recalculan en cada pasada',
     analisisTarde.length ? analisisTarde[0].horasRestantes : '-');
 ok(analisisTarde === null || analisisTarde.length === 2, 'aplicar veredictos es determinista (no depende del reloj para decidir valor)');
+
+// ---------------------------------------------------------------------------
+// Bateria 7B: CASO CONOCIDO DE EDGE POR PICK + EV% ALTERNATIVO
+// ---------------------------------------------------------------------------
+// Caso de la especificacion: casa 1.60.
+//   probModelo 61.0 -> cuotaModelo 1.639 -> edge -4.0  (sin valor, NO se publica)
+//   probModelo 65.0 -> cuotaModelo 1.538 -> edge +6.2  (valor, si se publica)
+console.log('\n=== 7B) CASO CONOCIDO DE EDGE + EV% ALTERNATIVO ===');
+function candSintetico(clave, cuotaOver, cuotaUnder) {
+    const kickoffMs = capturaMs + 6 * 3600000;
+    const pO = probImplicita(cuotaOver), pU = probImplicita(cuotaUnder);
+    return {
+        clave: clave, partido: 'Caso ' + clave, local: 'Local', visitante: 'Visitante',
+        liga: 'Test: Liga', ligaCorta: 'Test', urlRelativa: '/caso',
+        kickoffMs: kickoffMs, kickoffIsoUtc: new Date(kickoffMs).toISOString(),
+        hora: '20:00', horaLabel: 'Hoy 20:00', dia: 'Hoy', fecha: '15/09',
+        lineas: {
+            '1.5': {
+                cuotaOver: cuotaOver, cuotaUnder: cuotaUnder,
+                pOverJusta: probJusta(cuotaOver, cuotaUnder),
+                pUnderJusta: probJusta(cuotaUnder, cuotaOver),
+                margenCasa: margenCasa(pO, pU),
+                tipRatingbet: null, tipProbPct: null
+            }
+        }
+    };
+}
+const cCaso61 = candSintetico('caso-61', 1.60, 2.35);
+const cCaso65 = candSintetico('caso-65', 1.60, 2.35);
+const vBase = {
+    linea: '1.5', lado: 'OVER', confianzaIA: 'MEDIA',
+    justificacion: 'caso conocido de la especificacion', factores: [], noticiasUsadas: []
+};
+const vCaso61 = Object.assign({ clave: 'caso-61', indice: 0, probModelo: 61.0 }, vBase);
+const vCaso65 = Object.assign({ clave: 'caso-65', indice: 1, probModelo: 65.0 }, vBase);
+const casos = aplicarVeredictos([cCaso61, cCaso65], [vCaso61, vCaso65], capturaMs);
+const p61 = casos.find(x => x.clave === 'caso-61');
+const p65 = casos.find(x => x.clave === 'caso-65');
+// Fórmula exacta del sistema: cuotaModelo = 100/probModelo (sin redondear) y
+// edgePuntos = redondeo1((cuotaCasa - cuotaModelo) * 100).
+const teo61 = (1.60 - 100 / 61.0) * 100;   // -3.93  (~ -4.0 de la spec)
+const teo65 = (1.60 - 100 / 65.0) * 100;   // +6.15  (  +6.2 de la spec)
+ok(!!p61 && Math.abs(p61.edgePuntos - teo61) < 0.11,
+    'caso 1.60 / 61.0% -> cuotaModelo 1.639 -> edge negativo', p61 ? p61.edgePuntos : 'sin pick');
+ok(!!p61 && Math.abs(p61.edgePuntos - (-4.0)) < 0.15,
+    'el -4.0 de la especificacion se obtiene (61.0%)', p61 ? p61.edgePuntos : '-');
+ok(!!p65 && Math.abs(p65.edgePuntos - teo65) < 0.05,
+    'caso 1.60 / 65.0% -> cuotaModelo 1.538 -> edge positivo', p65 ? p65.edgePuntos : 'sin pick');
+ok(!!p65 && Math.abs(p65.edgePuntos - 6.2) < 0.05,
+    'el +6.2 de la especificacion es exacto (65.0%)', p65 ? p65.edgePuntos : '-');
+// Publicacion: SOLO picks modelo-ia con edgePuntos > 0
+const picksValor = casos.filter(a => Number.isFinite(a.edgePuntos) && a.edgePuntos > 0);
+ok(picksValor.length === 1 && picksValor[0].clave === 'caso-65',
+    'solo el caso 65.0% pasa el filtro de publicacion (edgePuntos > 0)', picksValor.length);
+// EV% alternativo: EV = probModelo * cuota - 1  (ej. 1.60 / 60.98% -> -2.4%)
+const evTeoricoPct = (0.6098 * 1.60 - 1) * 100;
+ok(Math.abs(valorEsperado(60.98, 1.60) * 100 - evTeoricoPct) < 1e-9,
+    'EV% = probModelo*cuota - 1 (métrica alterna documentada)',
+    (valorEsperado(60.98, 1.60) * 100).toFixed(2) + '%');
+ok(Math.abs(valorEsperado(60.98, 1.60) * 100 - (-2.4)) < 0.1,
+    'y da el -2.4% del ejemplo casa 1.60 / prob 60.98%', (valorEsperado(60.98, 1.60) * 100).toFixed(1) + '%');
+ok(valorEsperado(65, 1.60) > 0, 'EV% positivo cuando probModelo*cuota > 1 (65% * 1.60)', (valorEsperado(65, 1.60) * 100).toFixed(1) + '%');
 
 // ---------------------------------------------------------------------------
 // Bateria 8: RE-VALIDACION EN TIEMPO DE PETICION  <-- mata "partidos de ayer"

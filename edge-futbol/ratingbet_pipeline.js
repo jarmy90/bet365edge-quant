@@ -367,18 +367,22 @@ export function seleccionarParaAnalisis(candidatos, max) {
 // 3) PROMPT DE ANALISIS: la IA recibe la LISTA REAL y solo emite veredictos
 // -----------------------------------------------------------------------------
 export function construirPromptAnalisis(candidatos, feed, ahoraMs) {
+    // MODELO CIEGO: el LLM NO ve cuotas ni probabilidades implícitas.
+    // Solo recibe identidad + qué líneas existen, para que probModelo sea
+    // una estimación independiente (forma, xG, bajas, clima, localía, H2H).
     const lista = candidatos.map(function (c) {
-        const l = {};
-        if (c.lineas['1.5']) l['1.5'] = { over: c.lineas['1.5'].cuotaOver, under: c.lineas['1.5'].cuotaUnder };
-        if (c.lineas['2.5']) l['2.5'] = { over: c.lineas['2.5'].cuotaOver, under: c.lineas['2.5'].cuotaUnder };
+        const lineasDisponibles = [];
+        if (c.lineas['1.5']) lineasDisponibles.push('1.5');
+        if (c.lineas['2.5']) lineasDisponibles.push('2.5');
         return {
             clave: c.clave,
             partido: c.partido,
+            local: c.local,
+            visitante: c.visitante,
             liga: c.liga,
-            kickoffMadrid: c.horaLabel,
             kickoffIsoUtc: c.kickoffIsoUtc,
             horasRestantes: c.horasRestantes,
-            cuotas: l
+            lineasDisponibles: lineasDisponibles
         };
     });
 
@@ -402,7 +406,7 @@ export function construirPromptAnalisis(candidatos, feed, ahoraMs) {
         '  * Usa distribucion de Poisson bivariante: calcula P(total_goles >= 1.5) y P(total_goles >= 2.5).',
         '  * Considera: goles por partido (local y visitante por separado), tiros por 90 min,',
         '    goles concedidos del rival, ritmo de juego (posesion alta = mas control = potencialmente menos goles).',
-        '  * Ajusta la estimacion por fuerza del rival usando ratings Elo implicitos de las cuotas 1X2.',
+        '  * Ajusta la estimacion por fuerza del rival usando ratings Elo publicos o tu propio ranking de fuerza.',
         '  * BMARKS historicos por liga: Premier 2.78 goles/partido, Bundesliga 3.10, LaLiga 2.60, Serie A 2.55,',
         '    Ligue 1 2.70, Eredivisie 3.20. Ajusta tu estimacion relativa al benchmark de la liga.',
         '',
@@ -454,21 +458,20 @@ export function construirPromptAnalisis(candidatos, feed, ahoraMs) {
         '  * Posicion en la tabla y objetivos: equipo en zona Champions juega para ganar; en zona descenso, a no perder.',
         '  * Segunda vuelta vs primera vuelta: los patrones cambian, los equipos se conocen mejor.',
         '',
-        'PILAR 8 — SENTIMIENTO DE MERCADO Y DINERO INTELIGENTE (SHARP MONEY)',
-        '  * Movimiento de cuota hacia abajo = dinero apostando en esa direccion.',
-        '    Ejemplo: Over 2.5 abre en 1.90 y baja a 1.72 en las horas previas = flujo de dinero en OVER.',
-        '  * Discrepancia publico vs mercado: si el 80% apuesta Over pero la cuota no baja = el mercado ignora al publico.',
-        '  * Steam move: movimiento brusco de cuota en multiples casas al mismo tiempo = senal de informacion privilegiada.',
-        '  * Analiza las cuotas actuales vs cuotas tipicas de apertura para detectar movimientos.',
-        '  * Revisa el feed de noticias para rumores que hayan podido mover el mercado.',
+        'PILAR 8 — CONTEXTO EXTERNO (SOLO SI EL FEED LO MENCIONA)',
+        '  * Usa el feed de noticias para rumores, bajas de ultima hora o alineaciones filtradas.',
+        '  * NO ves las cuotas del mercado: no analices movimientos de cuotas ni dinero apostado.',
+        '  * Si el feed no menciona un partido, basate solo en los pilares 1-7.',
         '',
         '============================================================',
         'REGLAS DE ORO — OBLIGATORIAS SIN EXCEPCION:',
         '============================================================',
         'REGLA 1: Solo emites veredictos sobre claves EXACTAS de la lista recibida. NUNCA inventas partidos.',
-        'REGLA 2: "probModelo" es tu estimacion independiente (0-99.5). NO copies la probabilidad implicita de la cuota.',
-        'REGLA 3: Solo emite veredicto si tu probModelo SUPERA la probabilidad implicita del mercado.',
-        '         (Prob. implicita = 1/cuota x 100. Cuota Over 2.5 = 1.40 -> implicita = 71.4%. Tu estimacion debe ser > 71.4%.)',
+        'REGLA 2: "probModelo" es tu estimacion independiente (0-99.5). NO ves las cuotas del mercado.',
+        'REGLA 3: Estima probModelo de forma INDEPENDIENTE y ciega a la cuota, basandote solo en datos:',
+        '         forma reciente, xG esperado, bajas y lesiones, clima, factor local/visitante e historial H2H.',
+        '         NO puedes copiar el precio porque NO lo ves: cualquier parecido con la cuota es coincidencia.',
+        '         Da tu probabilidad real del Over/Under indicado segun tu analisis cuantitativo (8 pilares).',
         'REGLA 4: Si no tienes datos cuantitativos suficientes para un partido, NO emitas veredicto.',
         'REGLA 5: El sistema calcula el edge con las cuotas reales. Tu solo das "probModelo". No inventes cuotas ni edge.',
         'REGLA 6: "confianza" ALTA si tienes >= 4 factores convergentes. MEDIA-ALTA con >= 2. MEDIA con al menos 1 solido.',
@@ -484,36 +487,15 @@ export function construirPromptAnalisis(candidatos, feed, ahoraMs) {
     ];
     const system = systemLines.join('\n');
 
-    // Enriquecer la lista con probabilidades implicitas del mercado
-    const listaEnriquecida = lista.map(function (m) {
-        const enr = Object.assign({}, m);
-        const impl = {};
-        if (m.cuotas['1.5']) {
-            impl['1.5'] = {
-                implOver: m.cuotas['1.5'].over > 0 ? Math.round((1 / m.cuotas['1.5'].over) * 1000) / 10 : null,
-                implUnder: m.cuotas['1.5'].under > 0 ? Math.round((1 / m.cuotas['1.5'].under) * 1000) / 10 : null
-            };
-        }
-        if (m.cuotas['2.5']) {
-            impl['2.5'] = {
-                implOver: m.cuotas['2.5'].over > 0 ? Math.round((1 / m.cuotas['2.5'].over) * 1000) / 10 : null,
-                implUnder: m.cuotas['2.5'].under > 0 ? Math.round((1 / m.cuotas['2.5'].under) * 1000) / 10 : null
-            };
-        }
-        enr.probabilidadImplicita = impl;
-        enr.instruccion = 'Tu probModelo debe SUPERAR la implicita del lado recomendado para que haya edge real.';
-        return enr;
-    });
-
     const userLines = [
         '============================================================',
         'MOMENTO DE EJECUCION (UTC): ' + new Date(ahoraMs).toISOString(),
         'ZONA HORARIA: ' + TZ_MADRID,
         '============================================================',
         '',
-        'LISTA CERRADA DE PARTIDOS FUTUROS VALIDADOS (' + listaEnriquecida.length + ' partidos):',
-        '(Incluye cuotas reales y probabilidades implicitas del mercado — detecta donde hay valor)',
-        JSON.stringify(listaEnriquecida, null, 2),
+        'LISTA CERRADA DE PARTIDOS FUTUROS VALIDADOS (' + lista.length + ' partidos):',
+        '(SIN cuotas: estima tu probabilidad real de forma independiente con los 8 pilares)',
+        JSON.stringify(lista, null, 2),
         ''
     ];
 
@@ -527,9 +509,10 @@ export function construirPromptAnalisis(candidatos, feed, ahoraMs) {
 
     userLines.push('============================================================');
     userLines.push('INSTRUCCION FINAL:');
-    userLines.push('Aplica los 8 pilares a CADA partido de la lista. Emite veredicto solo donde tu probModelo');
-    userLines.push('supere la probabilidad implicita del mercado (edge real positivo). Si ningun partido tiene');
-    userLines.push('edge, devuelve: {"veredictos":[],"resumen":"mercado eficiente hoy, sin edge detectado"}');
+    userLines.push('Aplica los 8 pilares a CADA partido de la lista. Emite veredicto con tu probModelo');
+    userLines.push('independiente (ciega a la cuota) donde tengas conviccion cuantitativa. El sistema');
+    userLines.push('calcula el edge con las cuotas reales y solo publica picks con edge positivo.');
+    userLines.push('Si ningun partido merece veredicto, devuelve: {"veredictos":[],"resumen":"sin conviccion suficiente"}');
     userLines.push('Responde SOLO con el JSON. Sin explicaciones adicionales fuera del JSON.');
 
     return { system: system, user: userLines.join('\n'), totalCandidatos: lista.length };
@@ -648,7 +631,11 @@ export function aplicarVeredictos(candidatos, veredictos, ahoraMs) {
         const pCasa = probImplicita(cuota);
         const pJusta = probJusta(cuota, cuotaContraria);
         const evPct = entrada.ev * 100;
-        const edgePuntos = (pJusta === null) ? null : Math.round((v.probModelo - pJusta) * 10) / 10;
+        // Convención del cliente: edge por pick = (cuotaCasa - cuotaModelo) * 100,
+        // con cuotaModelo = 100 / probModelo. Positivo = valor.
+        const cuotaModelo = (Number.isFinite(v.probModelo) && v.probModelo > 0) ? (100 / v.probModelo) : null;
+        const edgePuntos = (cuotaModelo === null || cuotaModelo <= 1 || !Number.isFinite(cuota) || cuota <= 1)
+            ? null : Math.round((cuota - cuotaModelo) * 1000) / 10;
 
         const k = partesMadrid(c.kickoffMs);
 
@@ -885,6 +872,7 @@ export function seleccionDeFixture(f) {
         };
     }
     // 2) tip de ratingbet (su recomendacion publicada con su probabilidad)
+    //     NO es modelo: nunca devuelve edge positivo ni se disfraza de modelo.
     const lineas = ['1.5', '2.5'];
     for (let i = 0; i < lineas.length; i++) {
         const l = f.lineas[lineas[i]];
@@ -898,33 +886,24 @@ export function seleccionDeFixture(f) {
         const pJusta = esOver ? l.pOverJusta : l.pUnderJusta;
         const pTip = Number.isFinite(l.tipProbPct) ? l.tipProbPct : null;
         const probUsada = pTip !== null ? pTip : pJusta;
-        const cuotaModelo = (Number.isFinite(probUsada) && probUsada > 0) ? (100 / probUsada) : null;
-        const edgePuntos = (Number.isFinite(cuotaModelo) && cuotaModelo > 1)
-            ? Math.round((cuota - cuotaModelo) * 1000) / 10
-            : null;
-        const esPositivo = Number.isFinite(edgePuntos) && edgePuntos > 0;
         return {
             mercado: (esOver ? 'Over ' : 'Under ') + mTip[2] + ' Goles', cuota: cuota,
             probPct: probUsada,
             probBase: pTip !== null ? 'analisis-tip' : 'mercado-justo',
-            edgePuntos: edgePuntos,
-            justificacion: esPositivo
-                ? 'Seleccion ' + (esOver ? 'Over' : 'Under') + ' ' + mTip[2] + ' goles validada con Edge positivo (+EV).'
-                : 'Mercado sin ventaja cuantitativa (+EV negativo).'
+            edgePuntos: null,
+            justificacion: 'Seleccion informativa del tip/mercado (' + (esOver ? 'Over' : 'Under') + ' ' + mTip[2] + '), sin edge de modelo.'
         };
     }
-    // 3) fallback: Over 1.5 con probabilidad justa derivada de la cuota real
+    // 3) fallback: Over 1.5 con probabilidad justa derivada de la cuota real.
+    //     Tampoco es modelo: edgePuntos = null.
     const l15 = f.lineas['1.5'];
     if (l15 && Number.isFinite(l15.cuotaOver) && l15.cuotaOver > 1) {
         const probFallback = Number.isFinite(l15.pOverJusta) ? l15.pOverJusta : probImplicita(l15.cuotaOver);
-        const cuotaModeloFb = (Number.isFinite(probFallback) && probFallback > 0) ? (100 / probFallback) : null;
-        const edgeFallback = (Number.isFinite(cuotaModeloFb) && cuotaModeloFb > 1)
-            ? Math.round((l15.cuotaOver - cuotaModeloFb) * 1000) / 10 : null;
         return {
             mercado: 'Over 1.5 Goles', cuota: l15.cuotaOver,
             probPct: probFallback,
-            probBase: 'mercado-justo', edgePuntos: edgeFallback,
-            justificacion: 'Mercado Over 1.5 con probabilidad derivada del precio del mercado.'
+            probBase: 'mercado-justo', edgePuntos: null,
+            justificacion: 'Mercado Over 1.5 con probabilidad derivada del precio del mercado, sin edge de modelo.'
         };
     }
     return null;
@@ -953,7 +932,10 @@ export function construirParlayRiesgo(pool, riskLevel, ahoraMs) {
         if (!f || f.jugado) return;
         if (!Number.isFinite(f.kickoffMs) || f.kickoffMs < nowMs) return;
         const s = seleccionDeFixture(f);
-        if (s && Number.isFinite(s.probPct) && s.probPct > 0 && s.probPct <= 100) {
+        // Solo combinan picks del modelo IA con edge positivo: el tip y el mercado
+        // justo NO son modelo y no pueden publicarse como combinada con valor.
+        if (s && s.probBase === 'modelo-ia' && Number.isFinite(s.probPct) && s.probPct > 0 && s.probPct <= 100
+            && Number.isFinite(s.edgePuntos) && s.edgePuntos > 0) {
             candidatos.push({ f: f, s: s });
         }
     });
@@ -964,7 +946,7 @@ export function construirParlayRiesgo(pool, riskLevel, ahoraMs) {
             if (!f || f.jugado) return;
             if (!Number.isFinite(f.kickoffMs) || f.kickoffMs < nowMs) return;
             const s = seleccionDeFixture(f);
-            if (s && Number.isFinite(s.probPct) && s.probPct > 0 && Number.isFinite(s.edgePuntos) && s.edgePuntos > 0) {
+            if (s && s.probBase === 'modelo-ia' && Number.isFinite(s.probPct) && s.probPct > 0 && Number.isFinite(s.edgePuntos) && s.edgePuntos > 0) {
                 destPool.push({ f: f, s: s });
             }
         });
@@ -1002,26 +984,34 @@ export function construirParlayRiesgo(pool, riskLevel, ahoraMs) {
     const corta = candidatos.slice(0, MAX_CANDIDATOS_COMBINADA);
     const n = corta.length;
 
-    // 2) busqueda combinatoria acotada: mejor probabilidad dentro de la banda
+    // 2) busqueda combinatoria acotada: MAXIMIZA edgeTotal dentro de la banda.
+    // Convención del cliente: edgeTotal = (cuotaBoosted - cuotaModeloTotal) * 100,
+    // cuotaBoosted = cuotaTotal * (1 + boost/100), cuotaModeloTotal = prod(100/probPct).
+    // Solo hay combinada publicable ('ok') si edgeTotal > 0.
     let mejor = null;
     let combos = 0;
+    const boostCfg = comboBoostPct();
     function evaluar(elegidos) {
-        let cuota = 1, prob = 1, casa = 1;
+        let cuota = 1, prob = 1, casa = 1, cuotaModelo = 1;
         for (let i = 0; i < elegidos.length; i++) {
+            if (!Number.isFinite(elegidos[i].s.probPct) || elegidos[i].s.probPct <= 0) return;
             cuota *= elegidos[i].s.cuota;
             prob *= elegidos[i].s.probPct / 100;
+            cuotaModelo *= 100 / elegidos[i].s.probPct;
             const pc = probImplicita(elegidos[i].s.cuota);
             casa *= (pc === null ? 0 : pc / 100);
         }
         cuota = Math.round(cuota * 100) / 100;
         if (!enBanda(banda, cuota)) return;
-        // NOTA: Se eliminó el filtro 'cuota < cuotaModeloTotal' que bloqueaba todas
-        // las combinadas en modo degradado (sin IA). Con probs de mercado justo,
-        // cuotaModelo ≈ cuotaReal, así que esa condición nunca se cumplía.
-        // La banda de cuotas es filtro suficiente.
+        const cuotaBoosted = Math.round(cuota * (1 + boostCfg / 100) * 100) / 100;
+        cuotaModelo = Math.round(cuotaModelo * 100) / 100;
+        const edgeTotal = Math.round((cuotaBoosted - cuotaModelo) * 1000) / 10;
         const pReal = Math.round(prob * 1000) / 10;
         const pCasa = Math.round(casa * 1000) / 10;
-        if (!mejor || pReal > mejor.pReal) mejor = { elegidos: elegidos.slice(), cuota: cuota, pReal: pReal, pCasa: pCasa };
+        if (!mejor || edgeTotal > mejor.edgeTotal) {
+            mejor = { elegidos: elegidos.slice(), cuota: cuota, pReal: pReal, pCasa: pCasa,
+                cuotaModeloTotal: cuotaModelo, cuotaBoosted: cuotaBoosted, edgeTotal: edgeTotal };
+        }
     }
     (function recorre(inicio, elegidos, prod) {
         if (elegidos.length >= sizeMin) evaluar(elegidos);
@@ -1035,16 +1025,19 @@ export function construirParlayRiesgo(pool, riskLevel, ahoraMs) {
         }
     })(0, [], 1);
 
-    if (!mejor) {
-        base.motivo = 'sin-combinacion-en-la-banda (' + banda.descripcion + ')';
+    if (!mejor || !Number.isFinite(mejor.edgeTotal) || mejor.edgeTotal <= 0) {
+        base.motivo = !mejor
+            ? 'sin-combinacion-en-la-banda (' + banda.descripcion + ')'
+            : 'sin-edge-positivo (mejor edgeTotal ' + mejor.edgeTotal + ' <= 0)';
 
-        // Recopilar los partidos futuros mas destacados de la jornada
+        // Recopilar los partidos futuros mas destacados de la jornada.
+        // Solo picks del modelo IA con edge positivo: nada de tip/mercado-justo.
         const destacadosPool = [];
         (pool || []).forEach(function (f) {
             if (!f || f.jugado) return;
             if (!Number.isFinite(f.kickoffMs) || f.kickoffMs < nowMs) return;
             const s = seleccionDeFixture(f);
-            if (s && Number.isFinite(s.probPct) && s.probPct > 0 && Number.isFinite(s.edgePuntos) && s.edgePuntos > 0) {
+            if (s && s.probBase === 'modelo-ia' && Number.isFinite(s.probPct) && s.probPct > 0 && Number.isFinite(s.edgePuntos) && s.edgePuntos > 0) {
                 destacadosPool.push({ f: f, s: s });
             }
         });
@@ -1099,19 +1092,13 @@ export function construirParlayRiesgo(pool, riskLevel, ahoraMs) {
     base.cuotaTotal = mejor.cuota;
     base.probabilidadReal = mejor.pReal;
     base.probabilidadCasa = mejor.pCasa;
-    let cuotaModeloTotal = 1;
-    picks.forEach(function (p) {
-        const cm = (Number.isFinite(p.probPct) && p.probPct > 0) ? (100 / p.probPct) : null;
-        if (cm) cuotaModeloTotal *= cm;
-    });
-    cuotaModeloTotal = Math.round(cuotaModeloTotal * 100) / 100;
-    base.cuotaModeloTotal = cuotaModeloTotal;
-    // Edge PRO por cuotas: (casa/modelo-1). Aplica boost bet365 sobre la cuota total.
+    base.cuotaModeloTotal = mejor.cuotaModeloTotal;
+    // EdgeTotal por convención del cliente: (cuotaBoosted - cuotaModeloTotal) * 100.
     const boost = comboBoostPct();
-    const cuotaBoosted = Math.round(mejor.cuota * (1 + boost / 100) * 100) / 100;
+    const cuotaBoosted = mejor.cuotaBoosted;
     base.cuotaTotalBoosted = cuotaBoosted;
     base.boostPct = boost;
-    base.edgeTotal = Math.round((cuotaBoosted - cuotaModeloTotal) * 1000) / 10;
+    base.edgeTotal = mejor.edgeTotal;
     base.probBase = conIA ? 'modelo-ia' : 'mixta';
     return base;
 }
