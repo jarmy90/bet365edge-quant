@@ -3,7 +3,7 @@ const path = require('path');
 
 const parsedMatches = JSON.parse(fs.readFileSync(path.join(__dirname, 'parsed_matches.json'), 'utf-8'));
 
-// Grandes Ligas (Betfair y Polymarket España)
+// Grandes Ligas + MODO PARON SELECCIONES (cuando no hay top, usa break con penalizacion)
 const TOP_LEAGUES_PATTERNS = [
     'ENGLISH PREMIER LEAGUE', 'ENGLISH CHAMPIONSHIP',
     'LALIGA SPAIN', 'SEGUNDA DIVISION', 'LALIGA 2',
@@ -16,10 +16,21 @@ const TOP_LEAGUES_PATTERNS = [
     'LIGA PROFESIONAL ARGENTINA',
     'SERIE A BRAZIL'
 ];
+// Ligas break: liquidez aceptable cuando no hay top (Champions, MLS, Championship ya esta arriba)
+const BREAK_LEAGUES_PATTERNS = [
+    'CHAMPIONS LEAGUE', 'EUROPA LEAGUE', 'CONFERENCE LEAGUE',
+    'EFL CHAMPIONSHIP', 'MLS USA', '3. LIGA GERMANY',
+    '1. DIVISJON NORWAY', 'ELITESERIEN NORWAY',
+    'PRIMERA A COLOMBIA', 'BETWAY PREMIERSHIP'
+];
 
 function isTopTierLeague(league) {
     const l = (league || '').toUpperCase();
     return TOP_LEAGUES_PATTERNS.some(p => l.includes(p));
+}
+function isBreakLeague(league) {
+    const l = (league || '').toUpperCase();
+    return BREAK_LEAGUES_PATTERNS.some(p => l.includes(p));
 }
 
 // Función de Validación Temporal Crítica (Margen de seguridad: 2.5 horas)
@@ -35,8 +46,8 @@ function getFutureMatchesPool(match) {
     const matchTotalMin = matchH * 60 + matchM;
     const currentTotalMin = currentH * 60 + currentM;
 
-    // Margen de seguridad: 2.5 horas = 150 minutos
-    const safetyMarginMin = 150;
+    // Margen de seguridad: 60 min en modo break, 150 normal
+    const safetyMarginMin = process.env.BREAK_MODE === '1' ? 60 : 150;
 
     if (matchTotalMin <= currentTotalMin + safetyMarginMin) {
         console.log(`[VALIDACIÓN TEMPORAL] Descartado partido pasado o cercano (<2.5h): ${match.local} vs ${match.visitante} (${hora})`);
@@ -49,11 +60,13 @@ function getFutureMatchesPool(match) {
 function analyzeAccumulatorEV(match) {
     const { liga, local, visitante, linea, cuotaOver, cuotaUnder, probRBOver } = match;
 
-    if (!isTopTierLeague(liga)) return null;
+    const isBreak = isBreakLeague(liga);
+    if (!isTopTierLeague(liga) && !isBreak) return null;
 
-    // Rango de cuotas individuales ideales para armar una combinada de 2 o 3 partidos con cuota total entre 2.00 y 3.00:
-    // Cuotas individuales entre 1.18 y 1.45 (Probabilidad Implícita: 69% a 85%)
-    if (cuotaOver < 1.18 || cuotaOver > 1.48) return null;
+    // Rango de cuotas: 1.15-1.60 en break, 1.18-1.48 en normal
+    const lo = process.env.BREAK_MODE === '1' ? 1.15 : 1.18;
+    const hi = process.env.BREAK_MODE === '1' ? 1.60 : 1.48;
+    if (cuotaOver < lo || cuotaOver > hi) return null;
 
     const rbProbDecimal = probRBOver / 100;
     const lUpper = liga.toUpperCase();
@@ -82,11 +95,11 @@ function analyzeAccumulatorEV(match) {
     const probRealDecimal = Math.min(0.95, (baseProb + teamAdj) * 0.70 + rbProbDecimal * 0.30);
     const probRealPct = Math.round(probRealDecimal * 10000) / 100;
 
-    // CÁLCULO DEL EDGE INDIVIDUAL
-    const edgePct = Math.round((probRealDecimal - rbProbDecimal) * 10000) / 100;
-
-    // Exigimos EDGE positivo
-    if (edgePct < 2.5) return null;
+    // Exigimos EDGE positivo (1.0 en break, 2.5 normal). Penaliza break -1.5pts.
+    const minEdge = process.env.BREAK_MODE === '1' ? 1.0 : 2.5;
+    let edgePct = Math.round((probRealDecimal - rbProbDecimal) * 10000) / 100;
+    if (isBreak && !TOP_LEAGUES_PATTERNS.some(p => lUpper.includes(p))) edgePct -= 1.5;
+    if (edgePct < minEdge) return null;
 
     let confianza = (probRealPct >= 80.0) ? 'ALTA' : 'MEDIA';
 

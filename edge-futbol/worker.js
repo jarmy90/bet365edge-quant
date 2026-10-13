@@ -4261,36 +4261,16 @@ export default {
             return 99;
         }
         function esLigaTopPermitidaCliente(f) {
+            // FIX paron-selecciones: igual que servidor, solo excluye sin-liquidez
             if (!f) return false;
             var liga = String(f.liga || f.league || f.ligaCorta || '').toLowerCase();
             var url = String(f.urlRelativa || f.ligaUrl || f.url || '').toLowerCase();
-            var pais = String(f.pais || f.country || '').toLowerCase();
-            var combined = (liga + ' ' + url + ' ' + pais).toLowerCase();
-
-            // Exclusiones explícitas primero
-            var exclusiones = [
-                'friendly', 'amistoso', 'reserve', 'reserves', 'juventud', 'youth', 'u21', 'u19', 'u23', 'femenino', 'women',
-                'argentina', 'colombia', 'guatemala', 'honduras', 'mexico', 'méxico', 'russia', 'rusia',
-                'belgium', 'bélgica', 'estonia', 'romania', 'rumanía', 'slovakia', 'eslovaquia',
-                'ukraine', 'ucrania', 'norway', 'noruega', 'bulgaria', 'denmark', 'dinamarca', 'georgia',
-                'germany', 'alemania', 'italy', 'italia', 'france', 'francia', 'portugal', 'netherlands', 'holanda'
-            ];
+            var combined = (liga + ' ' + url).toLowerCase();
+            var exclusiones = ['friendly', 'amistoso', 'reserve', 'youth', 'u17', 'u18', 'u19', 'u20', 'u21', 'u23', 'femenino', 'women', 'futsal', 'beach soccer', 'esport', 'virtual'];
             for (var i = 0; i < exclusiones.length; i++) {
-                if (combined.includes(exclusiones[i])) return false;
+                if (combined.indexOf(exclusiones[i]) !== -1) return false;
             }
-
-            // Competiciones Españolas permitidas (LaLiga, LaLiga EA Sports, Primera División, Hypermotion, Segunda División, Copa del Rey)
-            var esEspana = combined.includes('spain') || combined.includes('españa') || combined.includes('es');
-            var esLaLiga = combined.includes('laliga') || combined.includes('la liga') || combined.includes('primera division') || combined.includes('primera división') || combined.includes('hypermotion') || combined.includes('segunda division') || combined.includes('segunda división') || combined.includes('copa del rey');
-
-            // Competiciones Inglesas permitidas (Premier League, English Premier League, Championship, EFL Championship, FA Cup, EFL Cup, Carabao Cup)
-            var esInglaterra = combined.includes('england') || combined.includes('inglaterra') || combined.includes('gb-eng');
-            var esPremier = combined.includes('premier league') || combined.includes('premier') || combined.includes('championship') || combined.includes('fa cup') || combined.includes('efl cup') || combined.includes('carabao cup');
-
-            if ((esEspana && esLaLiga) || (esInglaterra && esPremier)) {
-                return true;
-            }
-            return false;
+            return true;
         }
 
         function renderHeroValidatedFixtures(fixtures, meta) {

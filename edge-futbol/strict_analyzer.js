@@ -20,7 +20,12 @@ const TOP_LEAGUES_PATTERNS = [
 
 function isTopTierLeague(league) {
     const l = (league || '').toUpperCase();
-    return TOP_LEAGUES_PATTERNS.some(p => l.includes(p));
+    if (TOP_LEAGUES_PATTERNS.some(p => l.includes(p))) return true;
+    // BREAK: acepta Champions/Europa/MLS/Championship cuando no hay top
+    if (process.env.BREAK_MODE === '1') {
+        return ['CHAMPIONS LEAGUE','EUROPA LEAGUE','CONFERENCE LEAGUE','EFL CHAMPIONSHIP','MLS USA','BETWAY PREMIERSHIP'].some(p => l.includes(p));
+    }
+    return false;
 }
 
 // Algoritmo institucional ajustado para Grandes Ligas
