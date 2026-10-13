@@ -1106,7 +1106,12 @@ export function construirParlayRiesgo(pool, riskLevel, ahoraMs) {
     });
     cuotaModeloTotal = Math.round(cuotaModeloTotal * 100) / 100;
     base.cuotaModeloTotal = cuotaModeloTotal;
-    base.edgeTotal = Math.round((mejor.cuota - cuotaModeloTotal) * 100);
+    // Edge PRO por cuotas: (casa/modelo-1). Aplica boost bet365 sobre la cuota total.
+    const boost = comboBoostPct();
+    const cuotaBoosted = Math.round(mejor.cuota * (1 + boost / 100) * 100) / 100;
+    base.cuotaTotalBoosted = cuotaBoosted;
+    base.boostPct = boost;
+    base.edgeTotal = edgePorCuotas(cuotaBoosted, cuotaModeloTotal);
     base.probBase = conIA ? 'modelo-ia' : 'mixta';
     return base;
 }
