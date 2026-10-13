@@ -43,7 +43,7 @@ import {
 } from './ratingbet_pipeline.js';
 import datasetLocal from './ratingbet_fixtures_data.js';
 
-const BUILD_ID = 'ratingbet-v9.3-2026-10-12-multikey-rotation';
+const BUILD_ID = 'ratingbet-v9.5-2026-10-13-fix504-light';
 
 // =============================================================================
 // ACCESO_LIBRE: modo gratuito (fase de captacion de trafico).
@@ -1301,10 +1301,18 @@ export default {
 
         if (url.pathname === '/api/parlays-by-risk') {
             const riskLevel = url.searchParams.get('risk') || 'medio'; // bajo, medio, alto
-            // FIX 504: las combinadas reutilizan la cache de fixtures (no disparan la cadena IA).
-            // El pool ya viene validado; force solo revalida temporalmente, sin re-llamar al LLM.
-            const rawPool = await getFutureMatchesPool(false);
-            const realMatchesPool = (rawPool || []).filter(esLigaTopPermitida);
+            // FIX 504 v2: pool ligero SIN IA (dataset + validacion temporal). Nunca llama al LLM,
+            // asi responde en <2s incluso en cold start de Vercel Hobby (limite 10s).
+            let realMatchesPool = [];
+            try {
+                const nowL = Date.now();
+                const dl = await cargarDatasetRatingbet(nowL, false);
+                const cl = construirCandidatos(dl.dataset, nowL, { margenMinutos: MARGEN_MIN, maxDias: VENTANA_DIAS, maxAntiguedadMin: MAX_ANTIGUEDAD });
+                const fl = filtrarPublicables((cl.candidatos || []).filter(esLigaTopPermitida), nowL, { margenMinutos: MARGEN_PUBLICACION_MIN });
+                realMatchesPool = fl.publicables || [];
+            } catch (e) {
+                realMatchesPool = [];
+            }
 
             // Motor de combinadas v5: selecciona 2-4 picks reales cuya cuota
             // multiplicada cae en la banda del nivel de riesgo, maximizando la
