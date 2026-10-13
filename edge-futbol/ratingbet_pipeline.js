@@ -854,8 +854,8 @@ export const BANDAS_RIESGO = {
             min: 3.00, max: 15.00, minExclusivo: true, maxExclusivo: false, tamanos: [3, 4] }
 };
 
-const MAX_CANDIDATOS_COMBINADA = 14;   // acota la explosion combinatoria
-const MAX_COMBOS = 6000;
+const MAX_CANDIDATOS_COMBINADA = 10;   // acota la explosion combinatoria (fix 504 Vercel)
+const MAX_COMBOS = 2000;
 
 function enBanda(banda, cuota) {
     const infOk = banda.minExclusivo ? cuota > banda.min : cuota >= banda.min;

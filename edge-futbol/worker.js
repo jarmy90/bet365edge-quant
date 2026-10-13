@@ -1301,8 +1301,9 @@ export default {
 
         if (url.pathname === '/api/parlays-by-risk') {
             const riskLevel = url.searchParams.get('risk') || 'medio'; // bajo, medio, alto
-            const force = url.searchParams.get('force') === '1';
-            const rawPool = await getFutureMatchesPool(force);
+            // FIX 504: las combinadas reutilizan la cache de fixtures (no disparan la cadena IA).
+            // El pool ya viene validado; force solo revalida temporalmente, sin re-llamar al LLM.
+            const rawPool = await getFutureMatchesPool(false);
             const realMatchesPool = (rawPool || []).filter(esLigaTopPermitida);
 
             // Motor de combinadas v5: selecciona 2-4 picks reales cuya cuota
