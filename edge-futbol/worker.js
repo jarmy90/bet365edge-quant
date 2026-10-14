@@ -4239,7 +4239,7 @@ export default {
                         elEdge.style.color = edgeNetVal >= 0 ? 'var(--neon-emerald)' : '#ef4444';
                     }
                     var lblReal = document.getElementById('labelProbReal');
-                    if (lblReal) lblReal.innerText = data.probBase === 'modelo-ia' ? 'PROB. MODELO IA COMBINADA' : 'PROB. COMBINADA (MERCADO)';
+                    if (lblReal) lblReal.innerText = (data.probBase === 'modelo-ia' || data.probBase === 'modelo-poisson') ? 'PROB. MODELO COMBINADA' : 'PROB. COMBINADA (MERCADO)';
                 }
 
                 container.innerHTML = '';

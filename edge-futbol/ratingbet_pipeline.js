@@ -1020,9 +1020,10 @@ export function construirParlayRiesgo(pool, riskLevel, ahoraMs) {
         if (!f || f.jugado) return;
         if (!Number.isFinite(f.kickoffMs) || f.kickoffMs < nowMs) return;
         const s = seleccionDeFixture(f);
-        // Solo combinan picks del modelo IA con edge positivo: el tip y el mercado
-        // justo NO son modelo y no pueden publicarse como combinada con valor.
-        if (s && s.probBase === 'modelo-ia' && Number.isFinite(s.probPct) && s.probPct > 0 && s.probPct <= 100
+        // Solo combinan picks de MODELO (IA o Poisson) con edge positivo: el
+        // tip y el mercado justo NO son modelo y no pueden publicarse con valor.
+        if (s && (s.probBase === 'modelo-ia' || s.probBase === 'modelo-poisson')
+            && Number.isFinite(s.probPct) && s.probPct > 0 && s.probPct <= 100
             && Number.isFinite(s.edgePuntos) && s.edgePuntos > 0) {
             candidatos.push({ f: f, s: s });
         }
