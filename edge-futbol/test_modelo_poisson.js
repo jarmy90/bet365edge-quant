@@ -125,6 +125,19 @@ const selIA = seleccionDeFixture(fixtureConIA);
 ok(!!selIA && selIA.probBase === 'modelo-ia' && selIA.probPct === 70.5,
     'con IA disponible gana modelo-ia (Poisson es respaldo)', selIA ? selIA.probBase : 'null');
 
+// Guardia anti-contradiccion: IA y Poisson discrepan >15pts -> sin pick
+const fixtureDesacuerdo = Object.assign({}, fixturePoisson, {
+    modelProb: 88.0, edgePuntos: 5.0, modoAnalisis: 'modelo-ia',
+    mercado: 'Over 1.5 Goles', cuota: 1.19, lado: 'OVER', linea: '1.5'
+});
+ok(seleccionDeFixture(fixtureDesacuerdo) === null,
+    'desacuerdo IA(88) vs Poisson(61) -> se excluye (no Over en una pestana y Under en otra)',
+    String(seleccionDeFixture(fixtureDesacuerdo)));
+const fixtureAcuerdo = Object.assign({}, fixtureDesacuerdo, { modelProb: 65.0 });
+const selAcuerdo = seleccionDeFixture(fixtureAcuerdo);
+ok(!!selAcuerdo && selAcuerdo.probBase === 'modelo-ia',
+    'acuerdo IA(65) vs Poisson(61) -> el pick IA se publica', selAcuerdo ? selAcuerdo.probBase : 'null');
+
 // Stats insuficientes en el fixture: cae a mercado-justo con edgePuntos null
 const fixtureMalo = Object.assign({}, fixturePoisson, {
     stats: { avgH: 1.03, avgA: 1.03, attH: 1, attA: 1, defH: 1, defA: 1, nH: 1, nA: 1 }

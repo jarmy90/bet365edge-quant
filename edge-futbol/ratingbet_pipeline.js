@@ -916,6 +916,18 @@ export function seleccionDeFixture(f) {
     if (!f || !f.lineas) return null;
     // 1) veredicto de la IA sobre el fixture
     if (Number.isFinite(f.modelProb) && Number.isFinite(f.cuota) && f.cuota > 1 && f.modoAnalisis !== 'solo-cuotas') {
+        // Guardia anti-contradiccion: si el Poisson (con stats) estima el MISMO
+        // lado y difiere >15pts, los modelos discrepan -> sin pick. Evita
+        // publicar Over en una pestana y Under en otra del mismo partido.
+        if (f.stats && typeof f.stats === 'object' && (f.lado === 'OVER' || f.lado === 'UNDER') && (f.linea === '1.5' || f.linea === '2.5')) {
+            const mpD = modeloPoisson(f.stats);
+            if (mpD) {
+                const pPoi = f.lado === 'OVER'
+                    ? (f.linea === '2.5' ? mpD.p25 : mpD.p15)
+                    : (f.linea === '2.5' ? 100 - mpD.p25 : 100 - mpD.p15);
+                if (Number.isFinite(pPoi) && Math.abs(f.modelProb - pPoi) > 15) return null;
+            }
+        }
         return {
             mercado: f.mercado, cuota: f.cuota, probPct: f.modelProb, probBase: 'modelo-ia',
             edgePuntos: Number.isFinite(f.edgePuntos) ? f.edgePuntos : null,
