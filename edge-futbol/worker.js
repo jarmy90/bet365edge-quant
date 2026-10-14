@@ -1311,7 +1311,6 @@ export default {
             const pool = await getFutureMatchesPool(force);
             return new Response(JSON.stringify({
                 ok: true,
-                servidorCodigo: 'poisson-v3-diag',
                 meta: buildTemporalMeta(Date.now()),
                 total: pool.length,
                 fixtures: pool,
