@@ -742,6 +742,11 @@ export default {
             const soloCache = !!(opts && opts.soloCache);
             if (statsCache.mapa && (nowMs - statsCache.at) < STATS_CACHE_MS) return statsCache.mapa;
             if (soloCache) return null;
+            // Solo las ligas con candidatos hoy (no las 6 siempre): recorta el
+            // tiempo y los req del ciclo.
+            const pideLigas = opts && Array.isArray(opts.ligas) ? opts.ligas : null;
+            const ligasFD = pideLigas ? FD_LEAGUES.filter(function (L) { return pideLigas.indexOf(L.id) !== -1; }) : FD_LEAGUES;
+            if (!ligasFD.length) return statsCache.mapa || null;
             const fdKey = env.FOOTBALL_DATA_API_KEY || '';
             const headers = fdKey ? { 'X-Auth-Token': fdKey } : {};
             const hasta = new Date(nowMs).toISOString().slice(0, 10);
@@ -752,7 +757,7 @@ export default {
                 return r.json();
             }
             const mapa = [];
-            await Promise.all(FD_LEAGUES.map(async function (league) {
+            await Promise.all(ligasFD.map(async function (league) {
                 try {
                     const st = await fdJson(FD_BASE + '/competitions/' + league.id + '/standings');
                     // Los ultimos resultados son opcionales: si fallan, vale la temporada sola.
@@ -1011,7 +1016,15 @@ export default {
                 // ~2 req/liga por ciclo de 6h (cache STATS_CACHE_MS). Nunca rompe
                 // el flujo: sin stats, c.stats queda null y el pipeline sigue.
                 try {
-                    const mapaStats = await cargarStatsFootballData(nowMs);
+                    const idsFD = [];
+                    try {
+                        const txt = candidatos.map(function (c) { return String(c.liga || '') + ' ' + String(c.urlRelativa || ''); }).join(' ').toLowerCase();
+                        FD_LEAGUES.forEach(function (L) {
+                            const key = String(L.liga || '').toLowerCase().split(':').pop().trim();
+                            if (key && txt.indexOf(key) !== -1 && idsFD.indexOf(L.id) === -1) idsFD.push(L.id);
+                        });
+                    } catch (_) {}
+                    const mapaStats = await cargarStatsFootballData(nowMs, idsFD.length ? { ligas: idsFD } : { ligas: [] });
                     adjuntarStatsACandidatos(candidatos, mapaStats);
                 } catch (_) { /* sin stats en este ciclo */ }
 
@@ -1146,8 +1159,8 @@ export default {
                     let iaRaw = null;  // texto crudo (Gemini nativo)
                     let ultimoError = null;
                     // Presupuesto global anti-TIMEOUT (Vercel): la cadena completa
-                    // no puede superar ~35s; al agotarse se cae al degradado honesto.
-                    const iaBudgetMs = 35000;
+                    // no puede superar ~22s; al agotarse se cae al degradado honesto.
+                    const iaBudgetMs = 22000;
                     const iaDeadline = Date.now() + iaBudgetMs;
 
                     for (const prov of proveedoresAProbar) {
