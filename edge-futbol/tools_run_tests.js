@@ -19,6 +19,7 @@ const SUITES = [
     { fichero: 'test_ratingbet_pipeline.js', que: 'pipeline dataset real -> pool publicable' },
     { fichero: 'test_parlays_riesgo.js', que: 'combinadas por nivel de riesgo' },
     { fichero: 'test_modelo_poisson.js', que: 'modelo Poisson determinista (ciego a la cuota)' },
+    { fichero: 'test_settlement.js', que: 'liquidacion de picks -> track-record (mocks, sin red)' },
     { fichero: 'test_dataset_remoto.js', que: 'carga del dataset remoto (nube)' },
     { fichero: 'test_client_render.js', que: 'render del cliente (sin null%)' },
     { fichero: 'test_acceso_libre.js', que: 'acceso libre + pagina legal (+18, privacidad, cookies)' },

@@ -135,3 +135,53 @@ numéricos). Ejemplos: `L = 2.5` → `71.3 %` / `45.6 %`; `L = 1.0` → `26.4 %`
 - `test_parlays_riesgo.js` → 46/46.
 - `test_ratingbet_pipeline.js` → 92/92 (modelo ciego, edge de cliente, caso 1.60/61 % y 1.60/65 %, EV%).
 - `test_modelo_poisson.js` → casos `L = 2.5`, `L = 1.0`, stats insuficientes y `seleccionDeFixture` con Poisson.
+- `test_settlement.js` → liquidación del track record con fixtures simulados (sin red).
+
+## 8. Historial y liquidación
+
+**Qué se registra**: cada pick publicado (de `modelo-ia` o `modelo-poisson`,
+destacado o de una banda de riesgo) queda anotado **una sola vez**, en su
+primera publicación, en `edge-futbol/data/track-record.json`:
+identidad del partido, mercado/línea/lado, `cuota`, `probModelo`, `edgePuntos`,
+modelo (`modelo-ia` / `modelo-poisson`), banda y `kickoffMs`. Ese fichero es el
+track record público del histórico; se versiona en el repo y lo genera
+`edge-futbol/settle_results.js`.
+
+**Regla de liquidación** (1 pick = 1 unidad de stake):
+
+```
+Over  → gana si goles >  línea   (p.ej. Over 1.5 con 2 goles)
+Under → gana si goles <  línea   (p.ej. Under 2.5 con 2 goles)
+acierto  → profit = cuota - 1
+fallo     → profit = -1
+```
+
+`hit%` = aciertos / liquidados; `yield%` = suma(profit) / nº liquidados.
+Los pick **pendientes** (partido sin marcador) no cuentan en `hit%` ni
+`yield%`: solo entran en `n` y en el recuento por modelo/banda.
+
+**Cobertura**: el marcador llega de football-data.org. Si el partido no tiene
+score disponible (liga no cubierta por el tier gratuito, dato aún sin subir o
+error de API), el pick queda en `result.estado = "pendiente"` **hasta que
+aparezca**: nunca se liquida con una estimación ni se descarta en silencio.
+
+**Cadencia 2×/día**: el workflow `.github/workflows/settle.yml` corre el script
+a las **06:00 y 18:00 UTC** (`on.schedule: cron '0 6,18 * * *'`, más
+`workflow_dispatch` para lanzarlo a mano). Cada ciclo:
+
+1. `actions/checkout` → `actions/setup-node` (Node 22).
+2. `node edge-futbol/settle_results.js` con
+   `FOOTBALL_DATA_API_KEY=${{ secrets.FOOTBALL_DATA_API_KEY }}`
+   (el script acepta `FD_KEY` como alternativa; sin clave usa el tier anónimo).
+3. Commit + push **solo si `edge-futbol/data/track-record.json` cambió**:
+   `git add` del fichero → `git diff --cached --quiet ||
+   git commit -m "chore: liquida resultados" && git push`.
+   Sin cambios no hay commit vacío ni push.
+
+**Requisitos del repositorio**:
+
+- Secreto **`FOOTBALL_DATA_API_KEY`** en Settings > Secrets and variables >
+  Actions → Repositories (clave gratuita de football-data.org).
+- Permiso del job **`contents: write`** (sin él el push del track record es
+  rechazado por GitHub). El commit lo firma `github-actions[bot]`.
+

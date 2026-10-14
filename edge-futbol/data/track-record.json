@@ -1,0 +1,140 @@
+{
+  "actualizadoEnUtc": "2026-10-14T09:41:33.151Z",
+  "nota": "Track-record de picks publicados (modelo-ia y modelo-poisson). Solo la primera publicacion de cada pick cuenta; sin-datos no entra en hit%/yield. Generado por edge-futbol/settle_results.js.",
+  "picks": [
+    {
+      "id": "derby-vs-queens-park-rangers|Under 1.5 Goles|14/10",
+      "partido": "Derby vs Queens Park Rangers",
+      "local": "Derby",
+      "visitante": "Queens Park Rangers",
+      "liga": "England: EFL Championship",
+      "mercado": "Under 1.5 Goles",
+      "linea": "1.5",
+      "lado": "UNDER",
+      "cuota": 3.78,
+      "probModelo": 39.9,
+      "edgePuntos": 127.4,
+      "model": "modelo-poisson",
+      "banda": "destacado",
+      "publicadoEnUtc": "2026-10-14T09:41:33.151Z",
+      "kickoffMs": 1791978300000,
+      "result": {
+        "estado": "pendiente",
+        "golesLocal": null,
+        "golesVisitante": null,
+        "profit": null,
+        "settledEnUtc": null
+      }
+    },
+    {
+      "id": "norwich-vs-southampton|Over 2.5 Goles|14/10",
+      "partido": "Norwich vs Southampton",
+      "local": "Norwich",
+      "visitante": "Southampton",
+      "liga": "England: EFL Championship",
+      "mercado": "Over 2.5 Goles",
+      "linea": "2.5",
+      "lado": "OVER",
+      "cuota": 1.42,
+      "probModelo": 79.9,
+      "edgePuntos": 16.8,
+      "model": "modelo-poisson",
+      "banda": "destacado",
+      "publicadoEnUtc": "2026-10-14T09:41:33.151Z",
+      "kickoffMs": 1791978300000,
+      "result": {
+        "estado": "pendiente",
+        "golesLocal": null,
+        "golesVisitante": null,
+        "profit": null,
+        "settledEnUtc": null
+      }
+    }
+  ],
+  "resumen": {
+    "n": 2,
+    "settled": 0,
+    "ganados": 0,
+    "hitPct": 0,
+    "yieldPct": 0,
+    "porModelo": {
+      "ia": {
+        "n": 2,
+        "settled": 0,
+        "ganados": 0,
+        "hitPct": 0,
+        "yieldPct": 0
+      },
+      "poisson": {
+        "n": 2,
+        "settled": 0,
+        "ganados": 0,
+        "hitPct": 0,
+        "yieldPct": 0
+      }
+    },
+    "porBanda": {
+      "bajo": {
+        "n": 2,
+        "settled": 0,
+        "ganados": 0,
+        "hitPct": 0,
+        "yieldPct": 0
+      },
+      "medio": {
+        "n": 2,
+        "settled": 0,
+        "ganados": 0,
+        "hitPct": 0,
+        "yieldPct": 0
+      },
+      "alto": {
+        "n": 2,
+        "settled": 0,
+        "ganados": 0,
+        "hitPct": 0,
+        "yieldPct": 0
+      },
+      "destacado": {
+        "n": 2,
+        "settled": 0,
+        "ganados": 0,
+        "hitPct": 0,
+        "yieldPct": 0
+      }
+    },
+    "calibracion": [
+      {
+        "rango": "50-60",
+        "n": 0,
+        "hits": 0,
+        "hitPct": 0
+      },
+      {
+        "rango": "60-70",
+        "n": 0,
+        "hits": 0,
+        "hitPct": 0
+      },
+      {
+        "rango": "70-80",
+        "n": 0,
+        "hits": 0,
+        "hitPct": 0
+      },
+      {
+        "rango": "80-90",
+        "n": 0,
+        "hits": 0,
+        "hitPct": 0
+      },
+      {
+        "rango": "90-100",
+        "n": 0,
+        "hits": 0,
+        "hitPct": 0
+      }
+    ]
+  },
+  "version": 1
+}

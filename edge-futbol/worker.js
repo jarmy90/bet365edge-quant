@@ -1018,6 +1018,7 @@ export default {
 
         // --- Cache de analisis completo (dataset -> edge) ---
         let analisisCache = { at: -Infinity, pool: [], diag: null, key: null };
+        let memoriaCache = {};
         let analisisInflight = null;
 
         function analisisCacheKey() {
@@ -1631,6 +1632,51 @@ export default {
             return new Response(JSON.stringify(parlayResponse), {
                 headers: { ...corsHeaders, 'Content-Type': 'application/json; charset=utf-8' }
             });
+        }
+
+        // =========================================================================
+        // 6.d ENDPOINT: REGISTRO DE SEGUIMIENTO (track-record)
+        // =========================================================================
+        if (url.pathname === '/api/track-record') {
+            const CACHE_KEY = 'track-record';
+            const CACHE_TTL = 6 * 60 * 60 * 1000; // 6 horas
+            let cached = memoriaCache[CACHE_KEY];
+            if (cached && Date.now() - cached.at < CACHE_TTL) {
+                return new Response(JSON.stringify(cached.data), {
+                    headers: { ...corsHeaders, 'Content-Type': 'application/json; charset=utf-8' }
+                });
+            }
+            try {
+                const abort = new AbortController();
+                const timeoutId = setTimeout(() => abort.abort(), 8000);
+                const resp = await fetch('https://raw.githubusercontent.com/jarmy90/bet365edge-quant/main/edge-futbol/data/track-record.json', {
+                    signal: abort.signal,
+                    headers: { 'Cache-Control': 'no-store' }
+                });
+                clearTimeout(timeoutId);
+                if (!resp.ok) throw new Error('http-' + resp.status);
+                const data = await resp.json();
+                const ms = Date.parse(data && data.actualizadoEnUtc);
+                const todos = Array.isArray(data && data.picks) ? data.picks : [];
+                const sal = {
+                    ok: true,
+                    actualizadoEnUtc: Number.isFinite(ms) ? new Date(ms).toISOString() : null,
+                    resumen: (data && data.resumen) || null,
+                    nota: (data && data.nota) || null,
+                    edadMin: Number.isFinite(ms) ? Math.round((Date.now() - ms) / 60000) : null,
+                    ultimos: todos.slice(-60)
+                };
+                memoriaCache[CACHE_KEY] = { at: Date.now(), data: sal };
+                return new Response(JSON.stringify(sal), {
+                    headers: { ...corsHeaders, 'Content-Type': 'application/json; charset=utf-8' }
+                });
+            } catch (e) {
+                // Sin cachear el fallo: el siguiente intento reintenta pronto.
+                const fallback = { ok: false, track: null, motivo: (e && e.message) || 'desconocido' };
+                return new Response(JSON.stringify(fallback), {
+                    headers: { ...corsHeaders, 'Content-Type': 'application/json; charset=utf-8' }
+                });
+            }
         }
 
         // =========================================================================
@@ -2914,8 +2960,8 @@ export default {
         <section class="bento-card col-12" id="trackrecord" style="margin-bottom:1.5rem; padding:1.5rem;">
             <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem; margin-bottom:1.25rem;">
                 <div>
-                    <h2 style="font-size:1.15rem; font-weight:800; color:var(--text-primary);">📊 Track Record Público — Línea de Tiempo de 20 Combinadas</h2>
-                    <p style="font-size:0.8rem; color:var(--text-secondary); margin-top:3px;">Últimos 3 meses &mdash; <span style="color:var(--neon-emerald); font-weight:700;">15 ganadas de 20 combinadas (75% acierto)</span> &middot; pasa el cursor por los puntos para ver la combinada real</p>
+                    <h2 style="font-size:1.15rem; font-weight:800; color:var(--text-primary);">📊 Track Record Público — Historial Verificado</h2>
+                    <p id="wkTrackSub" style="font-size:0.8rem; color:var(--text-secondary); margin-top:3px;">Cargando historial verificado…</p>
                 </div>
                 <div style="display:flex; gap:8px; background:rgba(0,0,0,0.2); border:1px solid var(--border-subtle); padding:4px; border-radius:12px;">
                     <button type="button" class="risk-btn-w" onclick="setWKRiskProfile('low', this)" style="padding:6px 12px; font-size:0.75rem; font-weight:700; border-radius:8px; border:1px solid transparent; background:transparent; color:var(--text-muted); cursor:pointer;">🛡️ Bajo (1%)</button>
@@ -2927,22 +2973,22 @@ export default {
             <!-- KPIs -->
             <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(180px, 1fr)); gap:1rem; margin-bottom:1.5rem;">
                 <div style="background:var(--bg-void); border:1px solid var(--border-subtle); border-radius:12px; padding:1rem; text-align:center;">
-                    <div style="font-size:1.6rem; font-weight:900; font-family:'JetBrains Mono'; color:var(--neon-emerald);" id="wkYieldVal">+34.8%</div>
-                    <div style="font-size:0.68rem; color:var(--text-muted); font-weight:700; text-transform:uppercase;">Yield Acumulado</div>
-                    <div style="font-size:0.72rem; color:var(--text-secondary); margin-top:2px;">últimos 3 meses</div>
+                    <div style="font-size:1.6rem; font-weight:900; font-family:'JetBrains Mono'; color:var(--neon-emerald);" id="wkYieldVal">—</div>
+                    <div style="font-size:0.68rem; color:var(--text-muted); font-weight:700; text-transform:uppercase;">Yield (1u por pick)</div>
+                    <div style="font-size:0.72rem; color:var(--text-secondary); margin-top:2px;" id="wkYieldSub">—</div>
                 </div>
                 <div style="background:var(--bg-void); border:1px solid var(--border-subtle); border-radius:12px; padding:1rem; text-align:center;">
-                    <div style="font-size:1.6rem; font-weight:900; font-family:'JetBrains Mono'; color:var(--neon-cyan);">75.0%</div>
-                    <div style="font-size:0.68rem; color:var(--text-muted); font-weight:700; text-transform:uppercase;">Win Rate Combis</div>
-                    <div style="font-size:0.72rem; color:var(--text-secondary); margin-top:2px;">15 ganadas de 20</div>
+                    <div style="font-size:1.6rem; font-weight:900; font-family:'JetBrains Mono'; color:var(--neon-cyan);" id="wkHitVal">—</div>
+                    <div style="font-size:0.68rem; color:var(--text-muted); font-weight:700; text-transform:uppercase;">Acierto (liquidados)</div>
+                    <div style="font-size:0.72rem; color:var(--text-secondary); margin-top:2px;" id="wkHitSub">—</div>
                 </div>
                 <div style="background:var(--bg-void); border:1px solid var(--border-subtle); border-radius:12px; padding:1rem; text-align:center;">
-                    <div style="font-size:1.6rem; font-weight:900; font-family:'JetBrains Mono'; color:var(--neon-amber);">52</div>
-                    <div style="font-size:0.68rem; color:var(--text-muted); font-weight:700; text-transform:uppercase;">Picks Verificados</div>
-                    <div style="font-size:0.72rem; color:var(--text-secondary); margin-top:2px;">en 20 combinadas</div>
+                    <div style="font-size:1.6rem; font-weight:900; font-family:'JetBrains Mono'; color:var(--neon-amber);" id="wkSettledVal">—</div>
+                    <div style="font-size:0.68rem; color:var(--text-muted); font-weight:700; text-transform:uppercase;">Picks Liquidados</div>
+                    <div style="font-size:0.72rem; color:var(--text-secondary); margin-top:2px;" id="wkSettledSub">—</div>
                 </div>
                 <div style="background:var(--bg-void); border:1px solid var(--border-subtle); border-radius:12px; padding:1rem; text-align:center;">
-                    <div style="font-size:1.6rem; font-weight:900; font-family:'JetBrains Mono'; color:var(--neon-emerald);" id="wkProfitVal">+34.80u</div>
+                    <div style="font-size:1.6rem; font-weight:900; font-family:'JetBrains Mono'; color:var(--neon-emerald);" id="wkProfitVal">—</div>
                     <div style="font-size:0.68rem; color:var(--text-muted); font-weight:700; text-transform:uppercase;">Beneficio P&L</div>
                     <div style="font-size:0.72rem; color:var(--text-secondary); margin-top:2px;" id="wkRiskLbl">stake 2.5% medio</div>
                 </div>
@@ -2973,31 +3019,11 @@ export default {
 
         <script>
         (function(){
-            var TRACK_PARLAYS_WK = [
-                {id:20, date:'23/09', name:'Parlay #20 (3 Selecciones)', matches:'PSG-Lyon (O2.5), Inter-Napoli (O1.5), Man City-Arsenal (O2.5)', quota:'2.85', edge:'+11.8%', risk:'Medio', res:'w', pLow:1.85, pMed:4.62, pHigh:9.25},
-                {id:19, date:'20/09', name:'Parlay #19 (2 Selecciones)', matches:'Valladolid-Oviedo (O1.5), Tenerife-Leganes (O1.5)', quota:'2.10', edge:'+12.5%', risk:'Bajo', res:'w', pLow:1.10, pMed:2.75, pHigh:5.50},
-                {id:18, date:'17/09', name:'Parlay #18 (3 Selecciones)', matches:'Bayern-Dortmund (O2.5), Barça-Atleti (O1.5), Juve-Roma (O1.5)', quota:'3.10', edge:'+9.4%', risk:'Alto', res:'l', pLow:-1.00, pMed:-2.50, pHigh:-5.00},
-                {id:17, date:'14/09', name:'Parlay #17 (2 Selecciones)', matches:'Liverpool-Chelsea (O2.5), Marseille-Monaco (O2.5)', quota:'2.45', edge:'+10.2%', risk:'Bajo', res:'w', pLow:1.45, pMed:3.62, pHigh:7.25},
-                {id:16, date:'10/09', name:'Parlay #16 (3 Selecciones)', matches:'Real Madrid-Betis (O2.5), Milan-Lazio (O1.5), Leverkusen-RB Leipzig (O2.5)', quota:'2.95', edge:'+13.1%', risk:'Medio', res:'w', pLow:1.95, pMed:4.87, pHigh:9.75},
-                {id:15, date:'06/09', name:'Parlay #15 (2 Selecciones)', matches:'Arsenal-Brighton (O2.5), Athletic-Valencia (O1.5)', quota:'2.20', edge:'+8.9%', risk:'Bajo', res:'w', pLow:1.20, pMed:3.00, pHigh:6.00},
-                {id:14, date:'01/09', name:'Parlay #14 (3 Selecciones)', matches:'Napoli-Parma (O2.5), Lyon-Strasbourg (O2.5), Frankfurt-Hoffenheim (O2.5)', quota:'3.40', edge:'+7.5%', risk:'Alto', res:'l', pLow:-1.00, pMed:-2.50, pHigh:-5.00},
-                {id:13, date:'27/08', name:'Parlay #13 (2 Selecciones)', matches:'Girona-Osasuna (O1.5), Atletico-Villarreal (O2.5)', quota:'2.30', edge:'+11.0%', risk:'Medio', res:'w', pLow:1.30, pMed:3.25, pHigh:6.50},
-                {id:12, date:'23/08', name:'Parlay #12 (3 Selecciones)', matches:'Dortmund-Eintracht (O2.5), Roma-Empoli (O1.5), Aston Villa-Arsenal (O2.5)', quota:'2.75', edge:'+10.6%', risk:'Medio', res:'w', pLow:1.75, pMed:4.37, pHigh:8.75},
-                {id:11, date:'18/08', name:'Parlay #11 (2 Selecciones)', matches:'Chelsea-Man City (O2.5), Rennes-Lyon (O2.5)', quota:'2.50', edge:'+12.1%', risk:'Bajo', res:'w', pLow:1.50, pMed:3.75, pHigh:7.50},
-                {id:10, date:'14/08', name:'Parlay #10 (3 Selecciones)', matches:'Real Madrid-Atalanta (O2.5), PSG-Le Havre (O2.5), Bayern-Ulm (O2.5)', quota:'2.65', edge:'+9.8%', risk:'Medio', res:'w', pLow:1.65, pMed:4.12, pHigh:8.25},
-                {id:9,  date:'09/08', name:'Parlay #9 (2 Selecciones)', matches:'Lille-Slavia Praha (O1.5), Bodo/Glimt-Jagiellonia (O2.5)', quota:'2.15', edge:'+14.0%', risk:'Bajo', res:'w', pLow:1.15, pMed:2.87, pHigh:5.75},
-                {id:8,  date:'04/08', name:'Parlay #8 (3 Selecciones)', matches:'Man Utd-Liverpool (O2.5), Real Madrid-Chelsea (O2.5), Barça-Milan (O2.5)', quota:'3.25', edge:'+8.2%', risk:'Alto', res:'l', pLow:-1.00, pMed:-2.50, pHigh:-5.00},
-                {id:7,  date:'30/07', name:'Parlay #7 (2 Selecciones)', matches:'Benfica-Feyenoord (O2.5), Dortmund-Villarreal (O2.5)', quota:'2.40', edge:'+11.5%', risk:'Medio', res:'w', pLow:1.40, pMed:3.50, pHigh:7.00},
-                {id:6,  date:'25/07', name:'Parlay #6 (2 Selecciones)', matches:'Arsenal-Bournemouth (O2.5), Celtic-DC United (O2.5)', quota:'2.05', edge:'+13.4%', risk:'Bajo', res:'w', pLow:1.05, pMed:2.62, pHigh:5.25},
-                {id:5,  date:'20/07', name:'Parlay #5 (3 Selecciones)', matches:'Ajax-Olympiacos (O2.5), Rapid Wien-Wisla (O2.5), Lugano-Fenerbahce (O2.5)', quota:'3.50', edge:'+6.8%', risk:'Alto', res:'l', pLow:-1.00, pMed:-2.50, pHigh:-5.00},
-                {id:4,  date:'14/07', name:'Parlay #4 (2 Selecciones)', matches:'España-Inglaterra (O1.5), Colombia-Argentina (O1.5)', quota:'2.25', edge:'+10.8%', risk:'Bajo', res:'w', pLow:1.25, pMed:3.12, pHigh:6.25},
-                {id:3,  date:'09/07', name:'Parlay #3 (3 Selecciones)', matches:'España-Francia (O1.5), Holanda-Inglaterra (O1.5), Uruguay-Colombia (O1.5)', quota:'2.60', edge:'+9.5%', risk:'Medio', res:'w', pLow:1.60, pMed:4.00, pHigh:8.00},
-                {id:2,  date:'05/07', name:'Parlay #2 (2 Selecciones)', matches:'España-Alemania (O1.5), Portugal-Francia (O1.5)', quota:'2.10', edge:'+11.2%', risk:'Medio', res:'l', pLow:-1.00, pMed:-2.50, pHigh:-5.00},
-                {id:1,  date:'01/07', name:'Parlay #1 (2 Selecciones)', matches:'Francia-Bélgica (O1.5), Portugal-Eslovenia (O1.5)', quota:'2.35', edge:'+12.0%', risk:'Bajo', res:'w', pLow:1.35, pMed:3.37, pHigh:6.75}
-            ];
+            var TRACK_PARLAYS_WK = [];
+            // HISTORIAL REAL (nada inventado): lo rellena cargarTrackReal() desde /api/track-record.
 
-            var CHRONO_PARLAYS_WK = TRACK_PARLAYS_WK.slice().reverse();
-            var LABELS = ['Inicio (01/07)'].concat(CHRONO_PARLAYS_WK.map(function(p){ return p.date; }));
+            var CHRONO_PARLAYS_WK = [];
+            var LABELS = ['Inicio'];
 
             function calc(k){
                 var b=100, res=[100];
@@ -3041,10 +3067,14 @@ export default {
                 var tbody = document.getElementById('wkTableBody');
                 if(!tbody) return;
                 tbody.innerHTML = TRACK_PARLAYS_WK.map(function(r){
-                    var resHtml = r.res==='w'?'<span class="badge-quant" style="background:rgba(13,242,166,0.15); color:var(--neon-emerald);">✅ WIN</span>':'<span class="badge-quant" style="background:rgba(239,68,68,0.12); color:#ef4444;">❌ LOST</span>';
+                    var resHtml = r.res==='w'
+                        ? '<span class="badge-quant" style="background:rgba(13,242,166,0.15); color:var(--neon-emerald);">✅ WIN</span>'
+                        : r.res==='l'
+                        ? '<span class="badge-quant" style="background:rgba(239,68,68,0.12); color:#ef4444;">❌ LOST</span>'
+                        : '<span class="badge-quant" style="background:rgba(2,132,199,0.12); color:var(--neon-cyan);">⏳ pendiente</span>';
                     var pVal = curRisk==='high'?r.pHigh:curRisk==='med'?r.pMed:r.pLow;
-                    var pStr = pVal>0?'+'+pVal.toFixed(2)+'u':pVal.toFixed(2)+'u';
-                    var pCol = r.res==='w'?'color:var(--neon-emerald);':'color:#ef4444;';
+                    var pStr = r.res==='p' ? '—' : (pVal>0?'+'+pVal.toFixed(2)+'u':pVal.toFixed(2)+'u');
+                    var pCol = r.res==='w'?'color:var(--neon-emerald);':r.res==='l'?'color:#ef4444;':'color:var(--text-muted);';
                     return '<tr>'+
                         '<td data-label="Fecha" style="font-family:JetBrains Mono; font-size:0.78rem; color:var(--text-muted);">'+r.date+'</td>'+
                         '<td data-label="Combinada & Partidos"><div style="font-weight:700;">'+r.name+'</div><div style="font-size:0.75rem; color:var(--text-secondary); margin-top:2px;">'+r.matches+'</div></td>'+
@@ -3099,7 +3129,7 @@ export default {
                                         var idx = items[0].dataIndex;
                                         if(idx===0) return '📍 Inicio del Histórico (01/07)';
                                         var p = CHRONO_PARLAYS_WK[idx-1];
-                                        return p.date + ' — ' + p.name + ' (' + (p.res==='w'?'✅ WIN':'❌ LOST') + ')';
+                                        return p.date + ' — ' + p.name + ' (' + (p.res==='w'?'✅ WIN':p.res==='l'?'❌ LOST':'⏳ pendiente') + ')';
                                     },
                                     label: function(c){
                                         if(c.datasetIndex===1) return ' Línea Base: 100.0u';
@@ -3127,10 +3157,74 @@ export default {
                 renderTable();
             }
 
+            function setTxt(id, t){ var el = document.getElementById(id); if (el) el.textContent = t; }
+            function fmtFecha(iso){ try { var d = new Date(iso); if (isNaN(d)) return '?'; return ('0'+d.getDate()).slice(-2)+'/'+('0'+(d.getMonth()+1)).slice(-2); } catch(_){ return '?'; } }
+            function riesgoLbl(b){ return b==='bajo'?'Bajo':b==='medio'?'Medio':b==='alto'?'Alto':'Dest.'; }
+            function pintarTrackVacio(){
+                setTxt('wkTrackSub', 'Historial en construcción: aún no hay picks liquidados. Solo verás resultados reales verificados.');
+                setTxt('wkYieldSub', 'sin liquidar aún');
+                setTxt('wkHitSub', '—');
+                setTxt('wkSettledSub', '0 liquidados');
+                renderTable();
+            }
+            function cargarTrackReal(){
+                fetch('/api/track-record', { cache: 'no-store' }).then(function(r){ return r.json(); }).then(function(d){
+                    var resumen = (d && d.resumen) || null;
+                    var picks = (d && Array.isArray(d.ultimos)) ? d.ultimos : [];
+                    if (!d || d.ok === false || !resumen) { pintarTrackVacio(); return; }
+                    var rows = picks.map(function(p, i){
+                        var est = (p.result && p.result.estado) || 'pendiente';
+                        var res = est === 'ganado' ? 'w' : est === 'perdido' ? 'l' : 'p';
+                        var profit = (p.result && Number.isFinite(p.result.profit)) ? p.result.profit
+                            : (res === 'w' ? ((Number(p.cuota) || 0) - 1) : 0);
+                        var edge = Number.isFinite(p.edgePuntos) ? ((p.edgePuntos >= 0 ? '+' : '') + p.edgePuntos + ' pts') : '—';
+                        return {
+                            id: i + 1,
+                            date: fmtFecha(p.publicadoEnUtc),
+                            name: (p.partido || '?') + ' (' + (p.mercado || '') + ')',
+                            matches: (p.liga || '') + ' · ' + (p.model === 'modelo-ia' ? 'IA' : 'Poisson') + ' · prob ' + (p.probModelo != null ? p.probModelo + '%' : '—'),
+                            quota: p.cuota != null ? p.cuota : '—',
+                            edge: edge,
+                            risk: riesgoLbl(p.banda),
+                            res: res,
+                            pLow: profit * 1, pMed: profit * 2.5, pHigh: profit * 5
+                        };
+                    });
+                    var liq = rows.filter(function(r){ return r.res === 'w' || r.res === 'l'; });
+                    TRACK_PARLAYS_WK = rows.slice().reverse();
+                    CHRONO_PARLAYS_WK = liq.slice();
+                    LABELS = ['Inicio'].concat(liq.map(function(p){ return p.date; }));
+                    PROFILES = { low: calc('pLow'), med: calc('pMed'), high: calc('pHigh') };
+                    var st = resumen.settled || 0, gn = resumen.ganados || 0, n = resumen.n || 0;
+                    var yv = resumen.yieldPct, hv = resumen.hitPct;
+                    setTxt('wkYieldVal', st > 0 ? ((yv >= 0 ? '+' : '') + yv + '%') : '—');
+                    setTxt('wkYieldSub', st > 0 ? ('sobre ' + st + ' liquidados') : 'sin liquidar aún');
+                    setTxt('wkHitVal', st > 0 ? (hv + '%') : '—');
+                    setTxt('wkHitSub', st > 0 ? (gn + ' de ' + st) : '—');
+                    setTxt('wkSettledVal', String(st));
+                    setTxt('wkSettledSub', n + ' registrados · ' + (n - st) + ' pendientes');
+                    var tot = liq.reduce(function(s, r){ return s + r.pMed; }, 0);
+                    setTxt('wkProfitVal', st > 0 ? ((tot >= 0 ? '+' : '') + tot.toFixed(2) + 'u') : '—');
+                    setTxt('wkTrackSub', st > 0
+                        ? ('Historial verificado: ' + gn + ' de ' + st + ' (' + hv + '%) · yield ' + ((yv >= 0 ? '+' : '') + yv + '%) · 1u por pick')
+                        : ('Historial en construcción: ' + n + ' picks registrados, 0 liquidados. Solo resultados reales, nada inventado.'));
+                    setWKRiskProfile(curRisk, document.querySelector('.risk-btn-w.active'));
+                    if (chartInst) {
+                        chartInst.data.labels = LABELS;
+                        var all = PROFILES.med.concat([100]);
+                        var mn = Math.min.apply(null, all), mx = Math.max.apply(null, all);
+                        chartInst.options.scales.y.min = Math.floor(mn - 2);
+                        chartInst.options.scales.y.max = Math.ceil(mx + 2);
+                        chartInst.update();
+                    }
+                    renderTable();
+                }).catch(function(){ pintarTrackVacio(); });
+            }
+
             if(document.readyState === 'loading') {
-                document.addEventListener('DOMContentLoaded', initChart);
+                document.addEventListener('DOMContentLoaded', function(){ initChart(); cargarTrackReal(); });
             } else {
-                initChart();
+                initChart(); cargarTrackReal();
             }
         })();
         </script>
