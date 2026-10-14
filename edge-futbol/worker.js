@@ -1619,6 +1619,7 @@ export default {
                 let conStats = 0;
                 (realMatchesPool || []).forEach(function (f) { if (f && f.stats) conStats++; });
                 parlayResponse.diagPool = { candidatos: (realMatchesPool || []).length, conStats: conStats };
+                try { parlayResponse.diagStats = statsCache.diag || null; } catch (_) {}
             } catch (_) {}
             parlayResponse.meta = buildTemporalMeta(Date.now());
             parlayResponse.frescura = frescuraDatos();

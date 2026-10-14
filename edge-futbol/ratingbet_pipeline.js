@@ -857,7 +857,7 @@ export const BANDAS_RIESGO = {
             min: 3.00, max: 15.00, minExclusivo: true, maxExclusivo: false, tamanos: [3, 4] }
 };
 
-const MAX_CANDIDATOS_COMBINADA = 10;   // acota la explosion combinatoria (fix 504 Vercel)
+const MAX_CANDIDATOS_COMBINADA = 20;   // la combinatoria esta acotada por MAX_COMBOS (rapida); 20 evita que longshots con edge alto dejen fuera a las combinables en banda
 const MAX_COMBOS = 2000;
 
 function enBanda(banda, cuota) {
