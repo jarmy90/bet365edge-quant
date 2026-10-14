@@ -1017,6 +1017,17 @@ export default {
                 });
                 const candidatos = candidatosRaw.filter(esLigaTopPermitida);
 
+                let pool = [];
+                const diagFinal = {
+                    origenDatos: FIXTURES_SOURCE,
+                    modoAnalisis: 'sin-analisis',
+                    diagDataset: diagDataset,
+                    diagCandidatos: diagCandidatos,
+                    diagIA: null,
+                    diagFiltrado: null,
+                    generadoEnUtc: new Date(nowMs).toISOString()
+                };
+
                 // -- 2b. Stats football-data.org (modelo Poisson determinista) ----
                 // ~2 req/liga por ciclo de 6h (cache STATS_CACHE_MS). Nunca rompe
                 // el flujo: sin stats, c.stats queda null y el pipeline sigue.
@@ -1033,17 +1044,6 @@ export default {
                     adjuntarStatsACandidatos(candidatos, mapaStats);
                     try { diagFinal.diagStats = statsCache.diag || null; } catch (_) {}
                 } catch (_) { /* sin stats en este ciclo */ }
-
-                let pool = [];
-                const diagFinal = {
-                    origenDatos: FIXTURES_SOURCE,
-                    modoAnalisis: 'sin-analisis',
-                    diagDataset: diagDataset,
-                    diagCandidatos: diagCandidatos,
-                    diagIA: null,
-                    diagFiltrado: null,
-                    generadoEnUtc: new Date(nowMs).toISOString()
-                };
 
                 if (candidatos.length === 0) {
                     diagFinal.modoAnalisis = 'sin-datos-dataset-caducado';
