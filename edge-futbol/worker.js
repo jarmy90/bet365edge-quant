@@ -746,7 +746,10 @@ export default {
             // tiempo y los req del ciclo.
             const pideLigas = opts && Array.isArray(opts.ligas) ? opts.ligas : null;
             const ligasFD = pideLigas ? FD_LEAGUES.filter(function (L) { return pideLigas.indexOf(L.id) !== -1; }) : FD_LEAGUES;
-            if (!ligasFD.length) return statsCache.mapa || null;
+            if (!ligasFD.length) {
+                statsCache.diag = { ligasPedidas: pideLigas || 'todas', equipos: 0, errores: {}, conKey: !!(env.FOOTBALL_DATA_API_KEY || ''), nota: 'sin-ligas-fd-hoy' };
+                return statsCache.mapa || null;
+            }
             const fdKey = env.FOOTBALL_DATA_API_KEY || '';
             const headers = fdKey ? { 'X-Auth-Token': fdKey } : {};
             const hasta = new Date(nowMs).toISOString().slice(0, 10);
@@ -1509,10 +1512,19 @@ export default {
                     const cl = construirCandidatos(dl.dataset, nowL, { margenMinutos: MARGEN_MIN, maxDias: VENTANA_DIAS, maxAntiguedadMin: MAX_ANTIGUEDAD });
                     const fl = filtrarPublicables((cl.candidatos || []).filter(esLigaTopPermitida), nowL, { margenMinutos: MARGEN_PUBLICACION_MIN });
                     realMatchesPool = fl.publicables || [];
-                    // Stats Poisson solo desde cache (nunca fetch aqui: este
-                    // endpoint debe responder rapido, sin riesgo de 504).
+                    // Stats Poisson: fetch acotado (solo ligas con candidatos,
+                    // paralelo, timeout 8s) — determinista y rapido, sin 504.
+                    // Asi la combinada no depende de la cache tibia de otra instancia.
                     try {
-                        const mapaStatsL = await cargarStatsFootballData(nowL, { soloCache: true });
+                        const idsFDL = [];
+                        try {
+                            const txtL = realMatchesPool.map(function (c) { return String(c.liga || '') + ' ' + String(c.urlRelativa || ''); }).join(' ').toLowerCase();
+                            FD_LEAGUES.forEach(function (L) {
+                                const keyL = String(L.liga || '').toLowerCase().split(':').pop().trim();
+                                if (keyL && txtL.indexOf(keyL) !== -1 && idsFDL.indexOf(L.id) === -1) idsFDL.push(L.id);
+                            });
+                        } catch (_) {}
+                        const mapaStatsL = await cargarStatsFootballData(nowL, { ligas: idsFDL });
                         adjuntarStatsACandidatos(realMatchesPool, mapaStatsL);
                     } catch (_) {}
                 }
