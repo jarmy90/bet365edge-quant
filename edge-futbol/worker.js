@@ -2798,48 +2798,37 @@ export default {
                     <div style="display:flex; align-items:center; gap:8px; margin-bottom:0.2rem;">
                         <span style="width:8px; height:8px; background:var(--neon-emerald); border-radius:50%; flex-shrink:0;"></span>
                         <span style="font-size:0.75rem; font-weight:800; color:var(--text-primary); text-transform:uppercase; letter-spacing:0.5px;">Track Record — Historial Real</span>
-                        <span style="font-size:0.62rem; background:rgba(13,242,166,0.12); color:var(--neon-emerald); padding:2px 8px; border-radius:10px; font-weight:700; margin-left:auto;">75% WIN RATE</span>
+                        <span id="wkHeroBadge" style="font-size:0.62rem; background:rgba(13,242,166,0.12); color:var(--neon-emerald); padding:2px 8px; border-radius:10px; font-weight:700; margin-left:auto;">—</span>
                     </div>
 
                     <!-- 4 KPIs del Track Record -->
                     <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px;">
                         <div style="background:rgba(13,242,166,0.07); border:1px solid rgba(13,242,166,0.2); border-radius:10px; padding:0.8rem; text-align:center;">
-                            <div style="font-family:JetBrains Mono; font-size:1.5rem; font-weight:900; color:var(--neon-emerald);">+34.8%</div>
+                            <div id="wkHeroYield" style="font-family:JetBrains Mono; font-size:1.5rem; font-weight:900; color:var(--neon-emerald);">—</div>
                             <div style="font-size:0.62rem; color:var(--text-muted); font-weight:700; text-transform:uppercase; margin-top:2px;">Yield Acumulado</div>
                         </div>
                         <div style="background:rgba(2,132,199,0.07); border:1px solid rgba(2,132,199,0.2); border-radius:10px; padding:0.8rem; text-align:center;">
-                            <div style="font-family:JetBrains Mono; font-size:1.5rem; font-weight:900; color:var(--neon-cyan);">15/20</div>
-                            <div style="font-size:0.62rem; color:var(--text-muted); font-weight:700; text-transform:uppercase; margin-top:2px;">Combinadas Ganad.</div>
+                            <div id="wkHeroWon" style="font-family:JetBrains Mono; font-size:1.5rem; font-weight:900; color:var(--neon-cyan);">—</div>
+                            <div style="font-size:0.62rem; color:var(--text-muted); font-weight:700; text-transform:uppercase; margin-top:2px;">Picks Ganados</div>
                         </div>
                         <div style="background:rgba(245,158,11,0.07); border:1px solid rgba(245,158,11,0.2); border-radius:10px; padding:0.8rem; text-align:center;">
-                            <div style="font-family:JetBrains Mono; font-size:1.5rem; font-weight:900; color:var(--neon-amber);">+2.49</div>
-                            <div style="font-size:0.62rem; color:var(--text-muted); font-weight:700; text-transform:uppercase; margin-top:2px;">Edge Prom. / Parlay</div>
+                            <div id="wkHeroEdge" style="font-family:JetBrains Mono; font-size:1.5rem; font-weight:900; color:var(--neon-amber);">—</div>
+                            <div style="font-size:0.62rem; color:var(--text-muted); font-weight:700; text-transform:uppercase; margin-top:2px;">Edge Prom. Pick</div>
                         </div>
                         <div style="background:rgba(139,92,246,0.07); border:1px solid rgba(139,92,246,0.2); border-radius:10px; padding:0.8rem; text-align:center;">
-                            <div style="font-family:JetBrains Mono; font-size:1.5rem; font-weight:900; color:#8b5cf6;">52</div>
-                            <div style="font-size:0.62rem; color:var(--text-muted); font-weight:700; text-transform:uppercase; margin-top:2px;">Picks Verificados</div>
+                            <div id="wkHeroPicks" style="font-family:JetBrains Mono; font-size:1.5rem; font-weight:900; color:#8b5cf6;">—</div>
+                            <div style="font-size:0.62rem; color:var(--text-muted); font-weight:700; text-transform:uppercase; margin-top:2px;">Picks Liquidados</div>
                         </div>
                     </div>
 
                     <!-- Últimas 3 combinadas en miniatura -->
                     <div style="border-top:1px solid var(--border-subtle); padding-top:0.8rem;">
-                        <div style="font-size:0.65rem; font-weight:700; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.4px; margin-bottom:6px;">Últimas combinadas</div>
-                        <div style="display:flex; flex-direction:column; gap:5px;">
-                            <div style="display:flex; justify-content:space-between; align-items:center; font-size:0.76rem;">
-                                <span style="color:var(--text-secondary);">23/09 · PSG-Lyon, Inter-Napoli, City-Arsenal</span>
-                                <span style="font-family:JetBrains Mono; font-weight:800; color:var(--neon-emerald); background:rgba(13,242,166,0.1); padding:2px 7px; border-radius:6px;">✅ WIN @2.85</span>
-                            </div>
-                            <div style="display:flex; justify-content:space-between; align-items:center; font-size:0.76rem;">
-                                <span style="color:var(--text-secondary);">20/09 · Valladolid-Oviedo, Tenerife-Leganés</span>
-                                <span style="font-family:JetBrains Mono; font-weight:800; color:var(--neon-emerald); background:rgba(13,242,166,0.1); padding:2px 7px; border-radius:6px;">✅ WIN @2.10</span>
-                            </div>
-                            <div style="display:flex; justify-content:space-between; align-items:center; font-size:0.76rem;">
-                                <span style="color:var(--text-secondary);">17/09 · Bayern-Dortmund, Barça-Atleti, Juve-Roma</span>
-                                <span style="font-family:JetBrains Mono; font-weight:800; color:#ef4444; background:rgba(239,68,68,0.1); padding:2px 7px; border-radius:6px;">❌ LOST @3.10</span>
-                            </div>
+                        <div style="font-size:0.65rem; font-weight:700; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.4px; margin-bottom:6px;">Últimos picks</div>
+                        <div id="wkHeroLast3" style="display:flex; flex-direction:column; gap:5px;">
+                            <div style="font-size:0.76rem; color:var(--text-muted);">Cargando historial verificado…</div>
                         </div>
                     </div>
-                    <a href="#trackrecord" style="display:block; text-align:center; font-size:0.72rem; font-weight:700; color:var(--neon-cyan); text-decoration:none; padding:6px; border:1px solid rgba(2,132,199,0.3); border-radius:8px; transition:all 0.2s;" onmouseover="this.style.background='rgba(2,132,199,0.1)'" onmouseout="this.style.background='transparent'">Ver historial completo de 20 combinadas ↓</a>
+                    <a href="#trackrecord" style="display:block; text-align:center; font-size:0.72rem; font-weight:700; color:var(--neon-cyan); text-decoration:none; padding:6px; border:1px solid rgba(2,132,199,0.3); border-radius:8px; transition:all 0.2s;" onmouseover="this.style.background='rgba(2,132,199,0.1)'" onmouseout="this.style.background='transparent'">Ver historial verificado ↓</a>
                 </div>
 
             </div>
@@ -3209,6 +3198,26 @@ export default {
                         ? ('Historial verificado: ' + gn + ' de ' + st + ' (' + hv + '%) · yield ' + ((yv >= 0 ? '+' : '') + yv + '%) · 1u por pick')
                         : ('Historial en construcción: ' + n + ' picks registrados, 0 liquidados. Solo resultados reales, nada inventado.'));
                     setWKRiskProfile(curRisk, document.querySelector('.risk-btn-w.active'));
+                    // Banner hero con la MISMA fuente (nada inventado)
+                    setTxt('wkHeroBadge', st > 0 ? (hv + '% WIN') : 'SIN DATOS');
+                    setTxt('wkHeroYield', st > 0 ? ((yv >= 0 ? '+' : '') + yv + '%') : '—');
+                    setTxt('wkHeroWon', st > 0 ? (gn + '/' + st) : '0/' + n);
+                    var ceHero = picks.filter(function(p){ return p.result && (p.result.estado === 'ganado' || p.result.estado === 'perdido') && Number.isFinite(p.edgePuntos); });
+                    setTxt('wkHeroEdge', ceHero.length ? ('+' + (ceHero.reduce(function(s, p){ return s + p.edgePuntos; }, 0) / ceHero.length).toFixed(1)) : '—');
+                    setTxt('wkHeroPicks', String(st));
+                    var heroBox = document.getElementById('wkHeroLast3');
+                    if (heroBox) {
+                        var ult3 = rows.slice(-3).reverse();
+                        heroBox.innerHTML = ult3.length ? ult3.map(function(r){
+                            var b = r.res === 'w'
+                                ? '<span style="font-family:JetBrains Mono; font-weight:800; color:var(--neon-emerald); background:rgba(13,242,166,0.1); padding:2px 7px; border-radius:6px;">✅ WIN @' + r.quota + '</span>'
+                                : r.res === 'l'
+                                ? '<span style="font-family:JetBrains Mono; font-weight:800; color:#ef4444; background:rgba(239,68,68,0.1); padding:2px 7px; border-radius:6px;">❌ LOST @' + r.quota + '</span>'
+                                : '<span style="font-family:JetBrains Mono; font-weight:800; color:var(--neon-cyan); background:rgba(2,132,199,0.1); padding:2px 7px; border-radius:6px;">⏳ @' + r.quota + '</span>';
+                            return '<div style="display:flex; justify-content:space-between; align-items:center; font-size:0.76rem; gap:8px;">' +
+                                '<span style="color:var(--text-secondary); overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">' + r.date + ' · ' + r.name + '</span>' + b + '</div>';
+                        }).join('') : '<div style="font-size:0.76rem; color:var(--text-muted);">Sin picks registrados aún.</div>';
+                    }
                     if (chartInst) {
                         chartInst.data.labels = LABELS;
                         var all = PROFILES.med.concat([100]);
