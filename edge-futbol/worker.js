@@ -653,7 +653,18 @@ export default {
             { id: 'SA',  liga: 'Italy: Serie A',          pais: 'Italy'   },
             { id: 'FL1', liga: 'France: Ligue 1',         pais: 'France'  },
             { id: 'CL',  liga: 'UEFA: Champions League',  pais: 'Europe'  },
+            // Tier gratuito ampliado (si el plan no las incluye, se omiten en silencio)
+            { id: 'ELC', liga: 'England: Championship',   pais: 'England' },
+            { id: 'DED', liga: 'Netherlands: Eredivisie', pais: 'Netherlands' },
+            { id: 'PPL', liga: 'Portugal: Primeira Liga', pais: 'Portugal', keys: ['primeira'] },
+            { id: 'ECL', liga: 'UEFA: Conference League', pais: 'Europe',  keys: ['conference league'] },
+            { id: 'EL',  liga: 'UEFA: Europa League',     pais: 'Europe',  keys: ['europa league'] },
+            { id: 'SD',  liga: 'Spain: Segunda Division', pais: 'Spain',   keys: ['segunda', 'hyper motion', 'laliga 2'] },
         ];
+        function clavesLigaFD(L) {
+            const base = [String((L && L.liga) || '').toLowerCase().split(':').pop().trim()];
+            return base.concat((L && L.keys) || []);
+        }
 
         async function cargarFixturesFootballData(nowMs) {
             const fdKey = env.FOOTBALL_DATA_API_KEY || '';
@@ -801,7 +812,7 @@ export default {
                     });
                     // Medias de liga: observadas si hay muestra, si no benchmark
                     // historico documentado por competicion (solo respaldo).
-                    const BENCH = { PL: [1.55, 1.2], PD: [1.45, 1.1], BL1: [1.7, 1.3], SA: [1.45, 1.1], FL1: [1.5, 1.15], CL: [1.65, 1.2] };
+                    const BENCH = { PL: [1.55, 1.2], PD: [1.45, 1.1], BL1: [1.7, 1.3], SA: [1.45, 1.1], FL1: [1.5, 1.15], CL: [1.65, 1.2], ELC: [1.45, 1.2], DED: [1.7, 1.35], PPL: [1.45, 1.1], ECL: [1.55, 1.15], EL: [1.55, 1.15], SD: [1.35, 1.05] };
                     let avgH = nM > 0 ? totH / nM : 0, avgA = nM > 0 ? totA / nM : 0, avgSrc = 'observada-60d';
                     if (!(nM >= 10 && avgH > 0 && avgA > 0)) {
                         const b = BENCH[league.id];
@@ -1048,8 +1059,8 @@ export default {
                     try {
                         const txt = candidatos.map(function (c) { return String(c.liga || '') + ' ' + String(c.urlRelativa || ''); }).join(' ').toLowerCase();
                         FD_LEAGUES.forEach(function (L) {
-                            const key = String(L.liga || '').toLowerCase().split(':').pop().trim();
-                            if (key && txt.indexOf(key) !== -1 && idsFD.indexOf(L.id) === -1) idsFD.push(L.id);
+                            const hit = clavesLigaFD(L).some(function (k) { const kk = String(k || '').trim(); return kk && txt.indexOf(kk) !== -1; });
+                            if (hit && idsFD.indexOf(L.id) === -1) idsFD.push(L.id);
                         });
                     } catch (_) {}
                     const mapaStats = await cargarStatsFootballData(nowMs, idsFD.length ? { ligas: idsFD } : { ligas: [] });
@@ -1550,8 +1561,8 @@ export default {
                             try {
                                 const txtL = realMatchesPool.map(function (c) { return String(c.liga || '') + ' ' + String(c.urlRelativa || ''); }).join(' ').toLowerCase();
                                 FD_LEAGUES.forEach(function (L) {
-                                    const keyL = String(L.liga || '').toLowerCase().split(':').pop().trim();
-                                    if (keyL && txtL.indexOf(keyL) !== -1 && idsFDL.indexOf(L.id) === -1) idsFDL.push(L.id);
+                                    const hitL = clavesLigaFD(L).some(function (k) { const kk = String(k || '').trim(); return kk && txtL.indexOf(kk) !== -1; });
+                                    if (hitL && idsFDL.indexOf(L.id) === -1) idsFDL.push(L.id);
                                 });
                             } catch (_) {}
                             const mapaStatsL = await cargarStatsFootballData(nowL, { ligas: idsFDL });
