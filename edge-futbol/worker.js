@@ -1520,25 +1520,39 @@ export default {
                     const fl = filtrarPublicables(analisisCache.pool, nowL, { margenMinutos: MARGEN_PUBLICACION_MIN });
                     realMatchesPool = (fl.publicables || []).filter(esLigaTopPermitida);
                 } else {
-                    const dl = await cargarDatasetRatingbet(nowL, false);
-                    const cl = construirCandidatos(dl.dataset, nowL, { margenMinutos: MARGEN_MIN, maxDias: VENTANA_DIAS, maxAntiguedadMin: MAX_ANTIGUEDAD });
-                    const fl = filtrarPublicables((cl.candidatos || []).filter(esLigaTopPermitida), nowL, { margenMinutos: MARGEN_PUBLICACION_MIN });
-                    realMatchesPool = fl.publicables || [];
-                    // Stats Poisson: fetch acotado (solo ligas con candidatos,
-                    // paralelo, timeout 8s) — determinista y rapido, sin 504.
-                    // Asi la combinada no depende de la cache tibia de otra instancia.
+                    // Flujo completo (stats+IA) con red anti-504: si supera 45s,
+                    // se cae al pool ligero (rapido, sin IA) en vez de colgar.
+                    // Asi la combinada SI ve veredictos aunque la cache este fria.
+                    let poolCompleto = null;
                     try {
-                        const idsFDL = [];
+                        poolCompleto = await Promise.race([
+                            getFutureMatchesPool(false),
+                            new Promise(function (_, rej) { setTimeout(function () { rej(new Error('pool-timeout-45s')); }, 45000); })
+                        ]);
+                    } catch (_) { poolCompleto = null; }
+                    if (Array.isArray(poolCompleto) && poolCompleto.length) {
+                        const fl = filtrarPublicables(poolCompleto.filter(esLigaTopPermitida), nowL, { margenMinutos: MARGEN_PUBLICACION_MIN });
+                        realMatchesPool = fl.publicables || [];
+                    } else {
+                        const dl = await cargarDatasetRatingbet(nowL, false);
+                        const cl = construirCandidatos(dl.dataset, nowL, { margenMinutos: MARGEN_MIN, maxDias: VENTANA_DIAS, maxAntiguedadMin: MAX_ANTIGUEDAD });
+                        const fl = filtrarPublicables((cl.candidatos || []).filter(esLigaTopPermitida), nowL, { margenMinutos: MARGEN_PUBLICACION_MIN });
+                        realMatchesPool = fl.publicables || [];
+                        // Stats Poisson: fetch acotado (solo ligas con candidatos,
+                        // paralelo, timeout 8s) — determinista y rapido, sin 504.
                         try {
-                            const txtL = realMatchesPool.map(function (c) { return String(c.liga || '') + ' ' + String(c.urlRelativa || ''); }).join(' ').toLowerCase();
-                            FD_LEAGUES.forEach(function (L) {
-                                const keyL = String(L.liga || '').toLowerCase().split(':').pop().trim();
-                                if (keyL && txtL.indexOf(keyL) !== -1 && idsFDL.indexOf(L.id) === -1) idsFDL.push(L.id);
-                            });
+                            const idsFDL = [];
+                            try {
+                                const txtL = realMatchesPool.map(function (c) { return String(c.liga || '') + ' ' + String(c.urlRelativa || ''); }).join(' ').toLowerCase();
+                                FD_LEAGUES.forEach(function (L) {
+                                    const keyL = String(L.liga || '').toLowerCase().split(':').pop().trim();
+                                    if (keyL && txtL.indexOf(keyL) !== -1 && idsFDL.indexOf(L.id) === -1) idsFDL.push(L.id);
+                                });
+                            } catch (_) {}
+                            const mapaStatsL = await cargarStatsFootballData(nowL, { ligas: idsFDL });
+                            adjuntarStatsACandidatos(realMatchesPool, mapaStatsL);
                         } catch (_) {}
-                        const mapaStatsL = await cargarStatsFootballData(nowL, { ligas: idsFDL });
-                        adjuntarStatsACandidatos(realMatchesPool, mapaStatsL);
-                    } catch (_) {}
+                    }
                 }
             } catch (e) {
                 realMatchesPool = [];
