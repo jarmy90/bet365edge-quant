@@ -867,8 +867,28 @@ export default {
             candidatos.forEach(function (c) {
                 try {
                     c.stats = null;
-                    const eH = buscarStatsEquipo(c.local, mapa);
-                    const eA = buscarStatsEquipo(c.visitante, mapa);
+                    // Pool multi-competicion: el mismo equipo aparece en liga
+                    // domestica + continental (p.ej. City en PL y en UCL). Se
+                    // ponderan las tasas por muestra: el UCL aporta contexto,
+                    // la liga domestica aporta volumen. Evita lambdas locas con
+                    // 2 partidos. Medias de liga mezcladas por peso.
+                    function poolEquipoFD(nombre) {
+                        const acc = { gfH: 0, gaH: 0, nH: 0, gfA: 0, gaA: 0, nA: 0, avgH: 0, avgA: 0, w: 0 };
+                        if (!nombre || !Array.isArray(mapa)) return null;
+                        for (let i = 0; i < mapa.length; i++) {
+                            const e = mapa[i];
+                            if (!e || !mismoEquipoFD(nombre, e.nombre)) continue;
+                            const nH = Number(e.nH) || 0, nA = Number(e.nA) || 0;
+                            acc.gfH += (Number(e.gfH) || 0) * nH; acc.gaH += (Number(e.gaH) || 0) * nH; acc.nH += nH;
+                            acc.gfA += (Number(e.gfA) || 0) * nA; acc.gaA += (Number(e.gaA) || 0) * nA; acc.nA += nA;
+                            const w = nH + nA;
+                            acc.avgH += (Number(e.avgH) || 0) * w; acc.avgA += (Number(e.avgA) || 0) * w; acc.w += w;
+                        }
+                        if (!(acc.nH > 0) || !(acc.nA > 0) || !(acc.w > 0)) return null;
+                        return { gfH: acc.gfH / acc.nH, gaH: acc.gaH / acc.nH, nH: acc.nH, gfA: acc.gfA / acc.nA, gaA: acc.gaA / acc.nA, nA: acc.nA, avgH: acc.avgH / acc.w, avgA: acc.avgA / acc.w, ligaFD: 'pool' };
+                    }
+                    const eH = poolEquipoFD(c.local);
+                    const eA = poolEquipoFD(c.visitante);
                     if (!eH || !eA || eH.nH < 3 || eA.nA < 3) return;
                     if (!(eH.avgH > 0) || !(eA.avgA > 0)) return;
                     const attH = eH.gfH / eH.avgH, defH = eH.gaH / eH.avgH;

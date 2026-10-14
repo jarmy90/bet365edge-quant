@@ -1060,15 +1060,15 @@ export function construirParlayRiesgo(pool, riskLevel, ahoraMs) {
         base.partidos = dest;
         return base;
     }
-    // Ordenar por edge real: nuestra prob% - prob implicita del bookie.
-    // Picks con edge positivo (bookie subestima la prob) van primero.
-    candidatos.sort(function (a, b) {
-        const implA = a.s.cuota > 0 ? (1 / a.s.cuota) * 100 : 0;
-        const implB = b.s.cuota > 0 ? (1 / b.s.cuota) * 100 : 0;
-        const ea = Number.isFinite(a.s.edgePuntos) ? a.s.edgePuntos : (a.s.probPct - implA);
-        const eb = Number.isFinite(b.s.edgePuntos) ? b.s.edgePuntos : (b.s.probPct - implB);
-        return eb - ea;
-    });
+    // Ordenar por EV esperado (prob*cuota-1): rentables primero. A igual EV
+    // no se favorece al longshot (el edge en puntos crece con la cuota y
+    // sesgaba la seleccion hacia cuotas 3-5). El edge en puntos se mantiene
+    // como metrica visible; el EV manda en el ranking.
+    function evPick(s) {
+        return (s && Number.isFinite(s.probPct) && Number.isFinite(s.cuota) && s.cuota > 1)
+            ? (s.probPct / 100 * s.cuota - 1) : -Infinity;
+    }
+    candidatos.sort(function (a, b) { return evPick(b.s) - evPick(a.s); });
     const corta = candidatos.slice(0, MAX_CANDIDATOS_COMBINADA);
     const n = corta.length;
 
@@ -1096,9 +1096,12 @@ export function construirParlayRiesgo(pool, riskLevel, ahoraMs) {
         const edgeTotal = Math.round((cuotaBoosted - cuotaModelo) * 1000) / 10;
         const pReal = Math.round(prob * 1000) / 10;
         const pCasa = Math.round(casa * 1000) / 10;
-        if (!mejor || edgeTotal > mejor.edgeTotal) {
+        // EV combinado en % (equivale al edge por ratio; mismo signo que
+        // edgeTotal salvo redondeo). Manda en la seleccion.
+        const evTotal = Math.round((pReal / 100 * cuotaBoosted - 1) * 1000) / 10;
+        if (!mejor || evTotal > mejor.evTotal) {
             mejor = { elegidos: elegidos.slice(), cuota: cuota, pReal: pReal, pCasa: pCasa,
-                cuotaModeloTotal: cuotaModelo, cuotaBoosted: cuotaBoosted, edgeTotal: edgeTotal };
+                cuotaModeloTotal: cuotaModelo, cuotaBoosted: cuotaBoosted, edgeTotal: edgeTotal, evTotal: evTotal };
         }
     }
     (function recorre(inicio, elegidos, prod) {
@@ -1113,10 +1116,10 @@ export function construirParlayRiesgo(pool, riskLevel, ahoraMs) {
         }
     })(0, [], 1);
 
-    if (!mejor || !Number.isFinite(mejor.edgeTotal) || mejor.edgeTotal <= 0) {
+    if (!mejor || !Number.isFinite(mejor.evTotal) || mejor.evTotal <= 0) {
         base.motivo = !mejor
             ? 'sin-combinacion-en-la-banda (' + banda.descripcion + ')'
-            : 'sin-edge-positivo (mejor edgeTotal ' + mejor.edgeTotal + ' <= 0)';
+            : 'sin-edge-positivo (mejor EV ' + (mejor && mejor.evTotal) + '% <= 0)';
 
         // Recopilar los partidos futuros mas destacados de la jornada.
         // Solo picks del modelo IA con edge positivo: nada de tip/mercado-justo.
@@ -1187,6 +1190,7 @@ export function construirParlayRiesgo(pool, riskLevel, ahoraMs) {
     base.cuotaTotalBoosted = cuotaBoosted;
     base.boostPct = boost;
     base.edgeTotal = mejor.edgeTotal;
+    base.evTotal = mejor.evTotal;
     base.probBase = conIA ? 'modelo-ia' : 'mixta';
     return base;
 }
