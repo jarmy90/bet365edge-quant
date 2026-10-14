@@ -1292,7 +1292,9 @@ export default {
                 // -- 4. Modo degradado: cuotas reales sin edge de modelo -----------------
                 // No se inventa nada. Se publican los partidos reales con sus cuotas.
                 // Las columnas de edge y modelo quedan vacias (null / "-").
-                pool = construirFixturesSinAnalisis(candidatos, nowMs, { max: MAX_PUBLICADOS });
+                // La CACHE guarda la ventana amplia (200) para que la combinada
+                // barra mas alla de los 24 de la tabla; la respuesta sigue en 24.
+                pool = construirFixturesSinAnalisis(candidatos, nowMs, { max: 200 });
                 const { publicables, resumen: rFiltrado2 } = filtrarPublicables(
                     pool, nowMs, { margenMinutos: MARGEN_PUBLICACION_MIN, max: MAX_PUBLICADOS }
                 );
@@ -1517,26 +1519,29 @@ export default {
                 const ck = analisisCacheKey();
                 const cacheCaliente = analisisCache.diag && analisisCache.key === ck && (nowL - analisisCache.at) < FIXTURES_CACHE_MS && (analisisCache.pool || []).length;
                 if (cacheCaliente) {
-                    const fl = filtrarPublicables(analisisCache.pool, nowL, { margenMinutos: MARGEN_PUBLICACION_MIN });
+                    // La combinada barre la ventana AMPLIA (200), no los 24 de la tabla.
+                    const fl = filtrarPublicables(analisisCache.pool, nowL, { margenMinutos: MARGEN_PUBLICACION_MIN, max: 200 });
                     realMatchesPool = (fl.publicables || []).filter(esLigaTopPermitida);
                 } else {
                     // Flujo completo (stats+IA) con red anti-504: si supera 45s,
                     // se cae al pool ligero (rapido, sin IA) en vez de colgar.
                     // Asi la combinada SI ve veredictos aunque la cache este fria.
-                    let poolCompleto = null;
+                    // Se lee la CACHE (pool amplio) en vez del retorno (top 24).
                     try {
-                        poolCompleto = await Promise.race([
+                        await Promise.race([
                             getFutureMatchesPool(false),
                             new Promise(function (_, rej) { setTimeout(function () { rej(new Error('pool-timeout-45s')); }, 45000); })
                         ]);
-                    } catch (_) { poolCompleto = null; }
-                    if (Array.isArray(poolCompleto) && poolCompleto.length) {
-                        const fl = filtrarPublicables(poolCompleto.filter(esLigaTopPermitida), nowL, { margenMinutos: MARGEN_PUBLICACION_MIN });
+                    } catch (_) {}
+                    try {
+                        const fuente = (analisisCache.pool && analisisCache.pool.length) ? analisisCache.pool : [];
+                        const fl = filtrarPublicables(fuente.filter(esLigaTopPermitida), nowL, { margenMinutos: MARGEN_PUBLICACION_MIN, max: 200 });
                         realMatchesPool = fl.publicables || [];
-                    } else {
+                    } catch (_) { realMatchesPool = []; }
+                    if (!realMatchesPool.length) {
                         const dl = await cargarDatasetRatingbet(nowL, false);
                         const cl = construirCandidatos(dl.dataset, nowL, { margenMinutos: MARGEN_MIN, maxDias: VENTANA_DIAS, maxAntiguedadMin: MAX_ANTIGUEDAD });
-                        const fl = filtrarPublicables((cl.candidatos || []).filter(esLigaTopPermitida), nowL, { margenMinutos: MARGEN_PUBLICACION_MIN });
+                        const fl = filtrarPublicables((cl.candidatos || []).filter(esLigaTopPermitida), nowL, { margenMinutos: MARGEN_PUBLICACION_MIN, max: 200 });
                         realMatchesPool = fl.publicables || [];
                         // Stats Poisson: fetch acotado (solo ligas con candidatos,
                         // paralelo, timeout 8s) — determinista y rapido, sin 504.
