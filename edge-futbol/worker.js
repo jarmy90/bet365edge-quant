@@ -708,8 +708,10 @@ export default {
 
         // ---------------------------------------------------------------------
         // STATS football-data.org PARA EL MODELO POISSON (determinista, ciego a cuota)
-        // Budget: 2 req/competicion por ciclo de 6h (standings + ultimos
-        // resultados), cacheadas en STATS_CACHE_MS. Key opcional en
+        // Budget: 2 req/competicion por ciclo de 6h (standings TOTAL como prior
+        // de temporada + ultimos resultados para splits casa/fuera con shrinkage
+        // k=2; medias de liga observadas o benchmark si hay <10 partidos),
+        // cacheadas en STATS_CACHE_MS. Key opcional en
         // env.FOOTBALL_DATA_API_KEY (header X-Auth-Token); sin key usa el tier
         // anonimo. Timeout 8s por req; cualquier fallo deja stats null SIN
         // romper el flujo (el pipeline sigue con IA / tip / mercado).
@@ -770,66 +772,74 @@ export default {
                         mt = await fdJson(FD_BASE + '/competitions/' + league.id +
                             '/matches?status=FINISHED&dateFrom=' + desde + '&dateTo=' + hasta);
                     } catch (_) { mt = null; }
-                    const tablas = {};
                     const tiposVistos = [];
+                    // 1. Prior de temporada: tabla TOTAL (existe en todos los tiers;
+                    // este plan no sirve splits HOME/AWAY). Tasas por partido.
+                    const prior = {};
                     (st.standings || []).forEach(function (s) {
                         if (s && s.type) tiposVistos.push(s.type + ':' + ((s.table || []).length));
-                        if (s && (s.type === 'HOME' || s.type === 'AWAY') && Array.isArray(s.table)) tablas[s.type] = s.table;
-                    });
-                    if (!tablas.HOME || !tablas.AWAY) { diagStats.detalle = diagStats.detalle || {}; diagStats.detalle[league.id] = { tipos: tiposVistos }; return; }
-                    function mediaGoles(tabla) {
-                        let gf = 0, n = 0;
-                        tabla.forEach(function (e) { gf += Number(e.goalsFor) || 0; n += Number(e.playedGames) || 0; });
-                        return n > 0 ? gf / n : 0;
-                    }
-                    const avgH = mediaGoles(tablas.HOME), avgA = mediaGoles(tablas.AWAY);
-                    if (!(avgH > 0) || !(avgA > 0)) { diagStats.detalle = diagStats.detalle || {}; diagStats.detalle[league.id] = { tipos: tiposVistos, avgH: avgH, avgA: avgA }; return; }
-                    // Temporada por equipo (splits casa/fuera de standings)
-                    const eq = {};
-                    function acumula(tabla, lado) {
-                        tabla.forEach(function (e) {
+                        if (!s || s.type !== 'TOTAL' || !Array.isArray(s.table)) return;
+                        s.table.forEach(function (e) {
                             const nom = e.team && e.team.name;
-                            if (!nom) return;
-                            eq[nom] = eq[nom] || { sNH: 0, sGFH: 0, sGAH: 0, sNA: 0, sGFA: 0, sGAA: 0 };
-                            if (lado === 'H') {
-                                eq[nom].sNH += Number(e.playedGames) || 0;
-                                eq[nom].sGFH += Number(e.goalsFor) || 0;
-                                eq[nom].sGAH += Number(e.goalsAgainst) || 0;
-                            } else {
-                                eq[nom].sNA += Number(e.playedGames) || 0;
-                                eq[nom].sGFA += Number(e.goalsFor) || 0;
-                                eq[nom].sGAA += Number(e.goalsAgainst) || 0;
-                            }
+                            const p = Number(e.playedGames) || 0;
+                            if (!nom || !(p > 0)) return;
+                            prior[nom] = { p: p, gfPg: (Number(e.goalsFor) || 0) / p, gaPg: (Number(e.goalsAgainst) || 0) / p };
                         });
-                    }
-                    acumula(tablas.HOME, 'H');
-                    acumula(tablas.AWAY, 'A');
-                    // Forma reciente: ultimos 5 en casa / fuera (ventana 60d)
+                    });
+                    // 2. Splits casa/fuera + medias de liga desde resultados (60d).
                     const rec = {};
+                    let totH = 0, totA = 0, nM = 0;
                     ((mt && mt.matches) || []).forEach(function (m) {
                         if (!m || !m.score || !m.score.fullTime) return;
                         const gh = m.score.fullTime.home, ga = m.score.fullTime.away;
                         if (!Number.isFinite(gh) || !Number.isFinite(ga)) return;
+                        totH += gh; totA += ga; nM++;
                         const ms = Date.parse(m.utcDate) || 0;
                         const nh = m.homeTeam && m.homeTeam.name, na = m.awayTeam && m.awayTeam.name;
                         if (nh) { rec[nh] = rec[nh] || { casa: [], fuera: [] }; rec[nh].casa.push({ gf: gh, ga: ga, ms: ms }); }
                         if (na) { rec[na] = rec[na] || { casa: [], fuera: [] }; rec[na].fuera.push({ gf: ga, ga: gh, ms: ms }); }
                     });
-                    Object.keys(eq).forEach(function (nom) {
-                        const e = eq[nom];
+                    // Medias de liga: observadas si hay muestra, si no benchmark
+                    // historico documentado por competicion (solo respaldo).
+                    const BENCH = { PL: [1.55, 1.2], PD: [1.45, 1.1], BL1: [1.7, 1.3], SA: [1.45, 1.1], FL1: [1.5, 1.15], CL: [1.65, 1.2] };
+                    let avgH = nM > 0 ? totH / nM : 0, avgA = nM > 0 ? totA / nM : 0, avgSrc = 'observada-60d';
+                    if (!(nM >= 10 && avgH > 0 && avgA > 0)) {
+                        const b = BENCH[league.id];
+                        if (!b) { diagStats.detalle = diagStats.detalle || {}; diagStats.detalle[league.id] = { tipos: tiposVistos, partidos: nM }; return; }
+                        avgH = b[0]; avgA = b[1]; avgSrc = 'benchmark';
+                    }
+                    // 3. Estimacion por equipo: ultimos 5 en su condicion con
+                    // shrinkage k=2 hacia el prior de temporada (o media de liga
+                    // si el equipo no esta en la tabla TOTAL).
+                    const K = 2;
+                    function ultimos5(arr) { return arr.slice().sort(function (x, y) { return y.ms - x.ms; }).slice(0, 5); }
+                    function suma(arr, k) { return arr.reduce(function (s, x) { return s + x[k]; }, 0); }
+                    const nombres = {};
+                    Object.keys(prior).forEach(function (n) { nombres[n] = 1; });
+                    Object.keys(rec).forEach(function (n) { nombres[n] = 1; });
+                    let nEq = 0;
+                    Object.keys(nombres).forEach(function (nom) {
+                        const pr = prior[nom];
                         const r = rec[nom] || { casa: [], fuera: [] };
-                        function ultimos5(arr) { return arr.sort(function (x, y) { return y.ms - x.ms; }).slice(0, 5); }
                         const uh = ultimos5(r.casa), ua = ultimos5(r.fuera);
-                        function suma(arr, k) { return arr.reduce(function (s, x) { return s + x[k]; }, 0); }
-                        const nH = e.sNH + uh.length, nA = e.sNA + ua.length;
-                        if (nH <= 0 || nA <= 0) return;
+                        const pgf = pr ? pr.gfPg : avgH, pga = pr ? pr.gaPg : avgA, pp = pr ? pr.p : 0;
+                        const gfH = (suma(uh, 'gf') + K * pgf) / (uh.length + K);
+                        const gaH = (suma(uh, 'ga') + K * pga) / (uh.length + K);
+                        const gfA = (suma(ua, 'gf') + K * pgf) / (ua.length + K);
+                        const gaA = (suma(ua, 'ga') + K * pga) / (ua.length + K);
+                        const nH = pp + uh.length, nA = pp + ua.length;
+                        if (!(nH >= 3 && nA >= 3)) return;
+                        if (![gfH, gaH, gfA, gaA].every(function (v) { return Number.isFinite(v) && v >= 0; })) return;
+                        nEq++;
                         mapa.push({
                             liga: league.id, nombre: nom,
-                            gfH: (e.sGFH + suma(uh, 'gf')) / nH, gaH: (e.sGAH + suma(uh, 'ga')) / nH, nH: nH,
-                            gfA: (e.sGFA + suma(ua, 'gf')) / nA, gaA: (e.sGAA + suma(ua, 'ga')) / nA, nA: nA,
+                            gfH: gfH, gaH: gaH, nH: nH,
+                            gfA: gfA, gaA: gaA, nA: nA,
                             avgH: avgH, avgA: avgA
                         });
                     });
+                    diagStats.detalle = diagStats.detalle || {};
+                    diagStats.detalle[league.id] = { tipos: tiposVistos, partidos: nM, avgSrc: avgSrc, equipos: nEq };
                 } catch (e) { diagStats.errores[league.id] = String((e && e.message) || e).slice(0, 120); }
             }));
             diagStats.equipos = mapa.length;
