@@ -757,6 +757,7 @@ export default {
                 return r.json();
             }
             const mapa = [];
+            const diagStats = { ligasPedidas: ligasFD.map(function (L) { return L.id; }), equipos: 0, errores: {}, conKey: !!fdKey };
             await Promise.all(ligasFD.map(async function (league) {
                 try {
                     const st = await fdJson(FD_BASE + '/competitions/' + league.id + '/standings');
@@ -824,9 +825,10 @@ export default {
                             avgH: avgH, avgA: avgA
                         });
                     });
-                } catch (_) { /* liga omitida: sus equipos quedan sin stats */ }
+                } catch (e) { diagStats.errores[league.id] = String((e && e.message) || e).slice(0, 120); }
             }));
-            statsCache = { at: nowMs, mapa: mapa };
+            diagStats.equipos = mapa.length;
+            statsCache = { at: nowMs, mapa: mapa, diag: diagStats };
             return mapa;
         }
         // Adjunta c.stats = {attH, defH, attA, defA, avgH, avgA, nH, nA, ...}
@@ -1026,6 +1028,7 @@ export default {
                     } catch (_) {}
                     const mapaStats = await cargarStatsFootballData(nowMs, idsFD.length ? { ligas: idsFD } : { ligas: [] });
                     adjuntarStatsACandidatos(candidatos, mapaStats);
+                    try { diagFinal.diagStats = statsCache.diag || null; } catch (_) {}
                 } catch (_) { /* sin stats en este ciclo */ }
 
                 let pool = [];
