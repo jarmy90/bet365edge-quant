@@ -1,5 +1,5 @@
 {
-  "actualizadoEnUtc": "2026-10-14T12:03:38.842Z",
+  "actualizadoEnUtc": "2026-10-14T21:29:11.987Z",
   "nota": "Track-record de picks publicados (modelo-ia y modelo-poisson). Solo la primera publicacion de cada pick cuenta; sin-datos no entra en hit%/yield. Generado por edge-futbol/settle_results.js.",
   "picks": [
     {
@@ -19,11 +19,11 @@
       "publicadoEnUtc": "2026-10-14T09:41:33.151Z",
       "kickoffMs": 1791978300000,
       "result": {
-        "estado": "pendiente",
+        "estado": "sin-datos",
         "golesLocal": null,
         "golesVisitante": null,
         "profit": null,
-        "settledEnUtc": null
+        "settledEnUtc": "2026-10-14T21:29:11.987Z"
       }
     },
     {
@@ -43,11 +43,11 @@
       "publicadoEnUtc": "2026-10-14T09:41:33.151Z",
       "kickoffMs": 1791978300000,
       "result": {
-        "estado": "pendiente",
+        "estado": "sin-datos",
         "golesLocal": null,
         "golesVisitante": null,
         "profit": null,
-        "settledEnUtc": null
+        "settledEnUtc": "2026-10-14T21:29:11.987Z"
       }
     }
   ],
