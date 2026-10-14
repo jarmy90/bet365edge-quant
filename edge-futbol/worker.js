@@ -1549,6 +1549,11 @@ export default {
             // probabilidad combinada. Cero cifras hardcodeadas: si no hay
             // combinacion posible, se declara 'sin-combinada' con su motivo.
             const parlayResponse = construirParlayRiesgo(realMatchesPool, riskLevel, Date.now());
+            try {
+                let conStats = 0;
+                (realMatchesPool || []).forEach(function (f) { if (f && f.stats) conStats++; });
+                parlayResponse.diagPool = { candidatos: (realMatchesPool || []).length, conStats: conStats };
+            } catch (_) {}
             parlayResponse.meta = buildTemporalMeta(Date.now());
             parlayResponse.frescura = frescuraDatos();
             parlayResponse.temporalStatus = parlayResponse.estado === 'ok' ? 'VALIDADO_FUTURO' : 'SIN_COMBINADA';
