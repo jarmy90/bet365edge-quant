@@ -1143,14 +1143,14 @@ export default {
                     }
 
                     // Adaptador para Gemini nativo (formato distinto al OpenAI)
-                    async function llamarGeminiNativo(endpoint, systemText, userText) {
+                    async function llamarGeminiNativo(endpoint, systemText, userText, timeoutMs) {
                         return fetch(endpoint, {
                             method: 'POST',
-                            signal: AbortSignal.timeout(25000),
+                            signal: AbortSignal.timeout(timeoutMs || 8000),
                             headers: { 'Content-Type': 'application/json' },
                             body: JSON.stringify({
                                 contents: [{ role: 'user', parts: [{ text: systemText + '\n\n' + userText }] }],
-                                generationConfig: { temperature: 0.15, maxOutputTokens: 2000 }
+                                generationConfig: { temperature: 0.15, maxOutputTokens: 1500 }
                             })
                         });
                     }
@@ -1160,20 +1160,29 @@ export default {
                     let ultimoError = null;
                     // Presupuesto global anti-TIMEOUT (Vercel): la cadena completa
                     // no puede superar ~22s; al agotarse se cae al degradado honesto.
+                    // El timeout se aplica POR INTENTO contra el tiempo restante,
+                    // para que un proveedor colgado no consuma el presupuesto solo.
                     const iaBudgetMs = 22000;
                     const iaDeadline = Date.now() + iaBudgetMs;
+                    function iaTimeoutRestante() {
+                        return Math.max(0, iaDeadline - Date.now());
+                    }
 
                     for (const prov of proveedoresAProbar) {
-                        if (Date.now() >= iaDeadline) {
-                            ultimoError = { error: 'ia-timeout: presupuesto global 35s agotado', intentados: proveedoresAProbar.length };
+                        // Timeout del intento atado al tiempo restante: con <3s no
+                        // merece intentar; rapidos cortan a 8s max por intento.
+                        const restante = iaTimeoutRestante();
+                        if (restante < 3000) {
+                            ultimoError = { error: 'ia-timeout: presupuesto global 22s agotado', intentados: proveedoresAProbar.length };
                             console.warn('[AI-CHAIN] ⏱️ presupuesto global agotado, stop.');
                             break;
                         }
+                        const timeoutIntento = Math.min(8000, restante);
                         try {
                             console.log('[AI-CHAIN] Intentando ' + (prov.label || prov.model) + '...');
                             let r;
                             if (prov.tipo === 'gemini') {
-                                r = await llamarGeminiNativo(prov.endpoint, system, user);
+                                r = await llamarGeminiNativo(prov.endpoint, system, user, timeoutIntento);
                             } else {
                                 const extraHeaders = {};
                                 // Dahl requiere fingerprint
@@ -1182,7 +1191,7 @@ export default {
                                 }
                                 r = await fetch(prov.endpoint, {
                                     method: 'POST',
-                                    signal: AbortSignal.timeout(25000),
+                                    signal: AbortSignal.timeout(timeoutIntento),
                                     headers: {
                                         'Authorization': 'Bearer ' + prov.apiKey,
                                         'Content-Type': 'application/json',
@@ -1193,7 +1202,7 @@ export default {
                                     body: JSON.stringify({
                                         model: prov.model,
                                         temperature: 0.15,
-                                        max_tokens: 2000,
+                                        max_tokens: 1500,
                                         messages: [
                                             { role: 'system', content: system },
                                             { role: 'user',   content: user   }
