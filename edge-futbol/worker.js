@@ -1091,8 +1091,24 @@ export default {
                     let feedNoticias = [];
                     try { feedNoticias = await fetchRssNoticias(); } catch (_) {}
 
-                    // 3b. Seleccionar los mejores candidatos para el prompt (8 partidos max para token budget)
-                    const paraAnalisis = seleccionarParaAnalisis(candidatos, 24);
+                    // 3b. Seleccionar los mejores candidatos para el prompt (24 max por token budget).
+                    // La IA solo puede estimar donde hay datos: primero ligas con
+                    // cobertura FD (stats ya adjuntos o emparejables), luego resto.
+                    // Asi no gasta el presupuesto en ligas sin datos donde se niega.
+                    const ordenadosIA = (candidatos || []).slice().sort(function (a, b) {
+                        function cob(c) {
+                            try {
+                                const t = (String(c.liga || '') + ' ' + String(c.urlRelativa || '')).toLowerCase();
+                                return FD_LEAGUES.some(function (L) {
+                                    return clavesLigaFD(L).some(function (k) { const kk = String(k || '').trim(); return kk && t.indexOf(kk) !== -1; });
+                                }) ? 0 : 1;
+                            } catch (_) { return 1; }
+                        }
+                        const ca = cob(a), cb = cob(b);
+                        if (ca !== cb) return ca - cb;
+                        return (a.kickoffMs || 0) - (b.kickoffMs || 0);
+                    });
+                    const paraAnalisis = seleccionarParaAnalisis(ordenadosIA, 24);
 
                     // 3c. Construir prompt
                     const { system, user } = construirPromptAnalisis(paraAnalisis, feedNoticias, nowMs);
