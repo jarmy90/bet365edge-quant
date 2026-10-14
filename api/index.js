@@ -57,6 +57,9 @@ export default async function handler(request) {
         RATINGBET_VENTANA_DIAS:       process.env.RATINGBET_VENTANA_DIAS       || '',
         RATINGBET_MAX_ANTIGUEDAD_MIN: process.env.RATINGBET_MAX_ANTIGUEDAD_MIN || '',
 
+        // ── Football Data (modelo Poisson) ────────────────────────────────────
+        FOOTBALL_DATA_API_KEY:      process.env.FOOTBALL_DATA_API_KEY    || '',
+
         // ── Vercel meta ───────────────────────────────────────────────────────
         NODE_ENV:                     process.env.NODE_ENV            || '',
         VERCEL_ENV:                   process.env.VERCEL_ENV          || '',
