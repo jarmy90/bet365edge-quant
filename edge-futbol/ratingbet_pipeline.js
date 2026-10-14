@@ -385,6 +385,20 @@ export function construirPromptAnalisis(candidatos, feed, ahoraMs) {
             lineasDisponibles: lineasDisponibles
         };
     });
+    // Stats reales como DATOS (goles, forma, medias de liga). Nunca cuotas:
+    // el modelo sigue ciego al precio; los stats solo informan su estimacion.
+    lista.forEach(function (item, i) {
+        const st = candidatos[i] && candidatos[i].stats;
+        if (st && typeof st === 'object' && Number.isFinite(st.attH) && Number.isFinite(st.avgH)) {
+            item.datos = {
+                gfLocalCasa: st.gfH, gaLocalCasa: st.gaH, partidosLocalCasa: st.nH,
+                gfVisitFuera: st.gfA, gaVisitFuera: st.gaA, partidosVisitFuera: st.nA,
+                mediaGolesLocalLiga: st.avgH, mediaGolesVisitLiga: st.avgA,
+                fuerzaAtaqueLocal: st.attH, fuerzaDefensaLocal: st.defH,
+                fuerzaAtaqueVisit: st.attA, fuerzaDefensaVisit: st.defA
+            };
+        }
+    });
 
     const noticias = (feed || []).slice(0, 30).map(function (n) {
         return (n.fecha || n.time || '') + ' | ' + (n.fuente || n.source || 'feed') + ' | ' + (n.titulo || n.title || '');
@@ -692,6 +706,7 @@ export function aplicarVeredictos(candidatos, veredictos, ahoraMs) {
             factores: v.factores,
             noticiasUsadas: v.noticiasUsadas,
             lineas: lineasTodas,
+            stats: c.stats || null,
             temporalStatus: 'FUTURO_VALIDADO',
             fuenteDatos: 'ratingbet.com'
         });
@@ -813,6 +828,7 @@ export function construirFixturesSinAnalisis(candidatos, nowMs, opts) {
             factores: [],
             noticiasUsadas: [],
             lineas: lineasTodas,
+            stats: c.stats || null,
             modoAnalisis: 'solo-cuotas',
             temporalStatus: 'FUTURO_VALIDADO',
             fuenteDatos: 'ratingbet.com'
@@ -861,6 +877,41 @@ export function edgePorCuotas(cuotaCasa, cuotaJustaModelo) {
     if (!Number.isFinite(cuotaCasa) || !Number.isFinite(cuotaJustaModelo) || cuotaCasa <= 1 || cuotaJustaModelo <= 1) return null;
     return Math.round((cuotaCasa / cuotaJustaModelo - 1) * 1000) / 10;
 }
+// -----------------------------------------------------------------------------
+// MODELO POISSON DETERMINISTA (independiente de la cuota, nunca la ve)
+// -----------------------------------------------------------------------------
+// stats: {attH, defH, attA, defA, avgH, avgA, nH, nA} con fuerzas ya
+// normalizadas vs la media de la liga (las adjunta el worker desde
+// football-data.org). Lh = avgH * attH * defA; La = avgA * attA * defH;
+// L = Lh + La. P(Over 1.5) = 1 - e^-L * (1 + L);
+// P(Over 2.5) = 1 - e^-L * (1 + L + L^2/2).
+// Devuelve {p15, p25, lambdaH, lambdaA, lambdaTotal} en % (1 decimal,
+// clamp 1..99.5), o null si los stats son insuficientes. Puro y testeable.
+export function modeloPoisson(stats) {
+    if (!stats || typeof stats !== 'object') return null;
+    const attH = Number(stats.attH), defH = Number(stats.defH);
+    const attA = Number(stats.attA), defA = Number(stats.defA);
+    const avgH = Number(stats.avgH), avgA = Number(stats.avgA);
+    const vals = [attH, defH, attA, defA, avgH, avgA];
+    if (!vals.every(function (v) { return Number.isFinite(v) && v > 0; })) return null;
+    if (stats.nH !== undefined || stats.nA !== undefined) {
+        const nH = Number(stats.nH), nA = Number(stats.nA);
+        if (!Number.isFinite(nH) || !Number.isFinite(nA) || nH < 3 || nA < 3) return null;
+    }
+    const Lh = avgH * attH * defA;
+    const La = avgA * attA * defH;
+    if (!Number.isFinite(Lh) || !Number.isFinite(La) || Lh <= 0 || La <= 0) return null;
+    const L = Lh + La;
+    const eL = Math.exp(-L);
+    function clamp1(x) { return Math.min(99.5, Math.max(1, Math.round(x * 10) / 10)); }
+    return {
+        p15: clamp1((1 - eL * (1 + L)) * 100),
+        p25: clamp1((1 - eL * (1 + L + (L * L) / 2)) * 100),
+        lambdaH: Math.round(Lh * 100) / 100,
+        lambdaA: Math.round(La * 100) / 100,
+        lambdaTotal: Math.round(L * 100) / 100
+    };
+}
 export function seleccionDeFixture(f) {
     if (!f || !f.lineas) return null;
     // 1) veredicto de la IA sobre el fixture
@@ -870,6 +921,43 @@ export function seleccionDeFixture(f) {
             edgePuntos: Number.isFinite(f.edgePuntos) ? f.edgePuntos : null,
             justificacion: f.justificacion || ''
         };
+    }
+    // 1b) modelo Poisson determinista con stats reales (football-data.org).
+    //     Ciego a la cuota: solo estima P(Over) por linea; el edge se calcula
+    //     aqui con la convencion del cliente. Incluye stats y lambdas para
+    //     trazabilidad. Sin stats validos -> null (no inventa).
+    if (f.stats && typeof f.stats === 'object') {
+        const mp = modeloPoisson(f.stats);
+        if (mp) {
+            const pOverPorLinea = { '1.5': mp.p15, '2.5': mp.p25 };
+            let mejorP = null;
+            ['1.5', '2.5'].forEach(function (ln) {
+                const l = f.lineas[ln];
+                const pOver = pOverPorLinea[ln];
+                if (!l || !Number.isFinite(pOver)) return;
+                [[ 'OVER', l.cuotaOver, pOver ], [ 'UNDER', l.cuotaUnder, 100 - pOver ]].forEach(function (op) {
+                    const lado = op[0], cuota = op[1], prob = op[2];
+                    if (!Number.isFinite(cuota) || cuota <= 1) return;
+                    if (!Number.isFinite(prob) || prob < 1 || prob > 99.5) return;
+                    const edge = Math.round((cuota - (100 / prob)) * 1000) / 10;
+                    if (!mejorP || edge > mejorP.edgePuntos) {
+                        mejorP = { linea: ln, lado: lado, cuota: cuota,
+                            prob: Math.round(prob * 10) / 10, edgePuntos: edge };
+                    }
+                });
+            });
+            if (mejorP) {
+                return {
+                    mercado: (mejorP.lado === 'OVER' ? 'Over ' : 'Under ') + mejorP.linea + ' Goles',
+                    cuota: mejorP.cuota, probPct: mejorP.prob,
+                    probBase: 'modelo-poisson', edgePuntos: mejorP.edgePuntos,
+                    justificacion: 'Modelo Poisson (L=' + mp.lambdaTotal + '): P(Over 1.5)=' + mp.p15 +
+                        '%, P(Over 2.5)=' + mp.p25 + '%.',
+                    stats: f.stats,
+                    lambdas: { lambdaH: mp.lambdaH, lambdaA: mp.lambdaA, lambdaTotal: mp.lambdaTotal }
+                };
+            }
+        }
     }
     // 2) tip de ratingbet (su recomendacion publicada con su probabilidad)
     //     NO es modelo: nunca devuelve edge positivo ni se disfraza de modelo.
@@ -946,7 +1034,7 @@ export function construirParlayRiesgo(pool, riskLevel, ahoraMs) {
             if (!f || f.jugado) return;
             if (!Number.isFinite(f.kickoffMs) || f.kickoffMs < nowMs) return;
             const s = seleccionDeFixture(f);
-            if (s && s.probBase === 'modelo-ia' && Number.isFinite(s.probPct) && s.probPct > 0 && Number.isFinite(s.edgePuntos) && s.edgePuntos > 0) {
+            if (s && (s.probBase === 'modelo-ia' || s.probBase === 'modelo-poisson') && Number.isFinite(s.probPct) && s.probPct > 0 && Number.isFinite(s.edgePuntos) && s.edgePuntos > 0) {
                 destPool.push({ f: f, s: s });
             }
         });
@@ -1037,7 +1125,7 @@ export function construirParlayRiesgo(pool, riskLevel, ahoraMs) {
             if (!f || f.jugado) return;
             if (!Number.isFinite(f.kickoffMs) || f.kickoffMs < nowMs) return;
             const s = seleccionDeFixture(f);
-            if (s && s.probBase === 'modelo-ia' && Number.isFinite(s.probPct) && s.probPct > 0 && Number.isFinite(s.edgePuntos) && s.edgePuntos > 0) {
+            if (s && (s.probBase === 'modelo-ia' || s.probBase === 'modelo-poisson') && Number.isFinite(s.probPct) && s.probPct > 0 && Number.isFinite(s.edgePuntos) && s.edgePuntos > 0) {
                 destacadosPool.push({ f: f, s: s });
             }
         });

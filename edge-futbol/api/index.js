@@ -69,6 +69,10 @@ export default async function handler(request) {
         VERCEL_REGION: process.env.VERCEL_REGION || '',
         VERCEL_GIT_COMMIT_SHA: process.env.VERCEL_GIT_COMMIT_SHA || '',
 
+        // --- Dataset de ratingbet (scraper) ---
+        // NUEVO: key para Football Data API
+        FOOTBALL_DATA_API_KEY: process.env.FOOTBALL_DATA_API_KEY || '',
+
         // Marca de diagnostico: que claves estan tirando de valor embebido
         __FALLBACKS_ACTIVOS: fallbacksActivos.join(',')
     };

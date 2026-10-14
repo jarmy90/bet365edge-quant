@@ -243,6 +243,7 @@ function paginaGuiaSeo() {
 const FIXTURES_SOURCE = RATINGBET_FUENTE;
 const FIXTURES_CACHE_MS = 6 * 60 * 60 * 1000;   // cache del pool (6 horas para ahorrar cuota API)
 const DATASET_CACHE_MS = 6 * 60 * 60 * 1000;    // cache del dataset remoto (6 horas)
+const STATS_CACHE_MS = 6 * 60 * 60 * 1000;      // cache de stats football-data.org (6h: ~2 req/liga por ciclo)
 const OMNIROUTE_MODEL_DEFAULT = 'google/gemini-2.5-flash';
 const OMNIROUTE_ENDPOINT_DEFAULT = 'https://openrouter.ai/api/v1/chat/completions';
 const DAHL_KEY_DEFAULT = '';
@@ -274,6 +275,8 @@ let fixturesInflight = null;
 // Cache + single-flight del dataset (solo si se usa fuente remota)
 let datasetCache = { at: -Infinity, dataset: null, diag: null, url: null };
 let datasetInflight = null;
+// Cache de stats football-data.org (fuerzas por equipo + medias de liga, 6h)
+let statsCache = { at: -Infinity, mapa: null };
 
 export default {
     async fetch(request, env, ctx) {
@@ -704,6 +707,154 @@ export default {
         }
 
         // ---------------------------------------------------------------------
+        // STATS football-data.org PARA EL MODELO POISSON (determinista, ciego a cuota)
+        // Budget: 2 req/competicion por ciclo de 6h (standings + ultimos
+        // resultados), cacheadas en STATS_CACHE_MS. Key opcional en
+        // env.FOOTBALL_DATA_API_KEY (header X-Auth-Token); sin key usa el tier
+        // anonimo. Timeout 8s por req; cualquier fallo deja stats null SIN
+        // romper el flujo (el pipeline sigue con IA / tip / mercado).
+        // Devuelve [{liga, nombre, gfH, gaH, nH, gfA, gaA, nA, avgH, avgA}]
+        // (promedios pooled: temporada de standings + ultimos 5 de matches).
+        // ---------------------------------------------------------------------
+        const STATS_STOPWORDS = ['fc', 'cf', 'ac', 'sc', 'afc', 'fk', 'sk', 'if', 'bk', 'ks',
+            'de', 'del', 'la', 'el', 'los', 'las', 'y', 'e', 'the', 'der', 'die', 'das', 'do', 'da'];
+        function tokensEquipo(nombre) {
+            const toks = String(nombre || '').toLowerCase().normalize('NFD')
+                .replace(/[\u0300-\u036f]/g, '').split(/[^a-z0-9]+/).filter(function (w) { return w.length >= 2; });
+            const sig = toks.filter(function (w) { return STATS_STOPWORDS.indexOf(w) === -1; });
+            return (sig.length ? sig : toks).sort();
+        }
+        function mismoEquipoFD(nombreA, nombreB) {
+            const a = tokensEquipo(nombreA), b = tokensEquipo(nombreB);
+            if (!a.length || !b.length) return false;
+            const enB = a.every(function (t) { return b.indexOf(t) !== -1; });
+            const enA = b.every(function (t) { return a.indexOf(t) !== -1; });
+            return enA || enB;
+        }
+        function buscarStatsEquipo(nombre, mapa) {
+            if (!nombre || !Array.isArray(mapa)) return null;
+            for (let i = 0; i < mapa.length; i++) {
+                if (mismoEquipoFD(nombre, mapa[i].nombre)) return mapa[i];
+            }
+            return null;
+        }
+        async function cargarStatsFootballData(nowMs, opts) {
+            const soloCache = !!(opts && opts.soloCache);
+            if (statsCache.mapa && (nowMs - statsCache.at) < STATS_CACHE_MS) return statsCache.mapa;
+            if (soloCache) return null;
+            const fdKey = env.FOOTBALL_DATA_API_KEY || '';
+            const headers = fdKey ? { 'X-Auth-Token': fdKey } : {};
+            const hasta = new Date(nowMs).toISOString().slice(0, 10);
+            const desde = new Date(nowMs - 60 * 86400000).toISOString().slice(0, 10);
+            async function fdJson(url) {
+                const r = await fetch(url, { headers: headers, signal: AbortSignal.timeout(8000) });
+                if (!r.ok) throw new Error('http-' + r.status);
+                return r.json();
+            }
+            const mapa = [];
+            await Promise.all(FD_LEAGUES.map(async function (league) {
+                try {
+                    const st = await fdJson(FD_BASE + '/competitions/' + league.id + '/standings');
+                    // Los ultimos resultados son opcionales: si fallan, vale la temporada sola.
+                    let mt = null;
+                    try {
+                        mt = await fdJson(FD_BASE + '/competitions/' + league.id +
+                            '/matches?status=FINISHED&dateFrom=' + desde + '&dateTo=' + hasta);
+                    } catch (_) { mt = null; }
+                    const tablas = {};
+                    (st.standings || []).forEach(function (s) {
+                        if (s && (s.type === 'HOME' || s.type === 'AWAY') && Array.isArray(s.table)) tablas[s.type] = s.table;
+                    });
+                    if (!tablas.HOME || !tablas.AWAY) return;
+                    function mediaGoles(tabla) {
+                        let gf = 0, n = 0;
+                        tabla.forEach(function (e) { gf += Number(e.goalsFor) || 0; n += Number(e.playedGames) || 0; });
+                        return n > 0 ? gf / n : 0;
+                    }
+                    const avgH = mediaGoles(tablas.HOME), avgA = mediaGoles(tablas.AWAY);
+                    if (!(avgH > 0) || !(avgA > 0)) return;
+                    // Temporada por equipo (splits casa/fuera de standings)
+                    const eq = {};
+                    function acumula(tabla, lado) {
+                        tabla.forEach(function (e) {
+                            const nom = e.team && e.team.name;
+                            if (!nom) return;
+                            eq[nom] = eq[nom] || { sNH: 0, sGFH: 0, sGAH: 0, sNA: 0, sGFA: 0, sGAA: 0 };
+                            if (lado === 'H') {
+                                eq[nom].sNH += Number(e.playedGames) || 0;
+                                eq[nom].sGFH += Number(e.goalsFor) || 0;
+                                eq[nom].sGAH += Number(e.goalsAgainst) || 0;
+                            } else {
+                                eq[nom].sNA += Number(e.playedGames) || 0;
+                                eq[nom].sGFA += Number(e.goalsFor) || 0;
+                                eq[nom].sGAA += Number(e.goalsAgainst) || 0;
+                            }
+                        });
+                    }
+                    acumula(tablas.HOME, 'H');
+                    acumula(tablas.AWAY, 'A');
+                    // Forma reciente: ultimos 5 en casa / fuera (ventana 60d)
+                    const rec = {};
+                    ((mt && mt.matches) || []).forEach(function (m) {
+                        if (!m || !m.score || !m.score.fullTime) return;
+                        const gh = m.score.fullTime.home, ga = m.score.fullTime.away;
+                        if (!Number.isFinite(gh) || !Number.isFinite(ga)) return;
+                        const ms = Date.parse(m.utcDate) || 0;
+                        const nh = m.homeTeam && m.homeTeam.name, na = m.awayTeam && m.awayTeam.name;
+                        if (nh) { rec[nh] = rec[nh] || { casa: [], fuera: [] }; rec[nh].casa.push({ gf: gh, ga: ga, ms: ms }); }
+                        if (na) { rec[na] = rec[na] || { casa: [], fuera: [] }; rec[na].fuera.push({ gf: ga, ga: gh, ms: ms }); }
+                    });
+                    Object.keys(eq).forEach(function (nom) {
+                        const e = eq[nom];
+                        const r = rec[nom] || { casa: [], fuera: [] };
+                        function ultimos5(arr) { return arr.sort(function (x, y) { return y.ms - x.ms; }).slice(0, 5); }
+                        const uh = ultimos5(r.casa), ua = ultimos5(r.fuera);
+                        function suma(arr, k) { return arr.reduce(function (s, x) { return s + x[k]; }, 0); }
+                        const nH = e.sNH + uh.length, nA = e.sNA + ua.length;
+                        if (nH <= 0 || nA <= 0) return;
+                        mapa.push({
+                            liga: league.id, nombre: nom,
+                            gfH: (e.sGFH + suma(uh, 'gf')) / nH, gaH: (e.sGAH + suma(uh, 'ga')) / nH, nH: nH,
+                            gfA: (e.sGFA + suma(ua, 'gf')) / nA, gaA: (e.sGAA + suma(ua, 'ga')) / nA, nA: nA,
+                            avgH: avgH, avgA: avgA
+                        });
+                    });
+                } catch (_) { /* liga omitida: sus equipos quedan sin stats */ }
+            }));
+            statsCache = { at: nowMs, mapa: mapa };
+            return mapa;
+        }
+        // Adjunta c.stats = {attH, defH, attA, defA, avgH, avgA, nH, nA, ...}
+        // (fuerzas ya normalizadas vs media de liga) o null si algun equipo
+        // tiene <3 partidos en su condicion. Devuelve cuantos candidatos
+        // recibieron stats. Nunca lanza.
+        function adjuntarStatsACandidatos(candidatos, mapa) {
+            if (!Array.isArray(candidatos) || !Array.isArray(mapa) || !mapa.length) return 0;
+            let n = 0;
+            candidatos.forEach(function (c) {
+                try {
+                    c.stats = null;
+                    const eH = buscarStatsEquipo(c.local, mapa);
+                    const eA = buscarStatsEquipo(c.visitante, mapa);
+                    if (!eH || !eA || eH.nH < 3 || eA.nA < 3) return;
+                    if (!(eH.avgH > 0) || !(eA.avgA > 0)) return;
+                    const attH = eH.gfH / eH.avgH, defH = eH.gaH / eH.avgH;
+                    const attA = eA.gfA / eA.avgA, defA = eA.gaA / eA.avgA;
+                    if (![attH, defH, attA, defA].every(function (v) { return Number.isFinite(v) && v > 0; })) return;
+                    function r3(x) { return Math.round(x * 1000) / 1000; }
+                    c.stats = {
+                        attH: r3(attH), defH: r3(defH), attA: r3(attA), defA: r3(defA),
+                        avgH: r3(eH.avgH), avgA: r3(eA.avgA), nH: eH.nH, nA: eA.nA,
+                        gfH: r3(eH.gfH), gaH: r3(eH.gaH), gfA: r3(eA.gfA), gaA: r3(eA.gaA),
+                        ligaFD: eH.liga
+                    };
+                    n++;
+                } catch (_) { try { c.stats = null; } catch (_) {} }
+            });
+            return n;
+        }
+
+        // ---------------------------------------------------------------------
         async function cargarDatasetRatingbet(nowMs, force) {
             const url = env.RATINGBET_DATASET_URL || '';
             if (!url) return { dataset: datasetLocal, diag: { modo: 'modulo-embebido', url: null, error: null }, error: null };
@@ -856,6 +1007,14 @@ export default {
                 });
                 const candidatos = candidatosRaw.filter(esLigaTopPermitida);
 
+                // -- 2b. Stats football-data.org (modelo Poisson determinista) ----
+                // ~2 req/liga por ciclo de 6h (cache STATS_CACHE_MS). Nunca rompe
+                // el flujo: sin stats, c.stats queda null y el pipeline sigue.
+                try {
+                    const mapaStats = await cargarStatsFootballData(nowMs);
+                    adjuntarStatsACandidatos(candidatos, mapaStats);
+                } catch (_) { /* sin stats en este ciclo */ }
+
                 let pool = [];
                 const diagFinal = {
                     origenDatos: FIXTURES_SOURCE,
@@ -986,8 +1145,17 @@ export default {
                     let iaRes = null;
                     let iaRaw = null;  // texto crudo (Gemini nativo)
                     let ultimoError = null;
+                    // Presupuesto global anti-TIMEOUT (Vercel): la cadena completa
+                    // no puede superar ~35s; al agotarse se cae al degradado honesto.
+                    const iaBudgetMs = 35000;
+                    const iaDeadline = Date.now() + iaBudgetMs;
 
                     for (const prov of proveedoresAProbar) {
+                        if (Date.now() >= iaDeadline) {
+                            ultimoError = { error: 'ia-timeout: presupuesto global 35s agotado', intentados: proveedoresAProbar.length };
+                            console.warn('[AI-CHAIN] ⏱️ presupuesto global agotado, stop.');
+                            break;
+                        }
                         try {
                             console.log('[AI-CHAIN] Intentando ' + (prov.label || prov.model) + '...');
                             let r;
@@ -1316,6 +1484,12 @@ export default {
                     const cl = construirCandidatos(dl.dataset, nowL, { margenMinutos: MARGEN_MIN, maxDias: VENTANA_DIAS, maxAntiguedadMin: MAX_ANTIGUEDAD });
                     const fl = filtrarPublicables((cl.candidatos || []).filter(esLigaTopPermitida), nowL, { margenMinutos: MARGEN_PUBLICACION_MIN });
                     realMatchesPool = fl.publicables || [];
+                    // Stats Poisson solo desde cache (nunca fetch aqui: este
+                    // endpoint debe responder rapido, sin riesgo de 504).
+                    try {
+                        const mapaStatsL = await cargarStatsFootballData(nowL, { soloCache: true });
+                        adjuntarStatsACandidatos(realMatchesPool, mapaStatsL);
+                    } catch (_) {}
                 }
             } catch (e) {
                 realMatchesPool = [];
@@ -3973,7 +4147,7 @@ export default {
                                 '<span style="font-size:0.75rem; color:var(--text-muted); font-weight:700;">Cuota Casa</span>' +
                                 '<span style="font-family:JetBrains Mono; font-size:1.8rem; font-weight:800; color:var(--neon-emerald);">' + (data.cuotaTotal ? data.cuotaTotal.toFixed(2) : '—') + '</span>' +
                             '</div>' +
-                            (data.probBase === 'modelo-ia' ?
+                            (data.probBase === 'modelo-ia' || data.probBase === 'modelo-poisson' ?
                             '<div style="display:flex; align-items:baseline; gap:5px; background:rgba(0,212,255,0.1); border:1px solid rgba(0,212,255,0.3); padding:3px 10px; border-radius:8px;">' +
                                 '<span style="font-size:0.75rem; color:var(--neon-cyan); font-weight:700;">Cuota Modelo</span>' +
                                 '<span style="font-family:JetBrains Mono; font-size:1.4rem; font-weight:800; color:var(--neon-cyan);">' + cModeloTotalHead + '</span>' +
@@ -3995,15 +4169,18 @@ export default {
                     var card = document.createElement('div');
                     card.className = 'bet-card';
                     var probBaseIA = p.probBase === 'modelo-ia';
-                    var cuotaModelo = probBaseIA && Number.isFinite(p.probPct) && p.probPct > 0 ? (100 / p.probPct).toFixed(2) : null;
+                    var probBasePoisson = p.probBase === 'modelo-poisson';
+                    var probBaseTipo = probBaseIA ? 'ia' : probBasePoisson ? 'poisson' : 'mercado';
+                    var cuotaModelo = (probBaseIA || probBasePoisson) && Number.isFinite(p.probPct) && p.probPct > 0 ? (100 / p.probPct).toFixed(2) : null;
                     var probEst = Number.isFinite(p.probPct)
-                        ? (probBaseIA ? 'Prob. IA: ' : 'Prob. casa: ') + Math.round(p.probPct) + '%'
+                        ? (probBaseIA ? 'Prob. IA: ' : probBasePoisson ? 'Prob. Poisson: ' : 'Prob. casa: ') + Math.round(p.probPct) + '%'
                         : 'Prob. n/d';
-                    var edgeVal = probBaseIA && Number.isFinite(p.edgePuntos) ? p.edgePuntos : (p.probPct && p.cuota ? Math.round((p.probPct - (100 / p.cuota)) * 10) / 10 : null);
-                    var edgeHtml = probBaseIA && Number.isFinite(edgeVal) ?
-                        (edgeVal >= 0 ? '<strong style="color:var(--neon-emerald);">+' + edgeVal.toFixed(1) + '%</strong>'
+                    var edgeVal = (probBaseIA || probBasePoisson) && Number.isFinite(p.edgePuntos) ? p.edgePuntos : (p.probPct && p.cuota ? Math.round((p.probPct - (100 / p.cuota)) * 10) / 10 : null);
+                    var edgeColor = probBaseIA ? 'var(--neon-emerald)' : probBasePoisson ? 'var(--neon-cyan)' : null;
+                    var edgeHtml = (probBaseIA || probBasePoisson) && Number.isFinite(edgeVal) ?
+                        (edgeVal >= 0 ? '<strong style="color:' + edgeColor + ';">+' + edgeVal.toFixed(1) + '%</strong>'
                                       : '<strong style="color:#ef4444;">-' + Math.abs(edgeVal).toFixed(1) + '%</strong>')
-                        : probBaseIA ? '+EV' : '—';
+                        : probBaseIA || probBasePoisson ? '+EV' : '—';
 
                     card.innerHTML =
                         '<div class="bet-card-top">' +
@@ -4018,7 +4195,7 @@ export default {
                             '<span style="color:var(--neon-emerald); font-weight:800;">' + p.mercado + '</span>' +
                             '<div style="display:flex; align-items:center; gap:8px; font-family:JetBrains Mono; font-weight:800; font-size:0.82rem;">' +
                                 '<span style="color:var(--neon-emerald); background:rgba(13,242,166,0.1); padding:2px 6px; border-radius:6px;">Casa ' + p.cuota.toFixed(2) + '</span>' +
-                                (cuotaModelo ? '<span style="color:var(--neon-cyan); background:rgba(0,212,255,0.12); border:1px solid rgba(0,212,255,0.3); padding:2px 6px; border-radius:6px;">Modelo ' + cuotaModelo + '</span>' : '<span style="color:var(--neon-cyan); background:rgba(0,212,255,0.12); border:1px solid rgba(0,212,255,0.3); padding:2px 6px; border-radius:6px;">Sin veredicto IA</span>') +
+                                ((probBaseIA || probBasePoisson) ? '<span style="color:var(--neon-cyan); background:rgba(0,212,255,0.12); border:1px solid rgba(0,212,255,0.3); padding:2px 6px; border-radius:6px;">Modelo ' + cuotaModelo + '</span>' : '') +
                             '</div>' +
                         '</div>' +
                         '<div style="display:flex; justify-content:space-between; font-size:0.75rem; margin-bottom:8px;">' +
@@ -4337,7 +4514,7 @@ export default {
                         '</td>' +
                         '<td data-label="Mercado" style="text-align:center;"><span style="font-weight:700; color:var(--text-primary);">' + f.mercado + '</span></td>' +
                         '<td data-label="Cuota Casa" style="text-align:center; font-family:JetBrains Mono; font-weight:800; color:var(--neon-cyan);">' + f.cuota.toFixed(2) + '</td>' +
-                        '<td data-label="Prob. Modelo" style="text-align:center; font-family:JetBrains Mono; font-weight:800; color:var(--neon-emerald);">' + (f.probBase === 'modelo-ia' && Number.isFinite(f.modelProb) ? f.modelProb + '%' : '—') + (f.probBase !== 'modelo-ia' ? ' sin veredicto IA' : '') + '</td>' +
+                        '<td data-label="Prob. Modelo" style="text-align:center; font-family:JetBrains Mono; font-weight:800; color:var(--neon-emerald);">' + (f.probBase === 'modelo-ia' && Number.isFinite(f.modelProb) ? f.modelProb + '%' : f.probBase === 'modelo-poisson' && Number.isFinite(f.probPct) ? 'Poisson ' + f.probPct + '%' : '—') + (f.probBase !== 'modelo-ia' && f.probBase !== 'modelo-poisson' ? ' sin veredicto IA' : '') + '</td>' +
                         '<td data-label="Edge (+EV)" style="text-align:center; font-family:JetBrains Mono; font-weight:800; color:var(--neon-emerald);">' + f.edge + '</td>' +
                         '</tr>';
                 });
