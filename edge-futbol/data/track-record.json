@@ -1,5 +1,5 @@
 {
-  "actualizadoEnUtc": "2026-10-14T09:41:33.151Z",
+  "actualizadoEnUtc": "2026-10-14T12:03:38.842Z",
   "nota": "Track-record de picks publicados (modelo-ia y modelo-poisson). Solo la primera publicacion de cada pick cuenta; sin-datos no entra en hit%/yield. Generado por edge-futbol/settle_results.js.",
   "picks": [
     {
@@ -59,7 +59,7 @@
     "yieldPct": 0,
     "porModelo": {
       "ia": {
-        "n": 2,
+        "n": 0,
         "settled": 0,
         "ganados": 0,
         "hitPct": 0,
@@ -75,21 +75,21 @@
     },
     "porBanda": {
       "bajo": {
-        "n": 2,
+        "n": 0,
         "settled": 0,
         "ganados": 0,
         "hitPct": 0,
         "yieldPct": 0
       },
       "medio": {
-        "n": 2,
+        "n": 0,
         "settled": 0,
         "ganados": 0,
         "hitPct": 0,
         "yieldPct": 0
       },
       "alto": {
-        "n": 2,
+        "n": 0,
         "settled": 0,
         "ganados": 0,
         "hitPct": 0,
