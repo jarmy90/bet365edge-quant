@@ -771,17 +771,19 @@ export default {
                             '/matches?status=FINISHED&dateFrom=' + desde + '&dateTo=' + hasta);
                     } catch (_) { mt = null; }
                     const tablas = {};
+                    const tiposVistos = [];
                     (st.standings || []).forEach(function (s) {
+                        if (s && s.type) tiposVistos.push(s.type + ':' + ((s.table || []).length));
                         if (s && (s.type === 'HOME' || s.type === 'AWAY') && Array.isArray(s.table)) tablas[s.type] = s.table;
                     });
-                    if (!tablas.HOME || !tablas.AWAY) return;
+                    if (!tablas.HOME || !tablas.AWAY) { diagStats.detalle = diagStats.detalle || {}; diagStats.detalle[league.id] = { tipos: tiposVistos }; return; }
                     function mediaGoles(tabla) {
                         let gf = 0, n = 0;
                         tabla.forEach(function (e) { gf += Number(e.goalsFor) || 0; n += Number(e.playedGames) || 0; });
                         return n > 0 ? gf / n : 0;
                     }
                     const avgH = mediaGoles(tablas.HOME), avgA = mediaGoles(tablas.AWAY);
-                    if (!(avgH > 0) || !(avgA > 0)) return;
+                    if (!(avgH > 0) || !(avgA > 0)) { diagStats.detalle = diagStats.detalle || {}; diagStats.detalle[league.id] = { tipos: tiposVistos, avgH: avgH, avgA: avgA }; return; }
                     // Temporada por equipo (splits casa/fuera de standings)
                     const eq = {};
                     function acumula(tabla, lado) {
