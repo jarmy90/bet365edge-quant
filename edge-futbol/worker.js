@@ -778,11 +778,15 @@ export default {
                 try {
                     const st = await fdJson(FD_BASE + '/competitions/' + league.id + '/standings');
                     // Los ultimos resultados son opcionales: si fallan, vale la temporada sola.
-                    let mt = null;
+                    // Se registra el error (antes se tragaba) y se escalona el arranque
+                    // por liga para no golpear el limite 10 req/min del tier gratuito.
+                    let mt = null, matchesError = null;
                     try {
+                        const idxL = ligasFD.indexOf(league);
+                        if (idxL > 0) await new Promise(function (res) { setTimeout(res, idxL * 700); });
                         mt = await fdJson(FD_BASE + '/competitions/' + league.id +
                             '/matches?status=FINISHED&dateFrom=' + desde + '&dateTo=' + hasta);
-                    } catch (_) { mt = null; }
+                    } catch (e) { mt = null; matchesError = String((e && e.message) || e).slice(0, 60); }
                     const tiposVistos = [];
                     // 1. Prior de temporada: tabla TOTAL (existe en todos los tiers;
                     // este plan no sirve splits HOME/AWAY). Tasas por partido.
@@ -850,7 +854,7 @@ export default {
                         });
                     });
                     diagStats.detalle = diagStats.detalle || {};
-                    diagStats.detalle[league.id] = { tipos: tiposVistos, partidos: nM, avgSrc: avgSrc, equipos: nEq };
+                    diagStats.detalle[league.id] = { tipos: tiposVistos, partidos: nM, avgSrc: avgSrc, equipos: nEq, matchesError: matchesError };
                 } catch (e) { diagStats.errores[league.id] = String((e && e.message) || e).slice(0, 120); }
             }));
             diagStats.equipos = mapa.length;
