@@ -1,5 +1,5 @@
 {
-  "actualizadoEnUtc": "2026-10-15T11:12:03.083Z",
+  "actualizadoEnUtc": "2026-10-15T21:11:18.666Z",
   "nota": "Track-record de picks publicados (modelo-ia y modelo-poisson). Solo la primera publicacion de cada pick cuenta; sin-datos no entra en hit%/yield. Generado por edge-futbol/settle_results.js.",
   "picks": [
     {
@@ -23,7 +23,7 @@
         "golesLocal": null,
         "golesVisitante": null,
         "profit": null,
-        "settledEnUtc": "2026-10-15T11:12:03.083Z"
+        "settledEnUtc": "2026-10-15T21:11:18.666Z"
       }
     },
     {
@@ -97,17 +97,41 @@
         "profit": null,
         "settledEnUtc": null
       }
+    },
+    {
+      "id": "excelsior-vs-sc-heerenveen|Over 2.5 Goles|16/10",
+      "partido": "Excelsior vs SC Heerenveen",
+      "local": "Excelsior",
+      "visitante": "SC Heerenveen",
+      "liga": "Netherlands: Eredivisie Netherlands",
+      "mercado": "Over 2.5 Goles",
+      "linea": "2.5",
+      "lado": "OVER",
+      "cuota": 1.39,
+      "probModelo": 72.4,
+      "edgePuntos": 0.9,
+      "model": "modelo-ia",
+      "banda": "destacado",
+      "publicadoEnUtc": "2026-10-15T21:11:18.666Z",
+      "kickoffMs": 1792148400000,
+      "result": {
+        "estado": "pendiente",
+        "golesLocal": null,
+        "golesVisitante": null,
+        "profit": null,
+        "settledEnUtc": null
+      }
     }
   ],
   "resumen": {
-    "n": 4,
+    "n": 5,
     "settled": 1,
     "ganados": 0,
     "hitPct": 0,
     "yieldPct": -100,
     "porModelo": {
       "ia": {
-        "n": 2,
+        "n": 3,
         "settled": 0,
         "ganados": 0,
         "hitPct": 0,
@@ -144,7 +168,7 @@
         "yieldPct": 0
       },
       "destacado": {
-        "n": 4,
+        "n": 5,
         "settled": 1,
         "ganados": 0,
         "hitPct": 0,
