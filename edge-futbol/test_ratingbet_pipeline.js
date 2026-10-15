@@ -232,13 +232,15 @@ const jsonIA = JSON.stringify({
         { clave: cOtro.clave, linea: '9.9', lado: 'OVER', probModelo: 70 },
         { clave: cOtro.clave, linea: '1.5', lado: 'AMBOS', probModelo: 70 },
         { clave: cOtro.clave, linea: '1.5', lado: 'OVER', probModelo: 150 },
-        { clave: cOtro.clave, linea: '2.5', lado: 'UNDER', probModelo: 62.3, confianza: 'MEDIA' }
+        { clave: cOtro.clave, linea: '2.5', lado: 'UNDER', probModelo: 62.3, confianza: 'MEDIA' },
+        { clave: cOtro.clave, linea: '1.5', lado: 'OVER', probModelo: 58, confianza: 'MEDIA', justificacion: 'Frosinone (si esta en Serie A) juega cerrado?' }
     ],
     resumen: 'dos picks con valor'
 });
 const pv = parsearVeredictosIA('```json\n' + jsonIA + '\n```', sel);
 ok(pv.veredictos.length === 2, 'solo sobreviven los veredictos validos', pv.veredictos.length);
-ok(pv.diag.recibidos === 6, 'se auditan todos los recibidos', pv.diag.recibidos);
+ok(pv.diag.recibidos === 7, 'se auditan todos los recibidos', pv.diag.recibidos);
+ok(pv.diag.motivos['justificacion-condicional'] === 1, 'la justificacion que duda de los hechos se descarta (anti-adivinanza)', JSON.stringify(pv.diag.motivos));
 ok(pv.diag.motivos['clave-inexistente'] === 1, 'la clave INVENTADA se descarta (anti-alucinacion)', JSON.stringify(pv.diag.motivos));
 ok(pv.diag.motivos['linea-no-disponible'] === 1, 'una linea que el partido no tiene se descarta');
 ok(pv.diag.motivos['lado-invalido'] === 1, 'un lado distinto de OVER/UNDER se descarta');

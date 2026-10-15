@@ -487,6 +487,9 @@ export function construirPromptAnalisis(candidatos, feed, ahoraMs) {
         '         NO puedes copiar el precio porque NO lo ves: cualquier parecido con la cuota es coincidencia.',
         '         Da tu probabilidad real del Over/Under indicado segun tu analisis cuantitativo (8 pilares).',
         'REGLA 4: Si no tienes datos cuantitativos suficientes para un partido, NO emitas veredicto.',
+        'REGLA 4b: PROHIBIDO el lenguaje condicional sobre HECHOS (equipos, liga, alineaciones, estadio).',
+        '         Si no sabes con certeza en que liga juegan o quienes son, NO emitas veredicto.',
+        '         Nada de "si esta en...", "si juega...", "?" sobre hechos. Solo hechos verificados + tu probabilidad.',
         'REGLA 5: El sistema calcula el edge con las cuotas reales. Tu solo das "probModelo". No inventes cuotas ni edge.',
         'REGLA 6: "confianza" ALTA si tienes >= 4 factores convergentes. MEDIA-ALTA con >= 2. MEDIA con al menos 1 solido.',
         'REGLA 7: La "justificacion" debe ser concreta y cuantitativa.',
@@ -578,6 +581,14 @@ export function parsearVeredictosIA(texto, candidatos) {
 
         const conf = ['ALTA', 'MEDIA-ALTA', 'MEDIA'].indexOf(String(v.confianza || '').toUpperCase()) !== -1
             ? String(v.confianza).toUpperCase() : null;
+
+        // Anti-adivinanza: si la justificacion duda de los HECHOS (equipos, liga,
+        // alineaciones: "si esta en...", "no se si...", "?"), el veredicto se
+        // descarta. Opinar del resultado es legitimo; dudar de que partido es, no.
+        const textoVerd = (String(v.justificacion || '') + ' ' + (Array.isArray(v.factores) ? v.factores.join(' ') : '')).toLowerCase()
+            .normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+        const DUDAS = ['si esta', 'si es que', 'si juega', 'si fuesen', 'no se si', 'no estoy seguro', 'desconozco', 'no tengo datos', 'sin datos', 'suponiendo que', 'asumiendo que'];
+        if (DUDAS.some(function (d) { return textoVerd.indexOf(d) !== -1; }) || (textoVerd.match(/\?/g) || []).length >= 2) { rechazar('justificacion-condicional'); return; }
 
         veredictos.push({
             clave: clave,
