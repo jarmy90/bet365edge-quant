@@ -178,6 +178,18 @@ ok(out2.nuevos === 0, 'segunda pasada no duplica (dedupe por id)', out2.nuevos);
 const t2 = JSON.parse(disco['/mem/track.json']);
 ok(t2.picks.length === 2, 'track sigue con 2 picks', t2.picks.length);
 
+// 6) Un 'sin-datos' prematuro se reintenta (<7d); pasado ese plazo queda final
+const tR = JSON.parse(disco['/mem/track.json']);
+tR.picks[0].result = { estado: 'sin-datos', golesLocal: null, golesVisitante: null, profit: null, settledEnUtc: null };
+// kickoff original (KICK, hace 16h): dentro de ventana -> reintentable
+tR.picks[1].result = { estado: 'sin-datos', golesLocal: null, golesVisitante: null, profit: null, settledEnUtc: null };
+tR.picks[1].kickoffMs = AHORA - 10 * 86400000;
+disco['/mem/track.json'] = JSON.stringify(tR);
+await run({ fetchFn: mockContado, readFile: fakeRead, writeFile: fakeWrite, nowMs: AHORA, trackPath: '/mem/track.json', apiBase: 'https://mock.local', fdKey: 'K' });
+const t5 = JSON.parse(disco['/mem/track.json']);
+ok(t5.picks[0].result.estado === 'ganado', 'sin-datos <7d con score disponible se liquida al reintentar', t5.picks[0].result.estado);
+ok(t5.picks[1].result.estado === 'sin-datos', 'sin-datos >7d queda final (no se persigue)', t5.picks[1].result.estado);
+
 // pick sin match en FD -> sin-datos, excluido del yield
 const parlaySolo = {
     estado: 'ok', picks: [selPick('x-vs-y', 'Over 1.5 Goles', 1.5, 80, 'modelo-ia', 5)], destacados: [], partidos: []

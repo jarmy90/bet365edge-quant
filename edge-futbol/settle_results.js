@@ -280,8 +280,13 @@ export async function liquidarPendientes(track, fdKey, fetchFn, ahoraMs) {
     let liquidados = 0, sinDatos = 0;
     const sello = new Date(ahoraMs).toISOString();
     track.picks.forEach(function (p) {
-        if (!p.result || p.result.estado !== 'pendiente') return;
+        if (!p.result) return;
+        const est = p.result.estado;
+        if (est !== 'pendiente' && est !== 'sin-datos') return;
         if (!Number.isFinite(p.kickoffMs) || p.kickoffMs >= ahoraMs - SETTLE_DELAY_MS) return;
+        // Reintento acotado: un 'sin-datos' prematuro (marcador aun no publicado)
+        // se reintenta mientras el kickoff tenga <7 dias. Mas alla, queda final.
+        if (est === 'sin-datos' && ahoraMs - p.kickoffMs >= 7 * DIA_MS) return;
         let hit = null;
         for (const m of partidos) {
             if (Math.abs(p.kickoffMs - m.ms) > DIA_MS) continue;

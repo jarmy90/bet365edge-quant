@@ -657,8 +657,7 @@ export default {
             { id: 'ELC', liga: 'England: Championship',   pais: 'England' },
             { id: 'DED', liga: 'Netherlands: Eredivisie', pais: 'Netherlands' },
             { id: 'PPL', liga: 'Portugal: Primeira Liga', pais: 'Portugal', keys: ['primeira'] },
-            { id: 'ECL', liga: 'UEFA: Conference League', pais: 'Europe',  keys: ['conference league'] },
-            { id: 'EL',  liga: 'UEFA: Europa League',     pais: 'Europe',  keys: ['europa league'] },
+            // EL (403) y ECL (404) no entran en este tier: no se piden (ahorran cuota).
             { id: 'SD',  liga: 'Spain: Segunda Division', pais: 'Spain',   keys: ['segunda', 'hyper motion', 'laliga 2'] },
         ];
         function clavesLigaFD(L) {
@@ -753,7 +752,10 @@ export default {
         }
         async function cargarStatsFootballData(nowMs, opts) {
             const soloCache = !!(opts && opts.soloCache);
-            if (statsCache.mapa && (nowMs - statsCache.at) < STATS_CACHE_MS) return statsCache.mapa;
+            // Vacio (p. ej. racha de 429) caduca en 10 min para reintentar pronto;
+            // con datos vale la cache de 6h.
+            const ttlStats = (statsCache.mapa && statsCache.mapa.length) ? STATS_CACHE_MS : 10 * 60 * 1000;
+            if (statsCache.mapa && (nowMs - statsCache.at) < ttlStats) return statsCache.mapa;
             if (soloCache) return null;
             // Solo las ligas con candidatos hoy (no las 6 siempre): recorta el
             // tiempo y los req del ciclo.
