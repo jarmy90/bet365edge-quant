@@ -644,8 +644,8 @@ export default {
         // Configurar env.FOOTBALL_DATA_API_KEY para usarla.
         // SIN clave tambien funciona (tier anonimo, limite mas bajo).
         // ---------------------------------------------------------------------
-        const FD_BASE = 'https://api.football-data.org/v4';
-        // IDs de competicion en football-data.org
+        // IDs de competicion (usados para scoping por Ligas en stats)
+        // ---------------------------------------------------------------------
         const FD_LEAGUES = [
             { id: 'PL',  liga: 'England: Premier League', pais: 'England' },
             { id: 'PD',  liga: 'Spain: LaLiga',           pais: 'Spain'   },
@@ -752,117 +752,54 @@ export default {
         }
         async function cargarStatsFootballData(nowMs, opts) {
             const soloCache = !!(opts && opts.soloCache);
-            // Vacio (p. ej. racha de 429) caduca en 10 min para reintentar pronto;
-            // con datos vale la cache de 6h.
-            const ttlStats = (statsCache.mapa && statsCache.mapa.length) ? STATS_CACHE_MS : 10 * 60 * 1000;
-            if (statsCache.mapa && (nowMs - statsCache.at) < ttlStats) return statsCache.mapa;
-            if (soloCache) return null;
-            // Solo las ligas con candidatos hoy (no las 6 siempre): recorta el
-            // tiempo y los req del ciclo.
             const pideLigas = opts && Array.isArray(opts.ligas) ? opts.ligas : null;
-            const ligasFD = pideLigas ? FD_LEAGUES.filter(function (L) { return pideLigas.indexOf(L.id) !== -1; }) : FD_LEAGUES;
-            if (!ligasFD.length) {
-                statsCache.diag = { ligasPedidas: pideLigas || 'todas', equipos: 0, errores: {}, conKey: !!(env.FOOTBALL_DATA_API_KEY || ''), nota: 'sin-ligas-fd-hoy' };
-                return statsCache.mapa || null;
+            const cacheKey = 'statsCache';
+            let cached = memoriaCache[cacheKey];
+            if (cached && Date.now() - cached.at < 6 * 60 * 60 * 1000) {
+                if (soloCache) return null;
+                if (pideLigas && Array.isArray(cached.mapa)) {
+                    cached.mapa = cached.mapa.filter(function (m) { return pideLigas.indexOf(m.liga) !== -1; });
+                }
+                return cached.mapa;
             }
-            const fdKey = env.FOOTBALL_DATA_API_KEY || '';
-            const headers = fdKey ? { 'X-Auth-Token': fdKey } : {};
-            const hasta = new Date(nowMs).toISOString().slice(0, 10);
-            const desde = new Date(nowMs - 60 * 86400000).toISOString().slice(0, 10);
-            async function fdJson(url) {
-                const r = await fetch(url, { headers: headers, signal: AbortSignal.timeout(8000) });
-                if (!r.ok) throw new Error('http-' + r.status);
-                return r.json();
-            }
-            const mapa = [];
-            const diagStats = { ligasPedidas: ligasFD.map(function (L) { return L.id; }), equipos: 0, errores: {}, conKey: !!fdKey };
-            await Promise.all(ligasFD.map(async function (league) {
+            if (soloCache) return null;
+            try {
+                const abort = new AbortController();
+                const timeoutId = setTimeout(() => abort.abort(), 8000);
+                const resp = await fetch('https://raw.githubusercontent.com/jarmy90/bet365edge-quant/main/edge-futbol/data/stats.json', {
+                    signal: abort.signal,
+                    headers: { 'Cache-Control': 'no-store' }
+                });
+                clearTimeout(timeoutId);
+                if (!resp.ok) throw new Error('http-' + resp.status);
+                const data = await resp.json();
+                let mapa = [];
+                if (data && data.ligas) {
+                    Object.entries(data.ligas).forEach(function ([id, lig]) {
+                        if (!lig || !lig.equipos) return;
+                        Object.entries(lig.equipos).forEach(function ([nombre, stats]) {
+                            if (!stats || !Number.isFinite(stats.gfH) || !Number.isFinite(stats.gaH)) return;
+                            mapa.push({
+                                liga: id, nombre: nombre,
+                                gfH: Number(stats.gfH), gaH: Number(stats.gaH), nH: Number(stats.nH || 0),
+                                gfA: Number(stats.gfA), gaA: Number(stats.gaA), nA: Number(stats.nA || 0),
+                                avgH: Number(stats.avgH || 0), avgA: Number(stats.avgA || 0)
+                            });
+                        });
+                    });
+                }
+                memoriaCache[cacheKey] = { at: Date.now(), mapa: mapa };
+                if (pideLigas && Array.isArray(mapa)) {
+                    mapa = mapa.filter(function (m) { return pideLigas.indexOf(m.liga) !== -1; });
+                }
+                return mapa;
+            } catch (e) {
                 try {
-                    const st = await fdJson(FD_BASE + '/competitions/' + league.id + '/standings');
-                    // Los ultimos resultados son opcionales: si fallan, vale la temporada sola.
-                    // Se registra el error (antes se tragaba) y se escalona el arranque
-                    // por liga para no golpear el limite 10 req/min del tier gratuito.
-                    let mt = null, matchesError = null;
-                    try {
-                        const idxL = ligasFD.indexOf(league);
-                        if (idxL > 0) await new Promise(function (res) { setTimeout(res, idxL * 700); });
-                        mt = await fdJson(FD_BASE + '/competitions/' + league.id +
-                            '/matches?status=FINISHED&dateFrom=' + desde + '&dateTo=' + hasta);
-                    } catch (e) { mt = null; matchesError = String((e && e.message) || e).slice(0, 60); }
-                    const tiposVistos = [];
-                    // 1. Prior de temporada: tabla TOTAL (existe en todos los tiers;
-                    // este plan no sirve splits HOME/AWAY). Tasas por partido.
-                    const prior = {};
-                    (st.standings || []).forEach(function (s) {
-                        if (s && s.type) tiposVistos.push(s.type + ':' + ((s.table || []).length));
-                        if (!s || s.type !== 'TOTAL' || !Array.isArray(s.table)) return;
-                        s.table.forEach(function (e) {
-                            const nom = e.team && e.team.name;
-                            const p = Number(e.playedGames) || 0;
-                            if (!nom || !(p > 0)) return;
-                            prior[nom] = { p: p, gfPg: (Number(e.goalsFor) || 0) / p, gaPg: (Number(e.goalsAgainst) || 0) / p };
-                        });
-                    });
-                    // 2. Splits casa/fuera + medias de liga desde resultados (60d).
-                    const rec = {};
-                    let totH = 0, totA = 0, nM = 0;
-                    ((mt && mt.matches) || []).forEach(function (m) {
-                        if (!m || !m.score || !m.score.fullTime) return;
-                        const gh = m.score.fullTime.home, ga = m.score.fullTime.away;
-                        if (!Number.isFinite(gh) || !Number.isFinite(ga)) return;
-                        totH += gh; totA += ga; nM++;
-                        const ms = Date.parse(m.utcDate) || 0;
-                        const nh = m.homeTeam && m.homeTeam.name, na = m.awayTeam && m.awayTeam.name;
-                        if (nh) { rec[nh] = rec[nh] || { casa: [], fuera: [] }; rec[nh].casa.push({ gf: gh, ga: ga, ms: ms }); }
-                        if (na) { rec[na] = rec[na] || { casa: [], fuera: [] }; rec[na].fuera.push({ gf: ga, ga: gh, ms: ms }); }
-                    });
-                    // Medias de liga: observadas si hay muestra, si no benchmark
-                    // historico documentado por competicion (solo respaldo).
-                    const BENCH = { PL: [1.55, 1.2], PD: [1.45, 1.1], BL1: [1.7, 1.3], SA: [1.45, 1.1], FL1: [1.5, 1.15], CL: [1.65, 1.2], ELC: [1.45, 1.2], DED: [1.7, 1.35], PPL: [1.45, 1.1], ECL: [1.55, 1.15], EL: [1.55, 1.15], SD: [1.35, 1.05] };
-                    let avgH = nM > 0 ? totH / nM : 0, avgA = nM > 0 ? totA / nM : 0, avgSrc = 'observada-60d';
-                    if (!(nM >= 10 && avgH > 0 && avgA > 0)) {
-                        const b = BENCH[league.id];
-                        if (!b) { diagStats.detalle = diagStats.detalle || {}; diagStats.detalle[league.id] = { tipos: tiposVistos, partidos: nM }; return; }
-                        avgH = b[0]; avgA = b[1]; avgSrc = 'benchmark';
-                    }
-                    // 3. Estimacion por equipo: ultimos 5 en su condicion con
-                    // shrinkage k=2 hacia el prior de temporada (o media de liga
-                    // si el equipo no esta en la tabla TOTAL).
-                    const K = 2;
-                    function ultimos5(arr) { return arr.slice().sort(function (x, y) { return y.ms - x.ms; }).slice(0, 5); }
-                    function suma(arr, k) { return arr.reduce(function (s, x) { return s + x[k]; }, 0); }
-                    const nombres = {};
-                    Object.keys(prior).forEach(function (n) { nombres[n] = 1; });
-                    Object.keys(rec).forEach(function (n) { nombres[n] = 1; });
-                    let nEq = 0;
-                    Object.keys(nombres).forEach(function (nom) {
-                        const pr = prior[nom];
-                        const r = rec[nom] || { casa: [], fuera: [] };
-                        const uh = ultimos5(r.casa), ua = ultimos5(r.fuera);
-                        const pgf = pr ? pr.gfPg : avgH, pga = pr ? pr.gaPg : avgA, pp = pr ? pr.p : 0;
-                        const gfH = (suma(uh, 'gf') + K * pgf) / (uh.length + K);
-                        const gaH = (suma(uh, 'ga') + K * pga) / (uh.length + K);
-                        const gfA = (suma(ua, 'gf') + K * pgf) / (ua.length + K);
-                        const gaA = (suma(ua, 'ga') + K * pga) / (ua.length + K);
-                        const nH = pp + uh.length, nA = pp + ua.length;
-                        if (!(nH >= 3 && nA >= 3)) return;
-                        if (![gfH, gaH, gfA, gaA].every(function (v) { return Number.isFinite(v) && v >= 0; })) return;
-                        nEq++;
-                        mapa.push({
-                            liga: league.id, nombre: nom,
-                            gfH: gfH, gaH: gaH, nH: nH,
-                            gfA: gfA, gaA: gaA, nA: nA,
-                            avgH: avgH, avgA: avgA
-                        });
-                    });
-                    diagStats.detalle = diagStats.detalle || {};
-                    diagStats.detalle[league.id] = { tipos: tiposVistos, partidos: nM, avgSrc: avgSrc, equipos: nEq, matchesError: matchesError };
-                } catch (e) { diagStats.errores[league.id] = String((e && e.message) || e).slice(0, 120); }
-            }));
-            diagStats.equipos = mapa.length;
-            statsCache = { at: nowMs, mapa: mapa, diag: diagStats };
-            return mapa;
-        }
+                    memoriaCache[cacheKey] = { at: Date.now(), data: null, motivo: e.message || 'desconocido' };
+                } catch (_) {}
+                return null;
+            }
+}
         // Adjunta c.stats = {attH, defH, attA, defA, avgH, avgA, nH, nA, ...}
         // (fuerzas ya normalizadas vs media de liga) o null si algun equipo
         // tiene <3 partidos en su condicion. Devuelve cuantos candidatos
@@ -3200,9 +3137,9 @@ export default {
                     setTxt('wkSettledSub', n + ' registrados · ' + (n - st) + ' pendientes');
                     var tot = liq.reduce(function(s, r){ return s + r.pMed; }, 0);
                     setTxt('wkProfitVal', st > 0 ? ((tot >= 0 ? '+' : '') + tot.toFixed(2) + 'u') : '—');
-                    setTxt('wkTrackSub', st > 0
-                        ? ('Historial verificado: ' + gn + ' de ' + st + ' (' + hv + '%) · yield ' + ((yv >= 0 ? '+' : '') + yv + '%) · 1u por pick')
-                        : ('Historial en construcción: ' + n + ' picks registrados, 0 liquidados. Solo resultados reales, nada inventado.'));
+                    var subTrack = 'Historial en construcción: ' + n + ' picks registrados, 0 liquidados. Solo resultados reales, nada inventado.';
+                    if (st > 0) { subTrack = 'Historial verificado: ' + gn + ' de ' + st + ' (' + hv + '%) · yield ' + ((yv >= 0 ? '+' : '') + yv + '%) · 1u por pick'); }
+                    setTxt('wkTrackSub', subTrack);
                     setWKRiskProfile(curRisk, document.querySelector('.risk-btn-w.active'));
                     // Banner hero con la MISMA fuente (nada inventado)
                     setTxt('wkHeroBadge', st > 0 ? (hv + '% WIN') : 'SIN DATOS');
