@@ -1,5 +1,5 @@
 {
-  "actualizadoEnUtc": "2026-10-16T11:06:54.050Z",
+  "actualizadoEnUtc": "2026-10-16T20:48:45.336Z",
   "nota": "Track-record de picks publicados (modelo-ia y modelo-poisson). Solo la primera publicacion de cada pick cuenta; sin-datos no entra en hit%/yield. Generado por edge-futbol/settle_results.js.",
   "picks": [
     {
@@ -23,7 +23,7 @@
         "golesLocal": null,
         "golesVisitante": null,
         "profit": null,
-        "settledEnUtc": "2026-10-16T11:06:54.050Z"
+        "settledEnUtc": "2026-10-16T20:48:45.336Z"
       }
     },
     {
@@ -67,11 +67,11 @@
       "publicadoEnUtc": "2026-10-15T11:12:03.083Z",
       "kickoffMs": 1792143900000,
       "result": {
-        "estado": "pendiente",
-        "golesLocal": null,
-        "golesVisitante": null,
-        "profit": null,
-        "settledEnUtc": null
+        "estado": "perdido",
+        "golesLocal": 4,
+        "golesVisitante": 2,
+        "profit": -1,
+        "settledEnUtc": "2026-10-16T20:48:45.336Z"
       }
     },
     {
@@ -91,11 +91,11 @@
       "publicadoEnUtc": "2026-10-15T11:12:03.083Z",
       "kickoffMs": 1792159200000,
       "result": {
-        "estado": "pendiente",
+        "estado": "sin-datos",
         "golesLocal": null,
         "golesVisitante": null,
         "profit": null,
-        "settledEnUtc": null
+        "settledEnUtc": "2026-10-16T20:48:45.336Z"
       }
     },
     {
@@ -115,11 +115,11 @@
       "publicadoEnUtc": "2026-10-15T21:11:18.666Z",
       "kickoffMs": 1792148400000,
       "result": {
-        "estado": "pendiente",
+        "estado": "sin-datos",
         "golesLocal": null,
         "golesVisitante": null,
         "profit": null,
-        "settledEnUtc": null
+        "settledEnUtc": "2026-10-16T20:48:45.336Z"
       }
     },
     {
@@ -139,11 +139,11 @@
       "publicadoEnUtc": "2026-10-16T11:06:54.050Z",
       "kickoffMs": 1792155600000,
       "result": {
-        "estado": "pendiente",
+        "estado": "sin-datos",
         "golesLocal": null,
         "golesVisitante": null,
         "profit": null,
-        "settledEnUtc": null
+        "settledEnUtc": "2026-10-16T20:48:45.336Z"
       }
     },
     {
@@ -173,17 +173,17 @@
   ],
   "resumen": {
     "n": 7,
-    "settled": 1,
+    "settled": 2,
     "ganados": 0,
     "hitPct": 0,
     "yieldPct": -100,
     "porModelo": {
       "ia": {
         "n": 5,
-        "settled": 0,
+        "settled": 1,
         "ganados": 0,
         "hitPct": 0,
-        "yieldPct": 0
+        "yieldPct": -100
       },
       "poisson": {
         "n": 2,
@@ -217,7 +217,7 @@
       },
       "destacado": {
         "n": 7,
-        "settled": 1,
+        "settled": 2,
         "ganados": 0,
         "hitPct": 0,
         "yieldPct": -100
@@ -226,7 +226,7 @@
     "calibracion": [
       {
         "rango": "50-60",
-        "n": 0,
+        "n": 1,
         "hits": 0,
         "hitPct": 0
       },
