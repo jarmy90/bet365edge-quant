@@ -1,5 +1,5 @@
 {
-  "actualizadoEnUtc": "2026-10-15T21:11:18.666Z",
+  "actualizadoEnUtc": "2026-10-16T11:06:54.050Z",
   "nota": "Track-record de picks publicados (modelo-ia y modelo-poisson). Solo la primera publicacion de cada pick cuenta; sin-datos no entra en hit%/yield. Generado por edge-futbol/settle_results.js.",
   "picks": [
     {
@@ -23,7 +23,7 @@
         "golesLocal": null,
         "golesVisitante": null,
         "profit": null,
-        "settledEnUtc": "2026-10-15T21:11:18.666Z"
+        "settledEnUtc": "2026-10-16T11:06:54.050Z"
       }
     },
     {
@@ -121,17 +121,65 @@
         "profit": null,
         "settledEnUtc": null
       }
+    },
+    {
+      "id": "deportivo-la-coruna-vs-levante|Over 2.5 Goles|16/10",
+      "partido": "Deportivo de A Coruna vs Levante",
+      "local": "Deportivo de A Coruna",
+      "visitante": "Levante",
+      "liga": "Spain: LaLiga Spain",
+      "mercado": "Over 2.5 Goles",
+      "linea": "2.5",
+      "lado": "OVER",
+      "cuota": 1.98,
+      "probModelo": 62,
+      "edgePuntos": 36.7,
+      "model": "modelo-ia",
+      "banda": "destacado",
+      "publicadoEnUtc": "2026-10-16T11:06:54.050Z",
+      "kickoffMs": 1792155600000,
+      "result": {
+        "estado": "pendiente",
+        "golesLocal": null,
+        "golesVisitante": null,
+        "profit": null,
+        "settledEnUtc": null
+      }
+    },
+    {
+      "id": "bochum-vs-kaiserslautern|Over 2.5 Goles|17/10",
+      "partido": "Bochum vs Kaiserslautern",
+      "local": "Bochum",
+      "visitante": "Kaiserslautern",
+      "liga": "Germany: 2. Bundesliga Germany",
+      "mercado": "Over 2.5 Goles",
+      "linea": "2.5",
+      "lado": "OVER",
+      "cuota": 1.66,
+      "probModelo": 61.5,
+      "edgePuntos": 3.4,
+      "model": "modelo-ia",
+      "banda": "destacado",
+      "publicadoEnUtc": "2026-10-16T11:06:54.050Z",
+      "kickoffMs": 1792213200000,
+      "result": {
+        "estado": "pendiente",
+        "golesLocal": null,
+        "golesVisitante": null,
+        "profit": null,
+        "settledEnUtc": null
+      }
     }
   ],
   "resumen": {
-    "n": 5,
+    "n": 7,
     "settled": 1,
     "ganados": 0,
     "hitPct": 0,
     "yieldPct": -100,
     "porModelo": {
       "ia": {
-        "n": 3,
+        "n": 5,
         "settled": 0,
         "ganados": 0,
         "hitPct": 0,
@@ -168,7 +216,7 @@
         "yieldPct": 0
       },
       "destacado": {
-        "n": 5,
+        "n": 7,
         "settled": 1,
         "ganados": 0,
         "hitPct": 0,
