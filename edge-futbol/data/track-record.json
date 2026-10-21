@@ -1,5 +1,5 @@
 {
-  "actualizadoEnUtc": "2026-10-20T21:27:20.988Z",
+  "actualizadoEnUtc": "2026-10-21T11:32:02.816Z",
   "nota": "Track-record de picks publicados (modelo-ia y modelo-poisson). Solo la primera publicacion de cada pick cuenta; sin-datos no entra en hit%/yield. Generado por edge-futbol/settle_results.js.",
   "picks": [
     {
@@ -23,7 +23,7 @@
         "golesLocal": null,
         "golesVisitante": null,
         "profit": null,
-        "settledEnUtc": "2026-10-20T21:27:20.988Z"
+        "settledEnUtc": "2026-10-21T11:32:02.816Z"
       }
     },
     {
@@ -95,7 +95,7 @@
         "golesLocal": null,
         "golesVisitante": null,
         "profit": null,
-        "settledEnUtc": "2026-10-20T21:27:20.988Z"
+        "settledEnUtc": "2026-10-21T11:32:02.816Z"
       }
     },
     {
@@ -119,7 +119,7 @@
         "golesLocal": null,
         "golesVisitante": null,
         "profit": null,
-        "settledEnUtc": "2026-10-20T21:27:20.988Z"
+        "settledEnUtc": "2026-10-21T11:32:02.816Z"
       }
     },
     {
@@ -143,7 +143,7 @@
         "golesLocal": null,
         "golesVisitante": null,
         "profit": null,
-        "settledEnUtc": "2026-10-20T21:27:20.988Z"
+        "settledEnUtc": "2026-10-21T11:32:02.816Z"
       }
     },
     {
@@ -167,7 +167,7 @@
         "golesLocal": null,
         "golesVisitante": null,
         "profit": null,
-        "settledEnUtc": "2026-10-20T21:27:20.988Z"
+        "settledEnUtc": "2026-10-21T11:32:02.816Z"
       }
     },
     {
@@ -191,7 +191,7 @@
         "golesLocal": null,
         "golesVisitante": null,
         "profit": null,
-        "settledEnUtc": "2026-10-20T21:27:20.988Z"
+        "settledEnUtc": "2026-10-21T11:32:02.816Z"
       }
     },
     {
@@ -215,7 +215,7 @@
         "golesLocal": null,
         "golesVisitante": null,
         "profit": null,
-        "settledEnUtc": "2026-10-20T21:27:20.988Z"
+        "settledEnUtc": "2026-10-21T11:32:02.816Z"
       }
     }
   ],
