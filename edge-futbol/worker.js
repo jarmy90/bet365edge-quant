@@ -257,7 +257,9 @@ const GROQ_KEY1_DEFAULT = '';  // definida en wrangler.toml / Vercel env
 const GROQ_KEY2_DEFAULT = '';  // definida en wrangler.toml / Vercel env
 // Modelo REAL de Groq (el anterior 'qwen/qwen3.8-27b' no existe: daba 404 y
 // mandaba la clave a cuarentena sin haber agotado cuota real).
+// Se prueban VARIOS: un env GROQ_MODEL obsoleto ya no inutiliza las claves.
 const GROQ_MODEL_DEFAULT = 'llama-3.3-70b-versatile';
+const GROQ_MODELOS = ['llama-3.3-70b-versatile', 'llama-3.1-8b-instant', 'openai/gpt-oss-120b', 'qwen/qwen3-32b'];
 const GROQ_ENDPOINT = 'https://api.groq.com/openai/v1/chat/completions';
 const GEMINI_KEY1_DEFAULT = ''; // definida en wrangler.toml / Vercel env
 const GEMINI_KEY2_DEFAULT = ''; // definida en wrangler.toml / Vercel env
@@ -273,6 +275,14 @@ const NVIDIA_KEY_DEFAULT = '';
 const NVIDIA_ENDPOINT = 'https://integrate.api.nvidia.com/v1/chat/completions';
 const OPENROUTER_KEY_DEFAULT = '';
 const OPENROUTER_ENDPOINT = 'https://openrouter.ai/api/v1/chat/completions';
+// Modelos :free vigentes en OpenRouter (verificados contra /api/v1/models).
+// Los antiguos (gemini-2.0-flash-lite-001:free, llama-3.3-70b:free) ya no
+// existen: devolvian 404 y parecia que la clave estaba agotada.
+const OPENROUTER_FREE_MODELS = [
+    'nvidia/nemotron-3-ultra-550b-a55b:free',
+    'nvidia/nemotron-3.5-lightning:free',
+    'thinkingmachines/inkling:free'
+];
 
 // Cache + single-flight de la fuente de fixtures
 let fixturesCache = { at: -Infinity, pool: [], diag: null, key: null };
@@ -1233,9 +1243,12 @@ export default {
                     // Orden: rapidez + quota budget. Groq primero (más rápido), luego Gemini nativo,
                     // luego Omniroute xN, OpenRouter xN, TokenHarbor, Nvidia, Dahl xN.
                     const proveedoresAProbar = [
-                        // 1-N. Groq Cloud (todas las claves configuradas)
-                        ...groqKeys.map(function (k, i) {
-                            return { endpoint: GROQ_ENDPOINT, apiKey: k, model: groqModel, tipo: 'openai', label: 'Groq-' + (i + 1) };
+                        // 1-N. Groq Cloud: cada clave prueba los modelos vigentes.
+                        ...groqKeys.flatMap(function (k, i) {
+                            const modelos = [groqModel].concat(GROQ_MODELOS.filter(function (m) { return m !== groqModel; }));
+                            return modelos.map(function (m, j) {
+                                return { endpoint: GROQ_ENDPOINT, apiKey: k, model: m, tipo: 'openai', label: 'Groq-' + (i + 1) + (j ? 'm' + (j + 1) : '') };
+                            });
                         }),
                         // N+1.. Gemini nativo: cada clave prueba los modelos vigentes
                         // (si uno se retira, la clave NO queda inutil).
@@ -1249,12 +1262,12 @@ export default {
                         ...omniKeys.map(function (k, i) {
                             return { endpoint: omniEndpoint, apiKey: k, model: omniModel, tipo: 'openai', label: 'Omniroute-' + (i + 1) };
                         }),
-                        // OpenRouter directo (todas las claves, 2 modelos free por clave)
+                        // OpenRouter directo: SOLO modelos :free vigentes (los antiguos
+                        // daban 404). Se verifican periodicamente contra /api/v1/models.
                         ...openrouterKeys.flatMap(function (k, i) {
-                            return [
-                                { endpoint: OPENROUTER_ENDPOINT, apiKey: k, model: 'google/gemini-2.0-flash-lite-001:free', tipo: 'openai', label: 'OpenRouter-' + (i + 1) + 'a' },
-                                { endpoint: OPENROUTER_ENDPOINT, apiKey: k, model: 'meta-llama/llama-3.3-70b-instruct:free', tipo: 'openai', label: 'OpenRouter-' + (i + 1) + 'b' }
-                            ];
+                            return OPENROUTER_FREE_MODELS.map(function (m, j) {
+                                return { endpoint: OPENROUTER_ENDPOINT, apiKey: k, model: m, tipo: 'openai', label: 'OpenRouter-' + (i + 1) + String.fromCharCode(97 + j) };
+                            });
                         }),
                         // TokenHarbor (todas las claves)
                         ...tokenharborKeys.map(function (k, i) {
@@ -1262,7 +1275,7 @@ export default {
                         }),
                         // Nvidia NIM (todas las claves)
                         ...nvidiaKeys.map(function (k, i) {
-                            return { endpoint: NVIDIA_ENDPOINT, apiKey: k, model: 'meta/llama-3.3-70b-instruct', tipo: 'openai', label: 'Nvidia-' + (i + 1) };
+                            return { endpoint: NVIDIA_ENDPOINT, apiKey: k, model: 'nvidia/llama-3.3-nemotron-super-49b-v1', tipo: 'openai', label: 'Nvidia-' + (i + 1) };
                         }),
                         // Dahl (todas las claves, 2 modelos por clave)
                         ...dahlKeys.flatMap(function (k, i) {
