@@ -1295,6 +1295,9 @@ export default {
                     let iaRes = null;
                     let iaRaw = null;  // texto crudo (Gemini nativo)
                     let ultimoError = null;
+                    // Traza de intentos (sin claves): permite ver en /api/health
+                    // que proveedor falla y por que (401/429/404 modelo...).
+                    const intentosIA = [];
                     // Presupuesto global anti-TIMEOUT (Vercel): la cadena completa
                     // no puede superar ~22s; al agotarse se cae al degradado honesto.
                     // El timeout se aplica POR INTENTO contra el tiempo restante,
@@ -1365,6 +1368,7 @@ export default {
                                 const errBody = errText.slice(0, 300);
                                 const retryAfter = parseInt(r.headers.get('retry-after') || '', 10);
                                 marcarClave(claveDeProveedor(prov), r.status, retryAfter);
+                                intentosIA.push({ label: prov.label, model: prov.model, status: r.status });
                                 ultimoError = { status: r.status, label: prov.label, model: prov.model, endpoint: prov.endpoint, body: errBody };
                                 console.warn('[AI-CHAIN] ⚠️ ' + (prov.label || prov.model) + ' → HTTP ' + r.status + ': ' + errBody.slice(0, 80) + ' [cuarentena]');
                             }
@@ -1375,7 +1379,10 @@ export default {
                     }
                     if (!iaRes && !iaRaw) {
                         console.error('[AI-CHAIN] ❌ TODOS los proveedores fallaron (' + proveedoresAProbar.length + ' intentos). Usando fallback estadístico.');
-                        diagFinal.diagIA = ultimoError || { error: 'Ningún proveedor de IA respondió' };
+                        diagFinal.diagIA = Object.assign(
+                            ultimoError || { error: 'Ningún proveedor de IA respondió' },
+                            { intentos: intentosIA }
+                        );
                     } else {
                         // Obtener texto: iaRaw ya tiene el texto (Gemini nativo), o lo extraemos del response OpenAI
                         let textoIA = iaRaw || null;
@@ -1535,6 +1542,7 @@ export default {
                     ? '✓ Configurada (endpoint personalizado del agente)'
                     : (E.OMNIRUTE_API_URL ? '✓ Configurada (via alias OMNIRUTE_API_URL)' : '✗ FALTA (opcional: se usa el endpoint OpenRouter por defecto)'),
                 STRIPE_SECRET_KEY: estadoDeClave('STRIPE_SECRET_KEY', E.STRIPE_SECRET_KEY),
+                FOOTBALL_DATA_API_KEY: estadoDeClave('FOOTBALL_DATA_API_KEY', E.FOOTBALL_DATA_API_KEY),
                 STRIPE_PRICE_ID: E.STRIPE_PRICE_ID ? '✓ Configurada' : '✗ FALTA',
 
                 // --- Dataset del scraper (de donde salen partidos y cuotas) ---
@@ -1630,6 +1638,7 @@ export default {
                 origenDatos: FIXTURES_SOURCE,
                 diagnosticoFuente: getFixturesDiag(),
                 fallbacksActivos: E.__FALLBACKS_ACTIVOS || 'ninguno',
+                clavesIAEnCuarentena: aiKeyHealth.size,
                 warning: critico
                     ? avisos.join(' | ')
                     : '\u2713 Variables de entorno e integridad temporal correctas'
