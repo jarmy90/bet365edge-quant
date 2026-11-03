@@ -1077,12 +1077,15 @@ export function seleccionDeFixture(f) {
             if (mejorCiego) {
                 const lado = mejorCiego.lado === 'OVER' ? 'Over' : 'Under';
                 return {
+                    clave: f.clave, indice: f.indice, kickoffMs: f.kickoffMs,
+                    linea: mejorCiego.linea, lado: mejorCiego.lado,
                     mercado: lado + ' ' + mejorCiego.linea + ' Goles',
                     cuota: mejorCiego.cuota, probPct: mejorCiego.prob, probBase: 'modelo-ciego-a-cuota',
                     edgePuntos: mejorCiego.edgePuntos,
-                    justificacion: 'Modelo ciego a cuota (lambda=' + lambda.toFixed(2) + '): ajusta Poisson a las lÃ­neas 1.5 y 2.5 de ratingbet sin datos externos.',
+                    justificacion: 'Modelo ciego a cuota (lambda=' + lambda.toFixed(2) + '): ajusta Poisson a las líneas 1.5 y 2.5 de ratingbet sin datos externos.',
                     stats: null,
-                    lambdas: { lambdaH: null, lambdaA: null, lambdaTotal: lambda }
+                    lambdas: { lambdaH: null, lambdaA: null, lambdaTotal: lambda },
+                    lineas: f.lineas
                 };
             }
         }
