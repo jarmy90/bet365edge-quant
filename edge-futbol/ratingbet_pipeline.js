@@ -971,181 +971,172 @@ function lambdaFromPOver(pOver, fn, lo, hi) {
 function lambdaFromPOver15(p) { return lambdaFromPOver(p, pOver15FromLambda, 0.01, 10); }
 function lambdaFromPOver25(p) { return lambdaFromPOver(p, pOver25FromLambda, 0.01, 12); }
 export function seleccionDeFixture(f) {
-    try {
-
-        if (!f || !f.lineas) return null;
-        // 1) veredicto de la IA sobre el fixture
-        if (Number.isFinite(f.modelProb) && Number.isFinite(f.cuota) && f.cuota > 1 && f.modoAnalisis !== 'solo-cuotas') {
-            // Guardia anti-contradiccion: si el Poisson (con stats) estima el MISMO
-            // lado y difiere >15pts, los modelos discrepan -> sin pick. Evita
-            // publicar Over en una pestana y Under en otra del mismo partido.
-            if (f.stats && typeof f.stats === 'object' && (f.lado === 'OVER' || f.lado === 'UNDER') && (f.linea === '1.5' || f.linea === '2.5')) {
-                const mpD = modeloPoisson(f.stats);
-                if (mpD) {
-                    const pPoi = f.lado === 'OVER'
-                        ? (f.linea === '2.5' ? mpD.p25 : mpD.p15)
-                        : (f.linea === '2.5' ? 100 - mpD.p25 : 100 - mpD.p15);
-                    if (Number.isFinite(pPoi) && Math.abs(f.modelProb - pPoi) > 15) return null;
-                }
-            }
-            // Guardia: el tip/veredicto no puede diferir tanto de la probabilidad
-            // implicita de la cuota (seria ruido del dato fuente, no un edge real).
-            const pImp = 100 / f.cuota;
-            if (Math.abs(f.modelProb - pImp) > 25) return null;
-            const edgeCalc = Math.round((f.cuota - (100 / f.modelProb)) * 1000) / 10;
-            const edgePuntos = Math.min(15, Math.max(0, edgeCalc));
-            return {
-                mercado: f.mercado, cuota: f.cuota, probPct: f.modelProb, probBase: 'modelo-ia',
-                edgePuntos: edgePuntos,
-                justificacion: (f.justificacion || '').trim() + (f.justificacion ? ' Â· ' : '') + 'edge limitado a 15 pts'
-            };
-        }
-        // 1b) modelo Poisson determinista con stats reales (football-data.org).
-        //     Ciego a la cuota: solo estima P(Over) por linea; el edge se calcula
-        //     aqui con la convencion del cliente. Incluye stats y lambdas para
-        //     trazabilidad. Sin stats validos -> null (no inventa).
-        if (f.stats && typeof f.stats === 'object') {
-            const mp = modeloPoisson(f.stats);
-            if (mp) {
-                const pOverPorLinea = { '1.5': mp.p15, '2.5': mp.p25 };
-                let mejorP = null;
-                ['1.5', '2.5'].forEach(function (ln) {
-                    const l = f.lineas[ln];
-                    const pOver = pOverPorLinea[ln];
-                    if (!l || !Number.isFinite(pOver)) return;
-                    [[ 'OVER', l.cuotaOver, pOver ], [ 'UNDER', l.cuotaUnder, 100 - pOver ]].forEach(function (op) {
-                        const lado = op[0], cuota = op[1];
-                        let prob = op[2];
-                        if (!Number.isFinite(cuota) || cuota <= 1) return;
-                        if (!Number.isFinite(prob) || prob < 1 || prob > 99.5) return;
-                        // Clamp de probabilidad para evitar edges absurdos cuando el Poisson
-                        // da valores extremos con pocas datos.
-                        prob = Math.min(90, Math.max(10, prob));
-                        const edge = Math.round((cuota - (100 / prob)) * 1000) / 10;
-                        if (edge > 15) edge = 15;
-                        if (edge < -15) edge = -15;
-                        if (!mejorP || edge > mejorP.edgePuntos) {
-                            mejorP = { linea: ln, lado: lado, cuota: cuota,
-                                prob: Math.round(prob * 10) / 10, edgePuntos: edge };
-                        }
-                    });
-                });
-                if (mejorP) {
-                    return {
-                        mercado: (mejorP.lado === 'OVER' ? 'Over ' : 'Under ') + mejorP.linea + ' Goles',
-                        cuota: mejorP.cuota, probPct: mejorP.prob,
-                        probBase: 'modelo-poisson', edgePuntos: mejorP.edgePuntos,
-                        justificacion: 'Modelo Poisson (L=' + mp.lambdaTotal + '): P(Over 1.5)=' + mp.p15 +
-                            '%, P(Over 2.5)=' + mp.p25 + '%.',
-                        stats: f.stats,
-                        lambdas: { lambdaH: mp.lambdaH, lambdaA: mp.lambdaA, lambdaTotal: mp.lambdaTotal }
-                    };
-                }
+    if (!f || !f.lineas) return null;
+    // 1) veredicto de la IA sobre el fixture
+    if (Number.isFinite(f.modelProb) && Number.isFinite(f.cuota) && f.cuota > 1 && f.modoAnalisis !== 'solo-cuotas') {
+        // Guardia anti-contradiccion: si el Poisson (con stats) estima el MISMO
+        // lado y difiere >15pts, los modelos discrepan -> sin pick. Evita
+        // publicar Over en una pestana y Under en otra del mismo partido.
+        if (f.stats && typeof f.stats === 'object' && (f.lado === 'OVER' || f.lado === 'UNDER') && (f.linea === '1.5' || f.linea === '2.5')) {
+            const mpD = modeloPoisson(f.stats);
+            if (mpD) {
+                const pPoi = f.lado === 'OVER'
+                    ? (f.linea === '2.5' ? mpD.p25 : mpD.p15)
+                    : (f.linea === '2.5' ? 100 - mpD.p25 : 100 - mpD.p15);
+                if (Number.isFinite(pPoi) && Math.abs(f.modelProb - pPoi) > 15) return null;
             }
         }
-        // 1c) Modelo ciego a cuota: ajusta Poisson a las DOS lÃ­neas de ratingbet
-        //     usando SOLO las probabilidades justas (pOverJusta). Si las dos lÃ­neas
-        //     son inconsistentes entre sÃ­, aparece edge real sin inventar nada.
-        //     Requiere pOverJusta de ambas lÃ­neas y que sean consistentes.
-        const c15 = f.lineas && f.lineas['1.5'];
-        const c25 = f.lineas && f.lineas['2.5'];
-        if (c15 && c25 && Number.isFinite(c15.pOverJusta) && Number.isFinite(c25.pOverJusta)) {
-            const p15 = Number(c15.pOverJusta), p25 = Number(c25.pOverJusta);
-            const lambda15 = lambdaFromPOver15(p15);
-            const lambda25 = lambdaFromPOver25(p25);
-            if (lambda15 && lambda25 && lambda25 > lambda15 && (lambda25 - lambda15) < 3) {
-                const lambda = (lambda15 + lambda25) / 2;
-                const p15Modelo = pOver15FromLambda(lambda) * 100;
-                const p25Modelo = pOver25FromLambda(lambda) * 100;
-                const evalLinea = function (ln, pModelo, cuotaOver, cuotaUnder) {
-                    const res = [];
-                    if (Number.isFinite(cuotaOver) && cuotaOver > 1) {
-                        const edgeOver = Math.round((cuotaOver - (100 / pModelo)) * 1000) / 10;
-                        res.push({ linea: ln, lado: 'OVER', cuota: cuotaOver, prob: Math.round(pModelo * 10) / 10, edgePuntos: edgeOver });
-                    }
-                    const pUnder = 100 - pModelo;
-                    if (Number.isFinite(cuotaUnder) && cuotaUnder > 1) {
-                        const edgeUnder = Math.round((cuotaUnder - (100 / pUnder)) * 1000) / 10;
-                        res.push({ linea: ln, lado: 'UNDER', cuota: cuotaUnder, prob: Math.round(pUnder * 10) / 10, edgePuntos: edgeUnder });
-                    }
-                    return res;
-                };
-                let mejorCiego = null;
-                ['1.5', '2.5'].forEach(function (ln) {
-                    const l = f.lineas[ln];
-                    if (!l) return;
-                    const pModelo = ln === '1.5' ? p15Modelo : p25Modelo;
-                    evalLinea(ln, pModelo, l.cuotaOver, l.cuotaUnder).forEach(function (c) {
-                        // Guardia: edge realista (no absurdo) y probabilidad creÃ­ble
-                        if (c.edgePuntos > 1 && c.edgePuntos <= 15 && c.prob > 10 && c.prob < 90) {
-                            if (!mejorCiego || c.edgePuntos > mejorCiego.edgePuntos) mejorCiego = c;
-                        }
-                    });
-                });
-                if (mejorCiego) {
-                    const lado = mejorCiego.lado === 'OVER' ? 'Over' : 'Under';
-                    return {
-                        clave: f.clave, indice: f.indice, kickoffMs: f.kickoffMs,
-                        linea: mejorCiego.linea, lado: mejorCiego.lado,
-                        mercado: lado + ' ' + mejorCiego.linea + ' Goles',
-                        cuota: mejorCiego.cuota, probPct: mejorCiego.prob, probBase: 'modelo-ciego-a-cuota',
-                        edgePuntos: mejorCiego.edgePuntos,
-                        justificacion: 'Modelo ciego a cuota (lambda=' + lambda.toFixed(2) + '): ajusta Poisson a las líneas 1.5 y 2.5 de ratingbet sin datos externos.',
-                        stats: null,
-                        lambdas: { lambdaH: null, lambdaA: null, lambdaTotal: lambda },
-                        lineas: f.lineas
-                    };
-                }
-            }
-        }
-        // 2) tip de ratingbet (su recomendacion publicada con su probabilidad)
-        //     NO es modelo: nunca devuelve edge positivo ni se disfraza de modelo.
-        const lineas = ['1.5', '2.5'];
-        for (let i = 0; i < lineas.length; i++) {
-            const l = f.lineas[lineas[i]];
-            if (!l) continue;
-            const tip = String(l.tipRatingbet || '').toUpperCase().replace(/\s+/g, '');
-            const mTip = tip.match(/^([OU])(1\.5|2\.5)$/);
-            if (!mTip) continue;
-            const esOver = mTip[1] === 'O';
-            const cuota = esOver ? l.cuotaOver : l.cuotaUnder;
-            if (!Number.isFinite(cuota) || cuota <= 1) continue;
-            const pJusta = esOver ? l.pOverJusta : l.pUnderJusta;
-            const pTip = Number.isFinite(l.tipProbPct) ? l.tipProbPct : null;
-            let edgeTip = null;
-            if (pTip !== null && Number.isFinite(pJusta)) {
-                edgeTip = Math.round((pTip - pJusta) * 10) / 10;
-                if (edgeTip < 0) edgeTip = 0;
-                if (edgeTip > 8) edgeTip = 8;
-            }
-            const probUsada = pTip !== null ? pTip : pJusta;
-            return {
-                mercado: (esOver ? 'Over ' : 'Under ') + mTip[2] + ' Goles', cuota: cuota,
-                probPct: probUsada,
-                probBase: pTip !== null ? 'modelo-tip' : 'mercado-justo',
-                edgePuntos: edgeTip,
-                justificacion: 'Tip de ratingbet (' + (esOver ? 'Over' : 'Under') + ' ' + mTip[2] + '). Edge = diferencia prob. tip vs precio de mercado.'
-            };
-        }
-        // 3) fallback: Over 1.5 con probabilidad justa derivada de la cuota real.
-        //     Tampoco es modelo: edgePuntos = null.
-        const l15 = f.lineas['1.5'];
-        if (l15 && Number.isFinite(l15.cuotaOver) && l15.cuotaOver > 1) {
-            const probFallback = Number.isFinite(l15.pOverJusta) ? l15.pOverJusta : probImplicita(l15.cuotaOver);
-            return {
-                mercado: 'Over 1.5 Goles', cuota: l15.cuotaOver,
-                probPct: probFallback,
-                probBase: 'mercado-justo', edgePuntos: null,
-                justificacion: 'Mercado Over 1.5 con probabilidad derivada del precio del mercado, sin edge de modelo.'
-            };
-        }
-        return null;
-    
-    } catch (e) {
-        console.error("[seleccionDeFixture]", e && e.message || e);
-        return null;
+        // Guardia: el tip/veredicto no puede diferir tanto de la probabilidad
+        // implicita de la cuota (seria ruido del dato fuente, no un edge real).
+        const pImp = 100 / f.cuota;
+        if (Math.abs(f.modelProb - pImp) > 25) return null;
+        const edgeCalc = Math.round((f.cuota - (100 / f.modelProb)) * 1000) / 10;
+        const edgePuntos = Math.min(15, Math.max(0, edgeCalc));
+        return {
+            mercado: f.mercado, cuota: f.cuota, probPct: f.modelProb, probBase: 'modelo-ia',
+            edgePuntos: edgePuntos,
+            justificacion: (f.justificacion || '').trim() + (f.justificacion ? ' Â· ' : '') + 'edge limitado a 15 pts'
+        };
     }
-
+    // 1b) modelo Poisson determinista con stats reales (football-data.org).
+    //     Ciego a la cuota: solo estima P(Over) por linea; el edge se calcula
+    //     aqui con la convencion del cliente. Incluye stats y lambdas para
+    //     trazabilidad. Sin stats validos -> null (no inventa).
+    if (f.stats && typeof f.stats === 'object') {
+        const mp = modeloPoisson(f.stats);
+        if (mp) {
+            const pOverPorLinea = { '1.5': mp.p15, '2.5': mp.p25 };
+            let mejorP = null;
+            ['1.5', '2.5'].forEach(function (ln) {
+                const l = f.lineas[ln];
+                const pOver = pOverPorLinea[ln];
+                if (!l || !Number.isFinite(pOver)) return;
+                [[ 'OVER', l.cuotaOver, pOver ], [ 'UNDER', l.cuotaUnder, 100 - pOver ]].forEach(function (op) {
+                    const lado = op[0], cuota = op[1];
+                    let prob = op[2];
+                    if (!Number.isFinite(cuota) || cuota <= 1) return;
+                    if (!Number.isFinite(prob) || prob < 1 || prob > 99.5) return;
+                    // Clamp de probabilidad para evitar edges absurdos cuando el Poisson
+                    // da valores extremos con pocas datos.
+                    prob = Math.min(90, Math.max(10, prob));
+                    const edge = Math.round((cuota - (100 / prob)) * 1000) / 10;
+                    if (!mejorP || edge > mejorP.edgePuntos) {
+                        mejorP = { linea: ln, lado: lado, cuota: cuota,
+                            prob: Math.round(prob * 10) / 10, edgePuntos: edge };
+                    }
+                });
+            });
+            if (mejorP) {
+                return {
+                    mercado: (mejorP.lado === 'OVER' ? 'Over ' : 'Under ') + mejorP.linea + ' Goles',
+                    cuota: mejorP.cuota, probPct: mejorP.prob,
+                    probBase: 'modelo-poisson', edgePuntos: mejorP.edgePuntos,
+                    justificacion: 'Modelo Poisson (L=' + mp.lambdaTotal + '): P(Over 1.5)=' + mp.p15 +
+                        '%, P(Over 2.5)=' + mp.p25 + '%.',
+                    stats: f.stats,
+                    lambdas: { lambdaH: mp.lambdaH, lambdaA: mp.lambdaA, lambdaTotal: mp.lambdaTotal }
+                };
+            }
+        }
+    }
+    // 1c) Modelo ciego a cuota: ajusta Poisson a las DOS lÃ­neas de ratingbet
+    //     usando SOLO las probabilidades justas (pOverJusta). Si las dos lÃ­neas
+    //     son inconsistentes entre sÃ­, aparece edge real sin inventar nada.
+    //     Requiere pOverJusta de ambas lÃ­neas y que sean consistentes.
+    const c15 = f.lineas && f.lineas['1.5'];
+    const c25 = f.lineas && f.lineas['2.5'];
+    if (c15 && c25 && Number.isFinite(c15.pOverJusta) && Number.isFinite(c25.pOverJusta)) {
+        const p15 = Number(c15.pOverJusta), p25 = Number(c25.pOverJusta);
+        const lambda15 = lambdaFromPOver15(p15);
+        const lambda25 = lambdaFromPOver25(p25);
+        if (lambda15 && lambda25 && lambda25 > lambda15 && (lambda25 - lambda15) < 3) {
+            const lambda = (lambda15 + lambda25) / 2;
+            const p15Modelo = pOver15FromLambda(lambda) * 100;
+            const p25Modelo = pOver25FromLambda(lambda) * 100;
+            const evalLinea = function (ln, pModelo, cuotaOver, cuotaUnder) {
+                const res = [];
+                if (Number.isFinite(cuotaOver) && cuotaOver > 1) {
+                    const edgeOver = Math.round((cuotaOver - (100 / pModelo)) * 1000) / 10;
+                    res.push({ linea: ln, lado: 'OVER', cuota: cuotaOver, prob: Math.round(pModelo * 10) / 10, edgePuntos: edgeOver });
+                }
+                const pUnder = 100 - pModelo;
+                if (Number.isFinite(cuotaUnder) && cuotaUnder > 1) {
+                    const edgeUnder = Math.round((cuotaUnder - (100 / pUnder)) * 1000) / 10;
+                    res.push({ linea: ln, lado: 'UNDER', cuota: cuotaUnder, prob: Math.round(pUnder * 10) / 10, edgePuntos: edgeUnder });
+                }
+                return res;
+            };
+            let mejorCiego = null;
+            ['1.5', '2.5'].forEach(function (ln) {
+                const l = f.lineas[ln];
+                if (!l) return;
+                const pModelo = ln === '1.5' ? p15Modelo : p25Modelo;
+                evalLinea(ln, pModelo, l.cuotaOver, l.cuotaUnder).forEach(function (c) {
+                    // Guardia: edge realista (no absurdo) y probabilidad creÃ­ble
+                    if (c.edgePuntos > 1 && c.edgePuntos <= 15 && c.prob > 10 && c.prob < 90) {
+                        if (!mejorCiego || c.edgePuntos > mejorCiego.edgePuntos) mejorCiego = c;
+                    }
+                });
+            });
+            if (mejorCiego) {
+                const lado = mejorCiego.lado === 'OVER' ? 'Over' : 'Under';
+                return {
+                    clave: f.clave, indice: f.indice, kickoffMs: f.kickoffMs,
+                    linea: mejorCiego.linea, lado: mejorCiego.lado,
+                    mercado: lado + ' ' + mejorCiego.linea + ' Goles',
+                    cuota: mejorCiego.cuota, probPct: mejorCiego.prob, probBase: 'modelo-ciego-a-cuota',
+                    edgePuntos: mejorCiego.edgePuntos,
+                    justificacion: 'Modelo ciego a cuota (lambda=' + lambda.toFixed(2) + '): ajusta Poisson a las líneas 1.5 y 2.5 de ratingbet sin datos externos.',
+                    stats: null,
+                    lambdas: { lambdaH: null, lambdaA: null, lambdaTotal: lambda },
+                    lineas: f.lineas
+                };
+            }
+        }
+    }
+    // 2) tip de ratingbet (su recomendacion publicada con su probabilidad)
+    //     NO es modelo: nunca devuelve edge positivo ni se disfraza de modelo.
+    const lineas = ['1.5', '2.5'];
+    for (let i = 0; i < lineas.length; i++) {
+        const l = f.lineas[lineas[i]];
+        if (!l) continue;
+        const tip = String(l.tipRatingbet || '').toUpperCase().replace(/\s+/g, '');
+        const mTip = tip.match(/^([OU])(1\.5|2\.5)$/);
+        if (!mTip) continue;
+        const esOver = mTip[1] === 'O';
+        const cuota = esOver ? l.cuotaOver : l.cuotaUnder;
+        if (!Number.isFinite(cuota) || cuota <= 1) continue;
+        const pJusta = esOver ? l.pOverJusta : l.pUnderJusta;
+        const pTip = Number.isFinite(l.tipProbPct) ? l.tipProbPct : null;
+        let edgeTip = null;
+        if (pTip !== null && Number.isFinite(pJusta)) {
+            edgeTip = Math.round((pTip - pJusta) * 10) / 10;
+            if (edgeTip < 0) edgeTip = 0;
+            if (edgeTip > 8) edgeTip = 8;
+        }
+        const probUsada = pTip !== null ? pTip : pJusta;
+        return {
+            mercado: (esOver ? 'Over ' : 'Under ') + mTip[2] + ' Goles', cuota: cuota,
+            probPct: probUsada,
+            probBase: pTip !== null ? 'modelo-tip' : 'mercado-justo',
+            edgePuntos: edgeTip,
+            justificacion: 'Tip de ratingbet (' + (esOver ? 'Over' : 'Under') + ' ' + mTip[2] + '). Edge = diferencia prob. tip vs precio de mercado.'
+        };
+    }
+    // 3) fallback: Over 1.5 con probabilidad justa derivada de la cuota real.
+    //     Tampoco es modelo: edgePuntos = null.
+    const l15 = f.lineas['1.5'];
+    if (l15 && Number.isFinite(l15.cuotaOver) && l15.cuotaOver > 1) {
+        const probFallback = Number.isFinite(l15.pOverJusta) ? l15.pOverJusta : probImplicita(l15.cuotaOver);
+        return {
+            mercado: 'Over 1.5 Goles', cuota: l15.cuotaOver,
+            probPct: probFallback,
+            probBase: 'mercado-justo', edgePuntos: null,
+            justificacion: 'Mercado Over 1.5 con probabilidad derivada del precio del mercado, sin edge de modelo.'
+        };
+    }
+    return null;
+}
 // Construye la mejor combinada para un nivel de riesgo.
 // Criterio: dentro de la banda de cuota, MAXIMIZA la probabilidad combinada real.
 // -----------------------------------------------------------------------------

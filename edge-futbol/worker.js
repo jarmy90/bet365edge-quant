@@ -1661,14 +1661,18 @@ const todosLosCandidatos = (candidatos || []).filter(function (c) {
                                         Number.isFinite(c.lineas['1.5'].cuotaOver) && c.lineas['1.5'].cuotaOver > 1 &&
                                         Number.isFinite(c.lineas['2.5'].cuotaOver) && c.lineas['2.5'].cuotaOver > 1;
                                 });
-                                const picksTodos = [];
-                                todosLosCandidatos.forEach(function (c, i) {
-                                    const pick = seleccionDeFixture(c);
-                                    if (pick && Number.isFinite(pick.edgePuntos) && pick.edgePuntos > 0 &&
-                                        (pick.probBase === 'modelo-ia' || pick.probBase === 'modelo-poisson' || pick.probBase === 'modelo-ciego-a-cuota')) {
-                                        picksTodos.push(Object.assign({}, pick, { clave: c.clave, indice: i, kickoffMs: c.kickoffMs, lineas: c.lineas }));
-                                    }
-                                });
+                const picksTodos = [];
+                todosLosCandidatos.forEach(function (c, i) {
+                    try {
+                        const pick = seleccionDeFixture(c);
+                        if (pick && Number.isFinite(pick.edgePuntos) && pick.edgePuntos > 0 &&
+                            (pick.probBase === 'modelo-ia' || pick.probBase === 'modelo-poisson' || pick.probBase === 'modelo-ciego-a-cuota')) {
+                            picksTodos.push(Object.assign({}, pick, { clave: c.clave, indice: i, kickoffMs: c.kickoffMs, lineas: c.lineas }));
+                        }
+                    } catch (e) {
+                        // ignorar candidato problemático, continuar con el siguiente
+                    }
+                });
                                 const { publicables, resumen: rFiltrado2 } = filtrarPublicables(
                                     picksTodos, nowMs, { margenMinutos: MARGEN_PUBLICACION_MIN, max: MAX_PUBLICADOS }
                                 );
