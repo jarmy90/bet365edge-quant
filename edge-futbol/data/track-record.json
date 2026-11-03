@@ -1,5 +1,5 @@
 {
-  "actualizadoEnUtc": "2026-11-03T13:56:24.966Z",
+  "actualizadoEnUtc": "2026-11-03T23:05:32.837Z",
   "nota": "Track-record de picks publicados (modelo-ia y modelo-poisson). Solo la primera publicacion de cada pick cuenta; sin-datos no entra en hit%/yield. Generado por edge-futbol/settle_results.js.",
   "picks": [
     {
@@ -217,10 +217,34 @@
         "profit": null,
         "settledEnUtc": "2026-10-25T11:05:15.293Z"
       }
+    },
+    {
+      "id": "cerro-porteno-vs-libertad|Over 2.5 Goles|04/11",
+      "partido": "Cerro Porteno vs Libertad",
+      "local": "Cerro Porteno",
+      "visitante": "Libertad",
+      "liga": "Paraguay: Primera Division Paraguay",
+      "mercado": "Over 2.5 Goles",
+      "linea": "2.5",
+      "lado": "OVER",
+      "cuota": 1.91,
+      "probModelo": 90,
+      "edgePuntos": 79.9,
+      "model": "modelo-poisson",
+      "banda": "destacado",
+      "publicadoEnUtc": "2026-11-03T23:05:32.837Z",
+      "kickoffMs": 1793797200000,
+      "result": {
+        "estado": "pendiente",
+        "golesLocal": null,
+        "golesVisitante": null,
+        "profit": null,
+        "settledEnUtc": null
+      }
     }
   ],
   "resumen": {
-    "n": 9,
+    "n": 10,
     "settled": 2,
     "ganados": 0,
     "hitPct": 0,
@@ -234,7 +258,7 @@
         "yieldPct": -100
       },
       "poisson": {
-        "n": 2,
+        "n": 3,
         "settled": 1,
         "ganados": 0,
         "hitPct": 0,
@@ -264,7 +288,7 @@
         "yieldPct": 0
       },
       "destacado": {
-        "n": 9,
+        "n": 10,
         "settled": 2,
         "ganados": 0,
         "hitPct": 0,
