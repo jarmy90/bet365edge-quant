@@ -1665,7 +1665,7 @@ export default {
                     const pick = seleccionDeFixture(c);
                     if (pick && Number.isFinite(pick.edgePuntos) && pick.edgePuntos > 0 &&
                         (pick.probBase === 'modelo-ia' || pick.probBase === 'modelo-poisson' || pick.probBase === 'modelo-ciego-a-cuota')) {
-                        picksTodos.push(Object.assign({ clave: c.clave, indice: i, kickoffMs: c.kickoffMs }, pick));
+                        picksTodos.push(Object.assign({}, pick, { clave: c.clave, indice: i, kickoffMs: c.kickoffMs, lineas: c.lineas }));
                     }
                 });
                 const { publicables, resumen: rFiltrado2 } = filtrarPublicables(
