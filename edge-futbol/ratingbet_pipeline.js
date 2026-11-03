@@ -1039,10 +1039,10 @@ export function seleccionDeFixture(f) {
     //     usando SOLO las probabilidades justas (pOverJusta). Si las dos líneas
     //     son inconsistentes entre sí, aparece edge real sin inventar nada.
     //     Requiere pOverJusta de ambas líneas y que sean consistentes.
-    const l15 = f.lineas && f.lineas['1.5'];
-    const l25 = f.lineas && f.lineas['2.5'];
-    if (l15 && l25 && Number.isFinite(l15.pOverJusta) && Number.isFinite(l25.pOverJusta)) {
-        const p15 = Number(l15.pOverJusta), p25 = Number(l25.pOverJusta);
+    const c15 = f.lineas && f.lineas['1.5'];
+    const c25 = f.lineas && f.lineas['2.5'];
+    if (c15 && c25 && Number.isFinite(c15.pOverJusta) && Number.isFinite(c25.pOverJusta)) {
+        const p15 = Number(c15.pOverJusta), p25 = Number(c25.pOverJusta);
         const lambda15 = lambdaFromPOver15(p15);
         const lambda25 = lambdaFromPOver25(p25);
         if (lambda15 && lambda25 && lambda25 > lambda15 && (lambda25 - lambda15) < 3) {
