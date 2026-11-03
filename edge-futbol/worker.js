@@ -45,6 +45,130 @@ import {
 import datasetLocal from './ratingbet_fixtures_data.js';
 
 const BUILD_ID = 'ratingbet-v9.6-2026-10-13-ia24-cache';
+const INDEX_HTML = `<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EDGE.FUTBOL Quant | Análisis cuantitativo +EV</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif; }
+  body { background: #0b0f19; color: #eef2f7; min-height: 100vh; display: flex; flex-direction: column; align-items: center; padding: 2rem; }
+  .header { text-align: center; margin-bottom: 1.5rem; }
+  .header h1 { font-size: 1.8rem; font-weight: 800; background: linear-gradient(135deg,#00e676,#29b6f6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 0.3rem; }
+  .header p { color: #94a3b8; font-size: 0.9rem; }
+  .btn { background: linear-gradient(135deg,#00e676,#00b0ff); color: #050b14; font-weight: 800; border: none; padding: 1rem 2rem; border-radius: 50px; font-size: 1rem; cursor: pointer; margin-bottom: 1.5rem; }
+  .btn:disabled { opacity: 0.6; cursor: not-allowed; }
+  .card { background: #121826; border: 1px solid #1e293b; border-radius: 16px; padding: 1.5rem; width: 100%; max-width: 700px; margin-bottom: 1rem; display: none; }
+  .card.visible { display: block; }
+  .label { color: #94a3b8; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.4rem; display: block; }
+  .value { font-size: 1.3rem; font-weight: 700; color: #eef2f7; }
+  .edge { color: #00e676; }
+  table { width: 100%; border-collapse: collapse; margin-top: 1rem; }
+  th { text-align: left; color: #94a3b8; font-size: 0.7rem; padding: 0.6rem 0; border-bottom: 1px solid #1e293b; }
+  td { padding: 0.8rem 0; border-bottom: 1px solid #1a2336; font-size: 0.9rem; }
+  .team { font-weight: 700; color: #eef2f7; }
+  .league { color: #64748b; font-size: 0.75rem; }
+  .warn { color: #fca5a5; font-size: 0.9rem; text-align: center; margin-top: 0.5rem; }
+  .muted { color: #64748b; font-size: 0.8rem; text-align: center; margin-top: 1rem; }
+  .spinner { width: 20px; height: 20px; border: 3px solid #1e293b; border-top-color: #00e676; border-radius: 50%; animation: spin .8s linear infinite; display: inline-block; margin-right: 0.5rem; vertical-align: middle; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>EDGE.FUTBOL Quant</h1>
+  <p>Análisis cuantitativo +EV · Datos reales de ratingbet.com</p>
+</div>
+<button class="btn" id="btnRun" onclick="cargar()">Actualizar datos</button>
+
+<div class="card" id="cardAviso" style="border-color:#fca5a5;">
+  <span class="label">Estado</span>
+  <div id="txtAviso" class="value" style="color:#fca5a5;">Cargando...</div>
+</div>
+
+<div class="card visible" id="cardPartidos">
+  <span class="label">Partidos con análisis (modelo Poisson real)</span>
+  <table><thead><tr><th>Partido</th><th>Liga</th><th>Mercado</th><th>Cuota</th><th>Prob. modelo</th><th>Edge</th></tr></thead><tbody id="tbPartidos"></tbody></table>
+</div>
+
+<div class="card" id="cardCombinada" style="border-color:rgba(0,230,118,0.3);">
+  <span class="label">Combinada recomendada</span>
+  <div id="txtCombinada" class="value">—</div>
+  <div id="detalleCombinada" style="color:#94a3b8; font-size:0.85rem; margin-top:0.3rem;"></div>
+</div>
+
+<div class="muted" id="txtFooter">EDGE.FUTBOL Quant · Servicio de información estadística. No garantiza resultados.</div>
+
+<script>
+const API = 'https://edge.futbol/api';
+async function cargar() {
+  const btn = document.getElementById('btnRun');
+  btn.disabled = true; btn.textContent = 'Cargando…';
+  try {
+    const [f, p] = await Promise.all([
+      fetch(API + '/fixtures-hoy?force=1').then(r => r.json()),
+      fetch(API + '/parlays-by-risk').then(r => r.json())
+    ]);
+    render(f, p);
+  } catch (e) {
+    document.getElementById('txtAviso').textContent = 'Error al cargar los datos.';
+  } finally {
+    btn.disabled = false; btn.textContent = 'Actualizar datos';
+  }
+}
+function render(f, p) {
+  const aviso = document.getElementById('txtAviso');
+  const tb = document.getElementById('tbPartidos');
+  const cardAviso = document.getElementById('cardAviso');
+  const cardCombinada = document.getElementById('cardCombinada');
+  const txtCombinada = document.getElementById('txtCombinada');
+  const det = document.getElementById('detalleCombinada');
+
+  tb.innerHTML = '';
+  if (!f || f.total === 0) {
+    cardAviso.style.display = 'block';
+    aviso.textContent = f && f.diagnosticoFuente && f.diagnosticoFuente.aviso ? f.diagnosticoFuente.aviso : 'No hay partidos disponibles.';
+    cardCombinada.style.display = 'none';
+    return;
+  }
+  cardAviso.style.display = 'none';
+  let nStats = 0;
+  for (const c of (f.fixtures || [])) {
+    if (!c.stats) continue;
+    nStats++;
+    const tr = document.createElement('tr');
+    const lado = c.lado === 'OVER' ? 'Over' : 'Under';
+    tr.innerHTML = '<td><div class="team">' + c.local + ' vs ' + c.visitante + '</div><div class="league">' + c.liga + '</div></td>' +
+      '<td>' + c.horaLabel + '</td>' +
+      '<td><b>' + lado + ' ' + c.linea + '</b></td>' +
+      '<td>' + c.cuota.toFixed(2) + '</td>' +
+      '<td>' + c.modelProb + '%</td>' +
+      '<td class="edge">+' + c.edgePuntos + '%</td>';
+    tb.appendChild(tr);
+  }
+  if (nStats === 0) {
+    aviso = document.getElementById('txtAviso'); cardAviso.style.display = 'block';
+    aviso.textContent = 'No hay partidos con estadísticas reales disponibles hoy.';
+    cardCombinada.style.display = 'none';
+    return;
+  }
+  // Combinada
+  if (p && p.estado && p.estado !== 'sin-combinada' && p.selecciones && p.selecciones.length > 0) {
+    cardCombinada.style.display = 'block';
+    txtCombinada.textContent = 'Cuota total ' + p.cuotaTotal.toFixed(2) + '  ·  Edge +' + p.edgeTotalPct + '%';
+    det.textContent = p.selecciones.length + ' selección(es) · ' + p.nombreRiesgo;
+  } else {
+    cardCombinada.style.display = 'block';
+    txtCombinada.textContent = 'Sin combinada hoy';
+    det.textContent = (p && p.motivo ? p.motivo : 'Se necesitan al menos 2 partidos con edge positivo.');
+  }
+}
+cargar();
+</script>
+</body>
+</html>
+`;
 
 // =============================================================================
 // ACCESO_LIBRE: modo gratuito (fase de captacion de trafico).
@@ -6226,7 +6350,7 @@ window.addEventListener("DOMContentLoaded",function(){
             });
         }
 
-        return new Response(html, {
+        return new Response(INDEX_HTML, {
             headers: { ...corsHeaders, 'Content-Type': 'text/html; charset=utf-8' }
         });
     }
