@@ -255,12 +255,17 @@ const DAHL_FINGERPRINT_DEFAULT = '6633ef04b88e26842bdf21e13d03a32a';
 // En Vercel: variables de entorno del proyecto (Settings > Environment Variables)
 const GROQ_KEY1_DEFAULT = '';  // definida en wrangler.toml / Vercel env
 const GROQ_KEY2_DEFAULT = '';  // definida en wrangler.toml / Vercel env
-const GROQ_MODEL_DEFAULT = 'qwen/qwen3.8-27b';
+// Modelo REAL de Groq (el anterior 'qwen/qwen3.8-27b' no existe: daba 404 y
+// mandaba la clave a cuarentena sin haber agotado cuota real).
+const GROQ_MODEL_DEFAULT = 'llama-3.3-70b-versatile';
 const GROQ_ENDPOINT = 'https://api.groq.com/openai/v1/chat/completions';
 const GEMINI_KEY1_DEFAULT = ''; // definida en wrangler.toml / Vercel env
 const GEMINI_KEY2_DEFAULT = ''; // definida en wrangler.toml / Vercel env
 // ⚠️ CORREGIDO: gemini-3.8-flash NO existe — modelo correcto es gemini-2.0-flash
 const GEMINI_MODEL_DEFAULT = 'gemini-2.0-flash';
+// Modelos de respaldo si el principal se retira o da 404 (no gastan cuota extra:
+// solo se intentan si el anterior falla).
+const GEMINI_FALLBACK_MODELS = ['gemini-2.0-flash', 'gemini-2.5-flash', 'gemini-1.5-flash'];
 const GEMINI_ENDPOINT_BASE = 'https://generativelanguage.googleapis.com/v1beta/models/';
 const TOKENHARBOR_KEY_DEFAULT = '';
 const TOKENHARBOR_ENDPOINT_DEFAULT = 'https://api.tokenharbor.ai/v1/chat/completions';
@@ -1229,9 +1234,13 @@ export default {
                         ...groqKeys.map(function (k, i) {
                             return { endpoint: GROQ_ENDPOINT, apiKey: k, model: groqModel, tipo: 'openai', label: 'Groq-' + (i + 1) };
                         }),
-                        // N+1.. Gemini nativo (todas las claves, gemini-2.0-flash)
-                        ...geminiKeys.map(function (k, i) {
-                            return { endpoint: GEMINI_ENDPOINT_BASE + geminiModel + ':generateContent?key=' + k, apiKey: '', model: geminiModel, tipo: 'gemini', label: 'Gemini-' + (i + 1) };
+                        // N+1.. Gemini nativo: cada clave prueba los modelos vigentes
+                        // (si uno se retira, la clave NO queda inutil).
+                        ...geminiKeys.flatMap(function (k, i) {
+                            const modelosGem = [geminiModel].concat(GEMINI_FALLBACK_MODELS.filter(function (m) { return m !== geminiModel; }));
+                            return modelosGem.map(function (m, j) {
+                                return { endpoint: GEMINI_ENDPOINT_BASE + m + ':generateContent?key=' + k, apiKey: '', model: m, tipo: 'gemini', label: 'Gemini-' + (i + 1) + (j ? 'm' + (j + 1) : '') };
+                            });
                         }),
                         // Omniroute (todas las claves via OpenRouter)
                         ...omniKeys.map(function (k, i) {
@@ -1373,6 +1382,7 @@ export default {
                                 console.warn('[AI-CHAIN] ⚠️ ' + (prov.label || prov.model) + ' → HTTP ' + r.status + ': ' + errBody.slice(0, 80) + ' [cuarentena]');
                             }
                         } catch (e) {
+                            intentosIA.push({ label: prov.label, model: prov.model, error: String(e && e.message || e).slice(0, 120) });
                             ultimoError = { error: e.message, label: prov.label, model: prov.model, endpoint: prov.endpoint };
                             console.warn('[AI-CHAIN] ⚠️ ' + (prov.label || prov.model) + ' → excepción: ' + e.message);
                         }
