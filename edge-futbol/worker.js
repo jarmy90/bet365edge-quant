@@ -320,13 +320,16 @@ function marcarClave(k, status, retryAfterSeg) {
     if (!h) return;
     const prev = aiKeyHealth.get(h) || { fails: 0 };
     let ms;
-    if (status === 401 || status === 403 || status === 404) {
+    if (status === 401 || status === 403) {
         ms = AI_COOLDOWN_INVALID_MS;
     } else if (status === 429) {
         const base = Math.min(AI_COOLDOWN_MAX_MS, AI_COOLDOWN_MIN_MS * Math.pow(2, Math.min(prev.fails, 5)));
         ms = Number.isFinite(retryAfterSeg) && retryAfterSeg > 0 ? Math.max(retryAfterSeg * 1000, 15000) : base;
-    } else if (status === 400) {
-        ms = 5 * 60 * 1000;
+    } else if (status === 404 || status === 400) {
+        // Modelo inexistente o peticion mal formada: NO es culpa de la clave.
+        // No se pone en cuarentena (antes se tiraban claves validas por un
+        // nombre de modelo obsoleto).
+        return;
     } else {
         ms = AI_COOLDOWN_MIN_MS;
     }
@@ -1462,6 +1465,9 @@ export default {
         if (url.pathname === '/api/fixtures-hoy') {
             // force=1: el cliente pide saltarse la cache (boton "Actualizar datos")
             const force = url.searchParams.get('force') === '1';
+            // resetIA=1: limpia la cuarentena de claves IA de este isolate
+            // (util tras corregir un modelo o recargar una clave).
+            if (url.searchParams.get('resetIA') === '1') aiKeyHealth.clear();
             const pool = await getFutureMatchesPool(force);
             return new Response(JSON.stringify({
                 ok: true,
