@@ -1653,9 +1653,23 @@ export default {
                 }
                 const veredictosStats = veredictosDesdeEstadisticas(conStatsReales, nowMs);
                 const poolPoisson = aplicarVeredictos(conStatsReales, veredictosStats, nowMs);
-                const { publicables, resumen: rFiltrado2 } = filtrarPublicables(
+                const { publicables: publicablesRaw, resumen: rFiltrado2 } = filtrarPublicables(
                     poolPoisson, nowMs, { margenMinutos: MARGEN_PUBLICACION_MIN, max: MAX_PUBLICADOS }
                 );
+                // Defensa en profundidad: descartar picks con edge absurdo
+                // (tip/veredicto incoherente con la cuota real del mercado).
+                const publicables = publicablesRaw.map(function (c) {
+                    if (!c || !Number.isFinite(c.modelProb) || !Number.isFinite(c.cuota) || c.cuota <= 1) return c;
+                    var pImp = 100 / c.cuota;
+                    if (Math.abs(c.modelProb - pImp) > 25) {
+                        c.modelProb = null; c.edgePuntos = null; c.probBase = null;
+                        c.justificacion = 'Descartado: tip incoherente con el precio de mercado.';
+                    }
+                    else if (Number.isFinite(c.edgePuntos) && c.edgePuntos > 15) {
+                        c.edgePuntos = 15;
+                    }
+                    return c;
+                });
                 diagFinal.diagFiltrado = rFiltrado2;
                 diagFinal.modoAnalisis = 'modelo-poisson-real';
                 // La cache guarda la ventana amplia para las combinadas.
@@ -1666,6 +1680,20 @@ export default {
                 poolPoisson.forEach(function (p) { porClave.set(p.clave, p); });
                 pool.forEach(function (p) { if (!porClave.has(p.clave)) porClave.set(p.clave, p); });
                 pool = Array.from(porClave.values());
+                // Defensa en profundidad: descartar picks con edge absurdo
+                // (tip/veredicto incoherente con la cuota real del mercado).
+                pool = pool.map(function (c) {
+                    if (!c || !Number.isFinite(c.modelProb) || !Number.isFinite(c.cuota) || c.cuota <= 1) return c;
+                    var pImp = 100 / c.cuota;
+                    if (Math.abs(c.modelProb - pImp) > 25) {
+                        c.modelProb = null; c.edgePuntos = null; c.probBase = null;
+                        c.justificacion = 'Descartado: tip incoherente con el precio de mercado.';
+                    }
+                    else if (Number.isFinite(c.edgePuntos) && c.edgePuntos > 15) {
+                        c.edgePuntos = 15;
+                    }
+                    return c;
+                });
                 analisisCache = { at: nowMs, pool: pool, diag: diagFinal, key: cacheKey };
                 return publicables;
             })();
