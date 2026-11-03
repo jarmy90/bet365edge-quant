@@ -278,6 +278,61 @@ let datasetInflight = null;
 // Cache de stats football-data.org (fuerzas por equipo + medias de liga, 6h)
 let statsCache = { at: -Infinity, mapa: null };
 
+// -----------------------------------------------------------------------------
+// SALUD DE CLAVES DE IA (por isolate, nunca persistente y nunca en claro)
+// -----------------------------------------------------------------------------
+// El rotador anterior probaba TODAS las claves en CADA peticion, empezando por
+// Groq. Una clave agotada (429) o invalida (401) se reintentaba siempre y se
+// comia el presupuesto global de 22s antes de llegar a un proveedor vivo: eso
+// es lo que hacia que "siempre se acabaran las APIs".
+// Aqui se recuerda, por huella de clave (hash no reversible), hasta cuando esa
+// clave debe quedar en cuarentena. Las claves en cuarentena NO se intentan.
+// -----------------------------------------------------------------------------
+const aiKeyHealth = new Map();
+const AI_COOLDOWN_MIN_MS = 60 * 1000;
+const AI_COOLDOWN_MAX_MS = 30 * 60 * 1000;
+const AI_COOLDOWN_INVALID_MS = 6 * 60 * 60 * 1000;
+
+function huellaClave(k) {
+    const s = String(k || '');
+    if (!s) return '';
+    let h = 5381;
+    for (let i = 0; i < s.length; i++) h = ((h * 33) ^ s.charCodeAt(i)) >>> 0;
+    return 'k' + h.toString(36) + ':' + s.length;
+}
+
+function claveEnEspera(k) {
+    const h = huellaClave(k);
+    if (!h) return false;
+    const e = aiKeyHealth.get(h);
+    if (!e) return false;
+    if (Date.now() >= e.until) { aiKeyHealth.delete(h); return false; }
+    return true;
+}
+
+function marcarClave(k, status, retryAfterSeg) {
+    const h = huellaClave(k);
+    if (!h) return;
+    const prev = aiKeyHealth.get(h) || { fails: 0 };
+    let ms;
+    if (status === 401 || status === 403 || status === 404) {
+        ms = AI_COOLDOWN_INVALID_MS;
+    } else if (status === 429) {
+        const base = Math.min(AI_COOLDOWN_MAX_MS, AI_COOLDOWN_MIN_MS * Math.pow(2, Math.min(prev.fails, 5)));
+        ms = Number.isFinite(retryAfterSeg) && retryAfterSeg > 0 ? Math.max(retryAfterSeg * 1000, 15000) : base;
+    } else if (status === 400) {
+        ms = 5 * 60 * 1000;
+    } else {
+        ms = AI_COOLDOWN_MIN_MS;
+    }
+    aiKeyHealth.set(h, { fails: prev.fails + 1, until: Date.now() + ms, status: status });
+}
+
+function claveSana(k) {
+    const h = huellaClave(k);
+    if (h) aiKeyHealth.delete(h);
+}
+
 export default {
     async fetch(request, env, ctx) {
         const corsHeaders = {
@@ -294,8 +349,8 @@ export default {
         }
 
         const url = new URL(request.url);
-        const stripeSecretKey = env.STRIPE_SECRET_KEY || "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";
-        const stripePriceId = env.STRIPE_PRICE_ID || "prod_VFk8GE0foCM9qJ";
+        const stripeSecretKey = env.STRIPE_SECRET_KEY || "";
+        const stripePriceId = env.STRIPE_PRICE_ID || "";
 
         // =========================================================================
         // 1. ENDPOINT: CREAR SESIÓN DE STRIPE CHECKOUT (25 € / mes)
@@ -851,46 +906,106 @@ export default {
         }
 
         // ---------------------------------------------------------------------
+        // Espejos publicos del dataset que publica GitHub Actions.
+        // El workflow escribe SIEMPRE la rama 'dataset'; el gist es solo un extra
+        // y puede quedarse congelado si su token caduca (fue justo lo que dejo la
+        // web a 0 partidos). Se prueban todos y se elige la captura MAS RECIENTE:
+        // mientras la captura se ejecute, la web nunca se queda sin datos.
+        const DATASET_MIRRORS = [
+            'https://raw.githubusercontent.com/jarmy90/bet365edge-quant/dataset/edge-futbol/ratingbet_fixtures.json',
+            'https://gist.githubusercontent.com/jarmy90/9494dab5740e8efb6dc84f38ff85c6cf/raw/ratingbet_fixtures.json'
+        ];
+
+        function msCapturaDataset(ds) {
+            try {
+                const f = (ds && (ds.fuente || ds.FUENTE)) || {};
+                const t = f.generadoEnUtc || f.generadoEn || ds.generadoEnUtc || ds.generadoEn || null;
+                const ms = t ? Date.parse(t) : NaN;
+                return Number.isFinite(ms) ? ms : null;
+            } catch (_) { return null; }
+        }
+
         async function cargarDatasetRatingbet(nowMs, force) {
-            const url = env.RATINGBET_DATASET_URL || '';
-            if (!url) return { dataset: datasetLocal, diag: { modo: 'modulo-embebido', url: null, error: null }, error: null };
+            const configurada = env.RATINGBET_DATASET_URL || '';
+            const token = env.RATINGBET_DATASET_TOKEN || '';
+            // RATINGBET_DATASET_MIRRORS=0 desactiva los espejos (tests/entornos
+            // cerrados). Por defecto SIEMPRE se usan: si la fuente configurada
+            // caduca (gist con token roto) la web sigue con la rama 'dataset'.
+            const usarEspejos = String(env.RATINGBET_DATASET_MIRRORS || '1') !== '0';
+            if (!configurada && !usarEspejos) {
+                return { dataset: datasetLocal, diag: { modo: 'modulo-embebido', url: null, error: null }, error: null };
+            }
+            const urls = [];
+            if (configurada) urls.push(configurada);
+            if (usarEspejos) DATASET_MIRRORS.forEach(function (u) { if (urls.indexOf(u) === -1) urls.push(u); });
+            const claveCache = urls.join('|');
 
-
-            if (!force && datasetCache.dataset && datasetCache.url === url && (nowMs - datasetCache.at) < DATASET_CACHE_MS) {
+            if (!force && datasetCache.dataset && datasetCache.url === claveCache && (nowMs - datasetCache.at) < DATASET_CACHE_MS) {
                 return { dataset: datasetCache.dataset, diag: datasetCache.diag, error: datasetCache.diag.error || null };
             }
             if (datasetInflight) return datasetInflight;
 
             datasetInflight = (async function () {
-                const token = env.RATINGBET_DATASET_TOKEN || '';
                 const diag = {
-                    modo: 'remoto', url: url, error: null, partidosRecibidos: 0,
-                    autenticado: !!token, bytes: 0
+                    modo: 'remoto', url: configurada || urls[0] || null, error: null,
+                    partidosRecibidos: 0, autenticado: !!token, bytes: 0,
+                    fuentes: [], elegida: null
                 };
-                let dataset = null;
-                try {
-                    const conCb = url + (url.includes('?') ? '&' : '?') + 'cb=' + nowMs;
-                    const headers = Object.assign(
-                        { 'Accept': 'application/json' },
-                        token ? { 'Authorization': 'Bearer ' + token } : {}
-                    );
-                    const res = await fetch(conCb, { headers: headers });
-                    if (!res.ok) diag.error = 'http-' + res.status;
-                    else {
-                        const txt = await res.text();
-                        diag.bytes = txt.length;
-                        const parsed = extraerDataset(txt);
-                        if (!parsed) diag.error = 'json-no-parseable';
+                let mejor = null, mejorMs = null, mejorBytes = 0, mejorUrl = null;
+
+                for (let i = 0; i < urls.length; i++) {
+                    const u = urls[i];
+                    const d = { url: u, ok: false, error: null, partidos: 0, capturaUtc: null };
+                    try {
+                        const conCb = u + (u.includes('?') ? '&' : '?') + 'cb=' + nowMs;
+                        const headers = Object.assign(
+                            { 'Accept': 'application/json' },
+                            (token && u === configurada) ? { 'Authorization': 'Bearer ' + token } : {}
+                        );
+                        const res = await fetch(conCb, { headers: headers });
+                        if (!res.ok) d.error = 'http-' + res.status;
                         else {
-                            dataset = parsed;
-                            diag.partidosRecibidos = (parsed.partidos || parsed.PARTIDOS || []).length;
+                            const txt = await res.text();
+                            const parsed = extraerDataset(txt);
+                            const n = parsed ? (parsed.partidos || parsed.PARTIDOS || []).length : 0;
+                            if (!parsed) d.error = 'json-no-parseable';
+                            else if (n === 0) d.error = 'sin-partidos';
+                            else {
+                                d.ok = true;
+                                d.partidos = n;
+                                const ms = msCapturaDataset(parsed);
+                                d.capturaUtc = ms ? new Date(ms).toISOString() : null;
+                                if (mejor === null || (ms || 0) > (mejorMs || 0)) {
+                                    mejor = parsed;
+                                    mejorMs = ms;
+                                    mejorBytes = txt.length;
+                                    mejorUrl = u;
+                                }
+                            }
                         }
+                    } catch (e) {
+                        d.error = 'excepcion-' + (e && e.message ? e.message : 'desconocida');
                     }
-                } catch (e) {
-                    diag.error = 'excepcion-' + (e && e.message ? e.message : 'desconocida');
+                    diag.fuentes.push(d);
+                    // Primera fuente suficientemente fresca: no hace falta seguir.
+                    if (mejor && mejorMs && (nowMs - mejorMs) <= MAX_ANTIGUEDAD * 60000) break;
                 }
-                if (!dataset) { dataset = datasetLocal; diag.modo = 'remoto-fallido->embebido'; }
-                datasetCache = { at: nowMs, dataset: dataset, diag: diag, url: url };
+
+                let dataset = mejor;
+                if (!dataset) {
+                    dataset = datasetLocal;
+                    diag.modo = 'remoto-fallido->embebido';
+                    // Se conserva el motivo REAL de la fuente configurada (p. ej.
+                    // http-401) para que el diagnostico diga que paso y por que.
+                    const fallos = diag.fuentes.filter(function (x) { return x.error; });
+                    diag.error = (fallos[0] && fallos[0].error) || 'todas-las-fuentes-fallaron';
+                } else {
+                    diag.url = mejorUrl;
+                    diag.elegida = mejorUrl;
+                    diag.bytes = mejorBytes;
+                    diag.partidosRecibidos = (dataset.partidos || dataset.PARTIDOS || []).length;
+                }
+                datasetCache = { at: nowMs, dataset: dataset, diag: diag, url: claveCache };
                 return { dataset: dataset, diag: diag, error: diag.error };
             })();
 
@@ -1151,6 +1266,19 @@ export default {
                         proveedoresAProbar.unshift({ endpoint: omniUrl, apiKey: apiKeyPrimary, model: env.OMNIROUTE_MODEL || OMNIROUTE_MODEL_DEFAULT, tipo: 'openai', label: 'OmniCustom' });
                     }
 
+                    // Cuarentena: se descartan las claves que acaban de dar 429/401.
+                    // Asi el presupuesto de 22s se gasta en proveedores VIVOS y no
+                    // reintentando claves muertas en cada peticion.
+                    const claveDeProveedor = function (p) { return p.apiKey || p.endpoint || ''; };
+                    const totalAntes = proveedoresAProbar.length;
+                    const sanos = proveedoresAProbar.filter(function (p) { return !claveEnEspera(claveDeProveedor(p)); });
+                    if (sanos.length === 0 && totalAntes > 0) {
+                        // Todo en cuarentena: se intenta igualmente (mejor intento que fallback ciego).
+                        console.warn('[AI-CHAIN] Todas las claves en cuarentena (' + totalAntes + '); reintentando de todos modos.');
+                    } else if (sanos.length < totalAntes) {
+                        console.log('[AI-CHAIN] ' + (totalAntes - sanos.length) + ' clave(s) en cuarentena, ' + sanos.length + ' disponible(s).');
+                    }
+
                     // Adaptador para Gemini nativo (formato distinto al OpenAI)
                     async function llamarGeminiNativo(endpoint, systemText, userText, timeoutMs) {
                         return fetch(endpoint, {
@@ -1177,7 +1305,7 @@ export default {
                         return Math.max(0, iaDeadline - Date.now());
                     }
 
-                    for (const prov of proveedoresAProbar) {
+                    for (const prov of (sanos.length ? sanos : proveedoresAProbar)) {
                         // Timeout del intento atado al tiempo restante: con <3s no
                         // merece intentar; rapidos cortan a 8s max por intento.
                         const restante = iaTimeoutRestante();
@@ -1225,16 +1353,20 @@ export default {
                                     const gText = gData && gData.candidates && gData.candidates[0] &&
                                         gData.candidates[0].content && gData.candidates[0].content.parts &&
                                         gData.candidates[0].content.parts[0] ? gData.candidates[0].content.parts[0].text : null;
-                                    if (gText) { console.log('[AI-CHAIN] ✅ Éxito con ' + prov.label); iaRaw = gText; break; }
+                                    if (gText) { claveSana(claveDeProveedor(prov)); console.log('[AI-CHAIN] ✅ Éxito con ' + prov.label); iaRaw = gText; break; }
+                                    marcarClave(claveDeProveedor(prov), 0);
                                 } else {
+                                    claveSana(claveDeProveedor(prov));
                                     console.log('[AI-CHAIN] ✅ Éxito con ' + prov.label);
                                     iaRes = r; break;
                                 }
                             } else {
                                 const errText = await r.text();
                                 const errBody = errText.slice(0, 300);
+                                const retryAfter = parseInt(r.headers.get('retry-after') || '', 10);
+                                marcarClave(claveDeProveedor(prov), r.status, retryAfter);
                                 ultimoError = { status: r.status, label: prov.label, model: prov.model, endpoint: prov.endpoint, body: errBody };
-                                console.warn('[AI-CHAIN] ⚠️ ' + (prov.label || prov.model) + ' → HTTP ' + r.status + ': ' + errBody.slice(0, 80));
+                                console.warn('[AI-CHAIN] ⚠️ ' + (prov.label || prov.model) + ' → HTTP ' + r.status + ': ' + errBody.slice(0, 80) + ' [cuarentena]');
                             }
                         } catch (e) {
                             ultimoError = { error: e.message, label: prov.label, model: prov.model, endpoint: prov.endpoint };
@@ -1326,7 +1458,15 @@ export default {
                     ? "ADVERTENCIA: No hay partidos futuros disponibles en este momento. Los partidos mostrados anteriormente ya han comenzado o finalizado. Intente mas tarde."
                     : null
             }), {
-                headers: { ...corsHeaders, 'Content-Type': 'application/json; charset=utf-8' }
+                headers: {
+                    ...corsHeaders,
+                    'Content-Type': 'application/json; charset=utf-8',
+                    // Cache en el CDN: sin esto CADA usuario/isolate re-ejecutaba el
+                    // analisis IA y multiplicaba el gasto de cuota. force=1 = fresco.
+                    'Cache-Control': force
+                        ? 'no-store'
+                        : 'public, max-age=0, s-maxage=900, stale-while-revalidate=3600'
+                }
             });
         }
 
@@ -1366,11 +1506,9 @@ export default {
             const nowMs = Date.now();
             const pMadrid = madridParts(nowMs);
 
-            // Valores embebidos historicos en el codigo: se detectan para avisar
-            // que hay que moverlos a Vercel env. Nunca se devuelven valores.
-            const EMBEBIDOS = {
-                STRIPE_SECRET_KEY: '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'
-            };
+            // Sin valores embebidos: cualquier secreto debe venir de env.
+            // (Los antiguos fallbacks se eliminaron: estaban publicados en el repo.)
+            const EMBEBIDOS = {};
             function estadoDeClave(nombre, valor) {
                 if (!valor) return '\u2717 FALTA';
                 if (EMBEBIDOS[nombre] && valor === EMBEBIDOS[nombre]) {

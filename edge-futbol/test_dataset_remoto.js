@@ -1,4 +1,4 @@
-// =============================================================================
+﻿// =============================================================================
 // TEST: LECTURA DEL DATASET REMOTO (camino "todo en la nube")
 // -----------------------------------------------------------------------------
 // Comprueba, con un servidor HTTP local (sin tocar internet), las cuatro
@@ -92,7 +92,7 @@ console.log('\n--- 1) JSON CRUDO PUBLICO (raw.githubusercontent) ---');
 {
     const { dd } = await diagCon({
         RATINGBET_DATASET_URL: base + '/raw',
-        __FIXTURES_LLM_STUB: ''
+        __FIXTURES_LLM_STUB: '', RATINGBET_DATASET_MIRRORS: '0'
     });
     ok(!!dd, 'hay diagnostico de dataset');
     ok(dd && dd.modo === 'remoto', 'modo = remoto', dd && dd.modo);
@@ -110,7 +110,7 @@ console.log('\n--- 2) REPO PRIVADO CON TOKEN ---');
     const { dd } = await diagCon({
         RATINGBET_DATASET_URL: base + '/privado',
         RATINGBET_DATASET_TOKEN: TOKEN,
-        __FIXTURES_LLM_STUB: ''
+        __FIXTURES_LLM_STUB: '', RATINGBET_DATASET_MIRRORS: '0'
     });
     ok(dd && dd.modo === 'remoto', 'modo = remoto', dd && dd.modo);
     ok(dd && dd.partidosRecibidos === N_PARTIDOS, 'partidos recibidos = ' + N_PARTIDOS, dd && dd.partidosRecibidos);
@@ -121,7 +121,7 @@ console.log('\n--- 3) REPO PRIVADO SIN TOKEN (debe avisar, no inventar) ---');
 {
     const { dd, dc } = await diagCon({
         RATINGBET_DATASET_URL: base + '/privado-sin-token',
-        __FIXTURES_LLM_STUB: ''
+        __FIXTURES_LLM_STUB: '', RATINGBET_DATASET_MIRRORS: '0'
     });
     ok(dd && dd.modo === 'remoto-fallido->embebido', 'modo = remoto-fallido->embebido', dd && dd.modo);
     ok(dd && dd.error === 'http-401', 'error registrado = http-401', dd && dd.error);
@@ -135,7 +135,7 @@ console.log('\n--- 4) API DE CONTENIDOS DE GITHUB ({content: base64}) ---');
 {
     const { dd } = await diagCon({
         RATINGBET_DATASET_URL: base + '/envuelto',
-        __FIXTURES_LLM_STUB: ''
+        __FIXTURES_LLM_STUB: '', RATINGBET_DATASET_MIRRORS: '0'
     });
     ok(dd && dd.modo === 'remoto', 'modo = remoto', dd && dd.modo);
     ok(dd && dd.partidosRecibidos === N_PARTIDOS,
@@ -145,7 +145,7 @@ console.log('\n--- 4) API DE CONTENIDOS DE GITHUB ({content: base64}) ---');
 // --- 5) Sin URL remota: comportamiento de siempre ----------------------------
 console.log('\n--- 5) SIN RATINGBET_DATASET_URL (dataset embebido) ---');
 {
-    const { dd } = await diagCon({ __FIXTURES_LLM_STUB: '' });
+    const { dd } = await diagCon({ __FIXTURES_LLM_STUB: '', RATINGBET_DATASET_MIRRORS: '0' });
     ok(dd && dd.modo === 'modulo-embebido', 'modo = modulo-embebido', dd && dd.modo);
     ok(dd && dd.url === null, 'sin URL remota');
 }
@@ -171,3 +171,4 @@ process.exitCode = fallan === 0 ? 0 : 1;
     ok(!!p, 'el servidor recibio la cabecera Authorization');
     ok(p && p.authorization === 'Bearer ' + TOKEN, 'Authorization = Bearer <token>');
 }
+

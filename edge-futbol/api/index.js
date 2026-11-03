@@ -11,8 +11,8 @@ export const config = {
 // tumbaba todo el edge). Si falta env, se informa y el rotador salta al
 // siguiente proveedor.
 const FALLBACKS = {
-    STRIPE_SECRET_KEY: "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",
-    STRIPE_PRICE_ID: "prod_VFk8GE0foCM9qJ",
+    STRIPE_SECRET_KEY: "",
+    STRIPE_PRICE_ID: "",
 };
 
 export default async function handler(request) {

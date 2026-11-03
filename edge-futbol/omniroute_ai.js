@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 
-const apiKey = 'sk-238e42ad970dbbc7-9e7385-de935c2e';
+const apiKey = process.env.OMNIROUTE_API_KEY || process.env.OPENROUTER_API_KEY || '';
 
 const SYSTEM_PROMPT = `Actúa como el Director de Análisis Cuantitativo y Scouting de un sindicato de apuestas deportivas profesionales (+EV).
 
