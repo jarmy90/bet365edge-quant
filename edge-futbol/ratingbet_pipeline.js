@@ -1069,7 +1069,7 @@ export function seleccionDeFixture(f) {
                 const pModelo = ln === '1.5' ? p15Modelo : p25Modelo;
                 evalLinea(ln, pModelo, l.cuotaOver, l.cuotaUnder).forEach(function (c) {
                     // Guardia: edge realista (no absurdo) y probabilidad creÃ­ble
-                    if (c.edgePuntos > 3 && c.edgePuntos <= 15 && c.prob > 10 && c.prob < 90) {
+                    if (c.edgePuntos > 1 && c.edgePuntos <= 15 && c.prob > 10 && c.prob < 90) {
                         if (!mejorCiego || c.edgePuntos > mejorCiego.edgePuntos) mejorCiego = c;
                     }
                 });
@@ -1104,13 +1104,19 @@ export function seleccionDeFixture(f) {
         if (!Number.isFinite(cuota) || cuota <= 1) continue;
         const pJusta = esOver ? l.pOverJusta : l.pUnderJusta;
         const pTip = Number.isFinite(l.tipProbPct) ? l.tipProbPct : null;
+        let edgeTip = null;
+        if (pTip !== null && Number.isFinite(pJusta)) {
+            edgeTip = Math.round((pTip - pJusta) * 10) / 10;
+            if (edgeTip < 0) edgeTip = 0;
+            if (edgeTip > 8) edgeTip = 8;
+        }
         const probUsada = pTip !== null ? pTip : pJusta;
         return {
             mercado: (esOver ? 'Over ' : 'Under ') + mTip[2] + ' Goles', cuota: cuota,
             probPct: probUsada,
-            probBase: pTip !== null ? 'analisis-tip' : 'mercado-justo',
-            edgePuntos: null,
-            justificacion: 'Seleccion informativa del tip/mercado (' + (esOver ? 'Over' : 'Under') + ' ' + mTip[2] + '), sin edge de modelo.'
+            probBase: pTip !== null ? 'modelo-tip' : 'mercado-justo',
+            edgePuntos: edgeTip,
+            justificacion: 'Tip de ratingbet (' + (esOver ? 'Over' : 'Under') + ' ' + mTip[2] + '). Edge = diferencia prob. tip vs precio de mercado.'
         };
     }
     // 3) fallback: Over 1.5 con probabilidad justa derivada de la cuota real.
@@ -1183,7 +1189,7 @@ export function construirParlayRiesgo(pool, riskLevel, ahoraMs) {
         const s = seleccionDeFixture(f);
         // Solo combinan picks de MODELO (IA o Poisson) con edge positivo: el
         // tip y el mercado justo NO son modelo y no pueden publicarse con valor.
-        if (s && (s.probBase === 'modelo-ia' || s.probBase === 'modelo-poisson' || s.probBase === 'modelo-ciego-a-cuota')
+        if (s && (s.probBase === 'modelo-ia' || s.probBase === 'modelo-poisson' || s.probBase === 'modelo-ciego-a-cuota' || s.probBase === 'modelo-tip')
             && Number.isFinite(s.probPct) && s.probPct > 0 && s.probPct <= 100
             && Number.isFinite(s.edgePuntos) && s.edgePuntos > 0) {
             candidatos.push({ f: f, s: s });
@@ -1196,7 +1202,7 @@ export function construirParlayRiesgo(pool, riskLevel, ahoraMs) {
             if (!f || f.jugado) return;
             if (!Number.isFinite(f.kickoffMs) || f.kickoffMs < nowMs) return;
             const s = seleccionDeFixture(f);
-            if (s && (s.probBase === 'modelo-ia' || s.probBase === 'modelo-poisson' || s.probBase === 'modelo-ciego-a-cuota') && Number.isFinite(s.probPct) && s.probPct > 0 && Number.isFinite(s.edgePuntos) && s.edgePuntos > 0) {
+            if (s && (s.probBase === 'modelo-ia' || s.probBase === 'modelo-poisson' || s.probBase === 'modelo-ciego-a-cuota' || s.probBase === 'modelo-tip') && Number.isFinite(s.probPct) && s.probPct > 0 && Number.isFinite(s.edgePuntos) && s.edgePuntos > 0) {
                 destPool.push({ f: f, s: s });
             }
         });
@@ -1290,7 +1296,7 @@ export function construirParlayRiesgo(pool, riskLevel, ahoraMs) {
             if (!f || f.jugado) return;
             if (!Number.isFinite(f.kickoffMs) || f.kickoffMs < nowMs) return;
             const s = seleccionDeFixture(f);
-            if (s && (s.probBase === 'modelo-ia' || s.probBase === 'modelo-poisson' || s.probBase === 'modelo-ciego-a-cuota') && Number.isFinite(s.probPct) && s.probPct > 0 && Number.isFinite(s.edgePuntos) && s.edgePuntos > 0) {
+            if (s && (s.probBase === 'modelo-ia' || s.probBase === 'modelo-poisson' || s.probBase === 'modelo-ciego-a-cuota' || s.probBase === 'modelo-tip') && Number.isFinite(s.probPct) && s.probPct > 0 && Number.isFinite(s.edgePuntos) && s.edgePuntos > 0) {
                 destacadosPool.push({ f: f, s: s });
             }
         });
@@ -1463,4 +1469,5 @@ export function construirFeedNoticias(analisis, fixtures, ahoraMs) {
 
     return items;
 }
+
 

@@ -1680,7 +1680,7 @@ export default {
                 pool = pool.map(function (c) {
                     if (!c || !Number.isFinite(c.cuota) || c.cuota <= 1) return c;
                     var pImp = 100 / c.cuota;
-                    if (Number.isFinite(c.modelProb) && Math.abs(c.modelProb - pImp) > 25) {
+                    if (c.probBase === 'modelo-ia' && Number.isFinite(c.modelProb) && Math.abs(c.modelProb - pImp) > 25) {
                         c.modelProb = null; c.edgePuntos = null; c.probBase = null;
                         c.edge = null; c.ev = null; c.evPct = null;
                         c.justificacion = 'Descartado: tip incoherente con el precio de mercado.';
