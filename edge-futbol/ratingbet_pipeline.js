@@ -964,10 +964,16 @@ export function seleccionDeFixture(f) {
                 if (Number.isFinite(pPoi) && Math.abs(f.modelProb - pPoi) > 15) return null;
             }
         }
+        // Guardia: el tip/veredicto no puede diferir tanto de la probabilidad
+        // implicita de la cuota (seria ruido del dato fuente, no un edge real).
+        const pImp = 100 / f.cuota;
+        if (Math.abs(f.modelProb - pImp) > 25) return null;
+        const edgeCalc = Math.round((f.cuota - (100 / f.modelProb)) * 1000) / 10;
+        const edgePuntos = Math.min(15, Math.max(0, edgeCalc));
         return {
             mercado: f.mercado, cuota: f.cuota, probPct: f.modelProb, probBase: 'modelo-ia',
-            edgePuntos: Number.isFinite(f.edgePuntos) ? f.edgePuntos : null,
-            justificacion: f.justificacion || ''
+            edgePuntos: edgePuntos,
+            justificacion: (f.justificacion || '').trim() + (f.justificacion ? ' · ' : '') + 'edge limitado a 15 pts'
         };
     }
     // 1b) modelo Poisson determinista con stats reales (football-data.org).
