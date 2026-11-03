@@ -1336,6 +1336,7 @@ export default {
                     // stats.json (TheSportsDB) tiene pocas jornadas por equipo: si con 3 no
                     // se adjunta nada, se reintenta con 2 antes de llamar a TSDB remoto.
                     if (!adjuntos) adjuntos = adjuntarStatsACandidatos(candidatos, mapaStats, { minPartidos: 2 });
+                    if (!adjuntos) adjuntos = adjuntarStatsACandidatos(candidatos, mapaStats, { minPartidos: 1 });
                     // Ligas menores (Venezuela, Paraguay...): football-data.org no
                     // las cubre. Se completa con TheSportsDB (gratis, sin clave).
                     if (!adjuntos) {
@@ -6230,6 +6231,7 @@ window.addEventListener("DOMContentLoaded",function(){
         });
     }
 };
+
 
 
 
