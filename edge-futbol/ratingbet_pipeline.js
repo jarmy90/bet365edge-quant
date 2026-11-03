@@ -907,7 +907,32 @@ export function modeloPoisson(stats) {
     if (!vals.every(function (v) { return Number.isFinite(v) && v > 0; })) return null;
     if (stats.nH !== undefined || stats.nA !== undefined) {
         const nH = Number(stats.nH), nA = Number(stats.nA);
-        if (!Number.isFinite(nH) || !Number.isFinite(nA) || nH < 3 || nA < 3) return null;
+        if (!Number.isFinite(nH) || !Number.isFinite(nA) || nH < 2 || nA < 2) return null;
+        // Shrinkage de las fuerzas hacia la media de liga (1.0) cuando hay pocos
+        // partidos. Con 2-3 partidos la fuerza queda casi en 1.0 (sin ventaja
+        // inventada); con muchos partidos se acerca al valor observado.
+        const k = 8;
+        const wH = nH / (nH + k), wA = nA / (nA + k);
+        const sH = 1 + (attH - 1) * wH;
+        const sD = 1 + (defH - 1) * wH;
+        const sA = 1 + (attA - 1) * wA;
+        const sDA = 1 + (defA - 1) * wA;
+        const Lh = avgH * sH * sDA;
+        const La = avgA * sA * sD;
+        // Clamp de lambda total a un rango futbolísticamente creíble para evitar
+        // edges imposibles cuando la muestra es pequeña.
+        let L = Lh + La;
+        if (L < 0.6) L = 0.6;
+        if (L > 5.5) L = 5.5;
+        const eL = Math.exp(-L);
+        function clamp1(x) { return Math.min(99.5, Math.max(1, Math.round(x * 10) / 10)); }
+        return {
+            p15: clamp1((1 - eL * (1 + L)) * 100),
+            p25: clamp1((1 - eL * (1 + L + (L * L) / 2)) * 100),
+            lambdaH: Math.round(Lh * 100) / 100,
+            lambdaA: Math.round(La * 100) / 100,
+            lambdaTotal: Math.round(L * 100) / 100
+        };
     }
     const Lh = avgH * attH * defA;
     const La = avgA * attA * defH;
