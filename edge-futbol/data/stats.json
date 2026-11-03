@@ -1,0 +1,612 @@
+{
+ "generadoEnUtc": "2026-11-03T12:30:59.651Z",
+ "fuente": "thesportsdb (clave publica)",
+ "minPartidos": 2,
+ "peticiones": 54,
+ "sinLiga": 4,
+ "sinDatos": 1,
+ "ligas": {
+  "4483": {
+   "nombre": "Copa del Rey",
+   "pais": "Spain",
+   "avgH": 1.8,
+   "avgA": 1.3,
+   "actualizadoEnUtc": "2026-11-03T12:28:15.267Z",
+   "equipos": {
+    "Atlético Calatayud": {
+     "gfH": 3,
+     "gaH": 4,
+     "nH": 2,
+     "gfA": 2,
+     "gaA": 4,
+     "nA": 2
+    }
+   }
+  },
+  "4513": {
+   "nombre": "Venezuela Primera Division",
+   "pais": "Venezuela",
+   "avgH": 1.233,
+   "avgA": 1.133,
+   "actualizadoEnUtc": "2026-11-03T12:22:02.047Z",
+   "equipos": {
+    "Deportivo Táchira": {
+     "gfH": 3,
+     "gaH": 1,
+     "nH": 2,
+     "gfA": 4,
+     "gaA": 2,
+     "nA": 2
+    },
+    "Anzoátegui": {
+     "gfH": 4,
+     "gaH": 4,
+     "nH": 2,
+     "gfA": 2,
+     "gaA": 4,
+     "nA": 2
+    },
+    "Metropolitanos": {
+     "gfH": 4,
+     "gaH": 3,
+     "nH": 2,
+     "gfA": 1,
+     "gaA": 2,
+     "nA": 2
+    },
+    "Carabobo": {
+     "gfH": 1,
+     "gaH": 0,
+     "nH": 3,
+     "gfA": 3,
+     "gaA": 1,
+     "nA": 2
+    },
+    "Portuguesa FC": {
+     "gfH": 2,
+     "gaH": 0,
+     "nH": 2,
+     "gfA": 0,
+     "gaA": 0,
+     "nA": 2
+    },
+    "Deportivo La Guaira": {
+     "gfH": 4,
+     "gaH": 2,
+     "nH": 2,
+     "gfA": 3,
+     "gaA": 3,
+     "nA": 2
+    },
+    "Monagas": {
+     "gfH": 2,
+     "gaH": 8,
+     "nH": 3,
+     "gfA": 0,
+     "gaA": 5,
+     "nA": 3
+    },
+    "Deportivo Rayo Zuliano": {
+     "gfH": 1,
+     "gaH": 2,
+     "nH": 2,
+     "gfA": 4,
+     "gaA": 4,
+     "nA": 2
+    },
+    "Zamora FC": {
+     "gfH": 5,
+     "gaH": 3,
+     "nH": 2,
+     "gfA": 1,
+     "gaA": 0,
+     "nA": 2
+    },
+    "Estudiantes de Mérida": {
+     "gfH": 4,
+     "gaH": 4,
+     "nH": 3,
+     "gfA": 3,
+     "gaA": 5,
+     "nA": 2
+    },
+    "Caracas": {
+     "gfH": 2,
+     "gaH": 1,
+     "nH": 2,
+     "gfA": 3,
+     "gaA": 3,
+     "nA": 2
+    },
+    "Universidad Central": {
+     "gfH": 3,
+     "gaH": 1,
+     "nH": 2,
+     "gfA": 5,
+     "gaA": 2,
+     "nA": 2
+    }
+   }
+  },
+  "4627": {
+   "nombre": "Chile Primera Division",
+   "pais": "Chile",
+   "avgH": 1.862,
+   "avgA": 0.828,
+   "actualizadoEnUtc": "2026-11-03T12:30:59.640Z",
+   "equipos": {
+    "Audax Italiano": {
+     "gfH": 7,
+     "gaH": 2,
+     "nH": 2,
+     "gfA": 1,
+     "gaA": 3,
+     "nA": 2
+    },
+    "Huachipato": {
+     "gfH": 6,
+     "gaH": 1,
+     "nH": 2,
+     "gfA": 0,
+     "gaA": 1,
+     "nA": 2
+    },
+    "Deportes Limache": {
+     "gfH": 4,
+     "gaH": 2,
+     "nH": 2,
+     "gfA": 2,
+     "gaA": 2,
+     "nA": 2
+    },
+    "Coquimbo Unido": {
+     "gfH": 4,
+     "gaH": 1,
+     "nH": 2,
+     "gfA": 3,
+     "gaA": 1,
+     "nA": 2
+    },
+    "Deportes La Serena": {
+     "gfH": 3,
+     "gaH": 5,
+     "nH": 2,
+     "gfA": 1,
+     "gaA": 4,
+     "nA": 2
+    },
+    "Universidad Católica": {
+     "gfH": 5,
+     "gaH": 1,
+     "nH": 2,
+     "gfA": 2,
+     "gaA": 3,
+     "nA": 2
+    },
+    "Palestino": {
+     "gfH": 3,
+     "gaH": 2,
+     "nH": 2,
+     "gfA": 4,
+     "gaA": 3,
+     "nA": 2
+    },
+    "Ñublense": {
+     "gfH": 2,
+     "gaH": 2,
+     "nH": 2,
+     "gfA": 1,
+     "gaA": 6,
+     "nA": 2
+    }
+   }
+  },
+  "4631": {
+   "nombre": "Czech First League",
+   "pais": "Czechia",
+   "avgH": 1.467,
+   "avgA": 1.567,
+   "actualizadoEnUtc": "2026-11-03T12:28:07.316Z",
+   "equipos": {
+    "Slovan Liberec": {
+     "gfH": 2,
+     "gaH": 2,
+     "nH": 2,
+     "gfA": 6,
+     "gaA": 4,
+     "nA": 2
+    },
+    "Zlín": {
+     "gfH": 1,
+     "gaH": 2,
+     "nH": 2,
+     "gfA": 4,
+     "gaA": 4,
+     "nA": 2
+    },
+    "Sparta Prague": {
+     "gfH": 6,
+     "gaH": 3,
+     "nH": 2,
+     "gfA": 2,
+     "gaA": 4,
+     "nA": 2
+    },
+    "Slavia Prague": {
+     "gfH": 7,
+     "gaH": 3,
+     "nH": 2,
+     "gfA": 6,
+     "gaA": 0,
+     "nA": 2
+    },
+    "Slovácko": {
+     "gfH": 1,
+     "gaH": 2,
+     "nH": 2,
+     "gfA": 2,
+     "gaA": 6,
+     "nA": 2
+    },
+    "Sigma Olomouc": {
+     "gfH": 2,
+     "gaH": 2,
+     "nH": 2,
+     "gfA": 2,
+     "gaA": 2,
+     "nA": 2
+    },
+    "Hradec Králové": {
+     "gfH": 3,
+     "gaH": 3,
+     "nH": 2,
+     "gfA": 2,
+     "gaA": 2,
+     "nA": 2
+    }
+   }
+  },
+  "4687": {
+   "nombre": "Paraguayan Primera Division",
+   "pais": "Paraguay",
+   "avgH": 1.533,
+   "avgA": 1.267,
+   "actualizadoEnUtc": "2026-11-03T12:22:18.222Z",
+   "equipos": {
+    "2 de Mayo": {
+     "gfH": 2,
+     "gaH": 3,
+     "nH": 3,
+     "gfA": 3,
+     "gaA": 5,
+     "nA": 2
+    },
+    "Sportivo Luqueño": {
+     "gfH": 3,
+     "gaH": 4,
+     "nH": 3,
+     "gfA": 2,
+     "gaA": 2,
+     "nA": 2
+    },
+    "Recoleta": {
+     "gfH": 1,
+     "gaH": 3,
+     "nH": 2,
+     "gfA": 5,
+     "gaA": 8,
+     "nA": 3
+    },
+    "Sportivo Trinidense": {
+     "gfH": 2,
+     "gaH": 2,
+     "nH": 3,
+     "gfA": 3,
+     "gaA": 3,
+     "nA": 2
+    },
+    "Cerro Porteño": {
+     "gfH": 6,
+     "gaH": 4,
+     "nH": 3,
+     "gfA": 5,
+     "gaA": 3,
+     "nA": 2
+    },
+    "Club Libertad": {
+     "gfH": 6,
+     "gaH": 2,
+     "nH": 2,
+     "gfA": 6,
+     "gaA": 3,
+     "nA": 3
+    },
+    "Club Nacional": {
+     "gfH": 6,
+     "gaH": 4,
+     "nH": 3,
+     "gfA": 3,
+     "gaA": 4,
+     "nA": 3
+    },
+    "Sportivo Ameliano": {
+     "gfH": 5,
+     "gaH": 4,
+     "nH": 3,
+     "gfA": 2,
+     "gaA": 2,
+     "nA": 2
+    },
+    "Club Olimpia": {
+     "gfH": 2,
+     "gaH": 2,
+     "nH": 2,
+     "gfA": 3,
+     "gaA": 3,
+     "nA": 2
+    },
+    "Club Guaraní": {
+     "gfH": 6,
+     "gaH": 1,
+     "nH": 2,
+     "gfA": 2,
+     "gaA": 2,
+     "nA": 3
+    }
+   }
+  },
+  "4688": {
+   "nombre": "Peruvian Primera Division",
+   "pais": "Peru",
+   "avgH": 1.833,
+   "avgA": 1.1,
+   "actualizadoEnUtc": "2026-11-03T12:25:08.399Z",
+   "equipos": {
+    "Universidad Técnica de Cajamarca": {
+     "gfH": 2,
+     "gaH": 4,
+     "nH": 2,
+     "gfA": 3,
+     "gaA": 5,
+     "nA": 2
+    },
+    "Atlético Grau": {
+     "gfH": 1,
+     "gaH": 0,
+     "nH": 2,
+     "gfA": 3,
+     "gaA": 6,
+     "nA": 2
+    },
+    "Alianza Lima": {
+     "gfH": 5,
+     "gaH": 1,
+     "nH": 2,
+     "gfA": 3,
+     "gaA": 4,
+     "nA": 2
+    },
+    "Cienciano": {
+     "gfH": 8,
+     "gaH": 3,
+     "nH": 2,
+     "gfA": 2,
+     "gaA": 5,
+     "nA": 2
+    },
+    "Universitario": {
+     "gfH": 5,
+     "gaH": 2,
+     "nH": 2,
+     "gfA": 2,
+     "gaA": 2,
+     "nA": 2
+    },
+    "Comerciantes Unidos": {
+     "gfH": 2,
+     "gaH": 1,
+     "nH": 2,
+     "gfA": 2,
+     "gaA": 4,
+     "nA": 2
+    }
+   }
+  },
+  "4753": {
+   "nombre": "Algerian Ligue 1",
+   "pais": "Algeria",
+   "avgH": 1.143,
+   "avgA": 0.679,
+   "actualizadoEnUtc": "2026-11-03T12:27:51.157Z",
+   "equipos": {
+    "ES Sétif": {
+     "gfH": 1,
+     "gaH": 2,
+     "nH": 2,
+     "gfA": 1,
+     "gaA": 2,
+     "nA": 2
+    },
+    "Olympique Akbou": {
+     "gfH": 2,
+     "gaH": 0,
+     "nH": 2,
+     "gfA": 2,
+     "gaA": 2,
+     "nA": 2
+    },
+    "MB Rouissat": {
+     "gfH": 3,
+     "gaH": 0,
+     "nH": 2,
+     "gfA": 2,
+     "gaA": 4,
+     "nA": 3
+    },
+    "ASO Chlef": {
+     "gfH": 4,
+     "gaH": 5,
+     "nH": 2,
+     "gfA": 0,
+     "gaA": 3,
+     "nA": 2
+    },
+    "CR Belouizdad": {
+     "gfH": 2,
+     "gaH": 0,
+     "nH": 2,
+     "gfA": 4,
+     "gaA": 3,
+     "nA": 2
+    }
+   }
+  },
+  "4815": {
+   "nombre": "Costa-Rica Liga FPD",
+   "pais": "Costa Rica",
+   "avgH": 1.345,
+   "avgA": 1.069,
+   "actualizadoEnUtc": "2026-11-03T12:25:00.423Z",
+   "equipos": {
+    "Herediano": {
+     "gfH": 3,
+     "gaH": 7,
+     "nH": 3,
+     "gfA": 2,
+     "gaA": 1,
+     "nA": 3
+    },
+    "Puntarenas": {
+     "gfH": 2,
+     "gaH": 5,
+     "nH": 3,
+     "gfA": 6,
+     "gaA": 6,
+     "nA": 3
+    },
+    "Deportivo Saprissa": {
+     "gfH": 9,
+     "gaH": 2,
+     "nH": 3,
+     "gfA": 3,
+     "gaA": 3,
+     "nA": 3
+    },
+    "Pérez Zeledón": {
+     "gfH": 3,
+     "gaH": 2,
+     "nH": 3,
+     "gfA": 3,
+     "gaA": 7,
+     "nA": 3
+    },
+    "Cartaginés": {
+     "gfH": 8,
+     "gaH": 2,
+     "nH": 3,
+     "gfA": 1,
+     "gaA": 2,
+     "nA": 3
+    },
+    "Alajuelense": {
+     "gfH": 3,
+     "gaH": 2,
+     "nH": 3,
+     "gfA": 6,
+     "gaA": 2,
+     "nA": 3
+    }
+   }
+  },
+  "4847": {
+   "nombre": "EFL Trophy",
+   "pais": "England",
+   "avgH": 2.133,
+   "avgA": 2.1,
+   "actualizadoEnUtc": "2026-11-03T12:30:48.524Z",
+   "equipos": {}
+  },
+  "4951": {
+   "nombre": "Colombian Torneo DIMAYOR",
+   "pais": "Colombia",
+   "avgH": 0.933,
+   "avgA": 0.867,
+   "actualizadoEnUtc": "2026-11-03T12:24:47.044Z",
+   "equipos": {}
+  },
+  "4965": {
+   "nombre": "Hungarian NB II",
+   "pais": "Hungary",
+   "avgH": 1.6,
+   "avgA": 1.067,
+   "actualizadoEnUtc": "2026-11-03T12:27:59.333Z",
+   "equipos": {
+    "Fehérvár": {
+     "gfH": 5,
+     "gaH": 3,
+     "nH": 3,
+     "gfA": 2,
+     "gaA": 4,
+     "nA": 2
+    },
+    "Tiszakécske": {
+     "gfH": 2,
+     "gaH": 2,
+     "nH": 2,
+     "gfA": 3,
+     "gaA": 1,
+     "nA": 2
+    },
+    "Csákvár": {
+     "gfH": 3,
+     "gaH": 2,
+     "nH": 2,
+     "gfA": 5,
+     "gaA": 4,
+     "nA": 2
+    },
+    "Soroksár": {
+     "gfH": 2,
+     "gaH": 1,
+     "nH": 2,
+     "gfA": 4,
+     "gaA": 5,
+     "nA": 2
+    },
+    "Karcag": {
+     "gfH": 5,
+     "gaH": 4,
+     "nH": 2,
+     "gfA": 0,
+     "gaA": 2,
+     "nA": 2
+    }
+   }
+  },
+  "5079": {
+   "nombre": "Brazil Serie D",
+   "pais": "Brazil",
+   "avgH": 1.333,
+   "avgA": 1,
+   "actualizadoEnUtc": "2026-11-03T12:22:10.236Z",
+   "equipos": {}
+  },
+  "5889": {
+   "nombre": "ASEAN Championship",
+   "pais": "International",
+   "avgH": 1.333,
+   "avgA": 2.333,
+   "actualizadoEnUtc": "2026-11-03T12:25:19.066Z",
+   "equipos": {
+    "Timor-Leste": {
+     "gfH": 3,
+     "gaH": 11,
+     "nH": 3,
+     "gfA": 3,
+     "gaA": 2,
+     "nA": 2
+    }
+   }
+  }
+ }
+}

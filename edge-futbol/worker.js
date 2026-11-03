@@ -39,7 +39,8 @@ import {
     filtrarPublicables, MARGEN_PUBLICACION_MIN,
     construirFixturesSinAnalisis, feedSinAnalisis, construirFeedNoticias,
     // combinadas por nivel de riesgo (bandas de cuota reales, sin inventar)
-    construirParlayRiesgo, BANDAS_RIESGO, esLigaTopPermitida
+    construirParlayRiesgo, BANDAS_RIESGO, esLigaTopPermitida,
+    veredictosDesdeEstadisticas
 } from './ratingbet_pipeline.js';
 import datasetLocal from './ratingbet_fixtures_data.js';
 
@@ -839,24 +840,39 @@ export default {
             try {
                 const abort = new AbortController();
                 const timeoutId = setTimeout(() => abort.abort(), 8000);
-                const resp = await fetch('https://raw.githubusercontent.com/jarmy90/bet365edge-quant/main/edge-futbol/data/stats.json', {
-                    signal: abort.signal,
-                    headers: { 'Cache-Control': 'no-store' }
-                });
+                // stats.json lo genera tools_build_stats.js (TheSportsDB) cada 6h
+                // y vive en la rama 'dataset' (junto a la captura) y en main.
+                const urls = [
+                    env.STATS_URL || null,
+                    'https://raw.githubusercontent.com/jarmy90/bet365edge-quant/dataset/edge-futbol/data/stats.json',
+                    'https://raw.githubusercontent.com/jarmy90/bet365edge-quant/main/edge-futbol/data/stats.json'
+                ].filter(Boolean);
+                let data = null, ultimoError = null;
+                for (const u of urls) {
+                    try {
+                        const resp = await fetch(u, { signal: abort.signal, headers: { 'Cache-Control': 'no-store' } });
+                        if (!resp.ok) { ultimoError = 'http-' + resp.status; continue; }
+                        const d = await resp.json();
+                        if (d && d.ligas && Object.keys(d.ligas).length) { data = d; break; }
+                        ultimoError = 'stats-vacio';
+                    } catch (e) { ultimoError = e.message || 'fetch'; }
+                }
                 clearTimeout(timeoutId);
-                if (!resp.ok) throw new Error('http-' + resp.status);
-                const data = await resp.json();
+                if (!data) throw new Error(ultimoError || 'sin-stats');
                 let mapa = [];
                 if (data && data.ligas) {
                     Object.entries(data.ligas).forEach(function ([id, lig]) {
                         if (!lig || !lig.equipos) return;
                         Object.entries(lig.equipos).forEach(function ([nombre, stats]) {
                             if (!stats || !Number.isFinite(stats.gfH) || !Number.isFinite(stats.gaH)) return;
+                            const avgH = Number(stats.avgH || lig.avgH || 0);
+                            const avgA = Number(stats.avgA || lig.avgA || 0);
+                            if (!(avgH > 0) || !(avgA > 0)) return;   // sin media de liga no hay Poisson
                             mapa.push({
                                 liga: id, nombre: nombre,
                                 gfH: Number(stats.gfH), gaH: Number(stats.gaH), nH: Number(stats.nH || 0),
                                 gfA: Number(stats.gfA), gaA: Number(stats.gaA), nA: Number(stats.nA || 0),
-                                avgH: Number(stats.avgH || 0), avgA: Number(stats.avgA || 0)
+                                avgH: avgH, avgA: avgA
                             });
                         });
                     });
@@ -873,11 +889,166 @@ export default {
                 return null;
             }
 }
+        // ---------------------------------------------------------------------
+        // STATS TheSportsDB (gratis, sin clave propia) para las ligas que
+        // football-data.org NO cubre (Venezuela, Paraguay, etc.: ratingbet
+        // publica sobre todo ligas menores). Presupuesto por ciclo de 6h:
+        // 1 req por pais + 1 por liga + 1 por temporada. Sin datos, el partido
+        // NO se publica (no se inventa nada).
+        // Devuelve [{liga,nombre,gfH,gaH,nH,gfA,gaA,nA,avgH,avgA}]
+        // ---------------------------------------------------------------------
+        const TSDB_BASE = 'https://www.thesportsdb.com/api/v1/json/123';
+        const TSDB_UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36';
+        const TSDB_IGNORAR = ['liga', 'league', 'division', 'divisions', 'de', 'del', 'la', 'el',
+            'the', 'soccer', 'football', 'campeonato', 'torneo', 'trophy'];
+        // Palabras que delatan una copa: nunca son la liga domestica del fixture.
+        const TSDB_COPA = ['copa', 'cup', 'supercopa', 'superliga', 'supercup', 'recopa', 'champions'];
+        const tsdbCache = { paises: {}, temporadas: {}, diag: null };
+
+        function tsdbTokens(s) {
+            return String(s || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+                .split(/[^a-z0-9]+/).filter(function (w) { return w.length >= 1 && TSDB_IGNORAR.indexOf(w) === -1; });
+        }
+        function tsdbPaisDeLiga(liga) {
+            const s = String(liga || '');
+            const i = s.indexOf(':');
+            const bruto = i > 0 ? s.slice(0, i) : s;
+            return bruto.trim().replace(/\s+/g, ' ');
+        }
+        function tsdbTokenIgual(a, b) {
+            if (a === b) return true;
+            const min = Math.min(a.length, b.length);
+            if (min < 4) return false;
+            return a.indexOf(b) === 0 || b.indexOf(a) === 0;
+        }
+        function tsdbCoincideLiga(nuestra, candidata) {
+            const a = tsdbTokens(nuestra), b = tsdbTokens(candidata);
+            if (!a.length || !b.length) return 0;
+            let comunes = 0;
+            a.forEach(function (t) { if (b.some(function (u) { return tsdbTokenIgual(t, u); })) comunes++; });
+            let p = comunes / Math.max(a.length, b.length);
+            const cCand = b.some(function (t) { return TSDB_COPA.indexOf(t) !== -1; });
+            const cNuestra = a.some(function (t) { return TSDB_COPA.indexOf(t) !== -1; });
+            if (cCand && !cNuestra) p = p * 0.2;
+            return p;
+        }
+        function tsdbTemporadaAnterior(temporada) {
+            const s = String(temporada || '').trim();
+            const m = s.match(/^(\d{4})-(\d{4})$/);
+            if (m) return (Number(m[1]) - 1) + '-' + (Number(m[2]) - 1);
+            if (/^\d{4}$/.test(s)) return String(Number(s) - 1);
+            return null;
+        }
+        async function tsdbGet(ruta) {
+            try {
+                const abort = new AbortController();
+                const tid = setTimeout(function () { abort.abort(); }, 8000);
+                const r = await fetch(TSDB_BASE + ruta, {
+                    signal: abort.signal,
+                    headers: { 'User-Agent': TSDB_UA, 'Accept': 'application/json' }
+                });
+                clearTimeout(tid);
+                if (!r.ok) return null;
+                return await r.json();
+            } catch (_) { return null; }
+        }
+        async function cargarStatsTheSportsDB(nowMs, candidatos, opts) {
+            const yaCubiertos = (opts && opts.mapa) || [];
+            const diag = { fuente: 'thesportsdb', ligas: [], temporadas: [], omitidas: [], equipos: 0 };
+            const pendientes = (candidatos || []).filter(function (c) {
+                return !buscarStatsEquipo(c.local, yaCubiertos) || !buscarStatsEquipo(c.visitante, yaCubiertos);
+            });
+            if (!pendientes.length) return [];
+            const porPais = {};
+            pendientes.forEach(function (c) {
+                const p = tsdbPaisDeLiga(c.liga);
+                if (!p) return;
+                const lg = String(c.liga || '').replace(/^[^:]*:\s*/, '');
+                porPais[p] = porPais[p] || {};
+                porPais[p][lg] = (porPais[p][lg] || 0) + 1;
+            });
+            const ligasElegidas = [];
+            for (const pais of Object.keys(porPais).slice(0, 5)) {
+                const clavePais = 'p:' + pais.toLowerCase();
+                let lista = tsdbCache.paises[clavePais];
+                if (!lista || Date.now() - lista.at > 24 * 60 * 60 * 1000) {
+                    const j = await tsdbGet('/search_all_leagues.php?c=' + encodeURIComponent(pais) + '&s=Soccer');
+                    lista = { at: Date.now(), ligas: (j && Array.isArray(j.countries)) ? j.countries : [] };
+                    tsdbCache.paises[clavePais] = lista;
+                    diag.ligas.push(pais + ':' + lista.ligas.length);
+                }
+                const nombres = Object.keys(porPais[pais]);
+                nombres.forEach(function (nombre) {
+                    let mejor = null, mejorP = 0;
+                    lista.ligas.forEach(function (L) {
+                        const p = tsdbCoincideLiga(nombre, L.strLeague);
+                        if (p > mejorP) { mejorP = p; mejor = L; }
+                    });
+                    if (mejor && mejorP >= 0.5) {
+                        if (!ligasElegidas.some(function (x) { return x.id === mejor.idLeague; })) {
+                            ligasElegidas.push({ id: mejor.idLeague, liga: mejor.strLeague, temporada: mejor.strCurrentSeason, fixtures: 0 });
+                        }
+                        diag.ligas.push(mejor.strLeague + '#' + mejor.idLeague);
+                    } else {
+                        diag.omitidas.push(nombre);
+                    }
+                });
+            }
+            if (!ligasElegidas.length) return [];
+            const mapa = [];
+            for (const L of ligasElegidas.slice(0, 6)) {
+                // Temporada actual + anterior: el tier gratuito devuelve ~15
+                // eventos por temporada, insuficiente para splits casa/fuera
+                // con 3 partidos por condicion. Con dos temporadas se llega.
+                const temporadas = [L.temporada];
+                const prev = tsdbTemporadaAnterior(L.temporada);
+                if (prev) temporadas.push(prev);
+                const eventos = [];
+                for (const t of temporadas) {
+                    const clave = 's:' + L.id + ':' + t;
+                    let cache = tsdbCache.temporadas[clave];
+                    if (!cache || Date.now() - cache.at > 6 * 60 * 60 * 1000) {
+                        const j = await tsdbGet('/eventsseason.php?id=' + L.id + '&s=' + encodeURIComponent(t || ''));
+                        cache = { at: Date.now(), eventos: (j && Array.isArray(j.events)) ? j.events : [] };
+                        tsdbCache.temporadas[clave] = cache;
+                    }
+                    diag.temporadas.push(L.liga + '@' + t + ':' + cache.eventos.length);
+                    eventos.forEach(function (e) { eventos.push(e); });
+                }
+                const agg = new Map();
+                let totCasa = 0, totFuera = 0, nEventos = 0;
+                eventos.forEach(function (e) {
+                    if (!e || e.strStatus !== 'FT' && e.strStatus !== 'AET' && e.strStatus !== 'PEN') return;
+                    const h = parseInt(e.intHomeScore, 10), a = parseInt(e.intAwayScore, 10);
+                    if (!Number.isFinite(h) || !Number.isFinite(a)) return;
+                    const casa = String(e.strHomeTeam || '').trim(), fuera = String(e.strAwayTeam || '').trim();
+                    if (!casa || !fuera) return;
+                    nEventos++; totCasa += h; totFuera += a;
+                    function acc(nombre) {
+                        if (!agg.has(nombre)) agg.set(nombre, { gfH: 0, gaH: 0, nH: 0, gfA: 0, gaA: 0, nA: 0 });
+                        return agg.get(nombre);
+                    }
+                    const ch = acc(casa); ch.gfH += h; ch.gaH += a; ch.nH += 1;
+                    const cf = acc(fuera); cf.gfA += a; cf.gaA += h; cf.nA += 1;
+                });
+                if (!nEventos) continue;
+                const avgH = totCasa / nEventos, avgA = totFuera / nEventos;
+                agg.forEach(function (s, nombre) {
+                    mapa.push({ liga: L.id, nombre: nombre, gfH: s.gfH, gaH: s.gaH, nH: s.nH,
+                        gfA: s.gfA, gaA: s.gaA, nA: s.nA, avgH: avgH, avgA: avgA });
+                });
+            }
+            diag.equipos = mapa.length;
+            tsdbCache.diag = diag;
+            return mapa;
+        }
+
         // Adjunta c.stats = {attH, defH, attA, defA, avgH, avgA, nH, nA, ...}
         // (fuerzas ya normalizadas vs media de liga) o null si algun equipo
         // tiene <3 partidos en su condicion. Devuelve cuantos candidatos
         // recibieron stats. Nunca lanza.
-        function adjuntarStatsACandidatos(candidatos, mapa) {
+        function adjuntarStatsACandidatos(candidatos, mapa, opts) {
+            const minPartidos = (opts && Number.isFinite(opts.minPartidos)) ? opts.minPartidos : 3;
             if (!Array.isArray(candidatos) || !Array.isArray(mapa) || !mapa.length) return 0;
             let n = 0;
             candidatos.forEach(function (c) {
@@ -905,7 +1076,7 @@ export default {
                     }
                     const eH = poolEquipoFD(c.local);
                     const eA = poolEquipoFD(c.visitante);
-                    if (!eH || !eA || eH.nH < 3 || eA.nA < 3) return;
+                    if (!eH || !eA || eH.nH < minPartidos || eA.nA < minPartidos) return;
                     if (!(eH.avgH > 0) || !(eA.avgA > 0)) return;
                     const attH = eH.gfH / eH.avgH, defH = eH.gaH / eH.avgH;
                     const attA = eA.gfA / eA.avgA, defA = eA.gaA / eA.avgA;
@@ -1161,8 +1332,18 @@ export default {
                         });
                     } catch (_) {}
                     const mapaStats = await cargarStatsFootballData(nowMs, idsFD.length ? { ligas: idsFD } : { ligas: [] });
-                    adjuntarStatsACandidatos(candidatos, mapaStats);
-                    try { diagFinal.diagStats = statsCache.diag || null; } catch (_) {}
+                    let adjuntos = adjuntarStatsACandidatos(candidatos, mapaStats);
+                    // Ligas menores (Venezuela, Paraguay...): football-data.org no
+                    // las cubre. Se completa con TheSportsDB (gratis, sin clave).
+                    if (!adjuntos) {
+                        const mapaTSDB = await cargarStatsTheSportsDB(nowMs, candidatos, { mapa: mapaStats || [] });
+                        if (mapaTSDB && mapaTSDB.length) adjuntos = adjuntarStatsACandidatos(candidatos, mapaTSDB, { minPartidos: 2 });
+                    }
+                    try {
+                        diagFinal.diagStats = Object.assign({ conStats: adjuntos, candidatos: candidatos.length },
+                            statsCache.diag || {}, tsdbCache.diag || {});
+                    } catch (_) {}
+                    diagFinal.diagStats.conStats = adjuntos;
                 } catch (_) { /* sin stats en este ciclo */ }
 
                 if (candidatos.length === 0) {
@@ -1455,12 +1636,32 @@ export default {
                 // Las columnas de edge y modelo quedan vacias (null / "-").
                 // La CACHE guarda la ventana amplia (200) para que la combinada
                 // barra mas alla de los 24 de la tabla; la respuesta sigue en 24.
-                pool = construirFixturesSinAnalisis(candidatos, nowMs, { max: 200 });
+                // -- 4. Sin IA: modelo Poisson con ESTADISTICAS REALES ------------
+                // Politica del producto: solo se publica lo que se puede calcular
+                // con datos reales (goles de los equipos). Un partido sin stats no
+                // se publica: no se inventa edge ni se disfraza la cuota de modelo.
+                const conStatsReales = (candidatos || []).filter(function (c) { return c && c.stats; });
+                if (conStatsReales.length === 0) {
+                    diagFinal.modoAnalisis = 'sin-estadisticas-reales';
+                    diagFinal.aviso = 'No se publica ningun partido: no hay estadisticas reales (goles de los equipos) para las ligas de esta captura. La web volvera a publicar en cuanto la fuente de estadisticas tenga datos.';
+                    analisisCache = { at: nowMs, pool: [], diag: diagFinal, key: cacheKey };
+                    return [];
+                }
+                const veredictosStats = veredictosDesdeEstadisticas(conStatsReales, nowMs);
+                const poolPoisson = aplicarVeredictos(conStatsReales, veredictosStats, nowMs);
                 const { publicables, resumen: rFiltrado2 } = filtrarPublicables(
-                    pool, nowMs, { margenMinutos: MARGEN_PUBLICACION_MIN, max: MAX_PUBLICADOS }
+                    poolPoisson, nowMs, { margenMinutos: MARGEN_PUBLICACION_MIN, max: MAX_PUBLICADOS }
                 );
                 diagFinal.diagFiltrado = rFiltrado2;
-                diagFinal.modoAnalisis = 'solo-cuotas-reales';
+                diagFinal.modoAnalisis = 'modelo-poisson-real';
+                // La cache guarda la ventana amplia para las combinadas.
+                pool = construirFixturesSinAnalisis(conStatsReales, nowMs, { max: 200 });
+                // El pool de combinadas debe llevar los picks Poisson, no el
+                // modo informativo: se fusionan ambos por clave.
+                const porClave = new Map();
+                poolPoisson.forEach(function (p) { porClave.set(p.clave, p); });
+                pool.forEach(function (p) { if (!porClave.has(p.clave)) porClave.set(p.clave, p); });
+                pool = Array.from(porClave.values());
                 analisisCache = { at: nowMs, pool: pool, diag: diagFinal, key: cacheKey };
                 return publicables;
             })();
@@ -1496,7 +1697,8 @@ export default {
                 frescura: frescuraDatos(),
                 diagnosticoFuente: getFixturesDiag(),
                 advertenciaTemporal: pool.length === 0
-                    ? "ADVERTENCIA: No hay partidos futuros disponibles en este momento. Los partidos mostrados anteriormente ya han comenzado o finalizado. Intente mas tarde."
+                    ? ((getFixturesDiag() && getFixturesDiag().aviso) ||
+                       "ADVERTENCIA: No hay partidos futuros disponibles en este momento. Los partidos mostrados anteriormente ya han comenzado o finalizado. Intente mas tarde.")
                     : null
             }), {
                 headers: {
@@ -1727,7 +1929,11 @@ export default {
                                 });
                             } catch (_) {}
                             const mapaStatsL = await cargarStatsFootballData(nowL, { ligas: idsFDL });
-                            adjuntarStatsACandidatos(realMatchesPool, mapaStatsL);
+                            let adjL = adjuntarStatsACandidatos(realMatchesPool, mapaStatsL);
+                            if (!adjL) {
+                                const mapaTSDBL = await cargarStatsTheSportsDB(nowL, realMatchesPool, { mapa: mapaStatsL || [] });
+                                if (mapaTSDBL && mapaTSDBL.length) adjuntarStatsACandidatos(realMatchesPool, mapaTSDBL, { minPartidos: 2 });
+                            }
                         } catch (_) {}
                     }
                 }
@@ -6021,4 +6227,10 @@ window.addEventListener("DOMContentLoaded",function(){
         });
     }
 };
+
+
+
+
+
+
 

@@ -1021,6 +1021,36 @@ export function seleccionDeFixture(f) {
 }
 // Construye la mejor combinada para un nivel de riesgo.
 // Criterio: dentro de la banda de cuota, MAXIMIZA la probabilidad combinada real.
+// -----------------------------------------------------------------------------
+// 7) MODELO DETERMINISTA DESDE ESTADISTICAS REALES (sin IA, sin tip, sin cuotas
+//    como probabilidad): convierte la seleccion Poisson de cada fixture con
+//    stats en "veredictos" para reutilizar aplicarVeredictos (que calcula el
+//    edge con las CUOTAS REALES). Si un fixture no tiene stats, no hay veredicto
+//    y por tanto NO se publica.
+// -----------------------------------------------------------------------------
+export function veredictosDesdeEstadisticas(candidatos, ahoraMs) {
+    const out = [];
+    (candidatos || []).forEach(function (c, i) {
+        if (!c || !c.stats) return;
+        const sel = seleccionDeFixture(c);
+        if (!sel || sel.probBase !== 'modelo-poisson') return;
+        const m = String(sel.mercado || '').match(/^(Over|Under)\s+(1\.5|2\.5)/i);
+        if (!m) return;
+        out.push({
+            clave: c.clave,
+            indice: i,
+            linea: m[2],
+            lado: m[1].toUpperCase(),
+            probModelo: sel.probPct,
+            confianzaIA: null,
+            justificacion: sel.justificacion,
+            factores: [],
+            noticiasUsadas: []
+        });
+    });
+    return out;
+}
+
 export function construirParlayRiesgo(pool, riskLevel, ahoraMs) {
     const nowMs = Number.isFinite(ahoraMs) ? ahoraMs : Date.now();
     const nivel = BANDAS_RIESGO[riskLevel] ? riskLevel : 'medio';
