@@ -1655,43 +1655,51 @@ export default {
                 // El modelo ciego-a-cuota cubre los que no tienen stats (usa solo
                 // las cuotas justas de ratingbet), asi nunca se queda vacio si hay
                 // datos de lineas.
-                const todosLosCandidatos = (candidatos || []).filter(function (c) {
-                    return c && c.lineas && c.lineas['1.5'] && c.lineas['2.5'] &&
-                        Number.isFinite(c.lineas['1.5'].cuotaOver) && c.lineas['1.5'].cuotaOver > 1 &&
-                        Number.isFinite(c.lineas['2.5'].cuotaOver) && c.lineas['2.5'].cuotaOver > 1;
-                });
-                const picksTodos = [];
-                todosLosCandidatos.forEach(function (c, i) {
-                    const pick = seleccionDeFixture(c);
-                    if (pick && Number.isFinite(pick.edgePuntos) && pick.edgePuntos > 0 &&
-                        (pick.probBase === 'modelo-ia' || pick.probBase === 'modelo-poisson' || pick.probBase === 'modelo-ciego-a-cuota')) {
-                        picksTodos.push(Object.assign({}, pick, { clave: c.clave, indice: i, kickoffMs: c.kickoffMs, lineas: c.lineas }));
-                    }
-                });
-                const { publicables, resumen: rFiltrado2 } = filtrarPublicables(
-                    picksTodos, nowMs, { margenMinutos: MARGEN_PUBLICACION_MIN, max: MAX_PUBLICADOS }
-                );
-                diagFinal.diagFiltrado = rFiltrado2;
-                diagFinal.modoAnalisis = 'modelo-poisson-real';
-                // La cache guarda la ventana amplia para las combinadas.
-                pool = picksTodos;
-                // Defensa en profundidad: descartar picks con edge absurdo
-                // (tip/veredicto incoherente con la cuota real del mercado).
-                pool = pool.map(function (c) {
-                    if (!c || !Number.isFinite(c.cuota) || c.cuota <= 1) return c;
-                    var pImp = 100 / c.cuota;
-                    if (c.probBase === 'modelo-ia' && Number.isFinite(c.modelProb) && Math.abs(c.modelProb - pImp) > 25) {
-                        c.modelProb = null; c.edgePuntos = null; c.probBase = null;
-                        c.edge = null; c.ev = null; c.evPct = null;
-                        c.justificacion = 'Descartado: tip incoherente con el precio de mercado.';
-                    }
-                    else if (Number.isFinite(c.edgePuntos) && c.edgePuntos > 15) {
-                        c.edgePuntos = 15;
-                    }
-                    return c;
-                });
-
-                return publicables;
+                                try {
+const todosLosCandidatos = (candidatos || []).filter(function (c) {
+                                    return c && c.lineas && c.lineas['1.5'] && c.lineas['2.5'] &&
+                                        Number.isFinite(c.lineas['1.5'].cuotaOver) && c.lineas['1.5'].cuotaOver > 1 &&
+                                        Number.isFinite(c.lineas['2.5'].cuotaOver) && c.lineas['2.5'].cuotaOver > 1;
+                                });
+                                const picksTodos = [];
+                                todosLosCandidatos.forEach(function (c, i) {
+                                    const pick = seleccionDeFixture(c);
+                                    if (pick && Number.isFinite(pick.edgePuntos) && pick.edgePuntos > 0 &&
+                                        (pick.probBase === 'modelo-ia' || pick.probBase === 'modelo-poisson' || pick.probBase === 'modelo-ciego-a-cuota')) {
+                                        picksTodos.push(Object.assign({}, pick, { clave: c.clave, indice: i, kickoffMs: c.kickoffMs, lineas: c.lineas }));
+                                    }
+                                });
+                                const { publicables, resumen: rFiltrado2 } = filtrarPublicables(
+                                    picksTodos, nowMs, { margenMinutos: MARGEN_PUBLICACION_MIN, max: MAX_PUBLICADOS }
+                                );
+                                diagFinal.diagFiltrado = rFiltrado2;
+                                diagFinal.modoAnalisis = 'modelo-poisson-real';
+                                // La cache guarda la ventana amplia para las combinadas.
+                                pool = picksTodos;
+                                // Defensa en profundidad: descartar picks con edge absurdo
+                                // (tip/veredicto incoherente con la cuota real del mercado).
+                                pool = pool.map(function (c) {
+                                    if (!c || !Number.isFinite(c.cuota) || c.cuota <= 1) return c;
+                                    var pImp = 100 / c.cuota;
+                                    if (c.probBase === 'modelo-ia' && Number.isFinite(c.modelProb) && Math.abs(c.modelProb - pImp) > 25) {
+                                        c.modelProb = null; c.edgePuntos = null; c.probBase = null;
+                                        c.edge = null; c.ev = null; c.evPct = null;
+                                        c.justificacion = 'Descartado: tip incoherente con el precio de mercado.';
+                                    }
+                                    else if (Number.isFinite(c.edgePuntos) && c.edgePuntos > 15) {
+                                        c.edgePuntos = 15;
+                                    }
+                                    return c;
+                                });
+                
+                                return publicables;
+                } catch (e) {
+                    diagFinal.modoAnalisis = 'error-analisis';
+                    diagFinal.aviso = 'Error interno de analisis: ' + String(e && e.message || e).slice(0, 200);
+                    console.error('[ANALYSIS-ERROR]', e && e.stack || e);
+                    analisisCache = { at: nowMs, pool: [], diag: diagFinal, key: cacheKey };
+                    return [];
+                }
             })();
 
             try { return await analisisInflight; } finally { analisisInflight = null; }

@@ -1012,9 +1012,13 @@ export function seleccionDeFixture(f) {
                 const pOver = pOverPorLinea[ln];
                 if (!l || !Number.isFinite(pOver)) return;
                 [[ 'OVER', l.cuotaOver, pOver ], [ 'UNDER', l.cuotaUnder, 100 - pOver ]].forEach(function (op) {
-                    const lado = op[0], cuota = op[1], prob = op[2];
+                    const lado = op[0], cuota = op[1];
+                    let prob = op[2];
                     if (!Number.isFinite(cuota) || cuota <= 1) return;
                     if (!Number.isFinite(prob) || prob < 1 || prob > 99.5) return;
+                    // Clamp de probabilidad para evitar edges absurdos cuando el Poisson
+                    // da valores extremos con pocas datos.
+                    prob = Math.min(90, Math.max(10, prob));
                     const edge = Math.round((cuota - (100 / prob)) * 1000) / 10;
                     if (!mejorP || edge > mejorP.edgePuntos) {
                         mejorP = { linea: ln, lado: lado, cuota: cuota,
