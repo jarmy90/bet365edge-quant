@@ -831,7 +831,7 @@ export default {
             let cached = memoriaCache[cacheKey];
             if (cached && Date.now() - cached.at < 6 * 60 * 60 * 1000) {
                 if (soloCache) return null;
-                if (pideLigas && Array.isArray(cached.mapa)) {
+                if (pideLigas && Array.isArray(cached.mapa) && cached.mapa.some(function (m) { return pideLigas.indexOf(m.liga) !== -1; })) {
                     cached.mapa = cached.mapa.filter(function (m) { return pideLigas.indexOf(m.liga) !== -1; });
                 }
                 return cached.mapa;
@@ -878,7 +878,7 @@ export default {
                     });
                 }
                 memoriaCache[cacheKey] = { at: Date.now(), mapa: mapa };
-                if (pideLigas && Array.isArray(mapa)) {
+                if (pideLigas && Array.isArray(mapa) && mapa.some(function (m) { return pideLigas.indexOf(m.liga) !== -1; })) {
                     mapa = mapa.filter(function (m) { return pideLigas.indexOf(m.liga) !== -1; });
                 }
                 return mapa;
@@ -1333,6 +1333,9 @@ export default {
                     } catch (_) {}
                     const mapaStats = await cargarStatsFootballData(nowMs, idsFD.length ? { ligas: idsFD } : { ligas: [] });
                     let adjuntos = adjuntarStatsACandidatos(candidatos, mapaStats);
+                    // stats.json (TheSportsDB) tiene pocas jornadas por equipo: si con 3 no
+                    // se adjunta nada, se reintenta con 2 antes de llamar a TSDB remoto.
+                    if (!adjuntos) adjuntos = adjuntarStatsACandidatos(candidatos, mapaStats, { minPartidos: 2 });
                     // Ligas menores (Venezuela, Paraguay...): football-data.org no
                     // las cubre. Se completa con TheSportsDB (gratis, sin clave).
                     if (!adjuntos) {
@@ -6227,6 +6230,7 @@ window.addEventListener("DOMContentLoaded",function(){
         });
     }
 };
+
 
 
 
