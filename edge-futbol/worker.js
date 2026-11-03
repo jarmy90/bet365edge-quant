@@ -1663,6 +1663,7 @@ export default {
                     var pImp = 100 / c.cuota;
                     if (Math.abs(c.modelProb - pImp) > 25) {
                         c.modelProb = null; c.edgePuntos = null; c.probBase = null;
+                        c.edge = null; c.ev = null; c.evPct = null;
                         c.justificacion = 'Descartado: tip incoherente con el precio de mercado.';
                     }
                     else if (Number.isFinite(c.edgePuntos) && c.edgePuntos > 15) {
@@ -1687,6 +1688,7 @@ export default {
                     var pImp = 100 / c.cuota;
                     if (Math.abs(c.modelProb - pImp) > 25) {
                         c.modelProb = null; c.edgePuntos = null; c.probBase = null;
+                        c.edge = null; c.ev = null; c.evPct = null;
                         c.justificacion = 'Descartado: tip incoherente con el precio de mercado.';
                     }
                     else if (Number.isFinite(c.edgePuntos) && c.edgePuntos > 15) {
