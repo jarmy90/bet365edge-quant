@@ -1,5 +1,5 @@
 {
-  "actualizadoEnUtc": "2026-11-03T23:05:32.837Z",
+  "actualizadoEnUtc": "2026-11-04T14:09:37.689Z",
   "nota": "Track-record de picks publicados (modelo-ia y modelo-poisson). Solo la primera publicacion de cada pick cuenta; sin-datos no entra en hit%/yield. Generado por edge-futbol/settle_results.js.",
   "picks": [
     {
@@ -241,10 +241,34 @@
         "profit": null,
         "settledEnUtc": null
       }
+    },
+    {
+      "id": "club-sport-herediano-vs-deportivo-saprissa|Over 2.5 Goles|05/11",
+      "partido": "Club Sport Herediano vs Deportivo Saprissa",
+      "local": "Club Sport Herediano",
+      "visitante": "Deportivo Saprissa",
+      "liga": "Costa Rica: Primera Division Costa Rica",
+      "mercado": "Over 2.5 Goles",
+      "linea": "2.5",
+      "lado": "OVER",
+      "cuota": 1.94,
+      "probModelo": 90,
+      "edgePuntos": 82.9,
+      "model": "modelo-poisson",
+      "banda": "destacado",
+      "publicadoEnUtc": "2026-11-04T14:09:37.689Z",
+      "kickoffMs": 1793908800000,
+      "result": {
+        "estado": "pendiente",
+        "golesLocal": null,
+        "golesVisitante": null,
+        "profit": null,
+        "settledEnUtc": null
+      }
     }
   ],
   "resumen": {
-    "n": 10,
+    "n": 11,
     "settled": 2,
     "ganados": 0,
     "hitPct": 0,
@@ -258,7 +282,7 @@
         "yieldPct": -100
       },
       "poisson": {
-        "n": 3,
+        "n": 4,
         "settled": 1,
         "ganados": 0,
         "hitPct": 0,
@@ -288,7 +312,7 @@
         "yieldPct": 0
       },
       "destacado": {
-        "n": 10,
+        "n": 11,
         "settled": 2,
         "ganados": 0,
         "hitPct": 0,
