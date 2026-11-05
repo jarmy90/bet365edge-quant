@@ -1,5 +1,5 @@
-﻿// BET365EDGE Quantitative Terminal & +EV Value Betting Engine
-// Live Stripe Checkout (25Ã¢â€šÂ¬ / mes) + 3 Risk Classification Levels + Real Data Pipeline
+// BET365EDGE Quantitative Terminal & +EV Value Betting Engine
+// Live Stripe Checkout (25â‚¬ / mes) + 3 Risk Classification Levels + Real Data Pipeline
 
 // =============================================================================
 // FUENTE DE DATOS v4: SCRAPER REAL DE RATINGBET.COM (1.5 + 2.5)
@@ -136,24 +136,24 @@ function paginaLegal() {
 }
 
 // =============================================================================
-// PÃGINA SEO DE GUÃA Y METODOLOGÃA (/guia | /como-funciona | /bot-apuestas)
+// PÁGINA SEO DE GUÍA Y METODOLOGÍA (/guia | /como-funciona | /bot-apuestas)
 // -----------------------------------------------------------------------------
-// Hub de Contenido SEO optimizado para posicionamiento orgÃ¡nico en Google y 
+// Hub de Contenido SEO optimizado para posicionamiento orgánico en Google y 
 // motores de IA (ChatGPT, Perplexity) sobre "bot bet365 y otras casas", 
-// "apuestas con ventaja (+EV)" y "algoritmos de fÃºtbol para goles".
+// "apuestas con ventaja (+EV)" y "algoritmos de fútbol para goles".
 // =============================================================================
 function paginaGuiaSeo() {
     return '<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8">'
         + '<meta name="viewport" content="width=device-width, initial-scale=1.0">'
         + '<meta name="robots" content="index, follow">'
-        + '<title>Bot de Apuestas de FÃºtbol y Cuotas con Ventaja (+EV) | GuÃ­a EDGE.FUTBOL</title>'
-        + '<meta name="description" content="GuÃ­a completa sobre cÃ³mo funciona el bot cuantitativo para bet365 y otras casas de apuestas. Aprende quÃ© es el valor esperado (+EV) y cÃ³mo calcular cuotas justas en mercados de goles.">'
+        + '<title>Bot de Apuestas de Fútbol y Cuotas con Ventaja (+EV) | Guía EDGE.FUTBOL</title>'
+        + '<meta name="description" content="Guía completa sobre cómo funciona el bot cuantitativo para bet365 y otras casas de apuestas. Aprende qué es el valor esperado (+EV) y cómo calcular cuotas justas en mercados de goles.">'
         + '<script type="application/ld+json">'
         + JSON.stringify({
             "@context": "https://schema.org",
             "@type": "Article",
-            "headline": "Bot de Apuestas de FÃºtbol y Cuotas con Ventaja (+EV)",
-            "description": "ExplicaciÃ³n detallada del modelo cuantitativo para evaluar partidos de fÃºtbol, calcular probabilidades reales de goles y comparar cuotas en bet365 y otras casas de apuestas.",
+            "headline": "Bot de Apuestas de Fútbol y Cuotas con Ventaja (+EV)",
+            "description": "Explicación detallada del modelo cuantitativo para evaluar partidos de fútbol, calcular probabilidades reales de goles y comparar cuotas en bet365 y otras casas de apuestas.",
             "author": { "@type": "Organization", "name": "EDGE.FUTBOL Quant" },
             "publisher": { "@type": "Organization", "name": "EDGE.FUTBOL Quant" }
         })
@@ -190,47 +190,47 @@ function paginaGuiaSeo() {
         + '<svg id="iconMoon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" display="none"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>'
         + '</button>'
         + '</div>'
-        + '<h1>Bot de Apuestas de FÃºtbol y CÃ¡lculo de Ventaja EstadÃ­stica (+EV)</h1>'
-        + '<p style="font-size:1.05rem;color:var(--text-secondary);">Aprende cÃ³mo operan los modelos cuantitativos autÃ³nomos para evaluar partidos de fÃºtbol en tiempo real, estimar probabilidades reales de goles y detectar cuotas desajustadas en <strong>bet365 y otras casas de apuestas</strong>.</p>'
+        + '<h1>Bot de Apuestas de Fútbol y Cálculo de Ventaja Estadística (+EV)</h1>'
+        + '<p style="font-size:1.05rem;color:var(--text-secondary);">Aprende cómo operan los modelos cuantitativos autónomos para evaluar partidos de fútbol en tiempo real, estimar probabilidades reales de goles y detectar cuotas desajustadas en <strong>bet365 y otras casas de apuestas</strong>.</p>'
 
         + '<div class="guide-card">'
-        + '<h2>1. Â¿QuÃ© es un Bot de Apuestas Cuantitativo?</h2>'
-        + '<p>Un bot de apuestas deportivas cuantitativo es un algoritmo informÃ¡tico que procesa millones de datos estadÃ­sticos por segundo sin sesgo emocional. A diferencia de las predicciones basadas en intuiciÃ³n, nuestro sistema calcula matemÃ¡ticamente la probabilidad real de que ocurra un evento (por ejemplo, que haya mÃ¡s de 1.5 o mÃ¡s de 2.5 goles en un partido).</p>'
-        + '<p>El bot analiza partidos de las principales ligas del mundo (LaLiga, Premier League, Serie A, Bundesliga, Champions League) evaluando variables como el rendimiento reciente, las mÃ©tricas de goles esperados (xG), las bajas confirmadas, la meteorologÃ­a y la evoluciÃ³n en directo de las cuotas.</p>'
+        + '<h2>1. ¿Qué es un Bot de Apuestas Cuantitativo?</h2>'
+        + '<p>Un bot de apuestas deportivas cuantitativo es un algoritmo informático que procesa millones de datos estadísticos por segundo sin sesgo emocional. A diferencia de las predicciones basadas en intuición, nuestro sistema calcula matemáticamente la probabilidad real de que ocurra un evento (por ejemplo, que haya más de 1.5 o más de 2.5 goles en un partido).</p>'
+        + '<p>El bot analiza partidos de las principales ligas del mundo (LaLiga, Premier League, Serie A, Bundesliga, Champions League) evaluando variables como el rendimiento reciente, las métricas de goles esperados (xG), las bajas confirmadas, la meteorología y la evolución en directo de las cuotas.</p>'
         + '</div>'
 
         + '<div class="guide-card">'
-        + '<h2>2. Â¿CÃ³mo evaluar cuotas en bet365 y otras casas de apuestas?</h2>'
-        + '<p>Las casas de apuestas pÃºblicas como <strong>bet365 y otras plataformas del mercado</strong> fijan sus cuotas aÃ±adiendo un margen de beneficio (operador o <em>margin</em>). El objetivo de nuestro algoritmo no es adivinar quiÃ©n gana, sino calcular la <strong>cuota justa pura</strong>.</p>'
-        + '<h3>Ejemplo prÃ¡ctico de Ventaja (+EV):</h3>'
+        + '<h2>2. ¿Cómo evaluar cuotas en bet365 y otras casas de apuestas?</h2>'
+        + '<p>Las casas de apuestas públicas como <strong>bet365 y otras plataformas del mercado</strong> fijan sus cuotas añadiendo un margen de beneficio (operador o <em>margin</em>). El objetivo de nuestro algoritmo no es adivinar quién gana, sino calcular la <strong>cuota justa pura</strong>.</p>'
+        + '<h3>Ejemplo práctico de Ventaja (+EV):</h3>'
         + '<ul>'
         + '<li><strong>Partido:</strong> Real Madrid vs Barcelona.</li>'
-        + '<li><strong>EstimaciÃ³n del Bot:</strong> La probabilidad real calculada para MÃ¡s de 2.5 goles es del <strong>65%</strong> (Cuota justa = 1.54).</li>'
-        + '<li><strong>Cuota disponible en la casa:</strong> <strong>1.80</strong> (Probabilidad implÃ­cita de la casa = 55.5%).</li>'
-        + '<li><strong>Resultado:</strong> Existe un desfase del <strong>+9.5% de ventaja matemÃ¡tica (+EV)</strong> a favor del apostador.</li>'
+        + '<li><strong>Estimación del Bot:</strong> La probabilidad real calculada para Más de 2.5 goles es del <strong>65%</strong> (Cuota justa = 1.54).</li>'
+        + '<li><strong>Cuota disponible en la casa:</strong> <strong>1.80</strong> (Probabilidad implícita de la casa = 55.5%).</li>'
+        + '<li><strong>Resultado:</strong> Existe un desfase del <strong>+9.5% de ventaja matemática (+EV)</strong> a favor del apostador.</li>'
         + '</ul>'
         + '</div>'
 
         + '<div class="guide-card">'
-        + '<h2>3. Mercados EspecÃ­ficos: MÃ¡s de 1.5 y MÃ¡s de 2.5 Goles</h2>'
+        + '<h2>3. Mercados Específicos: Más de 1.5 y Más de 2.5 Goles</h2>'
         + '<p>Elegimos enfocar el bot en los mercados de goles (Over/Under) por 3 razones cuantitativas:</p>'
         + '<ul>'
-        + '<li><strong>Mayor liquidez:</strong> Son de los mercados mÃ¡s negociados del mundo en bet365 y otros operadores.</li>'
-        + '<li><strong>Independencia del ganador:</strong> No importa quÃ© equipo marque o gane el partido, solo el total de goles.</li>'
-        + '<li><strong>Modelado mediante DistribuciÃ³n de Poisson:</strong> Permite calcular con alta precisiÃ³n matemÃ¡tica las probabilidades de frecuencia de goles segÃºn el ritmo de ataque y defensa de los equipos.</li>'
+        + '<li><strong>Mayor liquidez:</strong> Son de los mercados más negociados del mundo en bet365 y otros operadores.</li>'
+        + '<li><strong>Independencia del ganador:</strong> No importa qué equipo marque o gane el partido, solo el total de goles.</li>'
+        + '<li><strong>Modelado mediante Distribución de Poisson:</strong> Permite calcular con alta precisión matemática las probabilidades de frecuencia de goles según el ritmo de ataque y defensa de los equipos.</li>'
         + '</ul>'
         + '</div>'
 
         + '<div class="guide-card">'
         + '<h2>4. Preguntas Frecuentes sobre Bots y Apuestas con Ventaja</h2>'
         + '<h3>Â¿Se pueden usar estos datos en bet365 y cualquier otra casa de apuestas?</h3>'
-        + '<p>SÃ­. Las estimaciones de probabilidad son universales. Si el bot detecta valor en una cuota superior a 1.70, puedes comparar esa selecciÃ³n en bet365 o cualquier otra casa de apuestas autorizada en tu paÃ­s.</p>'
-        + '<h3>Â¿El bot ofrece apuestas con garantÃ­a de ganancia?</h3>'
-        + '<p>No. En la estadÃ­stica no existen las certezas absolutas al 100%. Apostar con ventaja (+EV) busca ganar margen a largo plazo superando la esperanza matemÃ¡tica, pero partidos individuales siempre tienen varianza. Recomendamos una gestiÃ³n de bankroll responsable.</p>'
+        + '<p>Sí. Las estimaciones de probabilidad son universales. Si el bot detecta valor en una cuota superior a 1.70, puedes comparar esa selección en bet365 o cualquier otra casa de apuestas autorizada en tu país.</p>'
+        + '<h3>¿El bot ofrece apuestas con garantía de ganancia?</h3>'
+        + '<p>No. En la estadística no existen las certezas absolutas al 100%. Apostar con ventaja (+EV) busca ganar margen a largo plazo superando la esperanza matemática, pero partidos individuales siempre tienen varianza. Recomendamos una gestión de bankroll responsable.</p>'
         + '</div>'
 
         + '<p style="margin-top:2.5rem;text-align:center;"><a href="/" style="background:var(--btn-bg);color:var(--btn-text);font-weight:800;padding:0.9rem 2rem;border-radius:12px;display:inline-block;">PROBAR EL BOT Y VER OPORTUNIDADES HOY</a></p>'
-        + '<p style="margin-top:2rem;color:var(--text-muted);font-size:0.8rem;text-align:center;">EDGE.FUTBOL Quant Â· Servicio independiente de anÃ¡lisis estadÃ­stico. No somos operador de juego.</p>'
+        + '<p style="margin-top:2rem;color:var(--text-muted);font-size:0.8rem;text-align:center;">EDGE.FUTBOL Quant · Servicio independiente de análisis estadístico. No somos operador de juego.</p>'
         + '</div>'
         + '<script>'
         + 'function toggleTheme(){var c=document.documentElement.getAttribute("data-theme")||"light";var n=c==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",n);localStorage.setItem("b365_theme",n);updateThemeIcons(n);}'
@@ -251,7 +251,7 @@ const DAHL_KEY_DEFAULT = '';
 const DAHL_KEY2_DEFAULT = '';
 const DAHL_ENDPOINT_DEFAULT = 'https://inference.dahl.global/v1/chat/completions';
 const DAHL_FINGERPRINT_DEFAULT = '6633ef04b88e26842bdf21e13d03a32a';
-// Claves gestionadas via wrangler.toml (env vars de Cloudflare) Ã¢â‚¬â€ NO embebidas en el codigo.
+// Claves gestionadas via wrangler.toml (env vars de Cloudflare) — NO embebidas en el codigo.
 // En Cloudflare Worker: env.GROQ_API_KEY, env.GROQ_API_KEY2, env.GEMINI_API_KEY, env.GEMINI_API_KEY2
 // En Vercel: variables de entorno del proyecto (Settings > Environment Variables)
 const GROQ_KEY1_DEFAULT = '';  // definida en wrangler.toml / Vercel env
@@ -264,7 +264,7 @@ const GROQ_MODELOS = ['llama-3.3-70b-versatile', 'llama-3.1-8b-instant', 'openai
 const GROQ_ENDPOINT = 'https://api.groq.com/openai/v1/chat/completions';
 const GEMINI_KEY1_DEFAULT = ''; // definida en wrangler.toml / Vercel env
 const GEMINI_KEY2_DEFAULT = ''; // definida en wrangler.toml / Vercel env
-// Ã¢Å¡Â ï¸ CORREGIDO: gemini-3.8-flash NO existe Ã¢â‚¬â€ modelo correcto es gemini-2.0-flash
+// CORREGIDO: gemini-3.8-flash NO existe --- modelo correcto es gemini-2.0-flash
 const GEMINI_MODEL_DEFAULT = 'gemini-2.0-flash';
 // Modelos de respaldo si el principal se retira o da 404 (no gastan cuota extra:
 // solo se intentan si el anterior falla).
@@ -372,7 +372,7 @@ export default {
         const stripePriceId = env.STRIPE_PRICE_ID || "";
 
         // =========================================================================
-        // 1. ENDPOINT: CREAR SESIÃ’N DE STRIPE CHECKOUT (25 Ã¢â€šÂ¬ / mes)
+        // 1. ENDPOINT: CREAR SESIÒN DE STRIPE CHECKOUT (25 â‚¬ / mes)
         // =========================================================================
         if (url.pathname === '/api/create-checkout-session' && request.method === 'POST') {
             try {
@@ -398,9 +398,9 @@ export default {
                     bodyParams.append('line_items[0][price]', stripePriceId);
                     bodyParams.append('line_items[0][quantity]', '1');
                 } else {
-                    // Fallback directo a price_data con 25Ã¢â€šÂ¬ mensual
+                    // Fallback directo a price_data con 25â‚¬ mensual
                     bodyParams.append('line_items[0][price_data][currency]', 'eur');
-                    bodyParams.append('line_items[0][price_data][product_data][name]', 'BET365EDGE - Acceso Cuotas +EV (30 DÃ­as)');
+                    bodyParams.append('line_items[0][price_data][product_data][name]', 'BET365EDGE - Acceso Cuotas +EV (30 Días)');
                     bodyParams.append('line_items[0][price_data][recurring][interval]', 'month');
                     bodyParams.append('line_items[0][price_data][unit_amount]', '2500');
                     bodyParams.append('line_items[0][quantity]', '1');
@@ -478,7 +478,7 @@ export default {
         if (url.pathname === '/api/webhook' && request.method === 'POST') {
             try {
                 const payload = await request.text();
-                // Nota: Para verificar la firma criptogrÃ¡fica se utiliza env.STRIPE_WEBHOOK_SECRET
+                // Nota: Para verificar la firma criptográfica se utiliza env.STRIPE_WEBHOOK_SECRET
                 // En Cloudflare Worker procesamos los eventos subscription / session
                 let event;
                 try {
@@ -491,10 +491,10 @@ export default {
                 if (event.type === 'checkout.session.completed') {
                     const session = event.data.object;
                     console.log(`[Stripe Webhook] Pago exitoso para cliente: ${session.customer_email || session.id}`);
-                    // AquÃ­ se almacena la expiraciÃ³n de 30 dÃ­as (+30d) en KV o Base de Datos
+                    // Aquí se almacena la expiración de 30 días (+30d) en KV o Base de Datos
                 } else if (event.type === 'invoice.paid') {
                     const invoice = event.data.object;
-                    console.log(`[Stripe Webhook] SuscripciÃ³n renovada para cliente: ${invoice.customer_email}`);
+                    console.log(`[Stripe Webhook] Suscripción renovada para cliente: ${invoice.customer_email}`);
                 }
 
                 return new Response(JSON.stringify({ received: true }), {
@@ -506,7 +506,7 @@ export default {
         }
 
         // =========================================================================
-        // 3. RUTA DE Ã‰XITO DE PAGO (/success) -> ACTIVA SESIÃ’N 30 DÃAS CON COOKIE
+        // 3. RUTA DE ÉXITO DE PAGO (/success) -> ACTIVA SESIÒN 30 DÍAS CON COOKIE
         // =========================================================================
         if (url.pathname === '/success') {
             const expDate = new Date();
@@ -532,14 +532,14 @@ export default {
 </head>
 <body>
     <div class="card">
-        <div style="font-size:3rem; margin-bottom:0.5rem;">Ã°Å¸Å½â€°</div>
+        <div style="font-size:3rem; margin-bottom:0.5rem;">ðŸŽ‰</div>
         <h2 style="font-size:1.6rem; font-weight:800; margin-bottom:0.5rem;">Â¡Acceso VIP Activado!</h2>
-        <p style="color:#94a3b8; font-size:0.92rem; line-height:1.5;">Tu pago de 25 Ã¢â€šÂ¬ ha sido confirmado por Stripe. Tienes acceso completo e ilimitado durante 30 dÃ­as al botÃ³n de Edge y a todas las combinadas por nivel de riesgo.</p>
+        <p style="color:#94a3b8; font-size:0.92rem; line-height:1.5;">Tu pago de 25 â‚¬ ha sido confirmado por Stripe. Tienes acceso completo e ilimitado durante 30 días al botón de Edge y a todas las combinadas por nivel de riesgo.</p>
         <div style="margin-top:1.2rem; padding:10px; background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.07); border-radius:10px; font-family:JetBrains Mono; font-size:0.8rem; color:#0df2a6;">
-            VÃ¡lido hasta: ${expDate.toLocaleDateString()}
+            Válido hasta: ${expDate.toLocaleDateString()}
         </div>
         <a href="/" class="btn">ACCEDER AL TERMINAL AHORA</a>
-        <div style="margin-top:10px; font-size:0.75rem; color:#64748b;">Guarda tu <b>session_id de Stripe</b> (cs_...) o tu email para entrar como cliente en otros dispositivos: boton "Ã°Å¸â€â€˜ Clave VIP / Autor".</div>
+        <div style="margin-top:10px; font-size:0.75rem; color:#64748b;">Guarda tu <b>session_id de Stripe</b> (cs_...) o tu email para entrar como cliente en otros dispositivos: boton "ðŸ”‘ Clave VIP / Autor".</div>
     </div>
     <script>
         localStorage.setItem('bet365edge_paid', 'true');
@@ -558,15 +558,15 @@ export default {
         }
 
         // =========================================================================
-        // 4. RUTA DE CANCELACIÃ’N DE PAGO (/cancel)
+        // 4. RUTA DE CANCELACIÒN DE PAGO (/cancel)
         // =========================================================================
         if (url.pathname === '/cancel') {
             return Response.redirect(`${url.origin}/?canceled=true`, 302);
         }
 
         // =========================================================================
-        // 5. MOTOR DE BÃšSQUEDA Y CLASIFICACIÃ’N CUANTITATIVA (3 NIVELES DE RIESGO)
-        // VALIDACIÃ’N TEMPORAL ESTRICTA: SOLO PARTIDOS FUTUROS (NO INICIADOS / NO PASADOS)
+        // 5. MOTOR DE BÚSQUEDA Y CLASIFICACIÒN CUANTITATIVA (3 NIVELES DE RIESGO)
+        // VALIDACIÒN TEMPORAL ESTRICTA: SOLO PARTIDOS FUTUROS (NO INICIADOS / NO PASADOS)
         // =========================================================================
         // =========================================================================
         // 5.0 VALIDACION TEMPORAL CRITICA (DIA + HORA REALES EN ZONA HORARIA DE ESPANA)
@@ -630,19 +630,19 @@ export default {
             return a.year === b.year && a.month === b.month && a.day === b.day;
         }
 
-        // Etiqueta de dia relativa REAL: "Hoy", "MaÃ±ana" o el dia de la semana (ej. "Vie")
+        // Etiqueta de dia relativa REAL: "Hoy", "Mañana" o el dia de la semana (ej. "Vie")
         function etiquetaDia(nowMs, targetMs) {
             const nowP = madridParts(nowMs);
             const tgtP = madridParts(targetMs);
             if (mismaFechaMadrid(nowP, tgtP)) return 'Hoy';
             const tmrMs = madridWallClockToUtcMs(nowP.year, nowP.month, nowP.day + 1, 12, 0);
-            if (mismaFechaMadrid(madridParts(tmrMs), tgtP)) return 'MaÃ±ana';
+            if (mismaFechaMadrid(madridParts(tmrMs), tgtP)) return 'Mañana';
             return diaSemanaEsShort(targetMs);
         }
 
         function ligaCorta(liga) {
             const parts = String(liga || '').split(':');
-            return parts.length === 2 ? (parts[1].trim() + ' Ã¢â‚¬Â¢ ' + parts[0].trim()) : String(liga || '').trim();
+            return parts.length === 2 ? (parts[1].trim() + ' • ' + parts[0].trim()) : String(liga || '').trim();
         }
 
         function buildTemporalMeta(nowMs) {
@@ -1395,14 +1395,14 @@ export default {
                     // 3c. Construir prompt
                     const { system, user } = construirPromptAnalisis(paraAnalisis, feedNoticias, nowMs);
 
-                    // 3d. Llamar al LLM Ã¢â‚¬â€ cadena multi-proveedor robusta (Groq x2 -> Gemini nativo x2 -> Dahl)
+                    // 3d. Llamar al LLM — cadena multi-proveedor robusta (Groq x2 -> Gemini nativo x2 -> Dahl)
                     const groqKey1 = env.GROQ_API_KEY || GROQ_KEY1_DEFAULT;
                     const groqKey2 = env.GROQ_API_KEY2 || GROQ_KEY2_DEFAULT;
                     const geminiKey1 = env.GEMINI_API_KEY || GEMINI_KEY1_DEFAULT;
                     const geminiKey2 = env.GEMINI_API_KEY2 || GEMINI_KEY2_DEFAULT;
                     const groqModel = env.GROQ_MODEL || GROQ_MODEL_DEFAULT;
                     const geminiModel = env.GEMINI_MODEL || GEMINI_MODEL_DEFAULT;
-                    // Claves adicionales para rotaciÃ³n extendida (v9.3: cada var acepta
+                    // Claves adicionales para rotación extendida (v9.3: cada var acepta
                     // lista separada por comas; splitKeys las expande a N intentos).
                     function splitKeys(v) {
                         return String(v || '').split(',').map(function (s) { return s.trim(); }).filter(Boolean);
@@ -1424,8 +1424,8 @@ export default {
                     const tokenharborKeys = splitKeys(tokenharborKey);
                     const nvidiaKeys = splitKeys(nvidiaKey);
 
-                    // Pipeline multi-proveedor extendido v9.3 Ã¢â‚¬â€ hasta ~20 intentos antes de fallback estadÃ­stico
-                    // Orden: rapidez + quota budget. Groq primero (mÃ¡s rÃ¡pido), luego Gemini nativo,
+                    // Pipeline multi-proveedor extendido v9.3 — hasta ~20 intentos antes de fallback estad�stico
+                    // Orden: rapidez + quota budget. Groq primero (más rápido), luego Gemini nativo,
                     // luego Omniroute xN, OpenRouter xN, TokenHarbor, Nvidia, Dahl xN.
                     const proveedoresAProbar = [
                         // 1-N. Groq Cloud: cada clave prueba los modelos vigentes.
@@ -1567,11 +1567,11 @@ export default {
                                     const gText = gData && gData.candidates && gData.candidates[0] &&
                                         gData.candidates[0].content && gData.candidates[0].content.parts &&
                                         gData.candidates[0].content.parts[0] ? gData.candidates[0].content.parts[0].text : null;
-                                    if (gText) { claveSana(claveDeProveedor(prov)); console.log('[AI-CHAIN] Ã¢Å“â€¦ Ã‰xito con ' + prov.label); proveedorGanador = prov.label; iaRaw = gText; break; }
+                                    if (gText) { claveSana(claveDeProveedor(prov)); console.log('[AI-CHAIN] âœ… Éxito con ' + prov.label); proveedorGanador = prov.label; iaRaw = gText; break; }
                                     marcarClave(claveDeProveedor(prov), 0);
                                 } else {
                                     claveSana(claveDeProveedor(prov));
-                                    console.log('[AI-CHAIN] Ã¢Å“â€¦ Ã‰xito con ' + prov.label);
+                                    console.log('[AI-CHAIN] âœ… Éxito con ' + prov.label);
                                     proveedorGanador = prov.label; iaRes = r; break;
                                 }
                             } else {
@@ -1581,18 +1581,18 @@ export default {
                                 marcarClave(claveDeProveedor(prov), r.status, retryAfter);
                                 intentosIA.push({ label: prov.label, model: prov.model, status: r.status });
                                 ultimoError = { status: r.status, label: prov.label, model: prov.model, endpoint: prov.endpoint, body: errBody };
-                                console.warn('[AI-CHAIN] Ã¢Å¡Â ï¸ ' + (prov.label || prov.model) + ' Ã¢â€ â€™ HTTP ' + r.status + ': ' + errBody.slice(0, 80) + ' [cuarentena]');
+console.warn('[AI-CHAIN] AVISO ' + (prov.label || prov.model) + ' HTTP ' + r.status + ': ' + errBody.slice(0, 80) + ' [cuarentena]');
                             }
                         } catch (e) {
                             intentosIA.push({ label: prov.label, model: prov.model, error: String(e && e.message || e).slice(0, 120) });
                             ultimoError = { error: e.message, label: prov.label, model: prov.model, endpoint: prov.endpoint };
-                            console.warn('[AI-CHAIN] Ã¢Å¡Â ï¸ ' + (prov.label || prov.model) + ' Ã¢â€ â€™ excepciÃ³n: ' + e.message);
+console.warn('[AI-CHAIN] AVISO ' + (prov.label || prov.model) + ' excepcion: ' + e.message);
                         }
                     }
                     if (!iaRes && !iaRaw) {
-                        console.error('[AI-CHAIN] Ã¢Å’ TODOS los proveedores fallaron (' + proveedoresAProbar.length + ' intentos). Usando fallback estadÃ­stico.');
+                        console.error('[AI-CHAIN] âŒ TODOS los proveedores fallaron (' + proveedoresAProbar.length + ' intentos). Usando fallback estadístico.');
                         diagFinal.diagIA = Object.assign(
-                            ultimoError || { error: 'NingÃºn proveedor de IA respondiÃ³' },
+                            ultimoError || { error: 'Ningún proveedor de IA respondió' },
                             { intentos: intentosIA }
                         );
                     } else {
@@ -1714,7 +1714,7 @@ const todosLosCandidatos = (candidatos || []).filter(function (c) {
         // Compatibilidad: fixturesCacheKey queda para no romper referencias legacy.
         function fixturesCacheKey() { return analisisCacheKey(); }
 
-        // LÃ’GICA DE GENERACIÃ’N DE COMBINADAS SEGÃšN NIVEL DE RIESGO
+        // LÒGICA DE GENERACIÒN DE COMBINADAS SEGÚN NIVEL DE RIESGO
         // 1. Riesgo Bajo: Cuota total < 2.00
         // 2. Riesgo Medio: Cuota total entre 2.00 y 3.00
         // 3. Riesgo Alto: Cuota total > 3.00
@@ -1815,11 +1815,11 @@ const todosLosCandidatos = (candidatos || []).filter(function (c) {
                 DAHL_KEYS: String(E.DAHL_API_KEY || '').split(',').filter(s => s.trim()).length
                     + String(E.DAHL_API_KEY2 || '').split(',').filter(s => s.trim()).length + ' clave(s)',
                 OMNIROUTE_API_URL: E.OMNIROUTE_API_URL
-                    ? 'Ã¢Å“â€œ Configurada (endpoint personalizado del agente)'
-                    : (E.OMNIRUTE_API_URL ? 'Ã¢Å“â€œ Configurada (via alias OMNIRUTE_API_URL)' : 'Ã¢Å“â€” FALTA (opcional: se usa el endpoint OpenRouter por defecto)'),
+                    ? 'âœ“ Configurada (endpoint personalizado del agente)'
+                    : (E.OMNIRUTE_API_URL ? 'âœ“ Configurada (via alias OMNIRUTE_API_URL)' : 'âœ— FALTA (opcional: se usa el endpoint OpenRouter por defecto)'),
                 STRIPE_SECRET_KEY: estadoDeClave('STRIPE_SECRET_KEY', E.STRIPE_SECRET_KEY),
                 FOOTBALL_DATA_API_KEY: estadoDeClave('FOOTBALL_DATA_API_KEY', E.FOOTBALL_DATA_API_KEY),
-                STRIPE_PRICE_ID: E.STRIPE_PRICE_ID ? 'Ã¢Å“â€œ Configurada' : 'Ã¢Å“â€” FALTA',
+                STRIPE_PRICE_ID: E.STRIPE_PRICE_ID ? 'âœ“ Configurada' : 'âœ— FALTA',
 
                 // --- Dataset del scraper (de donde salen partidos y cuotas) ---
                 RATINGBET_DATASET_URL: E.RATINGBET_DATASET_URL
@@ -1958,7 +1958,7 @@ const todosLosCandidatos = (candidatos || []).filter(function (c) {
                         const fl = filtrarPublicables((cl.candidatos || []).filter(esLigaTopPermitida), nowL, { margenMinutos: MARGEN_PUBLICACION_MIN, max: 200 });
                         realMatchesPool = fl.publicables || [];
                         // Stats Poisson: fetch acotado (solo ligas con candidatos,
-                        // paralelo, timeout 8s) Ã¢â‚¬â€ determinista y rapido, sin 504.
+                        // paralelo, timeout 8s) — determinista y rapido, sin 504.
                         try {
                             const idsFDL = [];
                             try {
@@ -2050,7 +2050,7 @@ const todosLosCandidatos = (candidatos || []).filter(function (c) {
         }
 
         // =========================================================================
-        // 6. FRONTEND 2026: UI TERMINAL CON BOTÃ’N SIN PRECIO + GATE 25Ã¢â€šÂ¬ + RIESGO
+        // 6. FRONTEND 2026: UI TERMINAL CON BOTÒN SIN PRECIO + GATE 25â‚¬ + RIESGO
         // =========================================================================
                 const INDEX_HTML = `
 <!DOCTYPE html>
@@ -2058,7 +2058,7 @@ const todosLosCandidatos = (candidatos || []).filter(function (c) {
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>EDGE.FUTBOL Quant | AnÃ¡lisis cuantitativo +EV</title>
+<title>EDGE.FUTBOL Quant | Análisis cuantitativo +EV</title>
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif; }
   body { background: #0b0f19; color: #eef2f7; min-height: 100vh; display: flex; flex-direction: column; align-items: center; padding: 2rem 1rem; }
@@ -2087,33 +2087,33 @@ const todosLosCandidatos = (candidatos || []).filter(function (c) {
 <body>
 <div class="header">
   <h1>EDGE.FUTBOL Quant</h1>
-  <p>AnÃ¡lisis cuantitativo +EV Â· Datos reales de ratingbet.com</p>
+  <p>Análisis cuantitativo +EV · Datos reales de ratingbet.com</p>
 </div>
 <button class="btn" id="btnRun" onclick="cargar()">Actualizar datos</button>
 
 <div class="card aviso" id="cardAviso">
   <span class="label">Estado</span>
-  <div id="txtAviso" class="value" style="color:#fca5a5;">Cargandoâ€¦</div>
+  <div id="txtAviso" class="value" style="color:#fca5a5;">Cargando…</div>
 </div>
 
 <div class="card visible" id="cardPartidos">
-  <span class="label">Partidos con anÃ¡lisis (modelo Poisson real)</span>
+  <span class="label">Partidos con análisis (modelo Poisson real)</span>
   <table><thead><tr><th>Partido</th><th>Liga</th><th>Mercado</th><th>Cuota</th><th>Prob. modelo</th><th>Edge</th></tr></thead><tbody id="tbPartidos"></tbody></table>
 </div>
 
 <div class="card combinada" id="cardCombinada">
   <span class="label">Combinada recomendada</span>
-  <div id="txtCombinada" class="value">â€”</div>
+  <div id="txtCombinada" class="value">—</div>
   <div id="detalleCombinada" style="color:#94a3b8; font-size:0.85rem; margin-top:0.3rem;"></div>
 </div>
 
-<div class="muted" id="txtFooter">EDGE.FUTBOL Quant Â· Servicio de informaciÃ³n estadÃ­stica. No garantiza resultados.</div>
+<div class="muted" id="txtFooter">EDGE.FUTBOL Quant · Servicio de información estadística. No garantiza resultados.</div>
 
 <script>
 const API = 'https://edge.futbol/api';
 async function cargar() {
   const btn = document.getElementById('btnRun');
-  btn.disabled = true; btn.textContent = 'Cargandoâ€¦';
+  btn.disabled = true; btn.textContent = 'Cargando…';
   try {
     const [f, p] = await Promise.all([
       fetch(API + '/fixtures-hoy?force=1').then(r => r.json()),
@@ -2158,14 +2158,14 @@ function render(f, p) {
   }
   if (nStats === 0) {
     cardAviso.style.display = 'block';
-    aviso.textContent = 'No hay partidos con estadÃ­sticas reales disponibles hoy.';
+    aviso.textContent = 'No hay partidos con estadísticas reales disponibles hoy.';
     cardCombinada.style.display = 'none';
     return;
   }
   if (p && p.estado && p.estado !== 'sin-combinada' && p.selecciones && p.selecciones.length > 0) {
     cardCombinada.style.display = 'block';
     txtCombinada.textContent = 'Cuota total ' + p.cuotaTotal.toFixed(2) + '  Â·  Edge +' + p.edgeTotalPct + '%';
-    det.textContent = p.selecciones.length + ' selecciÃ³n(es) Â· ' + p.nombreRiesgo;
+    det.textContent = p.selecciones.length + ' selección(es) · ' + p.nombreRiesgo;
   } else {
     cardCombinada.style.display = 'block';
     txtCombinada.textContent = 'Sin combinada hoy';
@@ -2487,9 +2487,9 @@ body{background:#08090d;color:#f1f5f9;font-family:'Inter',sans-serif;min-height:
 <div class="goal-toast" id="goalToast"></div>
 
 <script>
-// Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 //  LIVE MATCHES DATA
-// Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 var MATCHES=[
     {lg:"L1",home:"PSG",away:"Lyon",score:[2,1],min:67,live:true,ev:11.2,evDir:1},
     {lg:"L1",home:"Marseille",away:"Monaco",score:[0,0],min:43,live:true,ev:7.8,evDir:1},
@@ -2516,9 +2516,9 @@ var SOCIAL_POOL=[
     {av:"av2",name:"Lamine Yamal",team:"Barcelona",text:'"Sesion increible hoy &#9889; Listos"',plat:"plat-ig",platLbl:"IG",ai:"Confirmacion total disponibilidad. Barcelona fuera: Over 1.5 en 82% historico.",imp:"si-pos",impLbl:"EV +2.6%",delta:+2.6}
 ];
 
-// Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 //  EVENT POOL (what drives the EV)
-// Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 var EVENT_POOL=[
     {tag:"tag-baja",tagLbl:"BAJA",dot:"#ef4444",desc:"Sergio Leon (Valladolid) descartado por molestias musculares. Weissman asume el rol de 9.",delta:+1.2,type:"baja"},
     {tag:"tag-cuota",tagLbl:"CUOTA",dot:"#06b6d4",desc:"Over 1.5 Tenerife-Leganes cae de 1.44 a 1.41 en las casas. Flujo sharp detectado.",delta:+0.6,type:"cuota"},
@@ -2527,24 +2527,24 @@ var EVENT_POOL=[
     {tag:"tag-gol",tagLbl:"GOL LIVE",dot:"#10b981",desc:"GOOOL! Mbappe marca en PSG 2-1 Lyon (min.67). Over 2.5 confirmado en ese partido.",delta:+0.9,type:"gol",goal:"PSG 2-1 Lyon (Mbappe 67')"},
     {tag:"tag-cuota",tagLbl:"CUOTA",dot:"#06b6d4",desc:"Cuota Over 2.5 Inter-Napoli cae 1.85 a 1.71. EV aumenta significativamente.",delta:+0.8,type:"cuota"},
     {tag:"tag-baja",tagLbl:"BAJA",dot:"#ef4444",desc:"Lewandowski descartado para Bayern vs Dortmund. Baja de ultima hora confirmada.",delta:-0.8,type:"baja"},
-    {tag:"tag-gol",tagLbl:"GOL LIVE",dot:"#10b981",desc:"GOOOL! Inter amplÃ­a a 2-1 vs Napoli (min.71). Over 1.5 confirmado.",delta:+1.1,type:"gol",goal:"Inter 2-1 Napoli (min.71)"},
+    {tag:"tag-gol",tagLbl:"GOL LIVE",dot:"#10b981",desc:"GOOOL! Inter amplía a 2-1 vs Napoli (min.71). Over 1.5 confirmado.",delta:+1.1,type:"gol",goal:"Inter 2-1 Napoli (min.71)"},
     {tag:"tag-social",tagLbl:"SOCIAL",dot:"#8b5cf6",desc:"Twitter Bellingham: 'Ready for tomorrow'. IA detecta ALTA confianza, disponible 100%.",delta:+0.4,type:"social"},
     {tag:"tag-meteo",tagLbl:"METEO",dot:"#f59e0b",desc:"Lluvia fuerte Montevideo 88%. Campo pesado River vs Fenix. Ritmo -8%, corrige Edge -0.4%.",delta:-0.4,type:"meteo"},
     {tag:"tag-cuota",tagLbl:"CUOTA",dot:"#06b6d4",desc:"Man City vs Arsenal: Over 2.5 sube de 1.65 a 1.72 tras 1-1. Valor detectado.",delta:+0.7,type:"cuota"},
-    {tag:"tag-gol",tagLbl:"GOL LIVE",dot:"#10b981",desc:"GOOOL! Bayern amplÃ­a a 3-1 vs Dortmund (min.62). Over confirmado.",delta:+0.5,type:"gol",goal:"Bayern 3-1 Dortmund (min.62)"},
+    {tag:"tag-gol",tagLbl:"GOL LIVE",dot:"#10b981",desc:"GOOOL! Bayern amplía a 3-1 vs Dortmund (min.62). Over confirmado.",delta:+0.5,type:"gol",goal:"Bayern 3-1 Dortmund (min.62)"},
     {tag:"tag-social",tagLbl:"SOCIAL",dot:"#8b5cf6",desc:"Instagram Osimhen: 'still recovering'. ALERTA: jugador duda. Napoli sin referencia.",delta:-0.5,type:"social"},
-    {tag:"tag-baja",tagLbl:"BAJA",dot:"#ef4444",desc:"Tarin Garcia (Leganes) entrenÃ³ diferenciado. Decision pendiente en rueda de prensa.",delta:-0.3,type:"baja"},
+    {tag:"tag-baja",tagLbl:"BAJA",dot:"#ef4444",desc:"Tarin Garcia (Leganes) entrenó diferenciado. Decision pendiente en rueda de prensa.",delta:-0.3,type:"baja"},
     {tag:"tag-cuota",tagLbl:"CUOTA",dot:"#06b6d4",desc:"Movimiento sharp detectado: flujo institucional en Over 1.5 Valladolid. Cuota cae.",delta:+0.6,type:"cuota"},
-    {tag:"tag-gol",tagLbl:"GOL LIVE",dot:"#10b981",desc:"GOOOL! Leipzig 1-1 Frankfurt (min.80). Partido muy abierto Ã¢â‚¬â€ Over 2.5 posible.",delta:+0.6,type:"gol",goal:"Leipzig 1-1 Frankfurt (min.80)"},
+    {tag:"tag-gol",tagLbl:"GOL LIVE",dot:"#10b981",desc:"GOOOL! Leipzig 1-1 Frankfurt (min.80). Partido muy abierto — Over 2.5 posible.",delta:+0.6,type:"gol",goal:"Leipzig 1-1 Frankfurt (min.80)"},
     {tag:"tag-social",tagLbl:"SOCIAL",dot:"#8b5cf6",desc:"Twitter Haaland: '100 goles Premier. Siguiente: 101'. Racha 6 goles en 4 partidos.",delta:+0.9,type:"social"},
     {tag:"tag-meteo",tagLbl:"METEO",dot:"#f59e0b",desc:"Viento 32km/h en Valladolid previsto para 16:15h. Puede afectar juego aereo.",delta:-0.2,type:"meteo"},
     {tag:"tag-news",tagLbl:"NOTICIA",dot:"#6b7280",desc:"PSG confirma alineacion: Mbappe, Dembele y Asensio en el once. Ataque completo.",delta:+0.4,type:"news"},
     {tag:"tag-news",tagLbl:"NOTICIA",dot:"#6b7280",desc:"Tenerife confirma alineacion: Bermejo, Gallego y Aitor. Los 3 mas goleadores.",delta:+0.3,type:"news"}
 ];
 
-// Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 //  EV CHART SETUP
-// Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 var evData=[], evLabels=[], evChart, evIdx=0, evCurrent=12.5, logCount=0, goalCount=0;
 var socialIdx=0;
 
@@ -2617,9 +2617,9 @@ function pushEV(delta){
     setTimeout(function(){ke.style.color="var(--em)";ke.style.transform="scale(1)";},600);
 }
 
-// Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 //  EVENT LOG
-// Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 function addEvent(evt){
     var container=document.getElementById("logContainer");
     var div=document.createElement("div");
@@ -2663,9 +2663,9 @@ function addEvent(evt){
     }
 }
 
-// Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 //  GOAL TOAST
-// Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 function showGoalToast(text){
     var c=document.getElementById("goalToast");
     var t=document.createElement("div");
@@ -2679,9 +2679,9 @@ function showGoalToast(text){
     while(c.children.length>3) c.removeChild(c.lastChild);
 }
 
-// Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 //  SCORES
-// Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 function renderScores(){
     var g=document.getElementById("scoresList");
     g.innerHTML=MATCHES.map(function(m){
@@ -2700,9 +2700,9 @@ function renderScores(){
     }).join("");
 }
 
-// Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 //  WEATHER
-// Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 function renderWeather(){
     var g=document.getElementById("weatherList");
     g.innerHTML=WEATHER.map(function(w){
@@ -2716,9 +2716,9 @@ function renderWeather(){
     }).join("");
 }
 
-// Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 //  SOCIAL
-// Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 function renderSocial(){
     var g=document.getElementById("socialList");
     // show last 5 added
@@ -2746,9 +2746,9 @@ function addSocial(s){
     renderSocial();
 }
 
-// Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 //  CLOCK
-// Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 function updateClock(){
     var n=new Date();
     document.getElementById("clock").textContent=
@@ -2757,9 +2757,9 @@ function updateClock(){
         String(n.getSeconds()).padStart(2,"0");
 }
 
-// Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 //  LIVE MINUTES UPDATE
-// Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 var sec=0;
 function tick(){
     sec++;
@@ -2819,9 +2819,9 @@ function tick(){
     }
 }
 
-// Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 //  INIT
-// Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢Ã¢â€¢
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 window.addEventListener("DOMContentLoaded",function(){
     initChart();
     renderScores();
@@ -2838,12 +2838,12 @@ window.addEventListener("DOMContentLoaded",function(){
         (function(){
         var edgeHistory = [12.1, 12.4, 12.8, 13.2, 12.9, 13.5, 14.1, 13.8, 14.2, 14.8]; var timeLabels = ['19:35','19:36','19:37','19:38','19:39','19:40','19:41','19:42','19:43','19:44']; var homeChart = null;
         var LIVE_NEWS_POOL = [
-            { tag: 'Ã¢Å¡Â½ GOL EN DIRECTO', tagBg: 'rgba(13,242,166,0.15)', tagColor: '#0df2a6', title: 'Lautaro MartÃ­nez marca gol (Inter 1-0 Milan)', desc: 'xG real sube a 2.48. El Edge del mercado Over 2.5 salta +5.8%', time: 'Ahora mismo' },
-            { tag: 'Ã°Å¸Å’Â¦ï¸ CLIMA REAL', tagBg: 'rgba(0,212,255,0.15)', tagColor: '#00d4ff', title: 'Lluvia 88% sobre San Siro', desc: 'Lluvia fuerte 88%. Campo pesado: ritmo -8%, el Edge Over 2.5 corrige -0.4%', time: 'hace 1 min' },
-            { tag: 'Ã°Å¸Å¡Â¨ ALINEACIÃ’N', tagBg: 'rgba(245,158,11,0.15)', tagColor: '#f59e0b', title: 'Kylian MbappÃ© confirmado como titular en ataque', desc: 'Recuperado de molestias. Probabilidad de gol por partido +18.4%', time: 'hace 2 min' },
-            { tag: 'Ã°Å¸â€œÂ± POST JUGADOR', tagBg: 'rgba(139,92,246,0.15)', tagColor: '#8b5cf6', title: 'Post de Jude Bellingham (Instagram): "Focus on tonight Ã°Å¸â€™Â¥"', desc: 'IA de Sentimiento detecta moral de equipo mÃ¡xima (94.8%)', time: 'hace 3 min' },
-            { tag: 'Ã°Å¸â€œÅ  CUOTAS', tagBg: 'rgba(0,212,255,0.15)', tagColor: '#00d4ff', title: 'Cuota ajustada de 1.82 a 1.95 en bet365 y otras casas', desc: 'Desfase cuantitativo aislado por el modelo con mayor valor esperado (+EV)', time: 'hace 4 min' },
-            { tag: 'Ã°Å¸Â§Â  IA OMNIROUTE', tagBg: 'rgba(255,255,255,0.08)', tagColor: '#94a3b8', title: 'Procesados 240 artÃ­culos de prensa deportiva europea', desc: 'Tendencia estadÃ­stica Over 1.5/2.5 validada al 92.1%', time: 'hace 5 min' }
+            { tag: '⚽ GOL EN DIRECTO', tagBg: 'rgba(13,242,166,0.15)', tagColor: '#0df2a6', title: 'Lautaro Mart�nez marca gol (Inter 1-0 Milan)', desc: 'xG real sube a 2.48. El Edge del mercado Over 2.5 salta +5.8%', time: 'Ahora mismo' },
+            { tag: 'ðŸŒ¦️ CLIMA REAL', tagBg: 'rgba(0,212,255,0.15)', tagColor: '#00d4ff', title: 'Lluvia 88% sobre San Siro', desc: 'Lluvia fuerte 88%. Campo pesado: ritmo -8%, el Edge Over 2.5 corrige -0.4%', time: 'hace 1 min' },
+            { tag: 'ðŸš¨ ALINEACIÒN', tagBg: 'rgba(245,158,11,0.15)', tagColor: '#f59e0b', title: 'Kylian Mbappé confirmado como titular en ataque', desc: 'Recuperado de molestias. Probabilidad de gol por partido +18.4%', time: 'hace 2 min' },
+            { tag: 'ðŸ“± POST JUGADOR', tagBg: 'rgba(139,92,246,0.15)', tagColor: '#8b5cf6', title: 'Post de Jude Bellingham (Instagram): "Focus on tonight ðŸ’¥"', desc: 'IA de Sentimiento detecta moral de equipo máxima (94.8%)', time: 'hace 3 min' },
+            { tag: 'ðŸ“Š CUOTAS', tagBg: 'rgba(0,212,255,0.15)', tagColor: '#00d4ff', title: 'Cuota ajustada de 1.82 a 1.95 en bet365 y otras casas', desc: 'Desfase cuantitativo aislado por el modelo con mayor valor esperado (+EV)', time: 'hace 4 min' },
+            { tag: 'ðŸ§  IA OMNIROUTE', tagBg: 'rgba(255,255,255,0.08)', tagColor: '#94a3b8', title: 'Procesados 240 artículos de prensa deportiva europea', desc: 'Tendencia estadística Over 1.5/2.5 validada al 92.1%', time: 'hace 5 min' }
         ];
         var newsIdx = 0;
 
@@ -2931,7 +2931,7 @@ window.addEventListener("DOMContentLoaded",function(){
             // Dynamic peak reaction based on news event type
             var spike = (Math.random() - 0.42) * 0.9;
             if (item.tag.indexOf('GOL') !== -1) spike = (Math.random() * 1.5 + 1.1);
-            else if (item.tag.indexOf('ALINEACIÃ’N') !== -1) spike = (Math.random() * 1.1 + 0.4);
+            else if (item.tag.indexOf('ALINEACIÒN') !== -1) spike = (Math.random() * 1.1 + 0.4);
 
             if(homeChart) {
                 var lastVal = edgeHistory[edgeHistory.length - 1];
@@ -2976,16 +2976,16 @@ window.addEventListener("DOMContentLoaded",function(){
     <footer style="max-width:1400px; margin:2rem auto 1.5rem; padding:1.6rem 1rem 0; border-top:1px solid var(--border-subtle); font-size:0.78rem; color:var(--text-muted); line-height:1.7;">
         <div style="display:flex; flex-wrap:wrap; gap:14px; align-items:center; margin-bottom:12px;">
             <span style="font-weight:800; color:#f59e0b; border:1px solid rgba(245,158,11,0.5); border-radius:6px; padding:2px 8px;">+18</span>
-            <strong style="color:var(--text-secondary);">Solo para mayores de 18 aÃ±os</strong>
+            <strong style="color:var(--text-secondary);">Solo para mayores de 18 años</strong>
             <a href="/legal#aviso" style="color:var(--neon-cyan); text-decoration:none;">Aviso legal</a>
             <a href="/legal#privacidad" style="color:var(--neon-cyan); text-decoration:none;">Privacidad</a>
             <a href="/legal#cookies" style="color:var(--neon-cyan); text-decoration:none;">Cookies</a>
-            <a href="/legal#terminos" style="color:var(--neon-cyan); text-decoration:none;">TÃ©rminos de uso</a>
+            <a href="/legal#terminos" style="color:var(--neon-cyan); text-decoration:none;">Términos de uso</a>
             <a href="/legal#juego" style="color:var(--neon-cyan); text-decoration:none;">Juego responsable</a>
         </div>
-        <div>Esta web es un <strong>servicio de informaciÃ³n y anÃ¡lisis estadÃ­stico</strong>. <strong>No es un operador de juego</strong>: no acepta apuestas ni custodia dinero de jugadores. Las cuotas se recogen de fuentes pÃºblicas y pueden contener errores u omisiones; comprueba siempre el precio y las condiciones en la casa de apuestas antes de jugar. No garantizamos resultados ni ganancias.</div>
-        <div style="margin-top:8px;">Jugar conlleva riesgo de perder dinero. Si el juego es un problema para ti o para alguien de tu entorno, pide ayuda: <strong>900 200 225</strong> (FEJAR, atenciÃ³n 24 h) o visita <strong>jugarbien.es</strong>. Puedes solicitar tu autoexclusiÃ³n en el RGIAJ (OrdenaciÃ³n del Juego).</div>
-        <div style="margin-top:8px;">Titular: <strong>[PENDIENTE: nombre o razÃ³n social, NIF y domicilio]</strong> Â· Contacto: <strong>[PENDIENTE: correo de contacto]</strong></div>
+        <div>Esta web es un <strong>servicio de información y análisis estadístico</strong>. <strong>No es un operador de juego</strong>: no acepta apuestas ni custodia dinero de jugadores. Las cuotas se recogen de fuentes públicas y pueden contener errores u omisiones; comprueba siempre el precio y las condiciones en la casa de apuestas antes de jugar. No garantizamos resultados ni ganancias.</div>
+        <div style="margin-top:8px;">Jugar conlleva riesgo de perder dinero. Si el juego es un problema para ti o para alguien de tu entorno, pide ayuda: <strong>900 200 225</strong> (FEJAR, atención 24 h) o visita <strong>jugarbien.es</strong>. Puedes solicitar tu autoexclusión en el RGIAJ (Ordenación del Juego).</div>
+        <div style="margin-top:8px;">Titular: <strong>[PENDIENTE: nombre o razón social, NIF y domicilio]</strong> · Contacto: <strong>[PENDIENTE: correo de contacto]</strong></div>
     </footer>
 </body>
 </html>`;
@@ -2995,7 +2995,7 @@ window.addEventListener("DOMContentLoaded",function(){
         }
 
         // ---------------------------------------------------------------------
-        // PÃGINA DEDICADA DE GUÃA DE APUESTAS CON VENTAJA Y BOT (+EV SEO HUB)
+        // PÁGINA DEDICADA DE GUÍA DE APUESTAS CON VENTAJA Y BOT (+EV SEO HUB)
         // ---------------------------------------------------------------------
         if (url.pathname === '/guia' || url.pathname === '/como-funciona' || url.pathname === '/bot-apuestas') {
             return new Response(paginaGuiaSeo(), {

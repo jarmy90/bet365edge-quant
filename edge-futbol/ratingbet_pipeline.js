@@ -34,10 +34,10 @@ export const MARGEN_SEGURIDAD_MIN = 30;     // no publicar lo que empieza en < 3
 export const MAX_VENTANA_DIAS = 14;         // anti-fechas absurdas
 export const MAX_PUBLICADOS = 24;           // tope de fixtures en la tabla
 
-// Filtro mÃ­nimo: acepta TODO lo que ratingbet publica excepto partidos
+// Filtro mínimo: acepta TODO lo que ratingbet publica excepto partidos
 // irrelevantes (amistosos, reservas, sub-17/19/21, competiciones de islas
 // sin liquidez). El negocio es el edge sobre las cuotas reales de ratingbet,
-// no una selecciÃ³n de ligas.
+// no una selección de ligas.
 export const ALLOWED_LEAGUE_IDS = ['all-ratingbet'];
 
 export function esLigaTopPermitida(match) {
@@ -95,13 +95,13 @@ export function etiquetaDia(nowMs, targetMs) {
     const a = partesMadrid(nowMs), b = partesMadrid(targetMs);
     if (a.year === b.year && a.month === b.month && a.day === b.day) return 'Hoy';
     const manana = partesMadrid(nowMs + 86400000);
-    if (manana.year === b.year && manana.month === b.month && manana.day === b.day) return 'MaÃ±ana';
+    if (manana.year === b.year && manana.month === b.month && manana.day === b.day) return 'Mañana';
     return DIAS_ES[new Date(targetMs).getUTCDay()];
 }
 
 export function ligaCorta(liga) {
     const partes = String(liga || '').split(':');
-    return partes.length === 2 ? (partes[1].trim() + ' â€¢ ' + partes[0].trim()) : String(liga || '').trim();
+    return partes.length === 2 ? (partes[1].trim() + ' • ' + partes[0].trim()) : String(liga || '').trim();
 }
 
 // Normaliza cualquiera de los dos formatos de dataset que escriben las
@@ -245,7 +245,7 @@ export function construirCandidatos(dataset, nowMs, opts) {
     }
 
     // ---------------------------------------------------------------------------
-    // FRESCURA DEL DATASET: SEÃ‘AL, NO BLOQUEO
+    // FRESCURA DEL DATASET: SEÑAL, NO BLOQUEO
     // ---------------------------------------------------------------------------
     // La GARANTIA DE CORRECCION (nunca publicar un partido ya empezado) la da la
     // re-validacion POR PARTIDO en tiempo de peticion (MARGEN_PUBLICACION_MIN).
@@ -258,7 +258,7 @@ export function construirCandidatos(dataset, nowMs, opts) {
     //     siendo futuro, con AVISO auditable
     //   - sin marca de captura -> se bloquea (no se puede auditar la procedencia)
     if (capturaMs === null) {
-        // Sin marca de captura: aÃ±adir advertencia pero NO bloquear.
+        // Sin marca de captura: añadir advertencia pero NO bloquear.
         // La validacion por partido (kickoffMs > ahora) es la guardia real.
         diag.advertenciaDataset = 'Dataset sin marca de captura: no se puede auditar la procedencia. Conviene relanzar el scraper.';
     }
@@ -367,9 +367,9 @@ export function seleccionarParaAnalisis(candidatos, max) {
 // 3) PROMPT DE ANALISIS: la IA recibe la LISTA REAL y solo emite veredictos
 // -----------------------------------------------------------------------------
 export function construirPromptAnalisis(candidatos, feed, ahoraMs) {
-    // MODELO CIEGO: el LLM NO ve cuotas ni probabilidades implÃ­citas.
-    // Solo recibe identidad + quÃ© lÃ­neas existen, para que probModelo sea
-    // una estimaciÃ³n independiente (forma, xG, bajas, clima, localÃ­a, H2H).
+    // MODELO CIEGO: el LLM NO ve cuotas ni probabilidades implícitas.
+    // Solo recibe identidad + qué líneas existen, para que probModelo sea
+    // una estimación independiente (forma, xG, bajas, clima, localía, H2H).
     const lista = candidatos.map(function (c) {
         const lineasDisponibles = [];
         if (c.lineas['1.5']) lineasDisponibles.push('1.5');
@@ -405,17 +405,17 @@ export function construirPromptAnalisis(candidatos, feed, ahoraMs) {
     });
 
     // =========================================================================
-    // SYSTEM PROMPT â€” 8-pilar cuantitativo profesional
+    // SYSTEM PROMPT — 8-pilar cuantitativo profesional
     // =========================================================================
     const systemLines = [
         'IDENTIDAD: Eres QUANT-EDGE-7, modelo de prediccion deportiva de elite de un sindicato profesional de apuestas.',
         'Mision exclusiva: estimar la probabilidad REAL de Over/Under goles para cada partido, superando la eficiencia del mercado.',
         '',
         '============================================================',
-        'MARCO ANALITICO OBLIGATORIO â€” 8 PILARES:',
+        'MARCO ANALITICO OBLIGATORIO — 8 PILARES:',
         '============================================================',
         '',
-        'PILAR 1 â€” MODELO ESTADISTICO (base cuantitativa)',
+        'PILAR 1 — MODELO ESTADISTICO (base cuantitativa)',
         '  * Estima xG (expected goals) de cada equipo con datos historicos de la liga y temporada actual.',
         '  * Usa distribucion de Poisson bivariante: calcula P(total_goles >= 1.5) y P(total_goles >= 2.5).',
         '  * Considera: goles por partido (local y visitante por separado), tiros por 90 min,',
@@ -424,20 +424,20 @@ export function construirPromptAnalisis(candidatos, feed, ahoraMs) {
         '  * BMARKS historicos por liga: Premier 2.78 goles/partido, Bundesliga 3.10, LaLiga 2.60, Serie A 2.55,',
         '    Ligue 1 2.70, Eredivisie 3.20. Ajusta tu estimacion relativa al benchmark de la liga.',
         '',
-        'PILAR 2 â€” FORMA RECIENTE Y RACHAS',
+        'PILAR 2 — FORMA RECIENTE Y RACHAS',
         '  * Ultimos 5-10 partidos de CADA equipo: goles marcados y recibidos (no solo W/D/L).',
         '  * Racha Over/Under: cuantos de los ultimos 5 partidos tuvieron +2.5 goles.',
         '  * Momentum: equipo en racha goleadora (mas confianza, mas apertura) vs equipo en crisis defensiva.',
         '  * H2H (historial directo): Over 2.5 en X de los ultimos 10 enfrentamientos directos.',
         '  * Media de goles en los ultimos 5 H2H entre estos dos equipos concretos.',
         '',
-        'PILAR 3 â€” FACTOR LOCAL / VISITANTE',
+        'PILAR 3 — FACTOR LOCAL / VISITANTE',
         '  * El factor campo aporta ~+0.35 goles de media al local en ligas europeas.',
         '  * Distancia del desplazamiento del visitante: viajes intercontinentales o >1000km = fatiga significativa.',
         '  * Historial del local en casa (goles/partido como local) vs historial visitante fuera.',
         '  * Estadio grande con poca aficion = menos presion psicologica = partidos mas abiertos.',
         '',
-        'PILAR 4 â€” PLANTILLA, BAJAS Y LESIONES',
+        'PILAR 4 — PLANTILLA, BAJAS Y LESIONES',
         '  * Bajas en posiciones clave:',
         '    - Delantero goleador ausente: -0.4 a -0.6 xG estimado en el equipo atacante.',
         '    - Portero titular ausente: +0.3 a +0.5 xG estimado para el rival.',
@@ -446,10 +446,10 @@ export function construirPromptAnalisis(candidatos, feed, ahoraMs) {
         '  * Sancionados que no pueden jugar este partido.',
         '  * Usa el feed de noticias para detectar bajas confirmadas o alineaciones filtradas.',
         '',
-        'PILAR 5 â€” CONTEXTO TACTICO Y ENTRENADOR',
+        'PILAR 5 — CONTEXTO TACTICO Y ENTRENADOR',
         '  * Sistema tactico: 4-3-3 / 4-2-3-1 (ofensivo) vs 5-3-2 / 5-4-1 (defensivo).',
         '  * Pressing alto vs bloque bajo: el pressing alto genera mas transiciones y mas goles.',
-        '  * Cambio de entrenador reciente: "efecto nuevo mister" â€” mejoran en las primeras 5 jornadas.',
+        '  * Cambio de entrenador reciente: "efecto nuevo mister" — mejoran en las primeras 5 jornadas.',
         '  * Necesidad del resultado:',
         '    - Equipo que NECESITA ganar para no descender: sale mas abierto (+goles).',
         '    - Equipo lider comodo: puede jugar conservador (-goles).',
@@ -457,14 +457,14 @@ export function construirPromptAnalisis(candidatos, feed, ahoraMs) {
         '  * Derbis y rivalidades historicas: aumenta la tension, baja el ritmo, normalmente -0.3 goles.',
         '  * Congestion de calendario (3 partidos en 7 dias): mas rotaciones, mas errores = mas goles.',
         '',
-        'PILAR 6 â€” CONDICIONES METEOROLOGICAS',
+        'PILAR 6 — CONDICIONES METEOROLOGICAS',
         '  * Lluvia intensa (>10mm): terreno pesado, menos tiros precisos, -0.4 goles/partido de media.',
         '  * Viento fuerte (>40 km/h): dificulta centros y balones largos, perjudica equipos con juego aereo.',
         '  * Calor extremo (>30C en verano): fatiga desde minuto 60-70, ritmo baja en 2a parte.',
         '  * Frio intenso (<3C en invierno): campo duro, mas lesiones, juego mas fisico = menos fluidez.',
         '  * Si no tienes datos de clima, infiere por la geografia (Escandinavia en sep = frio/lluvia; Espana sep = calor).',
         '',
-        'PILAR 7 â€” TEMPORADA, FICHAJES Y CALENDARIO',
+        'PILAR 7 — TEMPORADA, FICHAJES Y CALENDARIO',
         '  * Inicio de temporada (agosto-septiembre): los equipos con muchos fichajes nuevos tienen menos cohesion.',
         '    El tiempo de integracion de un nuevo jugador clave es ~8-10 partidos.',
         '  * Mercado de transferencias: equipo que vende su goleador en verano pierde potencial ofensivo.',
@@ -472,13 +472,13 @@ export function construirPromptAnalisis(candidatos, feed, ahoraMs) {
         '  * Posicion en la tabla y objetivos: equipo en zona Champions juega para ganar; en zona descenso, a no perder.',
         '  * Segunda vuelta vs primera vuelta: los patrones cambian, los equipos se conocen mejor.',
         '',
-        'PILAR 8 â€” CONTEXTO EXTERNO (SOLO SI EL FEED LO MENCIONA)',
+        'PILAR 8 — CONTEXTO EXTERNO (SOLO SI EL FEED LO MENCIONA)',
         '  * Usa el feed de noticias para rumores, bajas de ultima hora o alineaciones filtradas.',
         '  * NO ves las cuotas del mercado: no analices movimientos de cuotas ni dinero apostado.',
         '  * Si el feed no menciona un partido, basate solo en los pilares 1-7.',
         '',
         '============================================================',
-        'REGLAS DE ORO â€” OBLIGATORIAS SIN EXCEPCION:',
+        'REGLAS DE ORO — OBLIGATORIAS SIN EXCEPCION:',
         '============================================================',
         'REGLA 1: Solo emites veredictos sobre claves EXACTAS de la lista recibida. NUNCA inventas partidos.',
         'REGLA 2: "probModelo" es tu estimacion independiente (0-99.5). NO ves las cuotas del mercado.',
@@ -496,7 +496,7 @@ export function construirPromptAnalisis(candidatos, feed, ahoraMs) {
         '         Correcto: "xG combinado 3.2, Over 2.5 en 7/10 H2H, sin portero titular rival, entrenador 4-3-3 ofensivo, racha 4 seguidos".',
         '         INCORRECTO: "equipo en buen momento" o "se esperan goles".',
         '',
-        'FORMATO DE SALIDA â€” EXCLUSIVAMENTE JSON VALIDO (sin texto adicional, sin bloques de codigo):',
+        'FORMATO DE SALIDA — EXCLUSIVAMENTE JSON VALIDO (sin texto adicional, sin bloques de codigo):',
         '{"veredictos":[{"clave":"string","linea":"1.5|2.5","lado":"OVER|UNDER","probModelo":74.8,',
         '"confianza":"ALTA|MEDIA-ALTA|MEDIA","justificacion":"string concreto y cuantitativo",',
         '"factores":["factor1","factor2"],"noticiasUsadas":["fuente: titular si existe"]}],',
@@ -656,7 +656,7 @@ export function aplicarVeredictos(candidatos, veredictos, ahoraMs) {
         const pCasa = probImplicita(cuota);
         const pJusta = probJusta(cuota, cuotaContraria);
         const evPct = entrada.ev * 100;
-        // ConvenciÃ³n del cliente: edge por pick = (cuotaCasa - cuotaModelo) * 100,
+        // Convención del cliente: edge por pick = (cuotaCasa - cuotaModelo) * 100,
         // con cuotaModelo = 100 / probModelo. Positivo = valor.
         const cuotaModelo = (Number.isFinite(v.probModelo) && v.probModelo > 0) ? (100 / v.probModelo) : null;
         const edgePuntos = (cuotaModelo === null || cuotaModelo <= 1 || !Number.isFinite(cuota) || cuota <= 1)
@@ -862,7 +862,7 @@ export function construirFixturesSinAnalisis(candidatos, nowMs, opts) {
 export const BANDAS_RIESGO = {
     bajo: { nombre: 'RIESGO BAJO', icono: 'ðŸ›¡ï¸', descripcion: 'Cuota total < 2.00',
             min: 1.01, max: 2.00, minExclusivo: false, maxExclusivo: true, tamanos: [2, 3, 4] },
-    medio: { nombre: 'RIESGO MEDIO', icono: 'âš¡', descripcion: 'Cuota total 2.00 - 3.00',
+    medio: { nombre: 'RIESGO MEDIO', icono: '⚡', descripcion: 'Cuota total 2.00 - 3.00',
             min: 2.00, max: 3.00, minExclusivo: false, maxExclusivo: false, tamanos: [2, 3] },
     alto: { nombre: 'RIESGO ALTO', icono: 'ðŸš€', descripcion: 'Cuota total > 3.00',
             min: 3.00, max: 15.00, minExclusivo: true, maxExclusivo: false, tamanos: [3, 4] }
@@ -919,8 +919,8 @@ export function modeloPoisson(stats) {
         const sDA = 1 + (defA - 1) * wA;
         const Lh = avgH * sH * sDA;
         const La = avgA * sA * sD;
-        // Clamp de lambda total a un rango futbolÃ­sticamente creÃ­ble para evitar
-        // edges imposibles cuando la muestra es pequeÃ±a.
+        // Clamp de lambda total a un rango futbolísticamente creíble para evitar
+        // edges imposibles cuando la muestra es pequeña.
         let L = Lh + La;
         if (L < 0.6) L = 0.6;
         if (L > 5.5) L = 5.5;
@@ -949,9 +949,9 @@ export function modeloPoisson(stats) {
     };
 }
 // -----------------------------------------------------------------------------
-// Modelo ciego a cuota: ajusta un lambda de Poisson a las DOS lÃ­neas (1.5 y 2.5)
+// Modelo ciego a cuota: ajusta un lambda de Poisson a las DOS líneas (1.5 y 2.5)
 // usando SOLO las probabilidades justas de ratingbet (pOverJusta / pUnderJusta).
-// Si las dos lÃ­neas son inconsistentes entre sÃ­, aparece edge real sin inventar
+// Si las dos líneas son inconsistentes entre sí, aparece edge real sin inventar
 // nada. Devuelve lambda o null si no se puede resolver.
 // -----------------------------------------------------------------------------
 function pOver15FromLambda(L) { return 1 - Math.exp(-L) * (1 + L); }
@@ -1039,10 +1039,10 @@ export function seleccionDeFixture(f) {
             }
         }
     }
-    // 1c) Modelo ciego a cuota: ajusta Poisson a las DOS lÃ­neas de ratingbet
-    //     usando SOLO las probabilidades justas (pOverJusta). Si las dos lÃ­neas
-    //     son inconsistentes entre sÃ­, aparece edge real sin inventar nada.
-    //     Requiere pOverJusta de ambas lÃ­neas y que sean consistentes.
+    // 1c) Modelo ciego a cuota: ajusta Poisson a las DOS líneas de ratingbet
+    //     usando SOLO las probabilidades justas (pOverJusta). Si las dos líneas
+    //     son inconsistentes entre sí, aparece edge real sin inventar nada.
+    //     Requiere pOverJusta de ambas líneas y que sean consistentes.
     const c15 = f.lineas && f.lineas['1.5'];
     const c25 = f.lineas && f.lineas['2.5'];
     if (c15 && c25 && Number.isFinite(c15.pOverJusta) && Number.isFinite(c25.pOverJusta)) {
@@ -1072,7 +1072,7 @@ export function seleccionDeFixture(f) {
                 if (!l) return;
                 const pModelo = ln === '1.5' ? p15Modelo : p25Modelo;
                 evalLinea(ln, pModelo, l.cuotaOver, l.cuotaUnder).forEach(function (c) {
-                    // Guardia: edge realista (no absurdo) y probabilidad creÃ­ble
+                    // Guardia: edge realista (no absurdo) y probabilidad creíble
                     if (c.edgePuntos > 1 && c.edgePuntos <= 15 && c.prob > 10 && c.prob < 90) {
                         if (!mejorCiego || c.edgePuntos > mejorCiego.edgePuntos) mejorCiego = c;
                     }
@@ -1245,7 +1245,7 @@ export function construirParlayRiesgo(pool, riskLevel, ahoraMs) {
     const n = corta.length;
 
     // 2) busqueda combinatoria acotada: MAXIMIZA edgeTotal dentro de la banda.
-    // ConvenciÃ³n del cliente: edgeTotal = (cuotaBoosted - cuotaModeloTotal) * 100,
+    // Convención del cliente: edgeTotal = (cuotaBoosted - cuotaModeloTotal) * 100,
     // cuotaBoosted = cuotaTotal * (1 + boost/100), cuotaModeloTotal = prod(100/probPct).
     // Solo hay combinada publicable ('ok') si edgeTotal > 0.
     let mejor = null;
@@ -1356,7 +1356,7 @@ export function construirParlayRiesgo(pool, riskLevel, ahoraMs) {
     base.probabilidadReal = mejor.pReal;
     base.probabilidadCasa = mejor.pCasa;
     base.cuotaModeloTotal = mejor.cuotaModeloTotal;
-    // EdgeTotal por convenciÃ³n del cliente: (cuotaBoosted - cuotaModeloTotal) * 100.
+    // EdgeTotal por convención del cliente: (cuotaBoosted - cuotaModeloTotal) * 100.
     const boost = comboBoostPct();
     const cuotaBoosted = mejor.cuotaBoosted;
     base.cuotaTotalBoosted = cuotaBoosted;
