@@ -223,7 +223,7 @@ function paginaGuiaSeo() {
 
         + '<div class="guide-card">'
         + '<h2>4. Preguntas Frecuentes sobre Bots y Apuestas con Ventaja</h2>'
-        + '<h3>Â¿Se pueden usar estos datos en bet365 y cualquier otra casa de apuestas?</h3>'
+        + '<h3>¿Se pueden usar estos datos en bet365 y cualquier otra casa de apuestas?</h3>'
         + '<p>Sí. Las estimaciones de probabilidad son universales. Si el bot detecta valor en una cuota superior a 1.70, puedes comparar esa selección en bet365 o cualquier otra casa de apuestas autorizada en tu país.</p>'
         + '<h3>¿El bot ofrece apuestas con garantía de ganancia?</h3>'
         + '<p>No. En la estadística no existen las certezas absolutas al 100%. Apostar con ventaja (+EV) busca ganar margen a largo plazo superando la esperanza matemática, pero partidos individuales siempre tienen varianza. Recomendamos una gestión de bankroll responsable.</p>'
@@ -518,7 +518,7 @@ export default {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Â¡Pago Completado! | BET365EDGE</title>
+    <title>¡Pago Completado! | BET365EDGE</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&family=JetBrains+Mono:wght@700&display=swap" rel="stylesheet">
     <style>
@@ -533,7 +533,7 @@ export default {
 <body>
     <div class="card">
         <div style="font-size:3rem; margin-bottom:0.5rem;">ðŸŽ‰</div>
-        <h2 style="font-size:1.6rem; font-weight:800; margin-bottom:0.5rem;">Â¡Acceso VIP Activado!</h2>
+        <h2 style="font-size:1.6rem; font-weight:800; margin-bottom:0.5rem;">¡Acceso VIP Activado!</h2>
         <p style="color:#94a3b8; font-size:0.92rem; line-height:1.5;">Tu pago de 25 â‚¬ ha sido confirmado por Stripe. Tienes acceso completo e ilimitado durante 30 días al botón de Edge y a todas las combinadas por nivel de riesgo.</p>
         <div style="margin-top:1.2rem; padding:10px; background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.07); border-radius:10px; font-family:JetBrains Mono; font-size:0.8rem; color:#0df2a6;">
             Válido hasta: ${expDate.toLocaleDateString()}
@@ -1424,7 +1424,7 @@ export default {
                     const tokenharborKeys = splitKeys(tokenharborKey);
                     const nvidiaKeys = splitKeys(nvidiaKey);
 
-                    // Pipeline multi-proveedor extendido v9.3 — hasta ~20 intentos antes de fallback estad�stico
+                    // Pipeline multi-proveedor extendido v9.3 — hasta ~20 intentos antes de fallback estadistico
                     // Orden: rapidez + quota budget. Groq primero (más rápido), luego Gemini nativo,
                     // luego Omniroute xN, OpenRouter xN, TokenHarbor, Nvidia, Dahl xN.
                     const proveedoresAProbar = [
@@ -2164,7 +2164,7 @@ function render(f, p) {
   }
   if (p && p.estado && p.estado !== 'sin-combinada' && p.selecciones && p.selecciones.length > 0) {
     cardCombinada.style.display = 'block';
-    txtCombinada.textContent = 'Cuota total ' + p.cuotaTotal.toFixed(2) + '  Â·  Edge +' + p.edgeTotalPct + '%';
+    txtCombinada.textContent = 'Cuota total ' + p.cuotaTotal.toFixed(2) + '  ·  Edge +' + p.edgeTotalPct + '%';
     det.textContent = p.selecciones.length + ' selección(es) · ' + p.nombreRiesgo;
   } else {
     cardCombinada.style.display = 'block';
@@ -2838,7 +2838,7 @@ window.addEventListener("DOMContentLoaded",function(){
         (function(){
         var edgeHistory = [12.1, 12.4, 12.8, 13.2, 12.9, 13.5, 14.1, 13.8, 14.2, 14.8]; var timeLabels = ['19:35','19:36','19:37','19:38','19:39','19:40','19:41','19:42','19:43','19:44']; var homeChart = null;
         var LIVE_NEWS_POOL = [
-            { tag: '⚽ GOL EN DIRECTO', tagBg: 'rgba(13,242,166,0.15)', tagColor: '#0df2a6', title: 'Lautaro Mart�nez marca gol (Inter 1-0 Milan)', desc: 'xG real sube a 2.48. El Edge del mercado Over 2.5 salta +5.8%', time: 'Ahora mismo' },
+            { tag: '⚽ GOL EN DIRECTO', tagBg: 'rgba(13,242,166,0.15)', tagColor: '#0df2a6', title: 'Lautaro Martínez marca gol (Inter 1-0 Milan)', desc: 'xG real sube a 2.48. El Edge del mercado Over 2.5 salta +5.8%', time: 'Ahora mismo' },
             { tag: 'ðŸŒ¦️ CLIMA REAL', tagBg: 'rgba(0,212,255,0.15)', tagColor: '#00d4ff', title: 'Lluvia 88% sobre San Siro', desc: 'Lluvia fuerte 88%. Campo pesado: ritmo -8%, el Edge Over 2.5 corrige -0.4%', time: 'hace 1 min' },
             { tag: 'ðŸš¨ ALINEACIÒN', tagBg: 'rgba(245,158,11,0.15)', tagColor: '#f59e0b', title: 'Kylian Mbappé confirmado como titular en ataque', desc: 'Recuperado de molestias. Probabilidad de gol por partido +18.4%', time: 'hace 2 min' },
             { tag: 'ðŸ“± POST JUGADOR', tagBg: 'rgba(139,92,246,0.15)', tagColor: '#8b5cf6', title: 'Post de Jude Bellingham (Instagram): "Focus on tonight ðŸ’¥"', desc: 'IA de Sentimiento detecta moral de equipo máxima (94.8%)', time: 'hace 3 min' },

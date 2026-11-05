@@ -995,7 +995,7 @@ export function seleccionDeFixture(f) {
         return {
             mercado: f.mercado, cuota: f.cuota, probPct: f.modelProb, probBase: 'modelo-ia',
             edgePuntos: edgePuntos,
-            justificacion: (f.justificacion || '').trim() + (f.justificacion ? ' Â· ' : '') + 'edge limitado a 15 pts'
+            justificacion: (f.justificacion || '').trim() + (f.justificacion ? ' · ' : '') + 'edge limitado a 15 pts'
         };
     }
     // 1b) modelo Poisson determinista con stats reales (football-data.org).
