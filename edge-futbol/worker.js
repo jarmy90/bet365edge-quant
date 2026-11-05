@@ -1762,6 +1762,7 @@ const todosLosCandidatos = (candidatos || []).filter(function (c) {
         if (url.pathname === '/api/version') {
             const pool = await getFutureMatchesPool(url.searchParams.get('force') === '1');
             return new Response(JSON.stringify({	poolErr: globalThis.__POOL_ERR || null,
+                poolExit: (typeof globalThis.__POOL_EXIT !== 'undefined') ? globalThis.__POOL_EXIT : 'nunca-llamado',
                 ok: true,
                 build: BUILD_ID,
                 origenDatos: FIXTURES_SOURCE,
