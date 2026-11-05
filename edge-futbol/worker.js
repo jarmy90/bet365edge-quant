@@ -1352,6 +1352,7 @@ export default {
 
                 if (candidatos.length === 0) {
                     diagFinal.modoAnalisis = 'sin-datos-dataset-caducado';
+                globalThis.__POOL_EXIT = 'sin-datos-dataset-caducado';
                     analisisCache = { at: nowMs, pool: [], diag: diagFinal, key: cacheKey };
                     return [];
                 }
@@ -1624,6 +1625,7 @@ console.warn('[AI-CHAIN] AVISO ' + (prov.label || prov.model) + ' excepcion: ' +
                                 );
                                 diagFinal.diagFiltrado = rFiltrado;
                                 diagFinal.modoAnalisis = 'ia-edge-real';
+                globalThis.__POOL_EXIT = 'ia-edge-real';
                                 pool = analisis;
                                 analisisCache = { at: nowMs, pool: pool, diag: diagFinal, key: cacheKey };
                                 return publicables;
@@ -1647,6 +1649,7 @@ console.warn('[AI-CHAIN] AVISO ' + (prov.label || prov.model) + ' excepcion: ' +
                 const conStatsReales = (candidatos || []).filter(function (c) { return c && c.stats; });
                 if (conStatsReales.length === 0) {
                     diagFinal.modoAnalisis = 'sin-estadisticas-reales';
+                globalThis.__POOL_EXIT = 'sin-estadisticas-reales';
                     diagFinal.aviso = 'No se publica ningun partido: no hay estadisticas reales (goles de los equipos) para las ligas de esta captura. La web volvera a publicar en cuanto la fuente de estadisticas tenga datos.';
                     analisisCache = { at: nowMs, pool: [], diag: diagFinal, key: cacheKey };
                     return [];
@@ -1699,6 +1702,7 @@ const todosLosCandidatos = (candidatos || []).filter(function (c) {
                                 return publicables;
                 } catch (e) {
                     diagFinal.modoAnalisis = 'error-analisis';
+                globalThis.__POOL_EXIT = 'error-analisis';
                     diagFinal.aviso = 'Error interno de analisis: ' + String(e && e.message || e).slice(0, 200);
                     console.error('[ANALYSIS-ERROR]', e && e.stack || e);
                     analisisCache = { at: nowMs, pool: [], diag: diagFinal, key: cacheKey };
@@ -1757,7 +1761,7 @@ const todosLosCandidatos = (candidatos || []).filter(function (c) {
         // Diagnostico de despliegue: permite verificar que la version publicada es la actual
         if (url.pathname === '/api/version') {
             const pool = await getFutureMatchesPool(url.searchParams.get('force') === '1');
-            return new Response(JSON.stringify({poolErr: globalThis.__POOL_ERR || null,
+            return new Response(JSON.stringify({	poolErr: globalThis.__POOL_ERR || null,
                 ok: true,
                 build: BUILD_ID,
                 origenDatos: FIXTURES_SOURCE,
