@@ -1706,10 +1706,11 @@ const todosLosCandidatos = (candidatos || []).filter(function (c) {
                 }
             })();
 
-            try { return await analisisInflight; } finally { analisisInflight = null; }
+            try { return await analisisInflight; } catch (ePool) { globalThis.__POOL_ERR = String(ePool && ePool.stack || ePool).slice(0, 900); return []; } finally { analisisInflight = null; }
         }
 
         function getFixturesDiag() { return analisisCache.diag; }
+        globalThis.__POOL_ERR = globalThis.__POOL_ERR || null;
 
         // Compatibilidad: fixturesCacheKey queda para no romper referencias legacy.
         function fixturesCacheKey() { return analisisCacheKey(); }
@@ -1756,7 +1757,7 @@ const todosLosCandidatos = (candidatos || []).filter(function (c) {
         // Diagnostico de despliegue: permite verificar que la version publicada es la actual
         if (url.pathname === '/api/version') {
             const pool = await getFutureMatchesPool(url.searchParams.get('force') === '1');
-            return new Response(JSON.stringify({
+            return new Response(JSON.stringify({poolErr: globalThis.__POOL_ERR || null,
                 ok: true,
                 build: BUILD_ID,
                 origenDatos: FIXTURES_SOURCE,
