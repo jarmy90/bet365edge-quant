@@ -44,7 +44,7 @@ import {
 } from './ratingbet_pipeline.js';
 import datasetLocal from './ratingbet_fixtures_data.js';
 
-const BUILD_ID = 'ratingbet-v9.6-2026-10-13-ia24-cache';
+const BUILD_ID = 'ratingbet-v9.7-2026-11-07-daily-combo-recovery';
 
 // =============================================================================
 // ACCESO_LIBRE: modo gratuito (fase de captacion de trafico).
@@ -242,8 +242,8 @@ function paginaGuiaSeo() {
 
 // Procedencia del catalogo de fixtures publicado por la API publica.
 const FIXTURES_SOURCE = RATINGBET_FUENTE;
-const FIXTURES_CACHE_MS = 6 * 60 * 60 * 1000;   // cache del pool (6 horas para ahorrar cuota API)
-const DATASET_CACHE_MS = 6 * 60 * 60 * 1000;    // cache del dataset remoto (6 horas)
+const FIXTURES_CACHE_MS = 60 * 60 * 1000;       // pool 1h: equilibrio entre frescura y cuota API
+const DATASET_CACHE_MS = 30 * 60 * 1000;         // dataset 30 min: recoge cada captura del cron
 const STATS_CACHE_MS = 6 * 60 * 60 * 1000;      // cache de stats football-data.org (6h: ~2 req/liga por ciclo)
 const OMNIROUTE_MODEL_DEFAULT = 'google/gemini-2.5-flash';
 const OMNIROUTE_ENDPOINT_DEFAULT = 'https://openrouter.ai/api/v1/chat/completions';
@@ -1647,12 +1647,10 @@ console.warn('[AI-CHAIN] AVISO ' + (prov.label || prov.model) + ' excepcion: ' +
                 // con datos reales (goles de los equipos). Un partido sin stats no
                 // se publica: no se inventa edge ni se disfraza la cuota de modelo.
                 const conStatsReales = (candidatos || []).filter(function (c) { return c && c.stats; });
+                // No bloquear toda la publicacion cuando la fuente auxiliar no cubre una liga.
+                // Los fixtures y cuotas siguen siendo reales y temporalmente validados.
                 if (conStatsReales.length === 0) {
-                    diagFinal.modoAnalisis = 'sin-estadisticas-reales';
-                globalThis.__POOL_EXIT = 'sin-estadisticas-reales';
-                    diagFinal.aviso = 'No se publica ningun partido: no hay estadisticas reales (goles de los equipos) para las ligas de esta captura. La web volvera a publicar en cuanto la fuente de estadisticas tenga datos.';
-                    analisisCache = { at: nowMs, pool: [], diag: diagFinal, key: cacheKey };
-                    return [];
+                    diagFinal.aviso = 'Fuente auxiliar de estadisticas sin cobertura en este ciclo; se aplica el respaldo cuantitativo conservador sobre cuotas reales.';
                 }
                                 // Aplicar seleccionDeFixture a TODOS los candidatos con lineas validas.
                 // El modelo ciego-a-cuota cubre los que no tienen stats (usa solo
@@ -1699,6 +1697,8 @@ const todosLosCandidatos = (candidatos || []).filter(function (c) {
                                     return c;
                                 });
                 
+                                analisisCache = { at: nowMs, pool: pool, diag: diagFinal, key: cacheKey };
+                                globalThis.__POOL_EXIT = publicables.length ? 'modelo-cuantitativo-respaldo' : 'sin-edge-positivo';
                                 return publicables;
                 } catch (e) {
                     diagFinal.modoAnalisis = 'error-analisis';
