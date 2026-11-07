@@ -1,5 +1,5 @@
 {
-  "actualizadoEnUtc": "2026-11-07T12:45:50.200Z",
+  "actualizadoEnUtc": "2026-11-07T21:40:02.072Z",
   "nota": "Track-record de picks publicados (modelo-ia y modelo-poisson). Solo la primera publicacion de cada pick cuenta; sin-datos no entra en hit%/yield. Generado por edge-futbol/settle_results.js.",
   "picks": [
     {
@@ -239,7 +239,7 @@
         "golesLocal": null,
         "golesVisitante": null,
         "profit": null,
-        "settledEnUtc": "2026-11-07T12:45:50.200Z"
+        "settledEnUtc": "2026-11-07T21:40:02.072Z"
       }
     }
   ],
