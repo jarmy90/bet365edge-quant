@@ -1,0 +1,14 @@
+.git
+mt5-explorer
+.freebuff
+.vscode
+.github
+api
+node_modules
+*.txt
+*.bat
+agent.mjs
+agente-web.mjs
+portada_*.js
+prueba-local.txt
+duka_*

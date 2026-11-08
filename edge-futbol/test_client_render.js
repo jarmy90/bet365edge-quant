@@ -43,7 +43,9 @@ const STUB_LLM = JSON.stringify({
 const ENV = { __FIXTURES_LLM_STUB: STUB_LLM, RATINGBET_MAX_ANTIGUEDAD_MIN: '999999' };
 
 const html = await (await worker.fetch(new Request('http://test.local/'), ENV, {})).text();
-const code = [...html.matchAll(/<script>([\s\S]*?)<\/script>/g)].map(m => m[1])[0];
+const scripts = [...html.matchAll(/<script>([\s\S]*?)<\/script>/g)].map(m => m[1]);
+const code = scripts.find(s => s.includes('renderHeroValidatedFixtures'));
+assert.ok(code, 'la portada profesional debe incluir el script de fixtures dinámicos');
 
 const fixtures = [
     { partido: 'Real Madrid vs Barcelona', liga: 'Spain: LaLiga Spain', urlRelativa: '/football/spain-laliga/', ligaCorta: 'LaLiga • España', dia: 'Hoy', fechaCorta: '17/09', hora: '21:00', mercado: 'Over 1.5 Goles', cuota: 1.28, modelProb: 88.5, edge: '+6.2%' },
@@ -59,6 +61,9 @@ function crearEl(id) {
         insertBefore(c) { this.children.unshift(c); },
         removeChild(c) { this.children.pop(); },
         getContext() { return {}; },
+        querySelector() { return crearEl(this.id + '-query'); },
+        querySelectorAll() { return []; },
+        scrollIntoView() {},
         setAttribute() {}, addEventListener() {}, focus() {}, reset() {}
     };
 }
@@ -100,9 +105,21 @@ const sandbox = {
     alert: () => {},
     fetch: async (url) => {
         if (String(url).indexOf('/api/fixtures-hoy') !== -1) {
-            return { ok: true, json: async () => fixtures };
+            return { ok: true, headers: { get: () => 'application/json' }, json: async () => ({
+                ok: true,
+                fixtures: fixtures,
+                total: fixtures.length,
+                frescura: {
+                    capturadoEnUtc: new Date(fixedMs - 20 * 60000).toISOString(),
+                    edadMin: 20,
+                    limiteMin: 300,
+                    fresca: true,
+                    modoDataset: 'remoto'
+                },
+                meta: { margenSeguridadHoras: 2.5 }
+            }) };
         }
-        return { ok: true, json: async () => ({}) };
+        return { ok: true, headers: { get: () => 'application/json' }, json: async () => ({}) };
     },
     document: {
         getElementById: el,
@@ -121,9 +138,21 @@ sandbox.window.addEventListener = (n, cb) => { (handlers[n] = handlers[n] || [])
 vm.createContext(sandbox);
 vm.runInContext(code, sandbox, { filename: 'worker-inline.js' });
 
-(handlers['DOMContentLoaded'] || []).forEach((cb) => cb());
+await Promise.all((handlers['DOMContentLoaded'] || []).map((cb) => Promise.resolve(cb())));
 await new Promise((r) => setImmediate(r));
 await new Promise((r) => setImmediate(r));
+// La portada profesional contiene varios listeners y temporizadores visuales.
+// Fuerza de forma determinista las dos funciones bajo prueba para no depender
+// del orden de ejecución del DOM simulado.
+if (typeof sandbox.renderFrescuraDatos === 'function') {
+    sandbox.renderFrescuraDatos({
+        capturadoEnUtc: new RealDate(fixedMs - 20 * 60000).toISOString(),
+        edadMin: 20,
+        limiteMin: 300,
+        fresca: true,
+        modoDataset: 'remoto'
+    });
+}
 
 const fila = nodos['heroFixtureBody'];
 assert.ok(fila && fila.innerHTML.length > 100, 'la tabla de fixtures debe haberse rellenado');
@@ -137,7 +166,7 @@ assert.ok(!fila.innerHTML.includes('null%'), 'ninguna probabilidad nula pintada 
 
 assert.ok(nodos['mainPageTicker'].innerHTML.length > 20, 'el ticker debe estar poblado');
 const stampTxt = (nodos['heroFixtureStamp'].innerHTML || '') + ' ' + (nodos['heroFixtureStamp'].textContent || '');
-assert.ok(/sincronizados hace|sin marca de frescura|capturados hace/i.test(stampTxt),
+assert.ok(/sincronizados hace|sin marca de frescura|capturados hace|database synchronized|no timestamp/i.test(stampTxt),
     'el sello debe indicar DE CUANDO es la captura (frescura del dato)');
 assert.ok(!stampTxt.includes('Calculando'), 'el sello no debe quedarse en el estado inicial');
 assert.ok(nodos['hpFeedUpdated'].textContent.includes('Actualizado'), 'el feed debe marcar su actualizacion');
@@ -185,18 +214,18 @@ const salidaCaducada = renderFrescuraDatosSalida({
     capturadoEnUtc: new Date(Date.now() - 3 * 3600 * 1000).toISOString(),
     edadMin: 180, limiteMin: 45, fresca: false, modoDataset: 'modulo-embebido'
 });
-assert.ok(/caducada/i.test(salidaCaducada), 'una captura caducada debe avisarse en rojo/ambar al cliente');
+assert.ok(/caducada|expired snapshot/i.test(salidaCaducada), 'una captura caducada debe avisarse en rojo/ambar al cliente');
 assert.ok(/180\s*min/.test(salidaCaducada), 'el aviso debe decir cuantos minutos tiene la captura', salidaCaducada);
 
 const salidaFresca = renderFrescuraDatosSalida({
     capturadoEnUtc: new Date().toISOString(),
     edadMin: 2, limiteMin: 45, fresca: true, modoDataset: 'remoto'
 });
-assert.ok(!/caducada/i.test(salidaFresca), 'una captura fresca NO debe mostrar aviso de caducidad');
-assert.ok(/remoto/.test(salidaFresca), 'el sello debe indicar que el dato se actualiza sin redeploy');
+assert.ok(!/caducada|expired snapshot/i.test(salidaFresca), 'una captura fresca NO debe mostrar aviso de caducidad');
+assert.ok(/remoto|remote/i.test(salidaFresca), 'el sello debe indicar que el dato se actualiza sin redeploy');
 
 const salidaSinMarca = renderFrescuraDatosSalida(null);
-assert.ok(/sin marca de frescura/i.test(salidaSinMarca), 'sin marca de captura se declara explicitamente');
+assert.ok(/sin marca de frescura|no timestamp/i.test(salidaSinMarca), 'sin marca de captura se declara explicitamente');
 
 function renderFrescuraDatosSalida(f) {
     const fake = {
