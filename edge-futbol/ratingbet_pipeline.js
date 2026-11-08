@@ -860,11 +860,11 @@ export function construirFixturesSinAnalisis(candidatos, nowMs, opts) {
 // Si no existe combinacion para la banda se devuelve estado 'sin-combinada' con
 // su motivo: NO se fuerza ninguna cuota (el bug anterior inventaba un 3.15 fijo).
 export const BANDAS_RIESGO = {
-    bajo: { nombre: 'RIESGO BAJO', icono: 'ðŸ›¡ï¸', descripcion: 'Cuota total < 2.00',
+    bajo: { nombre: 'RIESGO BAJO', icono: '🛡️', descripcion: 'Cuota total < 2.00',
             min: 1.01, max: 2.00, minExclusivo: false, maxExclusivo: true, tamanos: [2, 3, 4] },
     medio: { nombre: 'RIESGO MEDIO', icono: '⚡', descripcion: 'Cuota total 2.00 - 3.00',
             min: 2.00, max: 3.00, minExclusivo: false, maxExclusivo: false, tamanos: [2, 3] },
-    alto: { nombre: 'RIESGO ALTO', icono: 'ðŸš€', descripcion: 'Cuota total > 3.00',
+    alto: { nombre: 'RIESGO ALTO', icono: '🚀', descripcion: 'Cuota total > 3.00',
             min: 3.00, max: 15.00, minExclusivo: true, maxExclusivo: false, tamanos: [3, 4] }
 };
 
@@ -907,9 +907,9 @@ export function modeloPoisson(stats) {
     if (!vals.every(function (v) { return Number.isFinite(v) && v > 0; })) return null;
     if (stats.nH !== undefined || stats.nA !== undefined) {
         const nH = Number(stats.nH), nA = Number(stats.nA);
-        if (!Number.isFinite(nH) || !Number.isFinite(nA) || nH < 2 || nA < 2) return null;
+        if (!Number.isFinite(nH) || !Number.isFinite(nA) || nH < 3 || nA < 3) return null;
         // Shrinkage de las fuerzas hacia la media de liga (1.0) cuando hay pocos
-        // partidos. Con 2-3 partidos la fuerza queda casi en 1.0 (sin ventaja
+        // partidos. Con 3 partidos la fuerza queda cerca de 1.0 (sin ventaja
         // inventada); con muchos partidos se acerca al valor observado.
         const k = 8;
         const wH = nH / (nH + k), wA = nA / (nA + k);
@@ -1118,9 +1118,9 @@ export function seleccionDeFixture(f) {
         return {
             mercado: (esOver ? 'Over ' : 'Under ') + mTip[2] + ' Goles', cuota: cuota,
             probPct: probUsada,
-            probBase: pTip !== null ? 'modelo-tip' : 'mercado-justo',
-            edgePuntos: edgeTip,
-            justificacion: 'Tip de ratingbet (' + (esOver ? 'Over' : 'Under') + ' ' + mTip[2] + '). Edge = diferencia prob. tip vs precio de mercado.'
+            probBase: pTip !== null ? 'analisis-tip' : 'mercado-justo',
+            edgePuntos: null,
+            justificacion: 'Tip de ratingbet (' + (esOver ? 'Over' : 'Under') + ' ' + mTip[2] + '). Referencia editorial del proveedor, no probabilidad de modelo.'
         };
     }
     // 3) fallback: Over 1.5 con probabilidad justa derivada de la cuota real.

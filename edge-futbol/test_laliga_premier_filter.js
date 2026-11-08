@@ -20,8 +20,7 @@ console.log('=============================================================');
 
 // 1. Verificacion de ligas permitidas
 assert.ok(Array.isArray(ALLOWED_LEAGUE_IDS), 'ALLOWED_LEAGUE_IDS debe ser un array');
-assert.ok(ALLOWED_LEAGUE_IDS.includes('spain-laliga'), 'Debe incluir spain-laliga');
-assert.ok(ALLOWED_LEAGUE_IDS.includes('england-premier-league'), 'Debe incluir england-premier-league');
+assert.ok(ALLOWED_LEAGUE_IDS.includes('all-ratingbet'), 'Debe aceptar el catálogo líquido de ratingbet');
 
 const partidoLaLiga = { liga: 'Spain: LaLiga Spain', urlRelativa: '/football/spain-laliga/' };
 const partidoPremier = { liga: 'England: Premier League England', urlRelativa: '/football/england-premier-league/' };
@@ -32,8 +31,10 @@ const partidoArgentina = { liga: 'Argentina: Liga Profesional', urlRelativa: nul
 assert.strictEqual(esLigaTopPermitida(partidoLaLiga), true, 'LaLiga debe ser permitida');
 assert.strictEqual(esLigaTopPermitida(partidoPremier), true, 'Premier League debe ser permitida');
 assert.strictEqual(esLigaTopPermitida(partidoSegunda), true, 'Segunda Division debe ser permitida');
-assert.strictEqual(esLigaTopPermitida(partidoEcuador), false, 'Serie B Ecuador NO debe ser permitida');
-assert.strictEqual(esLigaTopPermitida(partidoArgentina), false, 'Liga Argentina NO debe ser permitida');
+assert.strictEqual(esLigaTopPermitida(partidoEcuador), true, 'Serie B Ecuador debe ser permitida si ratingbet ofrece mercado real');
+assert.strictEqual(esLigaTopPermitida(partidoArgentina), true, 'Liga Argentina debe ser permitida si ratingbet ofrece mercado real');
+assert.strictEqual(esLigaTopPermitida({ liga: 'International: Friendly' }), false, 'Los amistosos deben excluirse');
+assert.strictEqual(esLigaTopPermitida({ liga: 'England: U21 League' }), false, 'Las competiciones juveniles deben excluirse');
 
 console.log('  [OK] Identificadores de competicion oficiales y filtrado de ligas.');
 
