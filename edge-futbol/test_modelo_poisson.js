@@ -102,11 +102,12 @@ ok(!!sel && sel.probBase === 'modelo-poisson', 'probBase = modelo-poisson',
 if (sel) {
     ok(sel.probPct === 61.0, 'probPct = 61.0% (L = 2.06)', sel.probPct);
     ok(sel.cuota === 1.60, 'la cuota elegida es la real 1.60', sel.cuota);
-    const edgeTeo = (1.60 - 100 / sel.probPct) * 100;          // -3.93
+    const cuotaJusta = 100 / sel.probPct;
+    const edgeTeo = (1.60 / cuotaJusta - 1) * 100;             // -2.4% EV relativo
     ok(Number.isFinite(sel.edgePuntos) && Math.abs(sel.edgePuntos - edgeTeo) <= 0.11,
-        'edgePuntos = (cuotaCasa - 100/prob)*100', sel.edgePuntos + ' vs ' + edgeTeo.toFixed(2));
-    ok(Math.abs(sel.edgePuntos - (-4.0)) <= 0.15,
-        'el caso de la spec (cuota 1.60, prob 61.0 -> -4.0) se cumple', sel.edgePuntos);
+        'edgePuntos = (cuotaCasa / cuotaJusta - 1)*100', sel.edgePuntos + ' vs ' + edgeTeo.toFixed(2));
+    ok(Math.abs(sel.edgePuntos - (-2.4)) <= 0.15,
+        'cuota 1.60 frente a cuota justa 1.64 produce -2.4% EV', sel.edgePuntos);
     ok(sel.edgePuntos < 0, 'edge negativo NO es pick publicable (se calcula, no se recorta)', sel.edgePuntos);
     ok(/Poisson/.test(sel.justificacion) && /L=/.test(sel.justificacion),
         'la justificacion deja trazabilidad del modelo', sel.justificacion);

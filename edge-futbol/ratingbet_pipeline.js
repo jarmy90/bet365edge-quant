@@ -990,8 +990,11 @@ export function seleccionDeFixture(f) {
         // implicita de la cuota (seria ruido del dato fuente, no un edge real).
         const pImp = 100 / f.cuota;
         if (Math.abs(f.modelProb - pImp) > 25) return null;
-        const edgeCalc = Math.round((f.cuota - (100 / f.modelProb)) * 1000) / 10;
-        const edgePuntos = Math.min(15, Math.max(0, edgeCalc));
+        const cuotaModelo = 100 / f.modelProb;
+        const edgeCalc = edgePorCuotas(f.cuota, cuotaModelo);
+        // EV relativo: cuota ofrecida / cuota justa - 1. Se conserva el signo
+        // para no convertir artificialmente una apuesta negativa en edge cero.
+        const edgePuntos = edgeCalc === null ? null : Math.min(15, Math.max(-15, edgeCalc));
         return {
             mercado: f.mercado, cuota: f.cuota, probPct: f.modelProb, probBase: 'modelo-ia',
             edgePuntos: edgePuntos,
@@ -1019,7 +1022,7 @@ export function seleccionDeFixture(f) {
                     // Clamp de probabilidad para evitar edges absurdos cuando el Poisson
                     // da valores extremos con pocas datos.
                     prob = Math.min(90, Math.max(10, prob));
-                    const edge = Math.round((cuota - (100 / prob)) * 1000) / 10;
+                    const edge = edgePorCuotas(cuota, 100 / prob);
                     if (!mejorP || edge > mejorP.edgePuntos) {
                         mejorP = { linea: ln, lado: lado, cuota: cuota,
                             prob: Math.round(prob * 10) / 10, edgePuntos: edge };
@@ -1045,23 +1048,32 @@ export function seleccionDeFixture(f) {
     //     Requiere pOverJusta de ambas líneas y que sean consistentes.
     const c15 = f.lineas && f.lineas['1.5'];
     const c25 = f.lineas && f.lineas['2.5'];
-    if (c15 && c25 && Number.isFinite(c15.pOverJusta) && Number.isFinite(c25.pOverJusta)) {
+    const tieneTipProveedor = [c15, c25].some(function (l) {
+        return l && String(l.tipRatingbet || '').trim() !== '';
+    });
+    // El modelo de coherencia entre lineas es solo un respaldo cuando no hay
+    // tip editorial. Nunca debe adelantarse al tip ni convertir en edge una
+    // probabilidad derivada de las mismas cuotas que pretende evaluar.
+    if (f.permitirModeloCiego === true && !tieneTipProveedor && c15 && c25 && Number.isFinite(c15.pOverJusta) && Number.isFinite(c25.pOverJusta)) {
         const p15 = Number(c15.pOverJusta), p25 = Number(c25.pOverJusta);
         const lambda15 = lambdaFromPOver15(p15);
         const lambda25 = lambdaFromPOver25(p25);
-        if (lambda15 && lambda25 && lambda25 > lambda15 && (lambda25 - lambda15) < 3) {
+        // Las dos lineas describen el mismo lambda esperado. No existe una regla
+        // matematica que obligue a lambda25 > lambda15: por redondeos y margen
+        // puede quedar a cualquier lado. Se exige solo coherencia absoluta.
+        if (lambda15 && lambda25 && Math.abs(lambda25 - lambda15) < 3) {
             const lambda = (lambda15 + lambda25) / 2;
             const p15Modelo = pOver15FromLambda(lambda) * 100;
             const p25Modelo = pOver25FromLambda(lambda) * 100;
             const evalLinea = function (ln, pModelo, cuotaOver, cuotaUnder) {
                 const res = [];
                 if (Number.isFinite(cuotaOver) && cuotaOver > 1) {
-                    const edgeOver = Math.round((cuotaOver - (100 / pModelo)) * 1000) / 10;
+                    const edgeOver = edgePorCuotas(cuotaOver, 100 / pModelo);
                     res.push({ linea: ln, lado: 'OVER', cuota: cuotaOver, prob: Math.round(pModelo * 10) / 10, edgePuntos: edgeOver });
                 }
                 const pUnder = 100 - pModelo;
                 if (Number.isFinite(cuotaUnder) && cuotaUnder > 1) {
-                    const edgeUnder = Math.round((cuotaUnder - (100 / pUnder)) * 1000) / 10;
+                    const edgeUnder = edgePorCuotas(cuotaUnder, 100 / pUnder);
                     res.push({ linea: ln, lado: 'UNDER', cuota: cuotaUnder, prob: Math.round(pUnder * 10) / 10, edgePuntos: edgeUnder });
                 }
                 return res;
@@ -1265,7 +1277,7 @@ export function construirParlayRiesgo(pool, riskLevel, ahoraMs) {
         if (!enBanda(banda, cuota)) return;
         const cuotaBoosted = Math.round(cuota * (1 + boostCfg / 100) * 100) / 100;
         cuotaModelo = Math.round(cuotaModelo * 100) / 100;
-        const edgeTotal = Math.round((cuotaBoosted - cuotaModelo) * 1000) / 10;
+        const edgeTotal = edgePorCuotas(cuotaBoosted, cuotaModelo);
         const pReal = Math.round(prob * 1000) / 10;
         const pCasa = Math.round(casa * 1000) / 10;
         // EV combinado en % (equivale al edge por ratio; mismo signo que

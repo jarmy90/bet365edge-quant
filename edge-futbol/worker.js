@@ -1013,7 +1013,7 @@ export default {
                         tsdbCache.temporadas[clave] = cache;
                     }
                     diag.temporadas.push(L.liga + '@' + t + ':' + cache.eventos.length);
-                    eventos.forEach(function (e) { eventos.push(e); });
+                    cache.eventos.forEach(function (e) { eventos.push(e); });
                 }
                 const agg = new Map();
                 let totCasa = 0, totFuera = 0, nEventos = 0;
@@ -1336,17 +1336,15 @@ export default {
                         });
                     } catch (_) {}
                     const mapaStats = await cargarStatsFootballData(nowMs, idsFD.length ? { ligas: idsFD } : { ligas: [] });
-                    let adjuntos = adjuntarStatsACandidatos(candidatos, mapaStats);
-                    // stats.json (TheSportsDB) tiene pocas jornadas por equipo: si con 3 no
-                    // se adjunta nada, se reintenta con 2 antes de llamar a TSDB remoto.
-                    if (!adjuntos) adjuntos = adjuntarStatsACandidatos(candidatos, mapaStats, { minPartidos: 2 });
-                    if (!adjuntos) adjuntos = adjuntarStatsACandidatos(candidatos, mapaStats, { minPartidos: 1 });
-                    // Ligas menores (Venezuela, Paraguay...): football-data.org no
-                    // las cubre. Se completa con TheSportsDB (gratis, sin clave).
-                    if (!adjuntos) {
-                        const mapaTSDB = await cargarStatsTheSportsDB(nowMs, candidatos, { mapa: mapaStats || [] });
-                        if (mapaTSDB && mapaTSDB.length) adjuntos = adjuntarStatsACandidatos(candidatos, mapaTSDB, { minPartidos: 2 });
-                    }
+                    // Completar SIEMPRE la cobertura con TheSportsDB. Antes solo se
+                    // consultaba cuando football-data.org no adjuntaba ningun partido;
+                    // si cubria 1 o 2, dejaba sin intentar los otros candidatos.
+                    const mapaTSDB = await cargarStatsTheSportsDB(nowMs, candidatos, { mapa: mapaStats || [] });
+                    const mapaCombinado = (mapaStats || []).concat(mapaTSDB || []);
+                    let adjuntos = adjuntarStatsACandidatos(candidatos, mapaCombinado);
+                    // Reintentos conservadores para competiciones con pocas jornadas.
+                    if (!adjuntos) adjuntos = adjuntarStatsACandidatos(candidatos, mapaCombinado, { minPartidos: 2 });
+                    if (!adjuntos) adjuntos = adjuntarStatsACandidatos(candidatos, mapaCombinado, { minPartidos: 1 });
                     try {
                         diagFinal.diagStats = Object.assign({ conStats: adjuntos, candidatos: candidatos.length },
                             statsCache.diag || {}, tsdbCache.diag || {});

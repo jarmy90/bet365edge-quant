@@ -62,15 +62,15 @@ function producto(picks) {
     return Math.round(picks.reduce((acc, p) => acc * p.cuota, 1) * 100) / 100;
 }
 
-// Replica la convencion del cliente sobre el resultado ya construido:
+// EV relativo de la combinada:
 //   cuotaBoosted = round2(cuotaTotal * (1 + boost/100))
 //   cuotaModeloTotal = round2(prod(100/probPct))
-//   edgeTotal = round1((cuotaBoosted - cuotaModeloTotal) * 100)
+//   edgeTotal = round1((cuotaBoosted / cuotaModeloTotal - 1) * 100)
 function esperarEdgeTotal(r) {
     const boost = Number.isFinite(r.boostPct) ? r.boostPct : 0;
     const cuotaBoosted = Math.round(r.cuotaTotal * (1 + boost / 100) * 100) / 100;
     const cuotaModeloTotal = Math.round(r.picks.reduce((acc, p) => acc * (100 / p.probPct), 1) * 100) / 100;
-    return Math.round((cuotaBoosted - cuotaModeloTotal) * 1000) / 10;
+    return Math.round((cuotaBoosted / cuotaModeloTotal - 1) * 1000) / 10;
 }
 
 console.log('\n--- 1) BANDAS DE CUOTA CORRECTAS (picks con IA, edgeTotal > 0) ---');
@@ -130,14 +130,17 @@ console.log('\n--- 2) BOOST bet365: RATINGBET_COMBO_BOOST_PCT entra en la formul
             ok(conBoost.edgeTotal === teo,
                 'edgeTotal = (cuotaBoosted - cuotaModeloTotal) * 100 CON boost',
                 conBoost.edgeTotal + ' vs ' + teo + ' (sin boost: ' + sinBoost.edgeTotal + ')');
-            // El boost solo aporta cuotaTotal*boostPct/100 a la boosted (redondeada
-            // a 2 decimales), asi que el edge combinada sube esa misma cantidad.
+            // Con EV relativo, el incremento del boost se normaliza por la
+            // cuota justa combinada: delta = (boosted/baseJusta - base/baseJusta)*100.
             const boostedTeo = Math.round(conBoost.cuotaTotal * (1 + 5 / 100) * 100) / 100;
+            const cuotaModeloTotal = Math.round(conBoost.picks.reduce((acc, p) => acc * (100 / p.probPct), 1) * 100) / 100;
             const delta = conBoost.edgeTotal - sinBoost.edgeTotal;
-            const deltaTeorico = (boostedTeo - conBoost.cuotaTotal) * 100;
-            ok(Math.abs(delta - deltaTeorico) < 0.05,
-                'el boost SUBE el edge combinada en la cuantia del propio boost',
-                'delta ' + delta.toFixed(1) + ' pts vs ' + deltaTeorico.toFixed(2) + ' pts teoricos');
+            const deltaTeorico = Math.round(((boostedTeo - conBoost.cuotaTotal) / cuotaModeloTotal) * 1000) / 10;
+            // Ambos valores se publican redondeados a una decimal; se admite
+            // una diferencia maxima de 0.1 puntos por doble redondeo.
+            ok(Math.abs(delta - deltaTeorico) <= 0.11,
+                'el boost SUBE correctamente el EV relativo de la combinada',
+                'delta ' + delta.toFixed(1) + ' pts vs ' + deltaTeorico.toFixed(1) + ' pts teoricos');
         } else {
             ok(false, 'la misma banda produce combinada con y sin boost',
                 'sinBoost=' + sinBoost.estado + ' conBoost=' + conBoost.estado);
