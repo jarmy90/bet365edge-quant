@@ -63,3 +63,4 @@ mt5-explorer/vdpm_results/*.ex5
 # --- Sistema ---
 Thumbs.db
 .DS_Store
+.env*
