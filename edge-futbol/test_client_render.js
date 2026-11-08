@@ -169,18 +169,12 @@ const stampTxt = (nodos['heroFixtureStamp'].innerHTML || '') + ' ' + (nodos['her
 assert.ok(/sincronizados hace|sin marca de frescura|capturados hace|database synchronized|no timestamp/i.test(stampTxt),
     'el sello debe indicar DE CUANDO es la captura (frescura del dato)');
 assert.ok(!stampTxt.includes('Calculando'), 'el sello no debe quedarse en el estado inicial');
-assert.ok(nodos['hpFeedUpdated'].textContent.includes('Actualizado'), 'el feed debe marcar su actualizacion');
-
-const feed = nodos['homeLiveNewsFeed'];
-assert.ok(feed.children.length > 0, 'el feed de noticias debe tener entradas');
-const primero = feed.children[0];
-assert.ok(primero.innerHTML.includes('Madrid') || primero.innerHTML.includes('Hoy'), 'cada entrada debe llevar sello temporal real');
+assert.ok(!code.includes('homeLiveNewsFeed'), 'la portada no debe renderizar un feed de noticias');
+assert.ok(!code.includes('fetchRssNoticias'), 'el cliente no debe consultar noticias RSS');
 
 console.log('Filas renderizadas: ' + (fila.innerHTML.match(/<tr>/g) || []).length);
 console.log('Ticker: ' + nodos['mainPageTicker'].innerHTML.slice(0, 180).replace(/<[^>]+>/g, '') + '...');
 console.log('Sello: ' + (nodos['heroFixtureStamp'].innerHTML || nodos['heroFixtureStamp'].textContent).replace(/<[^>]+>/g, ''));
-console.log('Entradas en el feed: ' + feed.children.length);
-console.log('Primera entrada: ' + primero.innerHTML.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').slice(0, 170));
 
 // ===========================================================================
 // ACTUALIZACION DE DATOS (boton "Actualizar datos" / fuerza de cache)

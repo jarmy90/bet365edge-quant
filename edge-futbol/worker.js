@@ -35,9 +35,9 @@ import {
     seleccionarParaAnalisis, MAX_ANALISIS,
     construirPromptAnalisis, parsearVeredictosIA,
     aplicarVeredictos,
-    // re-validacion en tiempo de peticion + modo degradado + feed
+    // re-validacion en tiempo de peticion + modo degradado
     filtrarPublicables, MARGEN_PUBLICACION_MIN,
-    construirFixturesSinAnalisis, feedSinAnalisis, construirFeedNoticias,
+    construirFixturesSinAnalisis, feedSinAnalisis,
     // combinadas por nivel de riesgo (bandas de cuota reales, sin inventar)
     construirParlayRiesgo, BANDAS_RIESGO, esLigaTopPermitida,
     veredictosDesdeEstadisticas
@@ -1045,10 +1045,10 @@ export default {
 
         // Adjunta c.stats = {attH, defH, attA, defA, avgH, avgA, nH, nA, ...}
         // (fuerzas ya normalizadas vs media de liga) o null si algun equipo
-        // tiene <3 partidos en su condicion. Devuelve cuantos candidatos
+        // tiene <8 partidos en su condicion. Devuelve cuantos candidatos
         // recibieron stats. Nunca lanza.
         function adjuntarStatsACandidatos(candidatos, mapa, opts) {
-            const minPartidos = (opts && Number.isFinite(opts.minPartidos)) ? opts.minPartidos : 3;
+            const minPartidos = 8;
             if (!Array.isArray(candidatos) || !Array.isArray(mapa) || !mapa.length) return 0;
             let n = 0;
             candidatos.forEach(function (c) {
@@ -1255,18 +1255,6 @@ export default {
         // una clave, parsearVeredictosIA la descarta silenciosamente.
         // =========================================================================
 
-        // --- RSS: noticias de futbol para enriquecer el prompt de analisis ---
-        const RSS_FEEDS = [
-            { url: 'https://e00-marca.uecdn.es/rss/futbol/primera-division.xml', fuente: 'Marca' },
-            { url: 'https://feeds.bbci.co.uk/sport/football/rss.xml',            fuente: 'BBC Sport' },
-            { url: 'https://as.com/rss/futbol/primera.xml',                       fuente: 'AS' }
-        ];
-
-        async function fetchRssNoticias() {
-            // Desactivado a peticion del usuario para ahorrar tokens en la IA
-            return [];
-        }
-
         // --- Cache de analisis completo (dataset -> edge) ---
         let analisisCache = { at: -Infinity, pool: [], diag: null, key: null };
         let memoriaCache = {};
@@ -1341,10 +1329,7 @@ export default {
                     // si cubria 1 o 2, dejaba sin intentar los otros candidatos.
                     const mapaTSDB = await cargarStatsTheSportsDB(nowMs, candidatos, { mapa: mapaStats || [] });
                     const mapaCombinado = (mapaStats || []).concat(mapaTSDB || []);
-                    let adjuntos = adjuntarStatsACandidatos(candidatos, mapaCombinado);
-                    // Reintentos conservadores para competiciones con pocas jornadas.
-                    if (!adjuntos) adjuntos = adjuntarStatsACandidatos(candidatos, mapaCombinado, { minPartidos: 2 });
-                    if (!adjuntos) adjuntos = adjuntarStatsACandidatos(candidatos, mapaCombinado, { minPartidos: 1 });
+                    const adjuntos = adjuntarStatsACandidatos(candidatos, mapaCombinado);
                     try {
                         diagFinal.diagStats = Object.assign({ conStats: adjuntos, candidatos: candidatos.length },
                             statsCache.diag || {}, tsdbCache.diag || {});
@@ -1372,11 +1357,7 @@ export default {
                 const dahlEndpoint = env.DAHL_API_URL || DAHL_ENDPOINT_DEFAULT;
 
                 try {
-                    // 3a. Noticias RSS (enriquece el prompt)
-                    let feedNoticias = [];
-                    try { feedNoticias = await fetchRssNoticias(); } catch (_) {}
-
-                    // 3b. Seleccionar los mejores candidatos para el prompt (24 max por token budget).
+                    // 3a. Seleccionar los mejores candidatos para el prompt (24 max por token budget).
                     // La IA solo puede estimar donde hay datos: primero ligas con
                     // cobertura FD (stats ya adjuntos o emparejables), luego resto.
                     // Asi no gasta el presupuesto en ligas sin datos donde se niega.
@@ -1395,10 +1376,10 @@ export default {
                     });
                     const paraAnalisis = seleccionarParaAnalisis(ordenadosIA, 24);
 
-                    // 3c. Construir prompt
-                    const { system, user } = construirPromptAnalisis(paraAnalisis, feedNoticias, nowMs);
+                    // 3b. Construir prompt sin noticias: los tokens se reservan para el analisis de combinadas.
+                    const { system, user } = construirPromptAnalisis(paraAnalisis, [], nowMs);
 
-                    // 3d. Llamar al LLM — cadena multi-proveedor robusta (Groq x2 -> Gemini nativo x2 -> Dahl)
+                    // 3c. Llamar al LLM — cadena multi-proveedor robusta (Groq x2 -> Gemini nativo x2 -> Dahl)
                     const groqKey1 = env.GROQ_API_KEY || GROQ_KEY1_DEFAULT;
                     const groqKey2 = env.GROQ_API_KEY2 || GROQ_KEY2_DEFAULT;
                     const geminiKey1 = env.GEMINI_API_KEY || GEMINI_KEY1_DEFAULT;
@@ -1994,7 +1975,7 @@ const todosLosCandidatos = (candidatos || []).filter(function (c) {
                             let adjL = adjuntarStatsACandidatos(realMatchesPool, mapaStatsL);
                             if (!adjL) {
                                 const mapaTSDBL = await cargarStatsTheSportsDB(nowL, realMatchesPool, { mapa: mapaStatsL || [] });
-                                if (mapaTSDBL && mapaTSDBL.length) adjuntarStatsACandidatos(realMatchesPool, mapaTSDBL, { minPartidos: 2 });
+                                if (mapaTSDBL && mapaTSDBL.length) adjuntarStatsACandidatos(realMatchesPool, mapaTSDBL);
                             }
                         } catch (_) {}
                     }
@@ -2110,7 +2091,7 @@ const todosLosCandidatos = (candidatos || []).filter(function (c) {
               "name": "¿Cómo funciona nuestro bot de apuestas?",
               "acceptedAnswer": {
                 "@type": "Answer",
-                "text": "Nuestro bot analiza continuamente 24/7 partidos de fútbol, estadísticas de forma, métricas xG, noticias deportivas, lesiones, meteorología y movimiento de cuotas para calcular la probabilidad justa del mercado (+1.5 y +2.5 goles) y detectar cuotas con valor esperado positivo (+EV)."
+                "text": "Nuestro motor cuantitativo analiza continuamente fixtures futuros, estadísticas verificadas, medias de liga, rendimiento local y visitante y cuotas reales para calcular la probabilidad justa del mercado (+1.5 y +2.5 goles) y detectar cuotas con valor esperado positivo (+EV)."
               }
             },
             {
@@ -3064,7 +3045,7 @@ const todosLosCandidatos = (candidatos || []).filter(function (c) {
                 <span class="gradient-text">con ventaja estadística</span>
             </h1>
             <p class="hero-desc">
-                Nuestro bot analiza continuamente partidos, estadísticas, jugadores, lesiones, meteorología y cuotas para detectar oportunidades en los mercados de más de 1,5 y 2,5 goles.
+                Nuestro motor cuantitativo compara estadísticas verificadas, rendimiento local y visitante, probabilidades Poisson y cuotas reales para detectar oportunidades en los mercados de más de 1,5 y 2,5 goles.
             </p>
 
             <!-- =========================================================
@@ -3099,7 +3080,7 @@ const todosLosCandidatos = (candidatos || []).filter(function (c) {
                 <div style="text-align:center; padding:0.6rem 0.5rem;">
                     <div style="width:30px; height:30px; background:rgba(13,148,136,0.14); color:var(--neon-emerald); border-radius:8px; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:0.82rem; margin:0 auto 6px;">1</div>
                     <div style="font-weight:700; font-size:0.82rem; color:var(--text-primary); margin-bottom:3px;">Recopila datos 24/7</div>
-                    <div style="font-size:0.72rem; color:var(--text-secondary); line-height:1.4;">Partidos, estadísticas, bajas, noticias, meteo y cuotas.</div>
+                    <div style="font-size:0.72rem; color:var(--text-secondary); line-height:1.4;">Partidos, estadísticas, rendimiento local/visitante y cuotas.</div>
                 </div>
                 <div style="display:flex; align-items:center; justify-content:center; padding-top:8px; color:var(--text-muted); font-size:0.9rem;">→</div>
                 <div style="text-align:center; padding:0.6rem 0.5rem;">
@@ -3126,11 +3107,11 @@ const todosLosCandidatos = (candidatos || []).filter(function (c) {
                 <span class="badge-quant" style="font-size:0.7rem; padding:3px 8px;">Forma reciente</span>
                 <span class="badge-quant" style="font-size:0.7rem; padding:3px 8px;">xG y métricas ofensivas</span>
                 <span class="badge-quant" style="font-size:0.7rem; padding:3px 8px;">Local/visitante</span>
-                <span class="badge-quant" style="font-size:0.7rem; padding:3px 8px;">Lesiones y bajas</span>
-                <span class="badge-quant" style="font-size:0.7rem; padding:3px 8px;">Alineaciones</span>
-                <span class="badge-quant" style="font-size:0.7rem; padding:3px 8px;">Meteorología</span>
-                <span class="badge-quant" style="font-size:0.7rem; padding:3px 8px;">Noticias relevantes</span>
-                <span class="badge-quant" style="font-size:0.7rem; padding:3px 8px;">Evolución de cuotas</span>
+                <span class="badge-quant" style="font-size:0.7rem; padding:3px 8px;">Muestra mínima validada</span>
+                <span class="badge-quant" style="font-size:0.7rem; padding:3px 8px;">Media de la liga</span>
+                <span class="badge-quant" style="font-size:0.7rem; padding:3px 8px;">Modelo Poisson</span>
+                <span class="badge-quant" style="font-size:0.7rem; padding:3px 8px;">Cuota implícita</span>
+                <span class="badge-quant" style="font-size:0.7rem; padding:3px 8px;">Valor esperado</span>
             </div>
         </section>
         <style>
@@ -3143,113 +3124,6 @@ const todosLosCandidatos = (candidatos || []).filter(function (c) {
         }
         </style>
 
-
-        <!-- =========================================================
-             SECCIÓN 9: ANÁLISIS EN DIRECTO (MONITOR Y NOTICIAS)
-             ========================================================= -->
-        <section class="bento-card col-12 stream-live-container" style="padding:1.4rem; margin-top:1rem; width:100%;">
-
-            <!-- Ticker Continuo de Noticias Live -->
-            <div class="stream-live-ticker-box" style="border-radius:10px; padding:8px 12px; display:flex; align-items:center; gap:12px; margin-bottom:1.2rem; overflow:hidden;">
-                <span class="stream-live-ticker-badge" style="font-family:JetBrains Mono; font-size:0.68rem; font-weight:800; padding:3px 8px; border-radius:6px; flex-shrink:0; letter-spacing:0.5px; display:flex; align-items:center; gap:5px;">
-                    <span style="width:6px; height:6px; background:currentColor; border-radius:50%; display:inline-block; animation: pulse 1s infinite;"></span>
-                    STREAM LIVE 24/7
-                </span>
-                <div style="flex:1; overflow:hidden; white-space:nowrap; position:relative;">
-                    <div id="mainPageTicker" style="display:inline-block; font-size:0.78rem; color:var(--text-secondary); font-family:JetBrains Mono; animation: tickerScroll 35s linear infinite;">
-                        ⚽ <strong>Vinícius Jr. (Real Madrid)</strong>: xG sube a 2.35 (+14.2% EV) &nbsp;&nbsp;•&nbsp;&nbsp; 🌦️ <strong>Santiago Bernabéu</strong>: Despejado (+12% ritmo) &nbsp;&nbsp;•&nbsp;&nbsp; 🚨 <strong>Mbappé</strong>: Titularidad confirmada &nbsp;&nbsp;•&nbsp;&nbsp; 📱 <strong>Bellingham (IG)</strong>: "Ready for tonight 🔥" &nbsp;&nbsp;•&nbsp;&nbsp; 📊 <strong>Bet365</strong>: Cuota ajustada a 1.94 (Desfase Quant +9.8%) &nbsp;&nbsp;•&nbsp;&nbsp; ⚽ <strong>Erling Haaland (Man City)</strong>: xG sube a 2.45 (+15.8% EV) &nbsp;&nbsp;•&nbsp;&nbsp; 🌦️ <strong>Etihad Stadium</strong>: Lluvia moderada (+10% tiro lejano)
-                    </div>
-                </div>
-            </div>
-
-            <!-- Encabezado del Panel Live -->
-            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem; flex-wrap:wrap; gap:10px;">
-                <div class="card-title-group">
-                    <div class="card-title" style="color:var(--text-primary); font-size:1.05rem; display:flex; align-items:center; gap:8px;">
-                        <span class="pulse-dot"></span>
-                        Análisis en directo
-                    </div>
-                    <div class="card-subtitle">El sistema actualiza estadísticas, cuotas y contexto deportivo para reevaluar las oportunidades disponibles.</div>
-                </div>
-                <div style="display:flex; align-items:center; gap:12px;">
-                    <div style="text-align:right;">
-                        <div style="font-size:0.62rem; color:var(--text-muted); font-weight:700;" title="Variación reciente estimada del Edge">VARIACIÓN EDGE</div>
-                        <div id="liveHomeEdgeVal" style="font-family:JetBrains Mono; font-size:1.3rem; font-weight:800; color:var(--text-muted); transition:all 0.3s;">—</div>
-                    </div>
-                    <span class="badge-quant stream-live-badge-vivos">
-                        DATOS VIVOS 24/7
-                    </span>
-                </div>
-            </div>
-
-            <!-- Track Record Banner compacto + Feed de Noticias -->
-            <div style="display:grid; grid-template-columns: 1.1fr 0.9fr; gap:1.2rem;" class="live-grid-responsive">
-
-                <!-- Columna Izquierda: Track Record KPIs en tiempo real -->
-                <div class="stream-inner-card" style="border-radius:14px; padding:1.2rem; display:flex; flex-direction:column; gap:1rem;">
-                    <div style="display:flex; align-items:center; gap:8px; margin-bottom:0.2rem;">
-                        <span style="width:8px; height:8px; background:var(--neon-emerald); border-radius:50%; flex-shrink:0;"></span>
-                        <span style="font-size:0.75rem; font-weight:800; color:var(--text-primary); text-transform:uppercase; letter-spacing:0.5px;">Track Record — Historial Real</span>
-                        <span style="font-size:0.62rem; background:rgba(13,242,166,0.12); color:var(--neon-emerald); padding:2px 8px; border-radius:10px; font-weight:700; margin-left:auto;">75% WIN RATE</span>
-                    </div>
-
-                    <!-- 4 KPIs del Track Record -->
-                    <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px;">
-                        <div style="background:rgba(13,242,166,0.07); border:1px solid rgba(13,242,166,0.2); border-radius:10px; padding:0.8rem; text-align:center;">
-                            <div style="font-family:JetBrains Mono; font-size:1.5rem; font-weight:900; color:var(--neon-emerald);">+34.8%</div>
-                            <div style="font-size:0.62rem; color:var(--text-muted); font-weight:700; text-transform:uppercase; margin-top:2px;">Yield Acumulado</div>
-                        </div>
-                        <div style="background:rgba(2,132,199,0.07); border:1px solid rgba(2,132,199,0.2); border-radius:10px; padding:0.8rem; text-align:center;">
-                            <div style="font-family:JetBrains Mono; font-size:1.5rem; font-weight:900; color:var(--neon-cyan);">15/20</div>
-                            <div style="font-size:0.62rem; color:var(--text-muted); font-weight:700; text-transform:uppercase; margin-top:2px;">Combinadas Ganad.</div>
-                        </div>
-                        <div style="background:rgba(245,158,11,0.07); border:1px solid rgba(245,158,11,0.2); border-radius:10px; padding:0.8rem; text-align:center;">
-                            <div style="font-family:JetBrains Mono; font-size:1.5rem; font-weight:900; color:var(--neon-amber);">+2.49</div>
-                            <div style="font-size:0.62rem; color:var(--text-muted); font-weight:700; text-transform:uppercase; margin-top:2px;">Edge Prom. / Parlay</div>
-                        </div>
-                        <div style="background:rgba(139,92,246,0.07); border:1px solid rgba(139,92,246,0.2); border-radius:10px; padding:0.8rem; text-align:center;">
-                            <div style="font-family:JetBrains Mono; font-size:1.5rem; font-weight:900; color:#8b5cf6;">52</div>
-                            <div style="font-size:0.62rem; color:var(--text-muted); font-weight:700; text-transform:uppercase; margin-top:2px;">Picks Verificados</div>
-                        </div>
-                    </div>
-
-                    <!-- Últimas 3 combinadas en miniatura -->
-                    <div style="border-top:1px solid var(--border-subtle); padding-top:0.8rem;">
-                        <div style="font-size:0.65rem; font-weight:700; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.4px; margin-bottom:6px;">Últimas combinadas</div>
-                        <div style="display:flex; flex-direction:column; gap:5px;">
-                            <div style="display:flex; justify-content:space-between; align-items:center; font-size:0.76rem;">
-                                <span style="color:var(--text-secondary);">23/09 · PSG-Lyon, Inter-Napoli, City-Arsenal</span>
-                                <span style="font-family:JetBrains Mono; font-weight:800; color:var(--neon-emerald); background:rgba(13,242,166,0.1); padding:2px 7px; border-radius:6px;">✅ WIN @2.85</span>
-                            </div>
-                            <div style="display:flex; justify-content:space-between; align-items:center; font-size:0.76rem;">
-                                <span style="color:var(--text-secondary);">20/09 · Valladolid-Oviedo, Tenerife-Leganés</span>
-                                <span style="font-family:JetBrains Mono; font-weight:800; color:var(--neon-emerald); background:rgba(13,242,166,0.1); padding:2px 7px; border-radius:6px;">✅ WIN @2.10</span>
-                            </div>
-                            <div style="display:flex; justify-content:space-between; align-items:center; font-size:0.76rem;">
-                                <span style="color:var(--text-secondary);">17/09 · Bayern-Dortmund, Barça-Atleti, Juve-Roma</span>
-                                <span style="font-family:JetBrains Mono; font-weight:800; color:#ef4444; background:rgba(239,68,68,0.1); padding:2px 7px; border-radius:6px;">❌ LOST @3.10</span>
-                            </div>
-                        </div>
-                    </div>
-                    <a href="#trackrecord" style="display:block; text-align:center; font-size:0.72rem; font-weight:700; color:var(--neon-cyan); text-decoration:none; padding:6px; border:1px solid rgba(2,132,199,0.3); border-radius:8px; transition:all 0.2s;" onmouseover="this.style.background='rgba(2,132,199,0.1)'" onmouseout="this.style.background='transparent'">Ver historial completo de 20 combinadas ↓</a>
-                </div>
-
-                <!-- Columna Derecha: Feed vivo de Noticias, Bajas, Clima, Tweets y Goles -->
-                <div class="stream-inner-card" style="border-radius:14px; padding:1.1rem; display:flex; flex-direction:column; height:320px; overflow:hidden;">
-                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.75rem; border-bottom:1px solid var(--border-subtle); padding-bottom:0.5rem;">
-                        <span style="font-size:0.75rem; font-weight:800; color:var(--text-primary); text-transform:uppercase; letter-spacing:0.5px;">FLUJO DE EVENTOS &amp; NOTICIAS</span>
-                        <span style="font-size:0.62rem; background:rgba(13,242,166,0.12); color:var(--neon-emerald); padding:2px 8px; border-radius:10px; font-weight:700;" id="hpFeedSpeed">28 fuentes/min</span>
-                        <span id="hpFeedUpdated" style="font-size:0.62rem; color:var(--text-muted); font-family:JetBrains Mono; margin-left:8px;">Actualizando...</span>
-                    </div>
-
-                    <!-- Lista de noticias dinámicas -->
-                    <div id="homeLiveNewsFeed" style="flex:1; overflow-y:auto; display:flex; flex-direction:column; gap:8px; padding-right:4px;">
-                        <!-- Inyectado por JS -->
-                    </div>
-                </div>
-
-            </div>
-        </section>
 
         <!-- Próximos partidos analizados: datos dinámicos y auditables -->
         <section id="proximosPartidosSection" class="bento-card col-12" style="margin-top:1rem; width:100%;">
@@ -3626,7 +3500,7 @@ const todosLosCandidatos = (candidatos || []).filter(function (c) {
                         ¿Cómo funciona nuestro bot de apuestas?
                     </summary>
                     <p id="faqA1" style="font-size:0.82rem; color:var(--text-secondary); margin-top:8px; line-height:1.5;">
-                        Nuestro bot cuantitativo procesa 24/7 datos masivos de partidos, estadísticas recientes, métricas xG, meteorología, bajas confirmadas y noticias en tiempo real. Con estos datos calcula la <strong>cuota justa</strong> (probabilidad real) para los mercados de más de 1.5 y 2.5 goles y la compara contra las cuotas públicas de bet365 y otras casas de apuestas para aislar únicamente selecciones con esperanza matemática positiva (+EV).
+                        Nuestro motor cuantitativo procesa fixtures futuros, estadísticas verificadas, medias de liga, rendimiento local y visitante y cuotas reales. Con estos datos calcula la <strong>cuota justa</strong> (probabilidad real) para los mercados de más de 1.5 y 2.5 goles y la compara contra las cuotas públicas de bet365 y otras casas de apuestas para aislar únicamente selecciones con esperanza matemática positiva (+EV).
                     </p>
                 </details>
 
@@ -3747,6 +3621,10 @@ const todosLosCandidatos = (candidatos || []).filter(function (c) {
         // =========================================================
         // INTERNACIONALIZACIÓN (i18n: ES / EN)
         // =========================================================
+        var __fixturesValidadas = [];
+        var __metaTemporal = null;
+        var __frescuraDatos = null;
+
         const I18N_DICT = {
             es: {
                 navStatus: "Suscripción: Inactiva",
@@ -3754,15 +3632,15 @@ const todosLosCandidatos = (candidatos || []).filter(function (c) {
                 navUpgrade: "Ver oportunidades de hoy",
                 heroPill: "BOT ACTIVO 24/7 · ANÁLISIS DE FÚTBOL EN TIEMPO REAL",
                 heroTitle: 'Encuentra apuestas de fútbol <br><span class="gradient-text">con ventaja estadística</span>',
-                heroDesc: 'Nuestro bot analiza continuamente partidos, estadísticas, jugadores, lesiones, meteorología y cuotas para detectar oportunidades en los mercados de más de 1,5 y 2,5 goles.',
+                heroDesc: 'Nuestro motor cuantitativo compara estadísticas verificadas, rendimiento local y visitante, probabilidades Poisson y cuotas reales para detectar oportunidades en los mercados de más de 1,5 y 2,5 goles.',
                 btnMainEdgeText: "Ver oportunidades de hoy",
                 gateSubtext: "Partidos analizados hoy · Datos actualizados continuamente",
                 disclaimer: "Las oportunidades son estimaciones estadísticas y no garantizan resultados.",
                 howTitle: "Cómo funciona nuestro bot",
                 howStep1Title: "Recopila datos 24/7",
-                howStep1Desc: "Partidos, estadísticas, bajas, noticias, meteo y cuotas.",
+                howStep1Desc: "Partidos, estadísticas, rendimiento local/visitante y cuotas.",
                 howStep2Title: "Analiza el contexto",
-                howStep2Desc: "Forma reciente, xG, localía, tendencias y alineaciones.",
+                howStep2Desc: "Forma reciente, medias de liga, rendimiento local/visitante y calidad de muestra.",
                 howStep3Title: "Calcula la cuota justa",
                 howStep3Desc: "Estima probabilidad para +1,5 y +2,5 goles.",
                 howStep4Title: "Detecta la ventaja",
@@ -3771,23 +3649,12 @@ const todosLosCandidatos = (candidatos || []).filter(function (c) {
                 analyzesTag1: "Forma reciente",
                 analyzesTag2: "xG y métricas ofensivas",
                 analyzesTag3: "Local/visitante",
-                analyzesTag4: "Lesiones y bajas",
-                analyzesTag5: "Alineaciones",
-                analyzesTag6: "Meteorología",
-                analyzesTag7: "Noticias relevantes",
-                analyzesTag8: "Evolución de cuotas",
-                streamTitle: "Análisis en directo",
-                streamSubtitle: "El sistema actualiza estadísticas, cuotas y contexto deportivo para reevaluar las oportunidades disponibles.",
-                edgeVarLabel: "VARIACIÓN EDGE",
-                dataVivosLabel: "DATOS VIVOS 24/7",
-                edgeEvolLabel: "Evolución temporal del Edge",
-                dataQualityLabel: "CALIDAD DATOS",
-                weatherLabel: "METEOROLOGÍA",
-                lineupsLabel: "ALINEACIONES",
-                liveSignalsLabel: "SEÑALES LIVE",
-                liveSignalsVal: "Activas",
-                feedHeader: "FLUJO DE EVENTOS & NOTICIAS",
-                feedSpeed: "28 fuentes/min",
+                analyzesTag4: "Muestra mínima validada",
+                analyzesTag5: "Media de la liga",
+                analyzesTag6: "Modelo Poisson",
+                analyzesTag7: "Cuota implícita",
+                analyzesTag8: "Valor esperado",
+
                 oppsTitle: "OPORTUNIDADES DETECTADAS",
                 oppsSubtitle: "Partidos y mercados que superan los filtros cuantitativos de ventaja estadística positiva (+EV).",
                 totalOddsLabel: "Cuota Total",
@@ -3839,7 +3706,7 @@ const todosLosCandidatos = (candidatos || []).filter(function (c) {
                 faqTitle: "Preguntas Frecuentes (FAQ)",
                 faqSubtitle: "Respuestas sobre el bot de apuestas, modelo de ventaja +EV y funcionamiento cuantitativo.",
                 faqQ1: "¿Cómo funciona nuestro bot de apuestas?",
-                faqA1: "Nuestro bot cuantitativo procesa 24/7 datos masivos de partidos, estadísticas recientes, métricas xG, meteorología, bajas confirmadas y noticias en tiempo real. Con estos datos calcula la cuota justa (probabilidad real) para los mercados de más de 1.5 y 2.5 goles y la compara contra las cuotas públicas de bet365 y otras casas de apuestas para aislar únicamente selecciones con esperanza matemática positiva (+EV).",
+                faqA1: "Nuestro motor cuantitativo procesa fixtures futuros, estadísticas verificadas, medias de liga, rendimiento local y visitante y cuotas reales. Aplica filtros de muestra mínima, shrinkage y un modelo Poisson para calcular la cuota justa de los mercados de más de 1.5 y 2.5 goles y compararla con la probabilidad implícita del mercado.",
                 faqQ2: "¿Qué significa apostar con ventaja (+EV)?",
                 faqA2: "Apostar con ventaja (+EV / Expected Value positivo) consiste en colocar apuestas únicamente cuando la probabilidad estimada por el algoritmo indica que la cuota ofrecida por la casa paga más de lo que matemáticamente debería. A largo plazo, operar exclusivamente en cuotas con valor esperado positivo supera el margen implícito de la casa.",
                 faqQ3: "¿Garantizan ganancias las señales del bot?",
@@ -3851,15 +3718,15 @@ const todosLosCandidatos = (candidatos || []).filter(function (c) {
                 navUpgrade: "View today's value picks",
                 heroPill: "BOT ACTIVE 24/7 · REAL-TIME SOCCER QUANT ENGINE",
                 heroTitle: 'Find soccer value bets <br><span class="gradient-text">with statistical edge</span>',
-                heroDesc: 'Our quant engine continuously evaluates matches, statistics, team news, weather, and odds to spot value opportunities (+EV) in Over 1.5 & Over 2.5 goals markets.',
+                heroDesc: 'Our quantitative engine compares verified statistics, home and away performance, Poisson probabilities, and real odds to detect value opportunities in Over 1.5 and Over 2.5 goals markets.',
                 btnMainEdgeText: "View today's value picks",
                 gateSubtext: "Matches analyzed today · Continuously updated data",
                 disclaimer: "Opportunities are statistical estimates and do not guarantee profits.",
                 howTitle: "How our quant engine works",
                 howStep1Title: "Collects 24/7 Data",
-                howStep1Desc: "Matches, form, news, weather, and live odds.",
+                howStep1Desc: "Matches, statistics, home/away performance, and live odds.",
                 howStep2Title: "Analyzes Context",
-                howStep2Desc: "Recent form, xG, home/away split, trends, and lineups.",
+                howStep2Desc: "Recent form, league averages, home/away splits, and sample quality.",
                 howStep3Title: "Calculates Fair Odds",
                 howStep3Desc: "Estimates true probability for Over 1.5 & 2.5 goals.",
                 howStep4Title: "Detects +EV Edge",
@@ -3868,23 +3735,12 @@ const todosLosCandidatos = (candidatos || []).filter(function (c) {
                 analyzesTag1: "Recent Form",
                 analyzesTag2: "xG & Attack Metrics",
                 analyzesTag3: "Home/Away Split",
-                analyzesTag4: "Injuries & Absences",
-                analyzesTag5: "Lineups",
-                analyzesTag6: "Weather Context",
-                analyzesTag7: "Relevant News",
-                analyzesTag8: "Odds Line Movement",
-                streamTitle: "Live Stream Monitor",
-                streamSubtitle: "Real-time updates of statistics, odds movements, and sporting context.",
-                edgeVarLabel: "EDGE VARIATION",
-                dataVivosLabel: "LIVE DATA 24/7",
-                edgeEvolLabel: "Edge Timeline Evolution",
-                dataQualityLabel: "DATA QUALITY",
-                weatherLabel: "WEATHER",
-                lineupsLabel: "LINEUPS",
-                liveSignalsLabel: "LIVE SIGNALS",
-                liveSignalsVal: "Active",
-                feedHeader: "EVENT & NEWS FEED",
-                feedSpeed: "28 sources/min",
+                analyzesTag4: "Validated Sample Size",
+                analyzesTag5: "League Average",
+                analyzesTag6: "Poisson Model",
+                analyzesTag7: "Implied Probability",
+                analyzesTag8: "Expected Value",
+
                 oppsTitle: "DETECTED OPPORTUNITIES",
                 oppsSubtitle: "Matches and markets exceeding quantitative positive statistical edge (+EV) filters.",
                 totalOddsLabel: "Total Odds",
@@ -3936,7 +3792,7 @@ const todosLosCandidatos = (candidatos || []).filter(function (c) {
                 faqTitle: "Frequently Asked Questions (FAQ)",
                 faqSubtitle: "Answers about the betting bot, +EV value betting model, and quantitative operations.",
                 faqQ1: "How does our betting quant bot work?",
-                faqA1: "Our quantitative bot processes massive 24/7 match data, recent form, xG metrics, weather forecasts, confirmed team news, and live odds movements. It calculates true fair odds (real probability) for Over 1.5 & Over 2.5 markets and compares them against public bet365 and other major bookmaker odds to isolate only positive expected value (+EV) selections.",
+                faqA1: "Our quantitative engine processes upcoming fixtures, verified statistics, league averages, home and away performance, and real odds. It applies minimum-sample filters, shrinkage, and a Poisson model to calculate fair odds for Over 1.5 and Over 2.5 goals and compare them with the market implied probability.",
                 faqQ2: "What does value betting (+EV) mean?",
                 faqA2: "Value betting (+EV / positive Expected Value) means placing bets only when the model-estimated probability indicates that the bookmaker odds offer a higher payout than mathematically expected. Over the long run, operating strictly on positive value odds overcomes the bookmaker margin.",
                 faqQ3: "Do bot signals guarantee profits?",
@@ -3959,7 +3815,7 @@ const todosLosCandidatos = (candidatos || []).filter(function (c) {
             // Re-render dynamic elements so English text is instantly updated
             if (typeof renderHeroFixtures === 'function') renderHeroFixtures();
             if (typeof renderCombinadas === 'function') renderCombinadas();
-            if (typeof renderHomeLiveNewsFeed === 'function') renderHomeLiveNewsFeed();
+
         }
 
         function applyLanguage(lang) {
@@ -4056,49 +3912,6 @@ const todosLosCandidatos = (candidatos || []).filter(function (c) {
                     badges[6].textContent = dict.analyzesTag7;
                     badges[7].textContent = dict.analyzesTag8;
                 }
-            }
-
-            // Live Monitor Section
-            var liveSection = document.querySelector('.stream-live-container');
-            if (liveSection) {
-                var cardTitle = liveSection.querySelector('.card-title');
-                if (cardTitle) {
-                    cardTitle.innerHTML = '<span class="pulse-dot"></span>' + dict.streamTitle;
-                }
-                var cardSub = liveSection.querySelector('.card-subtitle');
-                if (cardSub) cardSub.textContent = dict.streamSubtitle;
-
-                var varLabel = liveSection.querySelector('div[title*="Variación"]');
-                if (varLabel) varLabel.textContent = dict.edgeVarLabel;
-
-                var vivosBadge = liveSection.querySelector('.stream-live-badge-vivos');
-                if (vivosBadge) vivosBadge.textContent = dict.dataVivosLabel;
-
-                var evolSpan = liveSection.querySelector('span[style*="width:8px; height:8px"]');
-                if (evolSpan && evolSpan.parentElement) {
-                    evolSpan.parentElement.innerHTML = '<span style="width:8px; height:8px; background:var(--neon-emerald); border-radius:50%;"></span>' + dict.edgeEvolLabel;
-                }
-
-                var metricPills = liveSection.querySelectorAll('.stream-metric-pill');
-                if (metricPills.length >= 4) {
-                    var m1 = metricPills[0].querySelector('div:first-child');
-                    if (m1) m1.textContent = dict.dataQualityLabel;
-                    var m2 = metricPills[1].querySelector('div:first-child');
-                    if (m2) m2.textContent = dict.weatherLabel;
-                    var m3 = metricPills[2].querySelector('div:first-child');
-                    if (m3) m3.textContent = dict.lineupsLabel;
-                    var m4 = metricPills[3].querySelector('div:first-child');
-                    if (m4) m4.textContent = dict.liveSignalsLabel;
-
-                    var m4val = metricPills[3].querySelector('#hpSocialVal');
-                    if (m4val) m4val.textContent = dict.liveSignalsVal;
-                }
-
-                var feedHeaderSpan = liveSection.querySelector('span[style*="text-transform:uppercase"]');
-                if (feedHeaderSpan) feedHeaderSpan.textContent = dict.feedHeader;
-
-                var feedSpeedSpan = document.getElementById('hpFeedSpeed');
-                if (feedSpeedSpan) feedSpeedSpan.textContent = dict.feedSpeed;
             }
 
             // Unlocked Section (Oportunidades Detectadas)
@@ -4812,206 +4625,6 @@ const todosLosCandidatos = (candidatos || []).filter(function (c) {
             }
         }
 
-        // =========================================================
-        // MOTOR DE GRÁFICA DE EDGE DINÁMICA & STREAM DE NOTICIAS LIVE (BENTO)
-        // =========================================================
-        window.__currentRealEdge = 0;
-        var edgeHistory = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-        var timeLabels = ['19:35', '19:36', '19:37', '19:38', '19:39', '19:40', '19:41', '19:42', '19:43', '19:44'];
-        var homeChart = null;
-
-        const LIVE_NEWS_POOL = [
-            {
-                es: { tag: '⚽ GOL EN DIRECTO', title: 'Vinícius Jr. marca gol (Real Madrid 1-0 Barcelona)', desc: 'xG real sube a 2.38. El Edge del mercado Over 2.5 salta +5.4%', time: 'Ahora mismo' },
-                en: { tag: '⚽ LIVE GOAL', title: 'Vinícius Jr. scores (Real Madrid 1-0 Barcelona)', desc: 'Live xG rises to 2.38. Over 2.5 market Edge surges +5.4%', time: 'Just now' },
-                tagBg: 'rgba(13,242,166,0.15)', tagColor: '#0df2a6'
-            },
-            {
-                es: { tag: '🌦️ CLIMA REAL', title: 'Lluvia 75% sobre Etihad Stadium', desc: 'Lluvia moderada en Mánchester. Campo rápido: ritmo +6%, el Edge Over 2.5 sube +0.8%', time: 'hace 1 min' },
-                en: { tag: '🌦️ LIVE WEATHER', title: '75% Rain over Etihad Stadium', desc: 'Moderate rain in Manchester. Fast pitch: pace +6%, Over 2.5 Edge increases +0.8%', time: '1 min ago' },
-                tagBg: 'rgba(0,212,255,0.15)', tagColor: '#00d4ff'
-            },
-            {
-                es: { tag: '🚨 ALINEACIÓN', title: 'Kylian Mbappé confirmado como titular en el Clásico', desc: 'Recuperado de molestias. Probabilidad de gol por partido +18.4%', time: 'hace 2 min' },
-                en: { tag: '🚨 LINEUP ALERT', title: 'Kylian Mbappé confirmed starter in El Clásico', desc: 'Fully recovered. Match goal probability +18.4%', time: '2 mins ago' },
-                tagBg: 'rgba(245,158,11,0.15)', tagColor: '#f59e0b'
-            },
-            {
-                es: { tag: '📱 POST JUGADOR', title: 'Post de Jude Bellingham (Instagram): "Focus on tonight 💥"', desc: 'IA de Sentimiento detecta moral de equipo máxima (94.8%)', time: 'hace 3 min' },
-                en: { tag: '📱 PLAYER POST', title: 'Jude Bellingham post (Instagram): "Focus on tonight 💥"', desc: 'Sentiment AI detects peak team morale (94.8%)', time: '3 mins ago' },
-                tagBg: 'rgba(139,92,246,0.15)', tagColor: '#8b5cf6'
-            },
-            {
-                es: { tag: '📊 CUOTAS', title: 'Cuota (Arsenal vs Chelsea) ajustada a 1.95 en bet365 y otras casas', desc: 'Desfase cuantitativo aislado por el modelo con mayor valor esperado (+EV)', time: 'hace 4 min' },
-                en: { tag: '📊 ODDS', title: 'Odds (Arsenal vs Chelsea) adjusted to 1.95 across major bookmakers', desc: 'Quantitative edge isolated by model with high expected value (+EV)', time: '4 mins ago' },
-                tagBg: 'rgba(0,212,255,0.15)', tagColor: '#00d4ff'
-            },
-            {
-                es: { tag: '🧠 IA OMNIROUTE', title: 'Procesados 240 artículos de prensa deportiva de España e Inglaterra', desc: 'Tendencia estadística Over 1.5/2.5 en LaLiga y Premier validada al 92.1%', time: 'hace 5 min' },
-                en: { tag: '🧠 OMNIROUTE AI', title: 'Processed 240 sports news articles from Spain & England', desc: 'Over 1.5/2.5 statistical trend validated at 92.1%', time: '5 mins ago' },
-                tagBg: 'rgba(255,255,255,0.08)', tagColor: '#94a3b8'
-            }
-        ];
-        var newsIdx = 0;
-
-        function initHomeLiveChart() {
-            var ctx = document.getElementById('homeEdgeLiveCanvas');
-            if(!ctx) return;
-
-            var rootEl = (typeof document !== 'undefined' && document.documentElement) ? document.documentElement : null;
-            var isLight = rootEl ? (rootEl.getAttribute('data-theme') !== 'dark') : true;
-            var gridColor = isLight ? '#E9EEF5' : 'rgba(255, 255, 255, 0.05)';
-            var textColor = isLight ? '#667085' : '#64748b';
-            var lineColor = isLight ? '#0f9f98' : '#0df2a6';
-
-            homeChart = new Chart(ctx.getContext('2d'), {
-                type: 'line',
-                data: {
-                    labels: timeLabels,
-                    datasets: [{
-                        label: 'Edge +EV (%)',
-                        data: edgeHistory,
-                        borderColor: lineColor,
-                        borderWidth: 3,
-                        backgroundColor: (context) => {
-                            const chart = context.chart;
-                            const {ctx, chartArea} = chart;
-                            if (!chartArea) return null;
-                            const gradient = ctx.createLinearGradient(0, chartArea.top, 0, chartArea.bottom);
-                            if (isLight) {
-                                gradient.addColorStop(0, 'rgba(15, 159, 152, 0.25)');
-                                gradient.addColorStop(1, 'rgba(15, 159, 152, 0.0)');
-                            } else {
-                                gradient.addColorStop(0, 'rgba(13, 242, 166, 0.35)');
-                                gradient.addColorStop(1, 'rgba(13, 242, 166, 0.0)');
-                            }
-                            return gradient;
-                        },
-                        fill: true,
-                        tension: 0.38,
-                        pointRadius: 4,
-                        pointBackgroundColor: lineColor,
-                        pointBorderColor: isLight ? '#ffffff' : '#06070a',
-                        pointBorderWidth: 2
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    animation: { duration: 600 },
-                    plugins: { legend: { display: false } },
-                    scales: {
-                        x: {
-                            grid: { color: gridColor },
-                            ticks: { color: textColor, font: { family: 'JetBrains Mono', size: 10 } }
-                        },
-                        y: {
-                            grid: { color: gridColor },
-                            ticks: { color: textColor, font: { family: 'JetBrains Mono', size: 10 }, callback: v => '+' + v + '%' },
-                            min: -5,
-                            max: 25
-                        }
-                    }
-                }
-            });
-        }
-
-        function pushLiveNewsItem(rawItem) {
-            var container = document.getElementById('homeLiveNewsFeed');
-            if(!container) return;
-
-            var lang = getCurrentLang();
-            var item = rawItem[lang] ? { ...rawItem[lang], tagBg: rawItem.tagBg, tagColor: rawItem.tagColor } : rawItem;
-
-            var el = document.createElement('div');
-            el.className = 'feed-item-enter stream-news-item';
-            el.style.cssText = 'border-radius:10px; padding:8px 10px; display:flex; flex-direction:column; gap:3px; transition:all 0.2s;';
-            el.innerHTML = '<div style="display:flex; justify-content:space-between; align-items:center;">' +
-                '<span style="font-size:0.6rem; font-weight:800; background:' + (item.tagBg||'rgba(13,242,166,0.15)') + '; color:' + (item.tagColor||'#0df2a6') + '; padding:2px 6px; border-radius:6px;">' + item.tag + '</span>' +
-                '<span style="font-size:0.62rem; color:var(--text-muted); font-family:JetBrains Mono;">'  + item.time + '</span>' +
-                '</div>' +
-                '<div style="font-size:0.78rem; font-weight:700; color:var(--text-primary); margin-top:2px;">' + item.title + '</div>' +
-                '<div style="font-size:0.7rem; color:var(--text-secondary); line-height:1.3;">' + item.desc + '</div>';
-
-            container.insertBefore(el, container.firstChild);
-            if(container.children.length > 8) {
-                container.removeChild(container.lastChild);
-            }
-        }
-
-        function tickHomeLiveEngine() {
-            var now = new Date();
-            var timeStr = String(now.getHours()).padStart(2,'0') + ':' + String(now.getMinutes()).padStart(2,'0') + ':' + String(now.getSeconds()).padStart(2,'0');
-            var clockEl = document.getElementById('liveClockTicker');
-            if(clockEl) clockEl.textContent = timeStr;
-
-            var item = LIVE_NEWS_POOL[newsIdx % LIVE_NEWS_POOL.length];
-            newsIdx++;
-            pushLiveNewsItem(item);
-
-            // News-driven spike factor
-            var spike = (Math.random() - 0.48) * 0.8;
-            if (item.tag.indexOf('GOL') !== -1) spike = (Math.random() * 1.2 + 0.6);
-            else if (item.tag.indexOf('ALINEACIÓN') !== -1) spike = (Math.random() * 0.8 + 0.3);
-
-            if(homeChart) {
-                var baseEdge = (typeof window !== 'undefined' && Number.isFinite(window.__currentRealEdge)) ? window.__currentRealEdge : 0;
-                var lastVal = edgeHistory[edgeHistory.length - 1];
-                var newVal;
-
-                if (baseEdge > 0) {
-                    // Real edge found: oscillate ±1.5% around real value
-                    newVal = parseFloat((baseEdge + spike * 0.8).toFixed(1));
-                    newVal = Math.max(baseEdge - 2, Math.min(baseEdge + 2, newVal));
-                } else {
-                    // No real edge: simulate scanning oscillation between -3% and +3%
-                    newVal = parseFloat((lastVal + spike).toFixed(1));
-                    if (newVal > 3.0) newVal = 2.8 - Math.random() * 0.5;
-                    if (newVal < -3.0) newVal = -2.8 + Math.random() * 0.5;
-                }
-
-                edgeHistory.shift();
-                edgeHistory.push(newVal);
-
-                timeLabels.shift();
-                timeLabels.push(timeStr.substring(0, 5));
-
-                homeChart.data.labels = timeLabels;
-                homeChart.data.datasets[0].data = edgeHistory;
-                homeChart.update('none');
-
-                var edgeDisplay = document.getElementById('liveHomeEdgeVal');
-                if(edgeDisplay) {
-                    var sign = newVal >= 0 ? '+' : '';
-                    edgeDisplay.textContent = sign + newVal.toFixed(1) + '%';
-                    if (baseEdge > 0) {
-                        edgeDisplay.style.color = '#0df2a6';
-                    } else {
-                        edgeDisplay.style.color = newVal >= 0 ? 'var(--neon-cyan)' : '#f59e0b';
-                    }
-                    edgeDisplay.style.transform = 'scale(1.08)';
-                    setTimeout(function(){ edgeDisplay.style.transform = 'scale(1)'; }, 250);
-                }
-            }
-        }
-
-        // =========================================================================
-        // VALIDACION TEMPORAL EN CLIENTE: dia + hora REALES por fixture (Europe/Madrid)
-        // =========================================================================
-        var __fixturesValidadas = [];
-        var __metaTemporal = null;
-        var __parlayCache = null;
-        var __frescuraDatos = null;
-        var __refrescando = false;
-
-        function selloHoraReal() {
-            try {
-                return new Date().toLocaleTimeString('es-ES', { timeZone: 'Europe/Madrid', hour12: false, hour: '2-digit', minute: '2-digit', second: '2-digit' }) + ' Madrid';
-            } catch (e) {
-                return new Date().toTimeString().slice(0, 8);
-            }
-        }
-
         function scrollToProximosPartidos() {
             var el = document.getElementById('proximosPartidosSection') || document.getElementById('unlockedEdgeSection');
             if (el) el.scrollIntoView({ behavior: 'smooth' });
@@ -5268,7 +4881,6 @@ const todosLosCandidatos = (candidatos || []).filter(function (c) {
                 __frescuraDatos = d.frescura || null;
                 renderHeroValidatedFixtures(__fixturesValidadas, __metaTemporal);
                 buildTickerFromFixtures(__fixturesValidadas);
-                sincronizarPoolNoticias();
                 renderFrescuraDatos(__frescuraDatos);
                 return true;
             } catch (e) {
@@ -5329,89 +4941,12 @@ const todosLosCandidatos = (candidatos || []).filter(function (c) {
             }
         }
 
-        function sincronizarPoolNoticias() {
-            var frescos = construirFeedActual();
-            try {
-                LIVE_NEWS_POOL.length = 0;
-                frescos.forEach(function (it) { LIVE_NEWS_POOL.push(it); });
-            } catch (e) { }
-        }
-
-        function normalizarJustificacionFeed(txt, lang) {
-            var s = String(txt || '');
-            // Compatibilidad: los datasets antiguos pueden traer la redacción con la fuente interna.
-            // Se normaliza para no exponer proveedores internos en el feed visible.
-            s = s.split('Partido real capturado de ratingbet.com. Pendiente de analisis de edge (agente IA no disponible en este ciclo).').join(lang === 'en' ? 'Real match verified in live feeds. Edge analysis pending (analysis cycle in progress).' : 'Partido real verificado en feeds en vivo. Pendiente de analisis de edge (ciclo de analisis en curso).');
-            s = s.split('ratingbet.com').join(lang === 'en' ? 'live feeds' : 'feeds en vivo');
-            s = s.split('agente IA no disponible en este ciclo').join(lang === 'en' ? 'analysis cycle in progress' : 'ciclo de analisis en curso');
-            return s;
-        }
-
-        function construirFeedActual() {
-            var items = [];
-            var ahora = selloHoraReal();
-            var lang = getCurrentLang();
-            if (__fixturesValidadas && __fixturesValidadas.length) {
-                __fixturesValidadas.forEach(function (f) {
-                    var diaStr = lang === 'en' ? (f.dia === 'Hoy' ? 'Today' : (f.dia === 'Mañana' ? 'Tomorrow' : f.dia)) : f.dia;
-                    var tagTxt = lang === 'en' ? (f.dia === 'Hoy' ? 'TODAY FIXTURE' : 'TOMORROW FIXTURE') : (f.dia === 'Hoy' ? 'FIXTURE HOY' : 'FIXTURE ' + f.dia.toUpperCase());
-                    var atTxt = lang === 'en' ? 'at' : 'a las';
-                    var probTxt = Number.isFinite(f.modelProb) ? ((lang === 'en' ? 'model prob ' : 'prob. modelo ') + f.modelProb + '%') : (lang === 'en' ? 'prob N/A' : 'prob. n/d');
-                    var oddsTxt = lang === 'en' ? 'odds' : 'cuota';
-
-                    items.push({
-                        tag: tagTxt,
-                        tagBg: 'rgba(13,242,166,0.15)', tagColor: '#0df2a6',
-                        title: f.partido + ' - ' + diaStr + ' ' + f.fechaCorta + ' ' + atTxt + ' ' + f.hora,
-                        desc: f.ligaCorta + ' | ' + f.mercado + ' ' + oddsTxt + ' ' + f.cuota.toFixed(2) + ' | ' + probTxt + ' | ' + f.edge + ' | ' + normalizarJustificacionFeed(f.justificacion, lang),
-                        time: ahora
-                    });
-                });
-                items.push({
-                    tag: lang === 'en' ? 'TIME AUDIT' : 'FILTRO TEMPORAL',
-                    tagBg: 'rgba(0,212,255,0.15)', tagColor: '#00d4ff',
-                    title: lang === 'en' ? (__fixturesValidadas.length + ' upcoming validated fixtures (' + ((__metaTemporal && __metaTemporal.margenSeguridadHoras) || 2.5) + 'h safety margin)') : (__fixturesValidadas.length + ' fixtures futuros validados (margen ' + ((__metaTemporal && __metaTemporal.margenSeguridadHoras) || 2.5) + ' h)'),
-                    desc: lang === 'en' ? ('Already started matches automatically filtered. Updated: ' + ahora + ' (' + ((__metaTemporal && __metaTemporal.zonaHoraria) || 'Europe/Madrid') + ')') : ('Kickoffs ya iniciados descartados automaticamente. Actualizado: ' + ahora + ' (' + ((__metaTemporal && __metaTemporal.zonaHoraria) || 'Europe/Madrid') + ')'),
-                    time: ahora
-                });
-            }
-            if (__parlayCache && __parlayCache.estado === 'ok' && __parlayCache.partidos && __parlayCache.partidos.length && Number.isFinite(__parlayCache.cuotaTotal)) {
-                items.push({
-                    tag: lang === 'en' ? 'PARLAY RECALCULATED' : 'COMBINADA RECALCULADA',
-                    tagBg: 'rgba(245,158,11,0.15)', tagColor: '#f59e0b',
-                    title: __parlayCache.iconoRiesgo + ' ' + (lang === 'en' ? (__parlayCache.nombreRiesgo === 'Riesgo Medio' ? 'Medium Risk' : (__parlayCache.nombreRiesgo === 'Riesgo Bajo' ? 'Low Risk' : 'High Risk')) : __parlayCache.nombreRiesgo) + ' - total odds ' + __parlayCache.cuotaTotal.toFixed(2),
-                    desc: __parlayCache.partidos.length + (lang === 'en' ? ' legs | Combined prob ' : ' selecciones | Prob. combinada ') + __parlayCache.probabilidadReal + '% vs bookie ' + __parlayCache.probabilidadCasa + '% | edge ' + __parlayCache.edgeTotal + ' pts.',
-                    time: ahora
-                });
-            }
-            if (!items.length) return LIVE_NEWS_POOL.slice();
-            return items;
-        }
-
-        async function iniciarPanelLive() {
-            await cargarFixturesValidadas();
-            var pool = construirFeedActual();
-            for (var i = 0; i < Math.min(4, pool.length); i++) {
-                pushLiveNewsItem(pool[i]);
-            }
-            newsIdx = Math.min(4, pool.length);
-            var upd = document.getElementById('hpFeedUpdated');
-            if (upd) upd.textContent = 'Actualizado ' + selloHoraReal();
+        window.addEventListener('DOMContentLoaded', function () {
+            cargarFixturesValidadas(false);
             setInterval(function () {
-                if (document.hidden) return;
-                if (__refrescando) return;             // el cliente acaba de pulsar "Actualizar datos"
-                cargarFixturesValidadas(false);        // sin force: respeta la cache del servidor
+                if (document.hidden || __refrescando) return;
+                cargarFixturesValidadas(false);
             }, 60000);
-        }
-
-        window.addEventListener('DOMContentLoaded', function() {
-            initHomeLiveChart();
-            iniciarPanelLive();
-            setInterval(function () {
-                tickHomeLiveEngine();
-                var upd = document.getElementById('hpFeedUpdated');
-                if (upd) upd.textContent = 'Actualizado ' + selloHoraReal();
-            }, 2500);
         });
 
     </script>
@@ -6094,141 +5629,7 @@ window.addEventListener("DOMContentLoaded",function(){
 });
 
         // =========================================================
-        // HERO2 aislado (IIFE para no chocar con BENTO)
-        (function(){
-        var edgeHistory = [12.1, 12.4, 12.8, 13.2, 12.9, 13.5, 14.1, 13.8, 14.2, 14.8]; var timeLabels = ['19:35','19:36','19:37','19:38','19:39','19:40','19:41','19:42','19:43','19:44']; var homeChart = null;
-        var LIVE_NEWS_POOL = [
-            { tag: '⚽ GOL EN DIRECTO', tagBg: 'rgba(13,242,166,0.15)', tagColor: '#0df2a6', title: 'Lautaro Martínez marca gol (Inter 1-0 Milan)', desc: 'xG real sube a 2.48. El Edge del mercado Over 2.5 salta +5.8%', time: 'Ahora mismo' },
-            { tag: '🌦️ CLIMA REAL', tagBg: 'rgba(0,212,255,0.15)', tagColor: '#00d4ff', title: 'Lluvia 88% sobre San Siro', desc: 'Lluvia fuerte 88%. Campo pesado: ritmo -8%, el Edge Over 2.5 corrige -0.4%', time: 'hace 1 min' },
-            { tag: '🚨 ALINEACIÓN', tagBg: 'rgba(245,158,11,0.15)', tagColor: '#f59e0b', title: 'Kylian Mbappé confirmado como titular en ataque', desc: 'Recuperado de molestias. Probabilidad de gol por partido +18.4%', time: 'hace 2 min' },
-            { tag: '📱 POST JUGADOR', tagBg: 'rgba(139,92,246,0.15)', tagColor: '#8b5cf6', title: 'Post de Jude Bellingham (Instagram): "Focus on tonight 💥"', desc: 'IA de Sentimiento detecta moral de equipo máxima (94.8%)', time: 'hace 3 min' },
-            { tag: '📊 CUOTAS', tagBg: 'rgba(0,212,255,0.15)', tagColor: '#00d4ff', title: 'Cuota ajustada de 1.82 a 1.95 en bet365 y otras casas', desc: 'Desfase cuantitativo aislado por el modelo con mayor valor esperado (+EV)', time: 'hace 4 min' },
-            { tag: '🧠 IA OMNIROUTE', tagBg: 'rgba(255,255,255,0.08)', tagColor: '#94a3b8', title: 'Procesados 240 artículos de prensa deportiva europea', desc: 'Tendencia estadística Over 1.5/2.5 validada al 92.1%', time: 'hace 5 min' }
-        ];
-        var newsIdx = 0;
 
-        function initHomeLiveChart() {
-            var ctx = document.getElementById('homeEdgeLiveCanvas');
-            if(!ctx) return;
-            
-            homeChart = new Chart(ctx.getContext('2d'), {
-                type: 'line',
-                data: {
-                    labels: timeLabels,
-                    datasets: [{
-                        label: 'Edge +EV (%)',
-                        data: edgeHistory,
-                        borderColor: '#0df2a6',
-                        borderWidth: 3,
-                        backgroundColor: (context) => {
-                            const chart = context.chart;
-                            const {ctx, chartArea} = chart;
-                            if (!chartArea) return null;
-                            const gradient = ctx.createLinearGradient(0, chartArea.top, 0, chartArea.bottom);
-                            gradient.addColorStop(0, 'rgba(13, 242, 166, 0.35)');
-                            gradient.addColorStop(1, 'rgba(13, 242, 166, 0.0)');
-                            return gradient;
-                        },
-                        fill: true,
-                        tension: 0.38,
-                        pointRadius: 4,
-                        pointBackgroundColor: '#0df2a6',
-                        pointBorderColor: '#06070a',
-                        pointBorderWidth: 2
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    animation: { duration: 600 },
-                    plugins: { legend: { display: false } },
-                    scales: {
-                        x: {
-                            grid: { color: 'rgba(255, 255, 255, 0.05)' },
-                            ticks: { color: '#64748b', font: { family: 'JetBrains Mono', size: 10 } }
-                        },
-                        y: {
-                            grid: { color: 'rgba(255, 255, 255, 0.05)' },
-                            ticks: { color: '#64748b', font: { family: 'JetBrains Mono', size: 10 }, callback: v => '+' + v + '%' },
-                            min: 8,
-                            max: 18
-                        }
-                    }
-                }
-            });
-        }
-
-        function pushLiveNewsItem(item) {
-            var container = document.getElementById('homeLiveNewsFeed');
-            if(!container) return;
-
-            var el = document.createElement('div');
-            el.className = 'feed-item-enter';
-            el.style.cssText = 'background:rgba(255,255,255,0.025); border:1px solid var(--border-subtle); border-radius:10px; padding:8px 10px; display:flex; flex-direction:column; gap:3px;';
-            el.innerHTML = '<div style="display:flex; justify-content:space-between; align-items:center;">' +
-                '<span style="font-size:0.6rem; font-weight:800; background:' + item.tagBg + '; color:' + item.tagColor + '; padding:2px 6px; border-radius:6px;">' + item.tag + '</span>' +
-                '<span style="font-size:0.62rem; color:var(--text-muted); font-family:JetBrains Mono;">'  + item.time + '</span>' +
-                '</div>' +
-                '<div style="font-size:0.78rem; font-weight:700; color:var(--text-primary); margin-top:2px;">' + item.title + '</div>' +
-                '<div style="font-size:0.7rem; color:var(--text-secondary); line-height:1.3;">' + item.desc + '</div>';
-
-            container.insertBefore(el, container.firstChild);
-            if(container.children.length > 8) {
-                container.removeChild(container.lastChild);
-            }
-        }
-
-        function tickHomeLiveEngine() {
-            var now = new Date();
-            var timeStr = String(now.getHours()).padStart(2,'0') + ':' + String(now.getMinutes()).padStart(2,'0') + ':' + String(now.getSeconds()).padStart(2,'0');
-            var clockEl = document.getElementById('liveClockTicker');
-            if(clockEl) clockEl.textContent = timeStr;
-
-            var item = LIVE_NEWS_POOL[newsIdx % LIVE_NEWS_POOL.length];
-            newsIdx++;
-            pushLiveNewsItem(item);
-
-            // Dynamic peak reaction based on news event type
-            var spike = (Math.random() - 0.42) * 0.9;
-            if (item.tag.indexOf('GOL') !== -1) spike = (Math.random() * 1.5 + 1.1);
-            else if (item.tag.indexOf('ALINEACIÓN') !== -1) spike = (Math.random() * 1.1 + 0.4);
-
-            if(homeChart) {
-                var lastVal = edgeHistory[edgeHistory.length - 1];
-                var newVal = parseFloat((lastVal + spike).toFixed(1));
-                if(newVal < 9.8) newVal = 11.2;
-                if(newVal > 18.2) newVal = 17.5;
-
-                edgeHistory.shift();
-                edgeHistory.push(newVal);
-
-                timeLabels.shift();
-                timeLabels.push(timeStr.substring(0, 5));
-
-                homeChart.data.labels = timeLabels;
-                homeChart.data.datasets[0].data = edgeHistory;
-                homeChart.update('none');
-
-                var edgeDisplay = document.getElementById('liveHomeEdgeVal');
-                if(edgeDisplay) {
-                    edgeDisplay.textContent = '+' + newVal + '%';
-                    edgeDisplay.style.transform = 'scale(1.15)';
-                    edgeDisplay.style.color = newVal >= lastVal ? '#0df2a6' : '#00d4ff';
-                    setTimeout(function(){ edgeDisplay.style.transform = 'scale(1)'; }, 300);
-                }
-            }
-        }
-
-        window.addEventListener('DOMContentLoadedHero2x', function() {
-            initHomeLiveChart();
-            for(let i = 0; i < 4; i++) {
-                pushLiveNewsItem(LIVE_NEWS_POOL[i]);
-            }
-            newsIdx = 4;
-            setInterval(tickHomeLiveEngine, 2500);
-        });
-        setTimeout(function(){ window.dispatchEvent(new Event('DOMContentLoadedHero2x')); }, 200);
-        })();
 
     </script>
 

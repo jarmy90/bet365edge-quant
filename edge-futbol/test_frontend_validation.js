@@ -21,11 +21,11 @@ console.log('Tamano del HTML principal: ' + html.length + ' bytes');
 assert.ok(html.includes('id="heroFixtureBody"'), 'la tabla debe ser dinamica (heroFixtureBody)');
 assert.ok(html.includes('VALIDACION TEMPORAL 2.5H'), 'debe existir el badge de validacion temporal');
 assert.ok(html.includes('id="heroFixtureStamp"'), 'debe existir el sello de ultima actualizacion');
-assert.ok(html.includes('id="hpFeedUpdated"'), 'el feed debe mostrar su ultima actualizacion');
-assert.ok(html.includes('iniciarPanelLive()'), 'debe inicializarse el panel live con fixtures reales');
+assert.ok(!html.includes('homeLiveNewsFeed'), 'no debe existir el feed de eventos y noticias');
+assert.ok(!html.includes('fetchRssNoticias'), 'no debe existir ninguna consulta RSS de noticias');
 assert.ok(html.includes('horaLabel'), 'el modal debe usar la etiqueta con dia + hora');
 assert.ok(!html.includes('Futuro (+3h)') && !html.includes('Futuro (+6.5h)'), 'no deben quedar filas estaticas antiguas');
-assert.ok(html.includes('Actualizado ') , 'debe etiquetar la ultima actualizacion');
+assert.ok(html.includes('id="heroFixtureStamp"'), 'la actualización debe mostrarse mediante el sello de frescura del dataset');
 
 const scripts = [...html.matchAll(/<script>([\s\S]*?)<\/script>/g)].map(m => m[1]);
 console.log('Bloques <script> inline encontrados: ' + scripts.length);

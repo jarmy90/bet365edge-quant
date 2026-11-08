@@ -400,10 +400,6 @@ export function construirPromptAnalisis(candidatos, feed, ahoraMs) {
         }
     });
 
-    const noticias = (feed || []).slice(0, 30).map(function (n) {
-        return (n.fecha || n.time || '') + ' | ' + (n.fuente || n.source || 'feed') + ' | ' + (n.titulo || n.title || '');
-    });
-
     // =========================================================================
     // SYSTEM PROMPT — 8-pilar cuantitativo profesional
     // =========================================================================
@@ -437,14 +433,11 @@ export function construirPromptAnalisis(candidatos, feed, ahoraMs) {
         '  * Historial del local en casa (goles/partido como local) vs historial visitante fuera.',
         '  * Estadio grande con poca aficion = menos presion psicologica = partidos mas abiertos.',
         '',
-        'PILAR 4 — PLANTILLA, BAJAS Y LESIONES',
-        '  * Bajas en posiciones clave:',
-        '    - Delantero goleador ausente: -0.4 a -0.6 xG estimado en el equipo atacante.',
-        '    - Portero titular ausente: +0.3 a +0.5 xG estimado para el rival.',
-        '    - Dos o mas defensas centrales titulares bajos: impacto muy alto en vulnerabilidad defensiva.',
-        '  * Jugadores volviendo de lesion (en baja forma, minutos limitados, riesgo de recaida).',
-        '  * Sancionados que no pueden jugar este partido.',
-        '  * Usa el feed de noticias para detectar bajas confirmadas o alineaciones filtradas.',
+        'PILAR 4 — CALIDAD Y SUFICIENCIA DE LOS DATOS',
+        '  * Exige una muestra estadistica suficiente y separa rendimiento local y visitante.',
+        '  * Prioriza goles marcados y recibidos observados, medias de liga y fuerzas normalizadas.',
+        '  * Aplica shrinkage hacia la media de la liga para reducir el ruido de muestras limitadas.',
+        '  * No inventes lesiones, alineaciones, sanciones ni informacion externa no incluida en los datos.',
         '',
         'PILAR 5 — CONTEXTO TACTICO Y ENTRENADOR',
         '  * Sistema tactico: 4-3-3 / 4-2-3-1 (ofensivo) vs 5-3-2 / 5-4-1 (defensivo).',
@@ -472,10 +465,10 @@ export function construirPromptAnalisis(candidatos, feed, ahoraMs) {
         '  * Posicion en la tabla y objetivos: equipo en zona Champions juega para ganar; en zona descenso, a no perder.',
         '  * Segunda vuelta vs primera vuelta: los patrones cambian, los equipos se conocen mejor.',
         '',
-        'PILAR 8 — CONTEXTO EXTERNO (SOLO SI EL FEED LO MENCIONA)',
-        '  * Usa el feed de noticias para rumores, bajas de ultima hora o alineaciones filtradas.',
+        'PILAR 8 — CONTROL DE INCERTIDUMBRE',
         '  * NO ves las cuotas del mercado: no analices movimientos de cuotas ni dinero apostado.',
-        '  * Si el feed no menciona un partido, basate solo en los pilares 1-7.',
+        '  * Basa el veredicto solo en los datos estadisticos incluidos en la lista cerrada.',
+        '  * Si faltan datos suficientes o existe incertidumbre material, no emitas veredicto.',
         '',
         '============================================================',
         'REGLAS DE ORO — OBLIGATORIAS SIN EXCEPCION:',
@@ -483,7 +476,7 @@ export function construirPromptAnalisis(candidatos, feed, ahoraMs) {
         'REGLA 1: Solo emites veredictos sobre claves EXACTAS de la lista recibida. NUNCA inventas partidos.',
         'REGLA 2: "probModelo" es tu estimacion independiente (0-99.5). NO ves las cuotas del mercado.',
         'REGLA 3: Estima probModelo de forma INDEPENDIENTE y ciega a la cuota, basandote solo en datos:',
-        '         forma reciente, xG esperado, bajas y lesiones, clima, factor local/visitante e historial H2H.',
+        '         goles observados, medias de liga, calidad de muestra, fuerza normalizada y factor local/visitante.',
         '         NO puedes copiar el precio porque NO lo ves: cualquier parecido con la cuota es coincidencia.',
         '         Da tu probabilidad real del Over/Under indicado segun tu analisis cuantitativo (8 pilares).',
         'REGLA 4: Si no tienes datos cuantitativos suficientes para un partido, NO emitas veredicto.',
@@ -499,7 +492,7 @@ export function construirPromptAnalisis(candidatos, feed, ahoraMs) {
         'FORMATO DE SALIDA — EXCLUSIVAMENTE JSON VALIDO (sin texto adicional, sin bloques de codigo):',
         '{"veredictos":[{"clave":"string","linea":"1.5|2.5","lado":"OVER|UNDER","probModelo":74.8,',
         '"confianza":"ALTA|MEDIA-ALTA|MEDIA","justificacion":"string concreto y cuantitativo",',
-        '"factores":["factor1","factor2"],"noticiasUsadas":["fuente: titular si existe"]}],',
+        '"factores":["factor1","factor2"]}],',
         '"resumen":"2 frases del panorama general de hoy"}'
     ];
     const system = systemLines.join('\n');
@@ -515,14 +508,6 @@ export function construirPromptAnalisis(candidatos, feed, ahoraMs) {
         JSON.stringify(lista, null, 2),
         ''
     ];
-
-    if (noticias.length) {
-        userLines.push('============================================================');
-        userLines.push('FEED DE NOTICIAS DEPORTIVAS (usa solo si es relevante y esta fechado):');
-        userLines.push('============================================================');
-        userLines.push(noticias.join('\n'));
-        userLines.push('');
-    }
 
     userLines.push('============================================================');
     userLines.push('INSTRUCCION FINAL:');
@@ -907,11 +892,10 @@ export function modeloPoisson(stats) {
     if (!vals.every(function (v) { return Number.isFinite(v) && v > 0; })) return null;
     if (stats.nH !== undefined || stats.nA !== undefined) {
         const nH = Number(stats.nH), nA = Number(stats.nA);
-        if (!Number.isFinite(nH) || !Number.isFinite(nA) || nH < 3 || nA < 3) return null;
-        // Shrinkage de las fuerzas hacia la media de liga (1.0) cuando hay pocos
-        // partidos. Con 3 partidos la fuerza queda cerca de 1.0 (sin ventaja
-        // inventada); con muchos partidos se acerca al valor observado.
-        const k = 8;
+        if (!Number.isFinite(nH) || !Number.isFinite(nA) || nH < 8 || nA < 8) return null;
+        // Shrinkage de las fuerzas hacia la media de liga (1.0). El peso de la
+        // observacion es n/(n+10); el resto se atribuye a la media de la liga.
+        const k = 10;
         const wH = nH / (nH + k), wA = nA / (nA + k);
         const sH = 1 + (attH - 1) * wH;
         const sD = 1 + (defH - 1) * wH;
@@ -919,11 +903,11 @@ export function modeloPoisson(stats) {
         const sDA = 1 + (defA - 1) * wA;
         const Lh = avgH * sH * sDA;
         const La = avgA * sA * sD;
-        // Clamp de lambda total a un rango futbolísticamente creíble para evitar
-        // edges imposibles cuando la muestra es pequeña.
+        // Clamp de lambda total a un rango futbolisticamente creible para evitar
+        // probabilidades extremas incluso cuando las fuerzas observadas son altas.
         let L = Lh + La;
         if (L < 0.6) L = 0.6;
-        if (L > 5.5) L = 5.5;
+        if (L > 4.0) L = 4.0;
         const eL = Math.exp(-L);
         function clamp1(x) { return Math.min(99.5, Math.max(1, Math.round(x * 10) / 10)); }
         return {
@@ -989,12 +973,13 @@ export function seleccionDeFixture(f) {
         // Guardia: el tip/veredicto no puede diferir tanto de la probabilidad
         // implicita de la cuota (seria ruido del dato fuente, no un edge real).
         const pImp = 100 / f.cuota;
-        if (Math.abs(f.modelProb - pImp) > 25) return null;
+        if (f.modelProb - pImp > 10) return null;
         const cuotaModelo = 100 / f.modelProb;
         const edgeCalc = edgePorCuotas(f.cuota, cuotaModelo);
-        // EV relativo: cuota ofrecida / cuota justa - 1. Se conserva el signo
-        // para no convertir artificialmente una apuesta negativa en edge cero.
-        const edgePuntos = edgeCalc === null ? null : Math.min(15, Math.max(-15, edgeCalc));
+        // No se recortan ventajas exageradas para hacerlas publicables: se
+        // rechazan. El limite de 15% se aplica al EV relativo calculado.
+        if (edgeCalc !== null && edgeCalc > 15) return null;
+        const edgePuntos = edgeCalc;
         return {
             mercado: f.mercado, cuota: f.cuota, probPct: f.modelProb, probBase: 'modelo-ia',
             edgePuntos: edgePuntos,
@@ -1022,7 +1007,11 @@ export function seleccionDeFixture(f) {
                     // Clamp de probabilidad para evitar edges absurdos cuando el Poisson
                     // da valores extremos con pocas datos.
                     prob = Math.min(90, Math.max(10, prob));
+                    const pMercado = 100 / cuota;
                     const edge = edgePorCuotas(cuota, 100 / prob);
+                    // Protecciones de publicacion: el modelo no puede superar al
+                    // mercado en mas de 10 puntos ni declarar EV superior al 15%.
+                    if (prob - pMercado > 10 || edge === null || edge > 15) return;
                     if (!mejorP || edge > mejorP.edgePuntos) {
                         mejorP = { linea: ln, lado: lado, cuota: cuota,
                             prob: Math.round(prob * 10) / 10, edgePuntos: edge };

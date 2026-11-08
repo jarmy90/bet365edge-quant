@@ -159,10 +159,11 @@ sel.slice(0, 10).forEach(c => {
 ok(sel.slice(0, 10).every(c => prompt.user.indexOf(c.clave) !== -1), 'todas las claves seleccionadas viajan al prompt');
 ok(prompt.user.indexOf(String(capturaMs ? new Date(capturaMs).toISOString() : '')) !== -1 ||
    /MOMENTO DE EJECUCION \(UTC\)/.test(prompt.user), 'el prompt fecha el momento de ejecucion (anti-alucinacion temporal)');
-ok(prompt.user.indexOf('Marca') !== -1, 'el contexto de noticias fechadas se inyecta cuando existe');
+ok(prompt.user.indexOf('Marca') === -1 && prompt.user.indexOf('FEED DE NOTICIAS') === -1,
+    'el prompt ignora noticias externas para ahorrar tokens y usar solo datos estadisticos');
 const promptSinFeed = construirPromptAnalisis(sel, [], capturaMs);
-ok(promptSinFeed.user.indexOf('CONTEXTO DE NOTICIAS') === -1 && promptSinFeed.totalCandidatos === sel.length,
-    'sin feed el prompt sigue siendo valido (el feed es opcional, no obligatorio)');
+ok(promptSinFeed.user.indexOf('FEED DE NOTICIAS') === -1 && promptSinFeed.totalCandidatos === sel.length,
+    'el prompt sin noticias sigue siendo valido y conserva todos los candidatos');
 ok(JSON.stringify(promptSinFeed.user).indexOf('NaN') === -1 && JSON.stringify(promptSinFeed.user).indexOf('undefined') === -1,
     'el JSON del prompt no lleva NaN ni undefined');
 // MODELO CIEGO A LA CUOTA: el prompt NO puede filtrar precios ni probabilidades

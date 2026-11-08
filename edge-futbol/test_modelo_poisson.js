@@ -5,7 +5,7 @@
 //   modeloPoisson(stats): L = Lh + La
 //     P(Over 1.5) = 1 - e^-L * (1 + L)
 //     P(Over 2.5) = 1 - e^-L * (1 + L + L^2/2)
-//   salida en %, clamp 1..99.5, null si stats insuficientes (<3 partidos)
+//   salida en %, clamp 1..99.5, null si stats insuficientes (<8 partidos)
 //   seleccionDeFixture con stats validos -> probBase 'modelo-poisson' y
 //   edgePuntos = (cuotaCasa - 100/prob) * 100
 //
@@ -64,9 +64,9 @@ ok(modeloPoisson(null) === null, 'null -> null');
 ok(modeloPoisson(undefined) === null, 'undefined -> null');
 ok(modeloPoisson({}) === null, 'objeto vacio -> null');
 ok(modeloPoisson('1.5') === null, 'no-objeto -> null');
-ok(modeloPoisson(Object.assign({}, s25, { nH: 2 })) === null, 'nH = 2 (< 3 partidos) -> null');
-ok(modeloPoisson(Object.assign({}, s25, { nA: 2 })) === null, 'nA = 2 (< 3 partidos) -> null');
-ok(modeloPoisson(Object.assign({}, s25, { nH: 3, nA: 2 })) === null, 'con solo 3 partidos de un lado -> null');
+ok(modeloPoisson(Object.assign({}, s25, { nH: 7 })) === null, 'nH = 7 (< 8 partidos) -> null');
+ok(modeloPoisson(Object.assign({}, s25, { nA: 7 })) === null, 'nA = 7 (< 8 partidos) -> null');
+ok(modeloPoisson(Object.assign({}, s25, { nH: 8, nA: 7 })) === null, 'con solo 7 partidos de un lado -> null');
 ok(modeloPoisson(Object.assign({}, s25, { nH: 0, nA: 10 })) === null, 'nH = 0 -> null');
 ok(modeloPoisson(Object.assign({}, s25, { avgH: 0 })) === null, 'lambda 0 (avgH = 0) -> null');
 ok(modeloPoisson(Object.assign({}, s25, { avgA: 0 })) === null, 'lambda 0 (avgA = 0) -> null');
@@ -75,8 +75,12 @@ ok(modeloPoisson(Object.assign({}, s25, { defA: 0 })) === null, 'lambda 0 (defA 
 ok(modeloPoisson(Object.assign({}, s25, { avgH: -1 })) === null, 'media negativa -> null');
 ok(modeloPoisson(Object.assign({}, s25, { attA: 'x' })) === null, 'campo no numerico -> null');
 ok(modeloPoisson({ avgH: 1.25, avgA: 1.25, attH: 1, attA: 1, defH: 1, defA: 1 }) !== null,
-    'sin nH/nA declarados no se bloquea (si los declara, exige >= 3)');
-ok(modeloPoisson(Object.assign({}, s25, { nH: 3, nA: 3 })) !== null, 'exactamente 3 partidos por lado -> valido');
+    'sin nH/nA declarados no se bloquea (si los declara, exige >= 8)');
+ok(modeloPoisson(Object.assign({}, s25, { nH: 8, nA: 8 })) !== null, 'exactamente 8 partidos por lado -> valido');
+const shrink = modeloPoisson({ avgH: 1, avgA: 1, attH: 2, defH: 1, attA: 1, defA: 1, nH: 10, nA: 10 });
+ok(!!shrink && cerca(shrink.lambdaH, 1.5), 'shrinkage n/(n+10): fuerza 2 con n=10 se reduce a 1.5', shrink ? shrink.lambdaH : 'null');
+const capped = modeloPoisson({ avgH: 2, avgA: 2, attH: 3, defH: 3, attA: 3, defA: 3, nH: 100, nA: 100 });
+ok(!!capped && capped.lambdaTotal === 4, 'lambda total queda limitado a 4.0', capped ? capped.lambdaTotal : 'null');
 
 // ---------------------------------------------------------------------------
 // 4) seleccionDeFixture con stats validos -> modelo-poisson + edge de cliente
@@ -141,12 +145,27 @@ ok(!!selAcuerdo && selAcuerdo.probBase === 'modelo-ia',
 
 // Stats insuficientes en el fixture: cae a mercado-justo con edgePuntos null
 const fixtureMalo = Object.assign({}, fixturePoisson, {
-    stats: { avgH: 1.03, avgA: 1.03, attH: 1, attA: 1, defH: 1, defA: 1, nH: 1, nA: 1 }
+    stats: { avgH: 1.03, avgA: 1.03, attH: 1, attA: 1, defH: 1, defA: 1, nH: 7, nA: 7 }
 });
 const selMalo = seleccionDeFixture(fixtureMalo);
 ok(!!selMalo && selMalo.probBase !== 'modelo-poisson',
-    'con <3 partidos NO se disfraza de modelo-poisson', selMalo ? selMalo.probBase : 'null');
+    'con <8 partidos NO se disfraza de modelo-poisson', selMalo ? selMalo.probBase : 'null');
 ok(!!selMalo && selMalo.edgePuntos === null, 'y su edgePuntos queda null (sin IA no hay edge)', selMalo ? String(selMalo.edgePuntos) : '-');
+
+// Guardias de publicacion Poisson: maximo +10 puntos sobre mercado y edge <=15%.
+const soloOver = (cuota) => ({ cuotaOver: cuota, cuotaUnder: null, pOverJusta: null, pUnderJusta: null, margenCasa: null, tipRatingbet: null, tipProbPct: null });
+const fixtureProbExcesiva = Object.assign({}, fixturePoisson, {
+    lineas: { '1.5': soloOver(2.00) }
+});
+const selProbExcesiva = seleccionDeFixture(fixtureProbExcesiva);
+ok(!selProbExcesiva || selProbExcesiva.probBase !== 'modelo-poisson',
+    'Poisson no publica si la probabilidad supera al mercado en mas de 10 puntos');
+const fixtureEdgeExcesivo = Object.assign({}, fixturePoisson, {
+    lineas: { '1.5': soloOver(1.95) }
+});
+const selEdgeExcesivo = seleccionDeFixture(fixtureEdgeExcesivo);
+ok(!selEdgeExcesivo || selEdgeExcesivo.probBase !== 'modelo-poisson',
+    'Poisson no publica si el edge supera el 15%');
 
 // Sin stats en absoluto: tampoco hay modelo
 const fixtureSinStats = Object.assign({}, fixturePoisson, { stats: undefined });

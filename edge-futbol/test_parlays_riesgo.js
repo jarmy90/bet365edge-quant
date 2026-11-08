@@ -76,10 +76,10 @@ function esperarEdgeTotal(r) {
 console.log('\n--- 1) BANDAS DE CUOTA CORRECTAS (picks con IA, edgeTotal > 0) ---');
 {
     const pool = [
-        fixture({ clave: 'a', nombre: 'A vs B', cuota: 1.25, modelProb: 92 }),
-        fixture({ clave: 'b', nombre: 'C vs D', cuota: 1.55, modelProb: 84 }),
-        fixture({ clave: 'c', nombre: 'E vs F', cuota: 1.80, modelProb: 78 }),
-        fixture({ clave: 'd', nombre: 'G vs H', cuota: 1.35, modelProb: 88 })
+        fixture({ clave: 'a', nombre: 'A vs B', cuota: 1.25, modelProb: 88 }),
+        fixture({ clave: 'b', nombre: 'C vs D', cuota: 1.55, modelProb: 72 }),
+        fixture({ clave: 'c', nombre: 'E vs F', cuota: 1.80, modelProb: 63 }),
+        fixture({ clave: 'd', nombre: 'G vs H', cuota: 1.35, modelProb: 82 })
     ];
     const bajo = construirParlayRiesgo(pool, 'bajo', NOW);
     ok(bajo.estado === 'ok', 'riesgo BAJO produce combinada', bajo.estado + ' | ' + (bajo.motivo || ''));
@@ -112,8 +112,8 @@ console.log('\n--- 1) BANDAS DE CUOTA CORRECTAS (picks con IA, edgeTotal > 0) --
 console.log('\n--- 2) BOOST bet365: RATINGBET_COMBO_BOOST_PCT entra en la formula ---');
 {
     const pool = [
-        fixture({ clave: 'a', nombre: 'A vs B', cuota: 1.25, modelProb: 92 }),
-        fixture({ clave: 'b', nombre: 'C vs D', cuota: 1.55, modelProb: 84 })
+        fixture({ clave: 'a', nombre: 'A vs B', cuota: 1.25, modelProb: 88 }),
+        fixture({ clave: 'b', nombre: 'C vs D', cuota: 1.55, modelProb: 72 })
     ];
     delete process.env.RATINGBET_COMBO_BOOST_PCT;
     const sinBoost = construirParlayRiesgo(pool, 'bajo', NOW);
@@ -182,7 +182,7 @@ console.log('\n--- 3) SIN IA: tip/mercado no inventa modelo ni combinada ---');
 
     // (c) pool MIXTO: solo los picks IA con edge > 0 pueden salir
     const mixto = [
-        fixture({ clave: 'mix-ia', nombre: 'IA vs B', cuota: 1.30, modelProb: 90 }),          // edge +7.7
+        fixture({ clave: 'mix-ia', nombre: 'IA vs B', cuota: 1.30, modelProb: 84 }),          // edge +7.7
         fixture({ clave: 'mix-tip', nombre: 'C vs D', tip15: 'O1.5', tipProb15: 84, cuotaO15: 1.30 }),
         fixture({ clave: 'mix-mj', nombre: 'E vs F', cuotaO15: 1.33 })
     ];
@@ -218,17 +218,17 @@ console.log('\n--- 4) FALLBACK MERCADO JUSTO (sin IA y sin tip): edgePuntos NULL
 console.log('\n--- 5) UNICAMENTE IA CON EDGE > 0 ENTRA EN LA COMBINADA ---');
 {
     // Edge positivo: cuota 1.30 > 100/90 = 1.11  -> +18.9 pts
-    const positivo = fixture({ clave: 'pos', cuota: 1.30, modelProb: 90 });
+    const positivo = fixture({ clave: 'pos', cuota: 1.30, modelProb: 84 });
     // Edge negativo: cuota 1.20 < 100/85 = 1.18 ... no: 1.20 > 1.176 -> +2.3; usamos 1.15 < 1.176
     const negativo = fixture({ clave: 'neg', cuota: 1.15, modelProb: 85 }); // 100/85 = 1.176 -> edge -2.6
     ok(positivo.edgePuntos > 0, 'el pick A tiene edgePuntos > 0', positivo.edgePuntos);
     ok(negativo.edgePuntos < 0, 'el pick B tiene edgePuntos < 0', negativo.edgePuntos);
 
-    const soloPositivo = construirParlayRiesgo([positivo, fixture({ clave: 'pos2', cuota: 1.35, modelProb: 88 })], 'bajo', NOW);
+    const soloPositivo = construirParlayRiesgo([positivo, fixture({ clave: 'pos2', cuota: 1.35, modelProb: 82 })], 'bajo', NOW);
     ok(soloPositivo.estado === 'ok' && soloPositivo.picks.every(p => p.edgePuntos > 0),
         'con picks IA de edge positivo SI hay combinada', soloPositivo.estado);
 
-    const conNegativo = construirParlayRiesgo([negativo, fixture({ clave: 'pos3', cuota: 1.35, modelProb: 88 })], 'bajo', NOW);
+    const conNegativo = construirParlayRiesgo([negativo, fixture({ clave: 'pos3', cuota: 1.35, modelProb: 82 })], 'bajo', NOW);
     const clavesNeg = (conNegativo.picks || []).map(p => p.clave);
     ok(clavesNeg.indexOf('neg') === -1,
         'un pick IA con edge NEGATIVO no puede entrar en la combinada',
@@ -248,7 +248,7 @@ console.log('\n--- 6) HONESTIDAD: sin combinada posible NO se inventa nada ---')
     ];
     const bajo = construirParlayRiesgo(imposibles, 'bajo', NOW);
     ok(bajo.estado === 'sin-combinada' && bajo.cuotaTotal !== 3.15, 'imposible BAJO: NO se fuerza cuota (adios 3.15 falso)');
-    ok(String(bajo.motivo || '').indexOf('sin-combinacion-en-la-banda') === 0, 'motivo explica la banda', bajo.motivo);
+    ok(/^(sin-combinacion-en-la-banda|pocos-partidos-validos)/.test(String(bajo.motivo || '')), 'motivo explica por que no hay combinada publicable', bajo.motivo);
 
     const medio = construirParlayRiesgo(imposibles, 'medio', NOW);
     ok(medio.estado === 'sin-combinada' || (medio.cuotaTotal >= 2.00 && medio.cuotaTotal <= 3.00), 'MEDIO: o banda real o sin-combinada', medio.cuotaTotal);
@@ -257,10 +257,10 @@ console.log('\n--- 6) HONESTIDAD: sin combinada posible NO se inventa nada ---')
 console.log('\n--- 7) FILTRO TEMPORAL: solo futuros ---');
 {
     const pool = [
-        fixture({ clave: 'p1', cuota: 1.25, modelProb: 92, offsetMin: -60 }),   // ya empezo
-        fixture({ clave: 'p2', cuota: 1.30, modelProb: 90, offsetMin: 120 }),   // futuro
-        fixture({ clave: 'p3', cuota: 1.30, modelProb: 90, offsetMin: 240 }),   // futuro
-        fixture({ clave: 'p4', cuota: 1.35, modelProb: 88, offsetMin: 360 })    // futuro
+        fixture({ clave: 'p1', cuota: 1.25, modelProb: 88, offsetMin: -60 }),   // ya empezo
+        fixture({ clave: 'p2', cuota: 1.30, modelProb: 84, offsetMin: 120 }),   // futuro
+        fixture({ clave: 'p3', cuota: 1.30, modelProb: 84, offsetMin: 240 }),   // futuro
+        fixture({ clave: 'p4', cuota: 1.35, modelProb: 82, offsetMin: 360 })    // futuro
     ];
     const r = construirParlayRiesgo(pool, 'bajo', NOW);
     ok(r.estado === 'ok' && r.picks.every(p => p.clave !== 'p1'), 'el partido en juego NO entra en la combinada', r.estado);
@@ -269,8 +269,8 @@ console.log('\n--- 7) FILTRO TEMPORAL: solo futuros ---');
 console.log('\n--- 8) NIVELES DESCONOCIDOS: cae a MEDIO de forma segura ---');
 {
     const pool = [
-        fixture({ clave: 'x1', cuota: 1.50, modelProb: 88 }),
-        fixture({ clave: 'x2', cuota: 1.60, modelProb: 85 })
+        fixture({ clave: 'x1', cuota: 1.50, modelProb: 76 }),
+        fixture({ clave: 'x2', cuota: 1.60, modelProb: 72 })
     ];
     const r = construirParlayRiesgo(pool, 'nivel-inexistente', NOW);
     ok(r.riskLevel === 'medio', 'nivel invalido -> medio', r.riskLevel);
