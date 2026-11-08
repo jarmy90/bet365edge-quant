@@ -1101,6 +1101,10 @@ export default {
         // web a 0 partidos). Se prueban todos y se elige la captura MAS RECIENTE:
         // mientras la captura se ejecute, la web nunca se queda sin datos.
         const DATASET_MIRRORS = [
+            // La API Contents de GitHub devuelve el contenido actual de la rama
+            // dataset y evita la cache agresiva observada en raw.githubusercontent.com
+            // dentro de Vercel Edge. extraerDataset() ya decodifica su base64.
+            'https://api.github.com/repos/jarmy90/bet365edge-quant/contents/edge-futbol/ratingbet_fixtures.json?ref=dataset',
             'https://raw.githubusercontent.com/jarmy90/bet365edge-quant/dataset/edge-futbol/ratingbet_fixtures.json',
             'https://gist.githubusercontent.com/jarmy90/9494dab5740e8efb6dc84f38ff85c6cf/raw/ratingbet_fixtures.json'
         ];
@@ -1697,9 +1701,23 @@ const todosLosCandidatos = (candidatos || []).filter(function (c) {
                                     return c;
                                 });
                 
+                                // Si no aparece edge positivo, no vaciar la web: publicar los
+                                // fixtures REALES y futuros con sus cuotas verificadas, dejando
+                                // probabilidad/edge como null. Esto mantiene la portada actualizada
+                                // sin fabricar una recomendacion estadistica.
+                                const visibles = publicables.length
+                                    ? publicables
+                                    : construirFixturesSinAnalisis(candidatos, nowMs, { max: MAX_PUBLICADOS });
+                                pool = publicables.length ? pool : construirFixturesSinAnalisis(candidatos, nowMs, { max: 200 });
+                                if (!publicables.length) {
+                                    diagFinal.modoAnalisis = 'solo-cuotas-reales';
+                                    diagFinal.diagFiltrado = Object.assign({}, diagFinal.diagFiltrado || {}, {
+                                        fallbackFixturesReales: visibles.length
+                                    });
+                                }
                                 analisisCache = { at: nowMs, pool: pool, diag: diagFinal, key: cacheKey };
-                                globalThis.__POOL_EXIT = publicables.length ? 'modelo-cuantitativo-respaldo' : 'sin-edge-positivo';
-                                return publicables;
+                                globalThis.__POOL_EXIT = publicables.length ? 'modelo-cuantitativo-respaldo' : 'fixtures-reales-sin-edge';
+                                return visibles;
                 } catch (e) {
                     diagFinal.modoAnalisis = 'error-analisis';
                 globalThis.__POOL_EXIT = 'error-analisis';

@@ -3,7 +3,6 @@ mt5-explorer
 .freebuff
 .vscode
 .github
-api
 node_modules
 *.txt
 *.bat
