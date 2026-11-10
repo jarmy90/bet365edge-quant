@@ -1,8 +1,8 @@
 {
   "version": "ratingbet-fixtures-v1",
   "fuente": {
-    "generadoEnUtc": "2026-11-10T07:32:14.489Z",
-    "generadoEnMadrid": "martes, 10 de noviembre de 2026, 8:32:14",
+    "generadoEnUtc": "2026-11-10T17:10:17.167Z",
+    "generadoEnMadrid": "martes, 10 de noviembre de 2026, 18:10:17",
     "zonaHorariaNegocio": "Europe/Madrid",
     "margenMinutos": 30,
     "ventanaMaxDias": 14,
@@ -14,2341 +14,189 @@
       "1.5",
       "2.5"
     ],
-    "totalPartidos": 83,
-    "totalCapturadosBrutos": 84,
-    "descartados": 1,
+    "totalPartidos": 35,
+    "totalCapturadosBrutos": 93,
+    "descartados": 58,
     "muestraDescartados": [
       {
-        "clave": "al-mokawloon-al-arab-vs-itesalat",
-        "local": "Al Mokawloon Al Arab",
-        "visitante": "WE SC",
-        "hora": "09:00",
+        "clave": "metalul-buzau-vs-steaua-bucuresti",
+        "local": "Metalul Buzau",
+        "visitante": "Steaua Bucuresti",
+        "hora": "11:30",
+        "motivo": "ya-empezado-o-inminente (margen 30min)"
+      },
+      {
+        "clave": "bk-haecken-ff-vs-chelsea-fc-women",
+        "local": "BK Haecken FF",
+        "visitante": "Chelsea FC Women",
+        "hora": "11:45",
+        "motivo": "ya-empezado-o-inminente (margen 30min)"
+      },
+      {
+        "clave": "paris-fc-vs-real-madrid-femenino",
+        "local": "Paris FC",
+        "visitante": "Real Madrid Femenino",
+        "hora": "11:45",
+        "motivo": "ya-empezado-o-inminente (margen 30min)"
+      },
+      {
+        "clave": "odense-q-vs-vildbjerg",
+        "local": "FC Midtjylland",
+        "visitante": "OB Q",
+        "hora": "12:00",
+        "motivo": "ya-empezado-o-inminente (margen 30min)"
+      },
+      {
+        "clave": "istres-vs-nimes",
+        "local": "Istres",
+        "visitante": "Nimes",
+        "hora": "12:00",
+        "motivo": "ya-empezado-o-inminente (margen 30min)"
+      },
+      {
+        "clave": "bristol-rovers-vs-reading",
+        "local": "Bristol Rovers",
+        "visitante": "Reading",
+        "hora": "13:00",
+        "motivo": "ya-empezado-o-inminente (margen 30min)"
+      },
+      {
+        "clave": "gillingham-vs-northampton",
+        "local": "Gillingham",
+        "visitante": "Northampton",
+        "hora": "13:00",
+        "motivo": "ya-empezado-o-inminente (margen 30min)"
+      },
+      {
+        "clave": "leicester-vs-walsall",
+        "local": "Leicester",
+        "visitante": "Walsall",
+        "hora": "13:00",
+        "motivo": "ya-empezado-o-inminente (margen 30min)"
+      },
+      {
+        "clave": "plymouth-vs-swindon",
+        "local": "Plymouth",
+        "visitante": "Swindon",
+        "hora": "13:00",
+        "motivo": "ya-empezado-o-inminente (margen 30min)"
+      },
+      {
+        "clave": "fulham-academy-vs-stevenage",
+        "local": "Fulham Academy",
+        "visitante": "Stevenage",
+        "hora": "13:00",
+        "motivo": "ya-empezado-o-inminente (margen 30min)"
+      },
+      {
+        "clave": "barnet-vs-leyton-orient",
+        "local": "Barnet",
+        "visitante": "Leyton Orient",
+        "hora": "13:00",
+        "motivo": "ya-empezado-o-inminente (margen 30min)"
+      },
+      {
+        "clave": "huddersfield-vs-liverpool-academy",
+        "local": "Huddersfield",
+        "visitante": "Liverpool Academy",
+        "hora": "13:00",
+        "motivo": "ya-empezado-o-inminente (margen 30min)"
+      },
+      {
+        "clave": "stockport-county-vs-tranmere",
+        "local": "Stockport County",
+        "visitante": "Tranmere",
+        "hora": "13:00",
+        "motivo": "ya-empezado-o-inminente (margen 30min)"
+      },
+      {
+        "clave": "grimsby-vs-nottingham-forest-academy",
+        "local": "Grimsby",
+        "visitante": "Nottingham Forest Academy",
+        "hora": "13:00",
+        "motivo": "ya-empezado-o-inminente (margen 30min)"
+      },
+      {
+        "clave": "burton-vs-notts-co",
+        "local": "Burton",
+        "visitante": "Notts Co.",
+        "hora": "13:00",
+        "motivo": "ya-empezado-o-inminente (margen 30min)"
+      },
+      {
+        "clave": "cheltenham-vs-oxford",
+        "local": "Cheltenham",
+        "visitante": "Oxford",
+        "hora": "13:00",
+        "motivo": "ya-empezado-o-inminente (margen 30min)"
+      },
+      {
+        "clave": "crewe-vs-wigan",
+        "local": "Crewe",
+        "visitante": "Wigan",
+        "hora": "13:00",
+        "motivo": "ya-empezado-o-inminente (margen 30min)"
+      },
+      {
+        "clave": "chesterfield-vs-mansfield",
+        "local": "Chesterfield",
+        "visitante": "Mansfield",
+        "hora": "13:00",
+        "motivo": "ya-empezado-o-inminente (margen 30min)"
+      },
+      {
+        "clave": "logrones-vs-sd-amorebieta",
+        "local": "Logrones",
+        "visitante": "SD Amorebieta",
+        "hora": "13:00",
+        "motivo": "ya-empezado-o-inminente (margen 30min)"
+      },
+      {
+        "clave": "bromley-vs-milton-keynes-dons",
+        "local": "Bromley",
+        "visitante": "Milton Keynes Dons",
+        "hora": "13:30",
+        "motivo": "ya-empezado-o-inminente (margen 30min)"
+      },
+      {
+        "clave": "bradford-vs-york",
+        "local": "Bradford",
+        "visitante": "York",
+        "hora": "13:30",
+        "motivo": "ya-empezado-o-inminente (margen 30min)"
+      },
+      {
+        "clave": "huracan-fc-vs-river-plate",
+        "local": "Huracan FC",
+        "visitante": "River Plate",
+        "hora": "13:30",
+        "motivo": "ya-empezado-o-inminente (margen 30min)"
+      },
+      {
+        "clave": "braintree-town-vs-salisbury",
+        "local": "Braintree Town",
+        "visitante": "Salisbury",
+        "hora": "13:45",
+        "motivo": "ya-empezado-o-inminente (margen 30min)"
+      },
+      {
+        "clave": "hemel-hempstead-vs-torquay",
+        "local": "Hemel Hempstead",
+        "visitante": "Torquay",
+        "hora": "13:45",
+        "motivo": "ya-empezado-o-inminente (margen 30min)"
+      },
+      {
+        "clave": "darlington-vs-oxford-city",
+        "local": "Darlington",
+        "visitante": "Oxford City",
+        "hora": "13:45",
         "motivo": "ya-empezado-o-inminente (margen 30min)"
       }
     ],
     "incidentes": []
   },
   "partidos": [
-    {
-      "clave": "metalul-buzau-vs-steaua-bucuresti",
-      "url": "/football/match/metalul-buzau-vs-steaua-bucuresti/",
-      "liga": "Romania: Liga 2 Romania",
-      "ligaUrl": null,
-      "local": "Metalul Buzau",
-      "visitante": "Steaua Bucuresti",
-      "fecha": "2026-11-10",
-      "hora": "11:30",
-      "kickoffIsoUtc": "2026-11-10T10:30:00.000Z",
-      "kickoffMs": 1794306600000,
-      "zonaHoraria": "Europe/Madrid",
-      "jugado": false,
-      "ordenDomCoincideSlug": true,
-      "confianzaEquipos": 200,
-      "capturadoEnUtc": "2026-11-10T07:32:14.489Z",
-      "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
-      "lineas": {
-        "1.5": {
-          "linea": "1.5",
-          "cuotaOver": 1.22,
-          "probCasaOverPct": 74,
-          "cuotaUnder": 3.5,
-          "probCasaUnderPct": 26,
-          "tip": "O1.5",
-          "tipCuota": 1.22,
-          "tipProbPct": 74
-        },
-        "2.5": {
-          "linea": "2.5",
-          "cuotaOver": 1.76,
-          "probCasaOverPct": 52,
-          "cuotaUnder": 1.92,
-          "probCasaUnderPct": 48,
-          "tip": "O2.5",
-          "tipCuota": 1.76,
-          "tipProbPct": 52
-        }
-      }
-    },
-    {
-      "clave": "bk-haecken-ff-vs-chelsea-fc-women",
-      "url": "/football/match/bk-haecken-ff-vs-chelsea-fc-women/",
-      "liga": "International: Women's Champions League",
-      "ligaUrl": null,
-      "local": "BK Haecken FF",
-      "visitante": "Chelsea FC Women",
-      "fecha": "2026-11-10",
-      "hora": "11:45",
-      "kickoffIsoUtc": "2026-11-10T10:45:00.000Z",
-      "kickoffMs": 1794307500000,
-      "zonaHoraria": "Europe/Madrid",
-      "jugado": false,
-      "ordenDomCoincideSlug": true,
-      "confianzaEquipos": 200,
-      "capturadoEnUtc": "2026-11-10T07:32:14.489Z",
-      "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
-      "lineas": {
-        "1.5": {
-          "linea": "1.5",
-          "cuotaOver": 1.08,
-          "probCasaOverPct": 84,
-          "cuotaUnder": 5.55,
-          "probCasaUnderPct": 16,
-          "tip": "O1.5",
-          "tipCuota": 1.08,
-          "tipProbPct": 84
-        },
-        "2.5": {
-          "linea": "2.5",
-          "cuotaOver": 1.4,
-          "probCasaOverPct": 65,
-          "cuotaUnder": 2.56,
-          "probCasaUnderPct": 35,
-          "tip": "O2.5",
-          "tipCuota": 1.4,
-          "tipProbPct": 65
-        }
-      }
-    },
-    {
-      "clave": "paris-fc-vs-real-madrid-femenino",
-      "url": "/football/match/paris-fc-vs-real-madrid-femenino/",
-      "liga": "International: Women's Champions League",
-      "ligaUrl": null,
-      "local": "Paris FC",
-      "visitante": "Real Madrid Femenino",
-      "fecha": "2026-11-10",
-      "hora": "11:45",
-      "kickoffIsoUtc": "2026-11-10T10:45:00.000Z",
-      "kickoffMs": 1794307500000,
-      "zonaHoraria": "Europe/Madrid",
-      "jugado": false,
-      "ordenDomCoincideSlug": false,
-      "confianzaEquipos": 200,
-      "capturadoEnUtc": "2026-11-10T07:32:14.489Z",
-      "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
-      "lineas": {
-        "1.5": {
-          "linea": "1.5",
-          "cuotaOver": 1.1,
-          "probCasaOverPct": 82,
-          "cuotaUnder": 5,
-          "probCasaUnderPct": 18,
-          "tip": "O1.5",
-          "tipCuota": 1.1,
-          "tipProbPct": 82
-        },
-        "2.5": {
-          "linea": "2.5",
-          "cuotaOver": 1.43,
-          "probCasaOverPct": 63,
-          "cuotaUnder": 2.46,
-          "probCasaUnderPct": 37,
-          "tip": "O2.5",
-          "tipCuota": 1.43,
-          "tipProbPct": 63
-        }
-      }
-    },
-    {
-      "clave": "odense-q-vs-vildbjerg",
-      "url": "/football/match/odense-q-vs-vildbjerg/",
-      "liga": "Denmark: Elitedivisionen Women Denmark",
-      "ligaUrl": null,
-      "local": "FC Midtjylland",
-      "visitante": "OB Q",
-      "fecha": "2026-11-10",
-      "hora": "12:00",
-      "kickoffIsoUtc": "2026-11-10T11:00:00.000Z",
-      "kickoffMs": 1794308400000,
-      "zonaHoraria": "Europe/Madrid",
-      "jugado": false,
-      "ordenDomCoincideSlug": null,
-      "confianzaEquipos": 0,
-      "capturadoEnUtc": "2026-11-10T07:32:14.489Z",
-      "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
-      "lineas": {
-        "1.5": {
-          "linea": "1.5",
-          "cuotaOver": 1.11,
-          "probCasaOverPct": 83,
-          "cuotaUnder": 5.5,
-          "probCasaUnderPct": 17,
-          "tip": "O1.5",
-          "tipCuota": 1.11,
-          "tipProbPct": 83
-        },
-        "2.5": {
-          "linea": "2.5",
-          "cuotaOver": 1.38,
-          "probCasaOverPct": 66,
-          "cuotaUnder": 2.63,
-          "probCasaUnderPct": 34,
-          "tip": "O2.5",
-          "tipCuota": 1.38,
-          "tipProbPct": 66
-        }
-      }
-    },
-    {
-      "clave": "bristol-rovers-vs-reading",
-      "url": "/football/match/bristol-rovers-vs-reading/",
-      "liga": "England: EFL Trophy England",
-      "ligaUrl": null,
-      "local": "Bristol Rovers",
-      "visitante": "Reading",
-      "fecha": "2026-11-10",
-      "hora": "13:00",
-      "kickoffIsoUtc": "2026-11-10T12:00:00.000Z",
-      "kickoffMs": 1794312000000,
-      "zonaHoraria": "Europe/Madrid",
-      "jugado": false,
-      "ordenDomCoincideSlug": true,
-      "confianzaEquipos": 200,
-      "capturadoEnUtc": "2026-11-10T07:32:14.489Z",
-      "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
-      "lineas": {
-        "1.5": {
-          "linea": "1.5",
-          "cuotaOver": 1.11,
-          "probCasaOverPct": 82,
-          "cuotaUnder": 4.9,
-          "probCasaUnderPct": 18,
-          "tip": "O1.5",
-          "tipCuota": 1.11,
-          "tipProbPct": 82
-        },
-        "2.5": {
-          "linea": "2.5",
-          "cuotaOver": 1.46,
-          "probCasaOverPct": 62,
-          "cuotaUnder": 2.38,
-          "probCasaUnderPct": 38,
-          "tip": "O2.5",
-          "tipCuota": 1.46,
-          "tipProbPct": 62
-        }
-      }
-    },
-    {
-      "clave": "gillingham-vs-northampton",
-      "url": "/football/match/gillingham-vs-northampton/",
-      "liga": "England: EFL Trophy England",
-      "ligaUrl": null,
-      "local": "Gillingham",
-      "visitante": "Northampton",
-      "fecha": "2026-11-10",
-      "hora": "13:00",
-      "kickoffIsoUtc": "2026-11-10T12:00:00.000Z",
-      "kickoffMs": 1794312000000,
-      "zonaHoraria": "Europe/Madrid",
-      "jugado": false,
-      "ordenDomCoincideSlug": false,
-      "confianzaEquipos": 200,
-      "capturadoEnUtc": "2026-11-10T07:32:14.489Z",
-      "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
-      "lineas": {
-        "1.5": {
-          "linea": "1.5",
-          "cuotaOver": 1.18,
-          "probCasaOverPct": 77,
-          "cuotaUnder": 3.86,
-          "probCasaUnderPct": 23,
-          "tip": "O1.5",
-          "tipCuota": 1.18,
-          "tipProbPct": 77
-        },
-        "2.5": {
-          "linea": "2.5",
-          "cuotaOver": 1.72,
-          "probCasaOverPct": 54,
-          "cuotaUnder": 2,
-          "probCasaUnderPct": 46,
-          "tip": "O2.5",
-          "tipCuota": 1.72,
-          "tipProbPct": 54
-        }
-      }
-    },
-    {
-      "clave": "leicester-vs-walsall",
-      "url": "/football/match/leicester-vs-walsall/",
-      "liga": "England: EFL Trophy England",
-      "ligaUrl": null,
-      "local": "Leicester",
-      "visitante": "Walsall",
-      "fecha": "2026-11-10",
-      "hora": "13:00",
-      "kickoffIsoUtc": "2026-11-10T12:00:00.000Z",
-      "kickoffMs": 1794312000000,
-      "zonaHoraria": "Europe/Madrid",
-      "jugado": false,
-      "ordenDomCoincideSlug": true,
-      "confianzaEquipos": 200,
-      "capturadoEnUtc": "2026-11-10T07:32:14.489Z",
-      "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
-      "lineas": {
-        "1.5": {
-          "linea": "1.5",
-          "cuotaOver": 1.03,
-          "probCasaOverPct": 88,
-          "cuotaUnder": 7.7,
-          "probCasaUnderPct": 12,
-          "tip": "O1.5",
-          "tipCuota": 1.03,
-          "tipProbPct": 88
-        },
-        "2.5": {
-          "linea": "2.5",
-          "cuotaOver": 1.21,
-          "probCasaOverPct": 75,
-          "cuotaUnder": 3.58,
-          "probCasaUnderPct": 25,
-          "tip": "O2.5",
-          "tipCuota": 1.21,
-          "tipProbPct": 75
-        }
-      }
-    },
-    {
-      "clave": "plymouth-vs-swindon",
-      "url": "/football/match/plymouth-vs-swindon/",
-      "liga": "England: EFL Trophy England",
-      "ligaUrl": null,
-      "local": "Plymouth",
-      "visitante": "Swindon",
-      "fecha": "2026-11-10",
-      "hora": "13:00",
-      "kickoffIsoUtc": "2026-11-10T12:00:00.000Z",
-      "kickoffMs": 1794312000000,
-      "zonaHoraria": "Europe/Madrid",
-      "jugado": false,
-      "ordenDomCoincideSlug": true,
-      "confianzaEquipos": 200,
-      "capturadoEnUtc": "2026-11-10T07:32:14.489Z",
-      "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
-      "lineas": {
-        "1.5": {
-          "linea": "1.5",
-          "cuotaOver": 1.05,
-          "probCasaOverPct": 86,
-          "cuotaUnder": 6.45,
-          "probCasaUnderPct": 14,
-          "tip": "O1.5",
-          "tipCuota": 1.05,
-          "tipProbPct": 86
-        },
-        "2.5": {
-          "linea": "2.5",
-          "cuotaOver": 1.32,
-          "probCasaOverPct": 69,
-          "cuotaUnder": 2.88,
-          "probCasaUnderPct": 31,
-          "tip": "O2.5",
-          "tipCuota": 1.32,
-          "tipProbPct": 69
-        }
-      }
-    },
-    {
-      "clave": "fulham-academy-vs-stevenage",
-      "url": "/football/match/fulham-academy-vs-stevenage/",
-      "liga": "England: EFL Trophy England",
-      "ligaUrl": null,
-      "local": "Fulham Academy",
-      "visitante": "Stevenage",
-      "fecha": "2026-11-10",
-      "hora": "13:00",
-      "kickoffIsoUtc": "2026-11-10T12:00:00.000Z",
-      "kickoffMs": 1794312000000,
-      "zonaHoraria": "Europe/Madrid",
-      "jugado": false,
-      "ordenDomCoincideSlug": false,
-      "confianzaEquipos": 200,
-      "capturadoEnUtc": "2026-11-10T07:32:14.489Z",
-      "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
-      "lineas": {
-        "1.5": {
-          "linea": "1.5",
-          "cuotaOver": 1.05,
-          "probCasaOverPct": 86,
-          "cuotaUnder": 6.6,
-          "probCasaUnderPct": 14,
-          "tip": "O1.5",
-          "tipCuota": 1.05,
-          "tipProbPct": 86
-        },
-        "2.5": {
-          "linea": "2.5",
-          "cuotaOver": 1.27,
-          "probCasaOverPct": 71,
-          "cuotaUnder": 3.14,
-          "probCasaUnderPct": 29,
-          "tip": "O2.5",
-          "tipCuota": 1.27,
-          "tipProbPct": 71
-        }
-      }
-    },
-    {
-      "clave": "barnet-vs-leyton-orient",
-      "url": "/football/match/barnet-vs-leyton-orient/",
-      "liga": "England: EFL Trophy England",
-      "ligaUrl": null,
-      "local": "Barnet",
-      "visitante": "Leyton Orient",
-      "fecha": "2026-11-10",
-      "hora": "13:00",
-      "kickoffIsoUtc": "2026-11-10T12:00:00.000Z",
-      "kickoffMs": 1794312000000,
-      "zonaHoraria": "Europe/Madrid",
-      "jugado": false,
-      "ordenDomCoincideSlug": true,
-      "confianzaEquipos": 200,
-      "capturadoEnUtc": "2026-11-10T07:32:14.489Z",
-      "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
-      "lineas": {
-        "1.5": {
-          "linea": "1.5",
-          "cuotaOver": 1.1,
-          "probCasaOverPct": 83,
-          "cuotaUnder": 5.2,
-          "probCasaUnderPct": 17,
-          "tip": "O1.5",
-          "tipCuota": 1.1,
-          "tipProbPct": 83
-        },
-        "2.5": {
-          "linea": "2.5",
-          "cuotaOver": 1.41,
-          "probCasaOverPct": 64,
-          "cuotaUnder": 2.52,
-          "probCasaUnderPct": 36,
-          "tip": "O2.5",
-          "tipCuota": 1.41,
-          "tipProbPct": 64
-        }
-      }
-    },
-    {
-      "clave": "huddersfield-vs-liverpool-academy",
-      "url": "/football/match/huddersfield-vs-liverpool-academy/",
-      "liga": "England: EFL Trophy England",
-      "ligaUrl": null,
-      "local": "Huddersfield",
-      "visitante": "Liverpool Academy",
-      "fecha": "2026-11-10",
-      "hora": "13:00",
-      "kickoffIsoUtc": "2026-11-10T12:00:00.000Z",
-      "kickoffMs": 1794312000000,
-      "zonaHoraria": "Europe/Madrid",
-      "jugado": false,
-      "ordenDomCoincideSlug": true,
-      "confianzaEquipos": 200,
-      "capturadoEnUtc": "2026-11-10T07:32:14.489Z",
-      "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
-      "lineas": {
-        "1.5": {
-          "linea": "1.5",
-          "cuotaOver": 1.06,
-          "probCasaOverPct": 88,
-          "cuotaUnder": 8,
-          "probCasaUnderPct": 12,
-          "tip": "O1.5",
-          "tipCuota": 1.06,
-          "tipProbPct": 88
-        },
-        "2.5": {
-          "linea": "2.5",
-          "cuotaOver": 1.14,
-          "probCasaOverPct": 79,
-          "cuotaUnder": 4.35,
-          "probCasaUnderPct": 21,
-          "tip": "O2.5",
-          "tipCuota": 1.14,
-          "tipProbPct": 79
-        }
-      }
-    },
-    {
-      "clave": "stockport-county-vs-tranmere",
-      "url": "/football/match/stockport-county-vs-tranmere/",
-      "liga": "England: EFL Trophy England",
-      "ligaUrl": null,
-      "local": "Stockport County",
-      "visitante": "Tranmere",
-      "fecha": "2026-11-10",
-      "hora": "13:00",
-      "kickoffIsoUtc": "2026-11-10T12:00:00.000Z",
-      "kickoffMs": 1794312000000,
-      "zonaHoraria": "Europe/Madrid",
-      "jugado": false,
-      "ordenDomCoincideSlug": true,
-      "confianzaEquipos": 200,
-      "capturadoEnUtc": "2026-11-10T07:32:14.489Z",
-      "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
-      "lineas": {
-        "1.5": {
-          "linea": "1.5",
-          "cuotaOver": 1.07,
-          "probCasaOverPct": 85,
-          "cuotaUnder": 5.95,
-          "probCasaUnderPct": 15,
-          "tip": "O1.5",
-          "tipCuota": 1.07,
-          "tipProbPct": 85
-        },
-        "2.5": {
-          "linea": "2.5",
-          "cuotaOver": 1.33,
-          "probCasaOverPct": 68,
-          "cuotaUnder": 2.83,
-          "probCasaUnderPct": 32,
-          "tip": "O2.5",
-          "tipCuota": 1.33,
-          "tipProbPct": 68
-        }
-      }
-    },
-    {
-      "clave": "grimsby-vs-nottingham-forest-academy",
-      "url": "/football/match/grimsby-vs-nottingham-forest-academy/",
-      "liga": "England: EFL Trophy England",
-      "ligaUrl": null,
-      "local": "Grimsby",
-      "visitante": "Nottingham Forest Academy",
-      "fecha": "2026-11-10",
-      "hora": "13:00",
-      "kickoffIsoUtc": "2026-11-10T12:00:00.000Z",
-      "kickoffMs": 1794312000000,
-      "zonaHoraria": "Europe/Madrid",
-      "jugado": false,
-      "ordenDomCoincideSlug": true,
-      "confianzaEquipos": 200,
-      "capturadoEnUtc": "2026-11-10T07:32:14.489Z",
-      "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
-      "lineas": {
-        "1.5": {
-          "linea": "1.5",
-          "cuotaOver": 1.03,
-          "probCasaOverPct": 88,
-          "cuotaUnder": 7.6,
-          "probCasaUnderPct": 12,
-          "tip": "O1.5",
-          "tipCuota": 1.03,
-          "tipProbPct": 88
-        },
-        "2.5": {
-          "linea": "2.5",
-          "cuotaOver": 1.21,
-          "probCasaOverPct": 75,
-          "cuotaUnder": 3.58,
-          "probCasaUnderPct": 25,
-          "tip": "O2.5",
-          "tipCuota": 1.21,
-          "tipProbPct": 75
-        }
-      }
-    },
-    {
-      "clave": "burton-vs-notts-co",
-      "url": "/football/match/burton-vs-notts-co/",
-      "liga": "England: EFL Trophy England",
-      "ligaUrl": null,
-      "local": "Burton",
-      "visitante": "Notts Co.",
-      "fecha": "2026-11-10",
-      "hora": "13:00",
-      "kickoffIsoUtc": "2026-11-10T12:00:00.000Z",
-      "kickoffMs": 1794312000000,
-      "zonaHoraria": "Europe/Madrid",
-      "jugado": false,
-      "ordenDomCoincideSlug": true,
-      "confianzaEquipos": 200,
-      "capturadoEnUtc": "2026-11-10T07:32:14.489Z",
-      "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
-      "lineas": {
-        "1.5": {
-          "linea": "1.5",
-          "cuotaOver": 1.13,
-          "probCasaOverPct": 80,
-          "cuotaUnder": 4.55,
-          "probCasaUnderPct": 20,
-          "tip": "O1.5",
-          "tipCuota": 1.13,
-          "tipProbPct": 80
-        },
-        "2.5": {
-          "linea": "2.5",
-          "cuotaOver": 1.5,
-          "probCasaOverPct": 60,
-          "cuotaUnder": 2.28,
-          "probCasaUnderPct": 40,
-          "tip": "O2.5",
-          "tipCuota": 1.5,
-          "tipProbPct": 60
-        }
-      }
-    },
-    {
-      "clave": "cheltenham-vs-oxford",
-      "url": "/football/match/cheltenham-vs-oxford/",
-      "liga": "England: EFL Trophy England",
-      "ligaUrl": null,
-      "local": "Cheltenham",
-      "visitante": "Oxford",
-      "fecha": "2026-11-10",
-      "hora": "13:00",
-      "kickoffIsoUtc": "2026-11-10T12:00:00.000Z",
-      "kickoffMs": 1794312000000,
-      "zonaHoraria": "Europe/Madrid",
-      "jugado": false,
-      "ordenDomCoincideSlug": false,
-      "confianzaEquipos": 200,
-      "capturadoEnUtc": "2026-11-10T07:32:14.489Z",
-      "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
-      "lineas": {
-        "1.5": {
-          "linea": "1.5",
-          "cuotaOver": 1.09,
-          "probCasaOverPct": 83,
-          "cuotaUnder": 5.35,
-          "probCasaUnderPct": 17,
-          "tip": "O1.5",
-          "tipCuota": 1.09,
-          "tipProbPct": 83
-        },
-        "2.5": {
-          "linea": "2.5",
-          "cuotaOver": 1.37,
-          "probCasaOverPct": 66,
-          "cuotaUnder": 2.66,
-          "probCasaUnderPct": 34,
-          "tip": "O2.5",
-          "tipCuota": 1.37,
-          "tipProbPct": 66
-        }
-      }
-    },
-    {
-      "clave": "crewe-vs-wigan",
-      "url": "/football/match/crewe-vs-wigan/",
-      "liga": "England: EFL Trophy England",
-      "ligaUrl": null,
-      "local": "Crewe",
-      "visitante": "Wigan",
-      "fecha": "2026-11-10",
-      "hora": "13:00",
-      "kickoffIsoUtc": "2026-11-10T12:00:00.000Z",
-      "kickoffMs": 1794312000000,
-      "zonaHoraria": "Europe/Madrid",
-      "jugado": false,
-      "ordenDomCoincideSlug": true,
-      "confianzaEquipos": 200,
-      "capturadoEnUtc": "2026-11-10T07:32:14.489Z",
-      "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
-      "lineas": {
-        "1.5": {
-          "linea": "1.5",
-          "cuotaOver": 1.19,
-          "probCasaOverPct": 76,
-          "cuotaUnder": 3.8,
-          "probCasaUnderPct": 24,
-          "tip": "O1.5",
-          "tipCuota": 1.19,
-          "tipProbPct": 76
-        },
-        "2.5": {
-          "linea": "2.5",
-          "cuotaOver": 1.71,
-          "probCasaOverPct": 54,
-          "cuotaUnder": 2.02,
-          "probCasaUnderPct": 46,
-          "tip": "O2.5",
-          "tipCuota": 1.71,
-          "tipProbPct": 54
-        }
-      }
-    },
-    {
-      "clave": "chesterfield-vs-mansfield",
-      "url": "/football/match/chesterfield-vs-mansfield/",
-      "liga": "England: EFL Trophy England",
-      "ligaUrl": null,
-      "local": "Chesterfield",
-      "visitante": "Mansfield",
-      "fecha": "2026-11-10",
-      "hora": "13:00",
-      "kickoffIsoUtc": "2026-11-10T12:00:00.000Z",
-      "kickoffMs": 1794312000000,
-      "zonaHoraria": "Europe/Madrid",
-      "jugado": false,
-      "ordenDomCoincideSlug": false,
-      "confianzaEquipos": 200,
-      "capturadoEnUtc": "2026-11-10T07:32:14.489Z",
-      "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
-      "lineas": {
-        "1.5": {
-          "linea": "1.5",
-          "cuotaOver": 1.08,
-          "probCasaOverPct": 84,
-          "cuotaUnder": 5.7,
-          "probCasaUnderPct": 16,
-          "tip": "O1.5",
-          "tipCuota": 1.08,
-          "tipProbPct": 84
-        },
-        "2.5": {
-          "linea": "2.5",
-          "cuotaOver": 1.39,
-          "probCasaOverPct": 65,
-          "cuotaUnder": 2.59,
-          "probCasaUnderPct": 35,
-          "tip": "O2.5",
-          "tipCuota": 1.39,
-          "tipProbPct": 65
-        }
-      }
-    },
-    {
-      "clave": "logrones-vs-sd-amorebieta",
-      "url": "/football/match/logrones-vs-sd-amorebieta/",
-      "liga": "Spain: Copa del Rey Spain",
-      "ligaUrl": null,
-      "local": "Logrones",
-      "visitante": "SD Amorebieta",
-      "fecha": "2026-11-10",
-      "hora": "13:00",
-      "kickoffIsoUtc": "2026-11-10T12:00:00.000Z",
-      "kickoffMs": 1794312000000,
-      "zonaHoraria": "Europe/Madrid",
-      "jugado": false,
-      "ordenDomCoincideSlug": false,
-      "confianzaEquipos": 200,
-      "capturadoEnUtc": "2026-11-10T07:32:14.489Z",
-      "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
-      "lineas": {
-        "1.5": {
-          "linea": "1.5",
-          "cuotaOver": 1.22,
-          "probCasaOverPct": 74,
-          "cuotaUnder": 3.5,
-          "probCasaUnderPct": 26,
-          "tip": "O1.5",
-          "tipCuota": 1.22,
-          "tipProbPct": 74
-        },
-        "2.5": {
-          "linea": "2.5",
-          "cuotaOver": 1.8,
-          "probCasaOverPct": 52,
-          "cuotaUnder": 1.94,
-          "probCasaUnderPct": 48,
-          "tip": "O2.5",
-          "tipCuota": 1.8,
-          "tipProbPct": 52
-        }
-      }
-    },
-    {
-      "clave": "bromley-vs-milton-keynes-dons",
-      "url": "/football/match/bromley-vs-milton-keynes-dons/",
-      "liga": "England: EFL Trophy England",
-      "ligaUrl": null,
-      "local": "Bromley",
-      "visitante": "Milton Keynes Dons",
-      "fecha": "2026-11-10",
-      "hora": "13:30",
-      "kickoffIsoUtc": "2026-11-10T12:30:00.000Z",
-      "kickoffMs": 1794313800000,
-      "zonaHoraria": "Europe/Madrid",
-      "jugado": false,
-      "ordenDomCoincideSlug": true,
-      "confianzaEquipos": 200,
-      "capturadoEnUtc": "2026-11-10T07:32:14.489Z",
-      "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
-      "lineas": {
-        "1.5": {
-          "linea": "1.5",
-          "cuotaOver": 1.11,
-          "probCasaOverPct": 82,
-          "cuotaUnder": 4.9,
-          "probCasaUnderPct": 18,
-          "tip": "O1.5",
-          "tipCuota": 1.11,
-          "tipProbPct": 82
-        },
-        "2.5": {
-          "linea": "2.5",
-          "cuotaOver": 1.48,
-          "probCasaOverPct": 61,
-          "cuotaUnder": 2.33,
-          "probCasaUnderPct": 39,
-          "tip": "O2.5",
-          "tipCuota": 1.48,
-          "tipProbPct": 61
-        }
-      }
-    },
-    {
-      "clave": "bradford-vs-york",
-      "url": "/football/match/bradford-vs-york/",
-      "liga": "England: EFL Trophy England",
-      "ligaUrl": null,
-      "local": "Bradford",
-      "visitante": "York",
-      "fecha": "2026-11-10",
-      "hora": "13:30",
-      "kickoffIsoUtc": "2026-11-10T12:30:00.000Z",
-      "kickoffMs": 1794313800000,
-      "zonaHoraria": "Europe/Madrid",
-      "jugado": false,
-      "ordenDomCoincideSlug": true,
-      "confianzaEquipos": 200,
-      "capturadoEnUtc": "2026-11-10T07:32:14.489Z",
-      "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
-      "lineas": {
-        "1.5": {
-          "linea": "1.5",
-          "cuotaOver": 1.09,
-          "probCasaOverPct": 83,
-          "cuotaUnder": 5.25,
-          "probCasaUnderPct": 17,
-          "tip": "O1.5",
-          "tipCuota": 1.09,
-          "tipProbPct": 83
-        },
-        "2.5": {
-          "linea": "2.5",
-          "cuotaOver": 1.4,
-          "probCasaOverPct": 65,
-          "cuotaUnder": 2.56,
-          "probCasaUnderPct": 35,
-          "tip": "O2.5",
-          "tipCuota": 1.4,
-          "tipProbPct": 65
-        }
-      }
-    },
-    {
-      "clave": "huracan-fc-vs-river-plate",
-      "url": "/football/match/huracan-fc-vs-river-plate-2/",
-      "liga": "Uruguay: Segunda Division Uruguay",
-      "ligaUrl": null,
-      "local": "Huracan FC",
-      "visitante": "River Plate",
-      "fecha": "2026-11-10",
-      "hora": "13:30",
-      "kickoffIsoUtc": "2026-11-10T12:30:00.000Z",
-      "kickoffMs": 1794313800000,
-      "zonaHoraria": "Europe/Madrid",
-      "jugado": false,
-      "ordenDomCoincideSlug": true,
-      "confianzaEquipos": 200,
-      "capturadoEnUtc": "2026-11-10T07:32:14.489Z",
-      "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
-      "lineas": {
-        "1.5": {
-          "linea": "1.5",
-          "cuotaOver": 1.22,
-          "probCasaOverPct": 74,
-          "cuotaUnder": 3.5,
-          "probCasaUnderPct": 26,
-          "tip": "O1.5",
-          "tipCuota": 1.22,
-          "tipProbPct": 74
-        },
-        "2.5": {
-          "linea": "2.5",
-          "cuotaOver": 1.81,
-          "probCasaOverPct": 51,
-          "cuotaUnder": 1.86,
-          "probCasaUnderPct": 49,
-          "tip": "O2.5",
-          "tipCuota": 1.81,
-          "tipProbPct": 51
-        }
-      }
-    },
-    {
-      "clave": "braintree-town-vs-salisbury",
-      "url": "/football/match/braintree-town-vs-salisbury/",
-      "liga": "England: National League North/South England",
-      "ligaUrl": null,
-      "local": "Braintree Town",
-      "visitante": "Salisbury",
-      "fecha": "2026-11-10",
-      "hora": "13:45",
-      "kickoffIsoUtc": "2026-11-10T12:45:00.000Z",
-      "kickoffMs": 1794314700000,
-      "zonaHoraria": "Europe/Madrid",
-      "jugado": false,
-      "ordenDomCoincideSlug": false,
-      "confianzaEquipos": 200,
-      "capturadoEnUtc": "2026-11-10T07:32:14.489Z",
-      "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
-      "lineas": {
-        "1.5": {
-          "linea": "1.5",
-          "cuotaOver": 1.05,
-          "probCasaOverPct": 86,
-          "cuotaUnder": 6.7,
-          "probCasaUnderPct": 14,
-          "tip": "O1.5",
-          "tipCuota": 1.05,
-          "tipProbPct": 86
-        },
-        "2.5": {
-          "linea": "2.5",
-          "cuotaOver": 1.3,
-          "probCasaOverPct": 70,
-          "cuotaUnder": 2.97,
-          "probCasaUnderPct": 30,
-          "tip": "O2.5",
-          "tipCuota": 1.3,
-          "tipProbPct": 70
-        }
-      }
-    },
-    {
-      "clave": "hemel-hempstead-vs-torquay",
-      "url": "/football/match/hemel-hempstead-vs-torquay/",
-      "liga": "England: National League North/South England",
-      "ligaUrl": null,
-      "local": "Hemel Hempstead",
-      "visitante": "Torquay",
-      "fecha": "2026-11-10",
-      "hora": "13:45",
-      "kickoffIsoUtc": "2026-11-10T12:45:00.000Z",
-      "kickoffMs": 1794314700000,
-      "zonaHoraria": "Europe/Madrid",
-      "jugado": false,
-      "ordenDomCoincideSlug": true,
-      "confianzaEquipos": 200,
-      "capturadoEnUtc": "2026-11-10T07:32:14.489Z",
-      "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
-      "lineas": {
-        "1.5": {
-          "linea": "1.5",
-          "cuotaOver": 1.13,
-          "probCasaOverPct": 80,
-          "cuotaUnder": 4.55,
-          "probCasaUnderPct": 20,
-          "tip": "O1.5",
-          "tipCuota": 1.13,
-          "tipProbPct": 80
-        },
-        "2.5": {
-          "linea": "2.5",
-          "cuotaOver": 1.53,
-          "probCasaOverPct": 60,
-          "cuotaUnder": 2.29,
-          "probCasaUnderPct": 40,
-          "tip": "O2.5",
-          "tipCuota": 1.53,
-          "tipProbPct": 60
-        }
-      }
-    },
-    {
-      "clave": "darlington-vs-oxford-city",
-      "url": "/football/match/darlington-vs-oxford-city/",
-      "liga": "England: National League North/South England",
-      "ligaUrl": null,
-      "local": "Darlington",
-      "visitante": "Oxford City",
-      "fecha": "2026-11-10",
-      "hora": "13:45",
-      "kickoffIsoUtc": "2026-11-10T12:45:00.000Z",
-      "kickoffMs": 1794314700000,
-      "zonaHoraria": "Europe/Madrid",
-      "jugado": false,
-      "ordenDomCoincideSlug": true,
-      "confianzaEquipos": 200,
-      "capturadoEnUtc": "2026-11-10T07:32:14.489Z",
-      "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
-      "lineas": {
-        "1.5": {
-          "linea": "1.5",
-          "cuotaOver": 1.12,
-          "probCasaOverPct": 81,
-          "cuotaUnder": 4.75,
-          "probCasaUnderPct": 19,
-          "tip": "O1.5",
-          "tipCuota": 1.12,
-          "tipProbPct": 81
-        },
-        "2.5": {
-          "linea": "2.5",
-          "cuotaOver": 1.48,
-          "probCasaOverPct": 61,
-          "cuotaUnder": 2.33,
-          "probCasaUnderPct": 39,
-          "tip": "O2.5",
-          "tipCuota": 1.48,
-          "tipProbPct": 61
-        }
-      }
-    },
-    {
-      "clave": "marine-vs-scarborough-athletic",
-      "url": "/football/match/marine-vs-scarborough-athletic/",
-      "liga": "England: National League North/South England",
-      "ligaUrl": null,
-      "local": "Marine",
-      "visitante": "Scarborough Athletic",
-      "fecha": "2026-11-10",
-      "hora": "13:45",
-      "kickoffIsoUtc": "2026-11-10T12:45:00.000Z",
-      "kickoffMs": 1794314700000,
-      "zonaHoraria": "Europe/Madrid",
-      "jugado": false,
-      "ordenDomCoincideSlug": false,
-      "confianzaEquipos": 200,
-      "capturadoEnUtc": "2026-11-10T07:32:14.489Z",
-      "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
-      "lineas": {
-        "1.5": {
-          "linea": "1.5",
-          "cuotaOver": 1.18,
-          "probCasaOverPct": 77,
-          "cuotaUnder": 3.92,
-          "probCasaUnderPct": 23,
-          "tip": "O1.5",
-          "tipCuota": 1.18,
-          "tipProbPct": 77
-        },
-        "2.5": {
-          "linea": "2.5",
-          "cuotaOver": 1.68,
-          "probCasaOverPct": 55,
-          "cuotaUnder": 2.02,
-          "probCasaUnderPct": 45,
-          "tip": "O2.5",
-          "tipCuota": 1.68,
-          "tipProbPct": 55
-        }
-      }
-    },
-    {
-      "clave": "hereford-vs-morecambe",
-      "url": "/football/match/hereford-vs-morecambe/",
-      "liga": "England: National League North/South England",
-      "ligaUrl": null,
-      "local": "Hereford",
-      "visitante": "Morecambe",
-      "fecha": "2026-11-10",
-      "hora": "13:45",
-      "kickoffIsoUtc": "2026-11-10T12:45:00.000Z",
-      "kickoffMs": 1794314700000,
-      "zonaHoraria": "Europe/Madrid",
-      "jugado": false,
-      "ordenDomCoincideSlug": false,
-      "confianzaEquipos": 200,
-      "capturadoEnUtc": "2026-11-10T07:32:14.489Z",
-      "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
-      "lineas": {
-        "1.5": {
-          "linea": "1.5",
-          "cuotaOver": 1.15,
-          "probCasaOverPct": 79,
-          "cuotaUnder": 4.2,
-          "probCasaUnderPct": 21,
-          "tip": "O1.5",
-          "tipCuota": 1.15,
-          "tipProbPct": 79
-        },
-        "2.5": {
-          "linea": "2.5",
-          "cuotaOver": 1.62,
-          "probCasaOverPct": 57,
-          "cuotaUnder": 2.11,
-          "probCasaUnderPct": 43,
-          "tip": "O2.5",
-          "tipCuota": 1.62,
-          "tipProbPct": 57
-        }
-      }
-    },
-    {
-      "clave": "hanwell-town-vs-uxbridge",
-      "url": "/football/match/hanwell-town-vs-uxbridge/",
-      "liga": "England: Northern Premier League England",
-      "ligaUrl": null,
-      "local": "Hanwell Town",
-      "visitante": "Uxbridge",
-      "fecha": "2026-11-10",
-      "hora": "13:45",
-      "kickoffIsoUtc": "2026-11-10T12:45:00.000Z",
-      "kickoffMs": 1794314700000,
-      "zonaHoraria": "Europe/Madrid",
-      "jugado": false,
-      "ordenDomCoincideSlug": false,
-      "confianzaEquipos": 200,
-      "capturadoEnUtc": "2026-11-10T07:32:14.489Z",
-      "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
-      "lineas": {
-        "1.5": {
-          "linea": "1.5",
-          "cuotaOver": 1.15,
-          "probCasaOverPct": 79,
-          "cuotaUnder": 4.3,
-          "probCasaUnderPct": 21,
-          "tip": "O1.5",
-          "tipCuota": 1.15,
-          "tipProbPct": 79
-        },
-        "2.5": {
-          "linea": "2.5",
-          "cuotaOver": 1.57,
-          "probCasaOverPct": 58,
-          "cuotaUnder": 2.2,
-          "probCasaUnderPct": 42,
-          "tip": "O2.5",
-          "tipCuota": 1.57,
-          "tipProbPct": 58
-        }
-      }
-    },
-    {
-      "clave": "chippenham-town-vs-sholing",
-      "url": "/football/match/chippenham-town-vs-sholing/",
-      "liga": "England: Northern Premier League England",
-      "ligaUrl": null,
-      "local": "Chippenham Town",
-      "visitante": "Sholing",
-      "fecha": "2026-11-10",
-      "hora": "13:45",
-      "kickoffIsoUtc": "2026-11-10T12:45:00.000Z",
-      "kickoffMs": 1794314700000,
-      "zonaHoraria": "Europe/Madrid",
-      "jugado": false,
-      "ordenDomCoincideSlug": false,
-      "confianzaEquipos": 200,
-      "capturadoEnUtc": "2026-11-10T07:32:14.489Z",
-      "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
-      "lineas": {
-        "1.5": {
-          "linea": "1.5",
-          "cuotaOver": 1.15,
-          "probCasaOverPct": 79,
-          "cuotaUnder": 4.25,
-          "probCasaUnderPct": 21,
-          "tip": "O1.5",
-          "tipCuota": 1.15,
-          "tipProbPct": 79
-        },
-        "2.5": {
-          "linea": "2.5",
-          "cuotaOver": 1.61,
-          "probCasaOverPct": 57,
-          "cuotaUnder": 2.13,
-          "probCasaUnderPct": 43,
-          "tip": "O2.5",
-          "tipCuota": 1.61,
-          "tipProbPct": 57
-        }
-      }
-    },
-    {
-      "clave": "evesham-united-vs-yate-town",
-      "url": "/football/match/evesham-united-vs-yate-town/",
-      "liga": "England: Northern Premier League England",
-      "ligaUrl": null,
-      "local": "Evesham United",
-      "visitante": "Yate Town",
-      "fecha": "2026-11-10",
-      "hora": "13:45",
-      "kickoffIsoUtc": "2026-11-10T12:45:00.000Z",
-      "kickoffMs": 1794314700000,
-      "zonaHoraria": "Europe/Madrid",
-      "jugado": false,
-      "ordenDomCoincideSlug": true,
-      "confianzaEquipos": 200,
-      "capturadoEnUtc": "2026-11-10T07:32:14.489Z",
-      "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
-      "lineas": {
-        "1.5": {
-          "linea": "1.5",
-          "cuotaOver": 1.21,
-          "probCasaOverPct": 75,
-          "cuotaUnder": 3.58,
-          "probCasaUnderPct": 25,
-          "tip": "O1.5",
-          "tipCuota": 1.21,
-          "tipProbPct": 75
-        },
-        "2.5": {
-          "linea": "2.5",
-          "cuotaOver": 1.75,
-          "probCasaOverPct": 52,
-          "cuotaUnder": 1.93,
-          "probCasaUnderPct": 48,
-          "tip": "O2.5",
-          "tipCuota": 1.75,
-          "tipProbPct": 52
-        }
-      }
-    },
-    {
-      "clave": "bath-city-vs-taunton-town",
-      "url": "/football/match/bath-city-vs-taunton-town/",
-      "liga": "England: Northern Premier League England",
-      "ligaUrl": null,
-      "local": "Bath City",
-      "visitante": "Taunton Town",
-      "fecha": "2026-11-10",
-      "hora": "13:45",
-      "kickoffIsoUtc": "2026-11-10T12:45:00.000Z",
-      "kickoffMs": 1794314700000,
-      "zonaHoraria": "Europe/Madrid",
-      "jugado": false,
-      "ordenDomCoincideSlug": true,
-      "confianzaEquipos": 200,
-      "capturadoEnUtc": "2026-11-10T07:32:14.489Z",
-      "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
-      "lineas": {
-        "1.5": {
-          "linea": "1.5",
-          "cuotaOver": 1.13,
-          "probCasaOverPct": 80,
-          "cuotaUnder": 4.55,
-          "probCasaUnderPct": 20,
-          "tip": "O1.5",
-          "tipCuota": 1.13,
-          "tipProbPct": 80
-        },
-        "2.5": {
-          "linea": "2.5",
-          "cuotaOver": 1.56,
-          "probCasaOverPct": 59,
-          "cuotaUnder": 2.22,
-          "probCasaUnderPct": 41,
-          "tip": "O2.5",
-          "tipCuota": 1.56,
-          "tipProbPct": 59
-        }
-      }
-    },
-    {
-      "clave": "chertsey-town-vs-chichester-city-fc",
-      "url": "/football/match/chertsey-town-vs-chichester-city-fc/",
-      "liga": "England: Northern Premier League England",
-      "ligaUrl": null,
-      "local": "Chertsey Town",
-      "visitante": "Chichester City FC",
-      "fecha": "2026-11-10",
-      "hora": "13:45",
-      "kickoffIsoUtc": "2026-11-10T12:45:00.000Z",
-      "kickoffMs": 1794314700000,
-      "zonaHoraria": "Europe/Madrid",
-      "jugado": false,
-      "ordenDomCoincideSlug": true,
-      "confianzaEquipos": 200,
-      "capturadoEnUtc": "2026-11-10T07:32:14.489Z",
-      "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
-      "lineas": {
-        "1.5": {
-          "linea": "1.5",
-          "cuotaOver": 1.06,
-          "probCasaOverPct": 86,
-          "cuotaUnder": 6.35,
-          "probCasaUnderPct": 14,
-          "tip": "O1.5",
-          "tipCuota": 1.06,
-          "tipProbPct": 86
-        },
-        "2.5": {
-          "linea": "2.5",
-          "cuotaOver": 1.33,
-          "probCasaOverPct": 68,
-          "cuotaUnder": 2.83,
-          "probCasaUnderPct": 32,
-          "tip": "O2.5",
-          "tipCuota": 1.33,
-          "tipProbPct": 68
-        }
-      }
-    },
-    {
-      "clave": "racing-club-warwick-vs-worcester",
-      "url": "/football/match/racing-club-warwick-vs-worcester/",
-      "liga": "England: Northern Premier League England",
-      "ligaUrl": null,
-      "local": "Racing Club Warwick",
-      "visitante": "Worcester",
-      "fecha": "2026-11-10",
-      "hora": "13:45",
-      "kickoffIsoUtc": "2026-11-10T12:45:00.000Z",
-      "kickoffMs": 1794314700000,
-      "zonaHoraria": "Europe/Madrid",
-      "jugado": false,
-      "ordenDomCoincideSlug": false,
-      "confianzaEquipos": 200,
-      "capturadoEnUtc": "2026-11-10T07:32:14.489Z",
-      "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
-      "lineas": {
-        "1.5": {
-          "linea": "1.5",
-          "cuotaOver": 1.17,
-          "probCasaOverPct": 77,
-          "cuotaUnder": 3.94,
-          "probCasaUnderPct": 23,
-          "tip": "O1.5",
-          "tipCuota": 1.17,
-          "tipProbPct": 77
-        },
-        "2.5": {
-          "linea": "2.5",
-          "cuotaOver": 1.66,
-          "probCasaOverPct": 55,
-          "cuotaUnder": 2.05,
-          "probCasaUnderPct": 45,
-          "tip": "O2.5",
-          "tipCuota": 1.66,
-          "tipProbPct": 55
-        }
-      }
-    },
-    {
-      "clave": "banbury-united-vs-stratford-town",
-      "url": "/football/match/banbury-united-vs-stratford-town/",
-      "liga": "England: Northern Premier League England",
-      "ligaUrl": null,
-      "local": "Banbury United",
-      "visitante": "Stratford Town",
-      "fecha": "2026-11-10",
-      "hora": "13:45",
-      "kickoffIsoUtc": "2026-11-10T12:45:00.000Z",
-      "kickoffMs": 1794314700000,
-      "zonaHoraria": "Europe/Madrid",
-      "jugado": false,
-      "ordenDomCoincideSlug": false,
-      "confianzaEquipos": 200,
-      "capturadoEnUtc": "2026-11-10T07:32:14.489Z",
-      "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
-      "lineas": {
-        "1.5": {
-          "linea": "1.5",
-          "cuotaOver": 1.22,
-          "probCasaOverPct": 74,
-          "cuotaUnder": 3.5,
-          "probCasaUnderPct": 26,
-          "tip": "O1.5",
-          "tipCuota": 1.22,
-          "tipProbPct": 74
-        },
-        "2.5": {
-          "linea": "2.5",
-          "cuotaOver": 1.82,
-          "probCasaOverPct": 50,
-          "cuotaUnder": 1.85,
-          "probCasaUnderPct": 50,
-          "tip": "O2.5",
-          "tipCuota": 1.82,
-          "tipProbPct": 50
-        }
-      }
-    },
-    {
-      "clave": "alvechurch-vs-stourbridge",
-      "url": "/football/match/alvechurch-vs-stourbridge/",
-      "liga": "England: Northern Premier League England",
-      "ligaUrl": null,
-      "local": "Alvechurch",
-      "visitante": "Stourbridge",
-      "fecha": "2026-11-10",
-      "hora": "13:45",
-      "kickoffIsoUtc": "2026-11-10T12:45:00.000Z",
-      "kickoffMs": 1794314700000,
-      "zonaHoraria": "Europe/Madrid",
-      "jugado": false,
-      "ordenDomCoincideSlug": false,
-      "confianzaEquipos": 200,
-      "capturadoEnUtc": "2026-11-10T07:32:14.489Z",
-      "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
-      "lineas": {
-        "1.5": {
-          "linea": "1.5",
-          "cuotaOver": 1.19,
-          "probCasaOverPct": 76,
-          "cuotaUnder": 3.74,
-          "probCasaUnderPct": 24,
-          "tip": "O1.5",
-          "tipCuota": 1.19,
-          "tipProbPct": 76
-        },
-        "2.5": {
-          "linea": "2.5",
-          "cuotaOver": 1.72,
-          "probCasaOverPct": 53,
-          "cuotaUnder": 1.96,
-          "probCasaUnderPct": 47,
-          "tip": "O2.5",
-          "tipCuota": 1.72,
-          "tipProbPct": 53
-        }
-      }
-    },
-    {
-      "clave": "needham-market-vs-stamford-afc",
-      "url": "/football/match/needham-market-vs-stamford-afc/",
-      "liga": "England: Northern Premier League England",
-      "ligaUrl": null,
-      "local": "Needham Market",
-      "visitante": "Stamford AFC",
-      "fecha": "2026-11-10",
-      "hora": "13:45",
-      "kickoffIsoUtc": "2026-11-10T12:45:00.000Z",
-      "kickoffMs": 1794314700000,
-      "zonaHoraria": "Europe/Madrid",
-      "jugado": false,
-      "ordenDomCoincideSlug": false,
-      "confianzaEquipos": 200,
-      "capturadoEnUtc": "2026-11-10T07:32:14.489Z",
-      "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
-      "lineas": {
-        "1.5": {
-          "linea": "1.5",
-          "cuotaOver": 1.15,
-          "probCasaOverPct": 80,
-          "cuotaUnder": 4.75,
-          "probCasaUnderPct": 20,
-          "tip": "O1.5",
-          "tipCuota": 1.15,
-          "tipProbPct": 80
-        },
-        "2.5": {
-          "linea": "2.5",
-          "cuotaOver": 1.55,
-          "probCasaOverPct": 60,
-          "cuotaUnder": 2.3,
-          "probCasaUnderPct": 40,
-          "tip": "O2.5",
-          "tipCuota": 1.55,
-          "tipProbPct": 60
-        }
-      }
-    },
-    {
-      "clave": "halesowen-vs-rushall-olympic",
-      "url": "/football/match/halesowen-vs-rushall-olympic/",
-      "liga": "England: Northern Premier League England",
-      "ligaUrl": null,
-      "local": "Halesowen Town FC",
-      "visitante": "Rushall Olympic",
-      "fecha": "2026-11-10",
-      "hora": "13:45",
-      "kickoffIsoUtc": "2026-11-10T12:45:00.000Z",
-      "kickoffMs": 1794314700000,
-      "zonaHoraria": "Europe/Madrid",
-      "jugado": false,
-      "ordenDomCoincideSlug": false,
-      "confianzaEquipos": 180,
-      "capturadoEnUtc": "2026-11-10T07:32:14.489Z",
-      "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
-      "lineas": {
-        "1.5": {
-          "linea": "1.5",
-          "cuotaOver": 1.11,
-          "probCasaOverPct": 82,
-          "cuotaUnder": 4.9,
-          "probCasaUnderPct": 18,
-          "tip": "O1.5",
-          "tipCuota": 1.11,
-          "tipProbPct": 82
-        },
-        "2.5": {
-          "linea": "2.5",
-          "cuotaOver": 1.48,
-          "probCasaOverPct": 61,
-          "cuotaUnder": 2.33,
-          "probCasaUnderPct": 39,
-          "tip": "O2.5",
-          "tipCuota": 1.48,
-          "tipProbPct": 61
-        }
-      }
-    },
-    {
-      "clave": "leiston-vs-real-bedford",
-      "url": "/football/match/leiston-vs-real-bedford/",
-      "liga": "England: Northern Premier League England",
-      "ligaUrl": null,
-      "local": "Leiston",
-      "visitante": "Real Bedford",
-      "fecha": "2026-11-10",
-      "hora": "13:45",
-      "kickoffIsoUtc": "2026-11-10T12:45:00.000Z",
-      "kickoffMs": 1794314700000,
-      "zonaHoraria": "Europe/Madrid",
-      "jugado": false,
-      "ordenDomCoincideSlug": true,
-      "confianzaEquipos": 200,
-      "capturadoEnUtc": "2026-11-10T07:32:14.489Z",
-      "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
-      "lineas": {
-        "1.5": {
-          "linea": "1.5",
-          "cuotaOver": 1.04,
-          "probCasaOverPct": 86,
-          "cuotaUnder": 6.3,
-          "probCasaUnderPct": 14,
-          "tip": "O1.5",
-          "tipCuota": 1.04,
-          "tipProbPct": 86
-        },
-        "2.5": {
-          "linea": "2.5",
-          "cuotaOver": 1.31,
-          "probCasaOverPct": 69,
-          "cuotaUnder": 2.92,
-          "probCasaUnderPct": 31,
-          "tip": "O2.5",
-          "tipCuota": 1.31,
-          "tipProbPct": 69
-        }
-      }
-    },
-    {
-      "clave": "bromsgrove-sporting-vs-leamington",
-      "url": "/football/match/bromsgrove-sporting-vs-leamington/",
-      "liga": "England: Northern Premier League England",
-      "ligaUrl": null,
-      "local": "Bromsgrove Sporting",
-      "visitante": "Leamington",
-      "fecha": "2026-11-10",
-      "hora": "13:45",
-      "kickoffIsoUtc": "2026-11-10T12:45:00.000Z",
-      "kickoffMs": 1794314700000,
-      "zonaHoraria": "Europe/Madrid",
-      "jugado": false,
-      "ordenDomCoincideSlug": false,
-      "confianzaEquipos": 200,
-      "capturadoEnUtc": "2026-11-10T07:32:14.489Z",
-      "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
-      "lineas": {
-        "1.5": {
-          "linea": "1.5",
-          "cuotaOver": 1.14,
-          "probCasaOverPct": 79,
-          "cuotaUnder": 4.4,
-          "probCasaUnderPct": 21,
-          "tip": "O1.5",
-          "tipCuota": 1.14,
-          "tipProbPct": 79
-        },
-        "2.5": {
-          "linea": "2.5",
-          "cuotaOver": 1.53,
-          "probCasaOverPct": 59,
-          "cuotaUnder": 2.21,
-          "probCasaUnderPct": 41,
-          "tip": "O2.5",
-          "tipCuota": 1.53,
-          "tipProbPct": 59
-        }
-      }
-    },
-    {
-      "clave": "bishop-s-stortford-vs-bury-town",
-      "url": "/football/match/bishop-s-stortford-vs-bury-town/",
-      "liga": "England: Northern Premier League England",
-      "ligaUrl": null,
-      "local": "Bishop's Stortford",
-      "visitante": "Bury Town",
-      "fecha": "2026-11-10",
-      "hora": "13:45",
-      "kickoffIsoUtc": "2026-11-10T12:45:00.000Z",
-      "kickoffMs": 1794314700000,
-      "zonaHoraria": "Europe/Madrid",
-      "jugado": false,
-      "ordenDomCoincideSlug": false,
-      "confianzaEquipos": 200,
-      "capturadoEnUtc": "2026-11-10T07:32:14.489Z",
-      "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
-      "lineas": {
-        "1.5": {
-          "linea": "1.5",
-          "cuotaOver": 1.14,
-          "probCasaOverPct": 79,
-          "cuotaUnder": 4.4,
-          "probCasaUnderPct": 21,
-          "tip": "O1.5",
-          "tipCuota": 1.14,
-          "tipProbPct": 79
-        },
-        "2.5": {
-          "linea": "2.5",
-          "cuotaOver": 1.54,
-          "probCasaOverPct": 59,
-          "cuotaUnder": 2.19,
-          "probCasaUnderPct": 41,
-          "tip": "O2.5",
-          "tipCuota": 1.54,
-          "tipProbPct": 59
-        }
-      }
-    },
-    {
-      "clave": "anstey-nomads-vs-kettering-town-fc",
-      "url": "/football/match/anstey-nomads-vs-kettering-town-fc/",
-      "liga": "England: Northern Premier League England",
-      "ligaUrl": null,
-      "local": "Anstey Nomads",
-      "visitante": "Kettering Town FC",
-      "fecha": "2026-11-10",
-      "hora": "13:45",
-      "kickoffIsoUtc": "2026-11-10T12:45:00.000Z",
-      "kickoffMs": 1794314700000,
-      "zonaHoraria": "Europe/Madrid",
-      "jugado": false,
-      "ordenDomCoincideSlug": true,
-      "confianzaEquipos": 200,
-      "capturadoEnUtc": "2026-11-10T07:32:14.489Z",
-      "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
-      "lineas": {
-        "1.5": {
-          "linea": "1.5",
-          "cuotaOver": 1.1,
-          "probCasaOverPct": 82,
-          "cuotaUnder": 5.05,
-          "probCasaUnderPct": 18,
-          "tip": "O1.5",
-          "tipCuota": 1.1,
-          "tipProbPct": 82
-        },
-        "2.5": {
-          "linea": "2.5",
-          "cuotaOver": 1.46,
-          "probCasaOverPct": 62,
-          "cuotaUnder": 2.38,
-          "probCasaUnderPct": 38,
-          "tip": "O2.5",
-          "tipCuota": 1.46,
-          "tipProbPct": 62
-        }
-      }
-    },
-    {
-      "clave": "dulwich-hamlet-vs-eastbourne-borough",
-      "url": "/football/match/dulwich-hamlet-vs-eastbourne-borough/",
-      "liga": "England: Northern Premier League England",
-      "ligaUrl": null,
-      "local": "Dulwich Hamlet",
-      "visitante": "Eastbourne Borough",
-      "fecha": "2026-11-10",
-      "hora": "13:45",
-      "kickoffIsoUtc": "2026-11-10T12:45:00.000Z",
-      "kickoffMs": 1794314700000,
-      "zonaHoraria": "Europe/Madrid",
-      "jugado": false,
-      "ordenDomCoincideSlug": false,
-      "confianzaEquipos": 200,
-      "capturadoEnUtc": "2026-11-10T07:32:14.489Z",
-      "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
-      "lineas": {
-        "1.5": {
-          "linea": "1.5",
-          "cuotaOver": 1.13,
-          "probCasaOverPct": 80,
-          "cuotaUnder": 4.6,
-          "probCasaUnderPct": 20,
-          "tip": "O1.5",
-          "tipCuota": 1.13,
-          "tipProbPct": 80
-        },
-        "2.5": {
-          "linea": "2.5",
-          "cuotaOver": 1.53,
-          "probCasaOverPct": 60,
-          "cuotaUnder": 2.29,
-          "probCasaUnderPct": 40,
-          "tip": "O2.5",
-          "tipCuota": 1.53,
-          "tipProbPct": 60
-        }
-      }
-    },
-    {
-      "clave": "welling-vs-whitehawk",
-      "url": "/football/match/welling-vs-whitehawk/",
-      "liga": "England: Northern Premier League England",
-      "ligaUrl": null,
-      "local": "Welling",
-      "visitante": "Whitehawk",
-      "fecha": "2026-11-10",
-      "hora": "13:45",
-      "kickoffIsoUtc": "2026-11-10T12:45:00.000Z",
-      "kickoffMs": 1794314700000,
-      "zonaHoraria": "Europe/Madrid",
-      "jugado": false,
-      "ordenDomCoincideSlug": false,
-      "confianzaEquipos": 200,
-      "capturadoEnUtc": "2026-11-10T07:32:14.489Z",
-      "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
-      "lineas": {
-        "1.5": {
-          "linea": "1.5",
-          "cuotaOver": 1.16,
-          "probCasaOverPct": 78,
-          "cuotaUnder": 4.1,
-          "probCasaUnderPct": 22,
-          "tip": "O1.5",
-          "tipCuota": 1.16,
-          "tipProbPct": 78
-        },
-        "2.5": {
-          "linea": "2.5",
-          "cuotaOver": 1.61,
-          "probCasaOverPct": 57,
-          "cuotaUnder": 2.13,
-          "probCasaUnderPct": 43,
-          "tip": "O2.5",
-          "tipCuota": 1.61,
-          "tipProbPct": 57
-        }
-      }
-    },
-    {
-      "clave": "enfield-town-vs-lewes",
-      "url": "/football/match/enfield-town-vs-lewes/",
-      "liga": "England: Northern Premier League England",
-      "ligaUrl": null,
-      "local": "Enfield Town",
-      "visitante": "Lewes",
-      "fecha": "2026-11-10",
-      "hora": "13:45",
-      "kickoffIsoUtc": "2026-11-10T12:45:00.000Z",
-      "kickoffMs": 1794314700000,
-      "zonaHoraria": "Europe/Madrid",
-      "jugado": false,
-      "ordenDomCoincideSlug": true,
-      "confianzaEquipos": 200,
-      "capturadoEnUtc": "2026-11-10T07:32:14.489Z",
-      "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
-      "lineas": {
-        "1.5": {
-          "linea": "1.5",
-          "cuotaOver": 1.06,
-          "probCasaOverPct": 85,
-          "cuotaUnder": 6,
-          "probCasaUnderPct": 15,
-          "tip": "O1.5",
-          "tipCuota": 1.06,
-          "tipProbPct": 85
-        },
-        "2.5": {
-          "linea": "2.5",
-          "cuotaOver": 1.32,
-          "probCasaOverPct": 69,
-          "cuotaUnder": 2.88,
-          "probCasaUnderPct": 31,
-          "tip": "O2.5",
-          "tipCuota": 1.32,
-          "tipProbPct": 69
-        }
-      }
-    },
-    {
-      "clave": "curzon-vs-ilkeston-town",
-      "url": "/football/match/curzon-vs-ilkeston-town-2/",
-      "liga": "England: Northern Premier League England",
-      "ligaUrl": null,
-      "local": "Curzon",
-      "visitante": "Ilkeston Town",
-      "fecha": "2026-11-10",
-      "hora": "13:45",
-      "kickoffIsoUtc": "2026-11-10T12:45:00.000Z",
-      "kickoffMs": 1794314700000,
-      "zonaHoraria": "Europe/Madrid",
-      "jugado": false,
-      "ordenDomCoincideSlug": true,
-      "confianzaEquipos": 200,
-      "capturadoEnUtc": "2026-11-10T07:32:14.489Z",
-      "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
-      "lineas": {
-        "1.5": {
-          "linea": "1.5",
-          "cuotaOver": 1.11,
-          "probCasaOverPct": 82,
-          "cuotaUnder": 4.95,
-          "probCasaUnderPct": 18,
-          "tip": "O1.5",
-          "tipCuota": 1.11,
-          "tipProbPct": 82
-        },
-        "2.5": {
-          "linea": "2.5",
-          "cuotaOver": 1.47,
-          "probCasaOverPct": 62,
-          "cuotaUnder": 2.35,
-          "probCasaUnderPct": 38,
-          "tip": "O2.5",
-          "tipCuota": 1.47,
-          "tipProbPct": 62
-        }
-      }
-    },
-    {
-      "clave": "quorn-vs-stockton-town",
-      "url": "/football/match/quorn-vs-stockton-town/",
-      "liga": "England: Northern Premier League England",
-      "ligaUrl": null,
-      "local": "Quorn",
-      "visitante": "Stockton Town",
-      "fecha": "2026-11-10",
-      "hora": "13:45",
-      "kickoffIsoUtc": "2026-11-10T12:45:00.000Z",
-      "kickoffMs": 1794314700000,
-      "zonaHoraria": "Europe/Madrid",
-      "jugado": false,
-      "ordenDomCoincideSlug": true,
-      "confianzaEquipos": 200,
-      "capturadoEnUtc": "2026-11-10T07:32:14.489Z",
-      "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
-      "lineas": {
-        "1.5": {
-          "linea": "1.5",
-          "cuotaOver": 1.14,
-          "probCasaOverPct": 79,
-          "cuotaUnder": 4.4,
-          "probCasaUnderPct": 21,
-          "tip": "O1.5",
-          "tipCuota": 1.14,
-          "tipProbPct": 79
-        },
-        "2.5": {
-          "linea": "2.5",
-          "cuotaOver": 1.56,
-          "probCasaOverPct": 59,
-          "cuotaUnder": 2.22,
-          "probCasaUnderPct": 41,
-          "tip": "O2.5",
-          "tipCuota": 1.56,
-          "tipProbPct": 59
-        }
-      }
-    },
-    {
-      "clave": "bamber-bridge-vs-redcar-athletic",
-      "url": "/football/match/bamber-bridge-vs-redcar-athletic/",
-      "liga": "England: Northern Premier League England",
-      "ligaUrl": null,
-      "local": "Bamber Bridge",
-      "visitante": "Redcar Athletic",
-      "fecha": "2026-11-10",
-      "hora": "13:45",
-      "kickoffIsoUtc": "2026-11-10T12:45:00.000Z",
-      "kickoffMs": 1794314700000,
-      "zonaHoraria": "Europe/Madrid",
-      "jugado": false,
-      "ordenDomCoincideSlug": false,
-      "confianzaEquipos": 200,
-      "capturadoEnUtc": "2026-11-10T07:32:14.489Z",
-      "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
-      "lineas": {
-        "1.5": {
-          "linea": "1.5",
-          "cuotaOver": 1.06,
-          "probCasaOverPct": 85,
-          "cuotaUnder": 6.15,
-          "probCasaUnderPct": 15,
-          "tip": "O1.5",
-          "tipCuota": 1.06,
-          "tipProbPct": 85
-        },
-        "2.5": {
-          "linea": "2.5",
-          "cuotaOver": 1.34,
-          "probCasaOverPct": 67,
-          "cuotaUnder": 2.78,
-          "probCasaUnderPct": 33,
-          "tip": "O2.5",
-          "tipCuota": 1.34,
-          "tipProbPct": 67
-        }
-      }
-    },
-    {
-      "clave": "alfreton-vs-workington",
-      "url": "/football/match/alfreton-vs-workington/",
-      "liga": "England: Northern Premier League England",
-      "ligaUrl": null,
-      "local": "Alfreton",
-      "visitante": "Workington",
-      "fecha": "2026-11-10",
-      "hora": "13:45",
-      "kickoffIsoUtc": "2026-11-10T12:45:00.000Z",
-      "kickoffMs": 1794314700000,
-      "zonaHoraria": "Europe/Madrid",
-      "jugado": false,
-      "ordenDomCoincideSlug": false,
-      "confianzaEquipos": 200,
-      "capturadoEnUtc": "2026-11-10T07:32:14.489Z",
-      "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
-      "lineas": {
-        "1.5": {
-          "linea": "1.5",
-          "cuotaOver": 1.15,
-          "probCasaOverPct": 79,
-          "cuotaUnder": 4.3,
-          "probCasaUnderPct": 21,
-          "tip": "O1.5",
-          "tipCuota": 1.15,
-          "tipProbPct": 79
-        },
-        "2.5": {
-          "linea": "2.5",
-          "cuotaOver": 1.55,
-          "probCasaOverPct": 58,
-          "cuotaUnder": 2.17,
-          "probCasaUnderPct": 42,
-          "tip": "O2.5",
-          "tipCuota": 1.55,
-          "tipProbPct": 58
-        }
-      }
-    },
-    {
-      "clave": "bury-vs-cleethorpes-town",
-      "url": "/football/match/bury-vs-cleethorpes-town/",
-      "liga": "England: Northern Premier League England",
-      "ligaUrl": null,
-      "local": "Bury",
-      "visitante": "Cleethorpes Town",
-      "fecha": "2026-11-10",
-      "hora": "13:45",
-      "kickoffIsoUtc": "2026-11-10T12:45:00.000Z",
-      "kickoffMs": 1794314700000,
-      "zonaHoraria": "Europe/Madrid",
-      "jugado": false,
-      "ordenDomCoincideSlug": true,
-      "confianzaEquipos": 200,
-      "capturadoEnUtc": "2026-11-10T07:32:14.489Z",
-      "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
-      "lineas": {
-        "1.5": {
-          "linea": "1.5",
-          "cuotaOver": 1.18,
-          "probCasaOverPct": 77,
-          "cuotaUnder": 3.9,
-          "probCasaUnderPct": 23,
-          "tip": "O1.5",
-          "tipCuota": 1.18,
-          "tipProbPct": 77
-        },
-        "2.5": {
-          "linea": "2.5",
-          "cuotaOver": 1.65,
-          "probCasaOverPct": 56,
-          "cuotaUnder": 2.06,
-          "probCasaUnderPct": 44,
-          "tip": "O2.5",
-          "tipCuota": 1.65,
-          "tipProbPct": 56
-        }
-      }
-    },
-    {
-      "clave": "guiseley-vs-warrington-rylands",
-      "url": "/football/match/guiseley-vs-warrington-rylands/",
-      "liga": "England: Northern Premier League England",
-      "ligaUrl": null,
-      "local": "Guiseley",
-      "visitante": "Warrington Rylands",
-      "fecha": "2026-11-10",
-      "hora": "13:45",
-      "kickoffIsoUtc": "2026-11-10T12:45:00.000Z",
-      "kickoffMs": 1794314700000,
-      "zonaHoraria": "Europe/Madrid",
-      "jugado": false,
-      "ordenDomCoincideSlug": false,
-      "confianzaEquipos": 200,
-      "capturadoEnUtc": "2026-11-10T07:32:14.489Z",
-      "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
-      "lineas": {
-        "1.5": {
-          "linea": "1.5",
-          "cuotaOver": 1.17,
-          "probCasaOverPct": 77,
-          "cuotaUnder": 4,
-          "probCasaUnderPct": 23,
-          "tip": "O1.5",
-          "tipCuota": 1.17,
-          "tipProbPct": 77
-        },
-        "2.5": {
-          "linea": "2.5",
-          "cuotaOver": 1.64,
-          "probCasaOverPct": 56,
-          "cuotaUnder": 2.08,
-          "probCasaUnderPct": 44,
-          "tip": "O2.5",
-          "tipCuota": 1.64,
-          "tipProbPct": 56
-        }
-      }
-    },
-    {
-      "clave": "chatham-town-vs-leatherhead",
-      "url": "/football/match/chatham-town-vs-leatherhead/",
-      "liga": "England: Northern Premier League England",
-      "ligaUrl": null,
-      "local": "Chatham Town",
-      "visitante": "Leatherhead",
-      "fecha": "2026-11-10",
-      "hora": "13:45",
-      "kickoffIsoUtc": "2026-11-10T12:45:00.000Z",
-      "kickoffMs": 1794314700000,
-      "zonaHoraria": "Europe/Madrid",
-      "jugado": false,
-      "ordenDomCoincideSlug": true,
-      "confianzaEquipos": 200,
-      "capturadoEnUtc": "2026-11-10T07:32:14.489Z",
-      "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
-      "lineas": {
-        "1.5": {
-          "linea": "1.5",
-          "cuotaOver": 1.13,
-          "probCasaOverPct": 80,
-          "cuotaUnder": 4.55,
-          "probCasaUnderPct": 20,
-          "tip": "O1.5",
-          "tipCuota": 1.13,
-          "tipProbPct": 80
-        },
-        "2.5": {
-          "linea": "2.5",
-          "cuotaOver": 1.56,
-          "probCasaOverPct": 59,
-          "cuotaUnder": 2.22,
-          "probCasaUnderPct": 41,
-          "tip": "O2.5",
-          "tipCuota": 1.56,
-          "tipProbPct": 59
-        }
-      }
-    },
-    {
-      "clave": "cray-wanderers-vs-three-bridges",
-      "url": "/football/match/cray-wanderers-vs-three-bridges/",
-      "liga": "England: Northern Premier League England",
-      "ligaUrl": null,
-      "local": "Cray Wanderers",
-      "visitante": "Three Bridges",
-      "fecha": "2026-11-10",
-      "hora": "13:45",
-      "kickoffIsoUtc": "2026-11-10T12:45:00.000Z",
-      "kickoffMs": 1794314700000,
-      "zonaHoraria": "Europe/Madrid",
-      "jugado": false,
-      "ordenDomCoincideSlug": true,
-      "confianzaEquipos": 200,
-      "capturadoEnUtc": "2026-11-10T07:32:14.489Z",
-      "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
-      "lineas": {
-        "1.5": {
-          "linea": "1.5",
-          "cuotaOver": 1.06,
-          "probCasaOverPct": 85,
-          "cuotaUnder": 6.05,
-          "probCasaUnderPct": 15,
-          "tip": "O1.5",
-          "tipCuota": 1.06,
-          "tipProbPct": 85
-        },
-        "2.5": {
-          "linea": "2.5",
-          "cuotaOver": 1.31,
-          "probCasaOverPct": 69,
-          "cuotaUnder": 2.92,
-          "probCasaUnderPct": 31,
-          "tip": "O2.5",
-          "tipCuota": 1.31,
-          "tipProbPct": 69
-        }
-      }
-    },
-    {
-      "clave": "colchester-vs-ipswich-academy",
-      "url": "/football/match/colchester-vs-ipswich-academy/",
-      "liga": "England: EFL Trophy England",
-      "ligaUrl": null,
-      "local": "Colchester",
-      "visitante": "Ipswich Academy",
-      "fecha": "2026-11-10",
-      "hora": "13:45",
-      "kickoffIsoUtc": "2026-11-10T12:45:00.000Z",
-      "kickoffMs": 1794314700000,
-      "zonaHoraria": "Europe/Madrid",
-      "jugado": false,
-      "ordenDomCoincideSlug": true,
-      "confianzaEquipos": 200,
-      "capturadoEnUtc": "2026-11-10T07:32:14.489Z",
-      "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
-      "lineas": {
-        "1.5": {
-          "linea": "1.5",
-          "cuotaOver": 1.02,
-          "probCasaOverPct": 89,
-          "cuotaUnder": 8.3,
-          "probCasaUnderPct": 11,
-          "tip": "O1.5",
-          "tipCuota": 1.02,
-          "tipProbPct": 89
-        },
-        "2.5": {
-          "linea": "2.5",
-          "cuotaOver": 1.2,
-          "probCasaOverPct": 76,
-          "cuotaUnder": 3.72,
-          "probCasaUnderPct": 24,
-          "tip": "O2.5",
-          "tipCuota": 1.2,
-          "tipProbPct": 76
-        }
-      }
-    },
-    {
-      "clave": "inter-vs-manchester-city-women",
-      "url": "/football/match/inter-vs-manchester-city-women/",
-      "liga": "International: Women's Champions League",
-      "ligaUrl": null,
-      "local": "Inter",
-      "visitante": "Manchester City Women",
-      "fecha": "2026-11-10",
-      "hora": "14:00",
-      "kickoffIsoUtc": "2026-11-10T13:00:00.000Z",
-      "kickoffMs": 1794315600000,
-      "zonaHoraria": "Europe/Madrid",
-      "jugado": false,
-      "ordenDomCoincideSlug": true,
-      "confianzaEquipos": 200,
-      "capturadoEnUtc": "2026-11-10T07:32:14.489Z",
-      "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
-      "lineas": {
-        "1.5": {
-          "linea": "1.5",
-          "cuotaOver": 1.09,
-          "probCasaOverPct": 83,
-          "cuotaUnder": 5.25,
-          "probCasaUnderPct": 17,
-          "tip": "O1.5",
-          "tipCuota": 1.09,
-          "tipProbPct": 83
-        },
-        "2.5": {
-          "linea": "2.5",
-          "cuotaOver": 1.41,
-          "probCasaOverPct": 64,
-          "cuotaUnder": 2.52,
-          "probCasaUnderPct": 36,
-          "tip": "O2.5",
-          "tipCuota": 1.41,
-          "tipProbPct": 64
-        }
-      }
-    },
-    {
-      "clave": "roma-vs-servette",
-      "url": "/football/match/roma-vs-servette/",
-      "liga": "International: Women's Champions League",
-      "ligaUrl": null,
-      "local": "Roma",
-      "visitante": "Servette",
-      "fecha": "2026-11-10",
-      "hora": "14:00",
-      "kickoffIsoUtc": "2026-11-10T13:00:00.000Z",
-      "kickoffMs": 1794315600000,
-      "zonaHoraria": "Europe/Madrid",
-      "jugado": false,
-      "ordenDomCoincideSlug": true,
-      "confianzaEquipos": 200,
-      "capturadoEnUtc": "2026-11-10T07:32:14.489Z",
-      "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
-      "lineas": {
-        "1.5": {
-          "linea": "1.5",
-          "cuotaOver": 1.03,
-          "probCasaOverPct": 88,
-          "cuotaUnder": 7.4,
-          "probCasaUnderPct": 12,
-          "tip": "O1.5",
-          "tipCuota": 1.03,
-          "tipProbPct": 88
-        },
-        "2.5": {
-          "linea": "2.5",
-          "cuotaOver": 1.25,
-          "probCasaOverPct": 72,
-          "cuotaUnder": 3.28,
-          "probCasaUnderPct": 28,
-          "tip": "O2.5",
-          "tipCuota": 1.25,
-          "tipProbPct": 72
-        }
-      }
-    },
-    {
-      "clave": "bayern-munich-vs-paris-saint-germain",
-      "url": "/football/match/bayern-munich-vs-paris-saint-germain/",
-      "liga": "International: Women's Champions League",
-      "ligaUrl": null,
-      "local": "Bayern Munich",
-      "visitante": "Paris Saint Germain",
-      "fecha": "2026-11-10",
-      "hora": "14:00",
-      "kickoffIsoUtc": "2026-11-10T13:00:00.000Z",
-      "kickoffMs": 1794315600000,
-      "zonaHoraria": "Europe/Madrid",
-      "jugado": false,
-      "ordenDomCoincideSlug": false,
-      "confianzaEquipos": 200,
-      "capturadoEnUtc": "2026-11-10T07:32:14.489Z",
-      "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
-      "lineas": {
-        "1.5": {
-          "linea": "1.5",
-          "cuotaOver": 1.14,
-          "probCasaOverPct": 80,
-          "cuotaUnder": 4.45,
-          "probCasaUnderPct": 20,
-          "tip": "O1.5",
-          "tipCuota": 1.14,
-          "tipProbPct": 80
-        },
-        "2.5": {
-          "linea": "2.5",
-          "cuotaOver": 1.51,
-          "probCasaOverPct": 60,
-          "cuotaUnder": 2.26,
-          "probCasaUnderPct": 40,
-          "tip": "O2.5",
-          "tipCuota": 1.51,
-          "tipProbPct": 60
-        }
-      }
-    },
-    {
-      "clave": "boca-juniors-de-cali-vs-envigado",
-      "url": "/football/match/boca-juniors-de-cali-vs-envigado/",
-      "liga": "Colombia: Primera B Colombia",
-      "ligaUrl": null,
-      "local": "Boca Juniors de Cali",
-      "visitante": "Envigado",
-      "fecha": "2026-11-10",
-      "hora": "14:30",
-      "kickoffIsoUtc": "2026-11-10T13:30:00.000Z",
-      "kickoffMs": 1794317400000,
-      "zonaHoraria": "Europe/Madrid",
-      "jugado": false,
-      "ordenDomCoincideSlug": false,
-      "confianzaEquipos": 200,
-      "capturadoEnUtc": "2026-11-10T07:32:14.489Z",
-      "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
-      "lineas": {
-        "1.5": {
-          "linea": "1.5",
-          "cuotaOver": 1.35,
-          "probCasaOverPct": 68,
-          "cuotaUnder": 2.9,
-          "probCasaUnderPct": 32,
-          "tip": "O1.5",
-          "tipCuota": 1.35,
-          "tipProbPct": 68
-        },
-        "2.5": {
-          "linea": "2.5",
-          "cuotaOver": 2.1,
-          "probCasaOverPct": 44,
-          "cuotaUnder": 1.65,
-          "probCasaUnderPct": 56,
-          "tip": "U2.5",
-          "tipCuota": 1.65,
-          "tipProbPct": 56
-        }
-      }
-    },
-    {
-      "clave": "cd-cacahuatique-vs-firpo",
-      "url": "/football/match/cd-cacahuatique-vs-firpo/",
-      "liga": "El Salvador: Primera Division El Salvador",
-      "ligaUrl": null,
-      "local": "CD Cacahuatique",
-      "visitante": "Firpo",
-      "fecha": "2026-11-10",
-      "hora": "15:30",
-      "kickoffIsoUtc": "2026-11-10T14:30:00.000Z",
-      "kickoffMs": 1794321000000,
-      "zonaHoraria": "Europe/Madrid",
-      "jugado": false,
-      "ordenDomCoincideSlug": true,
-      "confianzaEquipos": 200,
-      "capturadoEnUtc": "2026-11-10T07:32:14.489Z",
-      "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
-      "lineas": {
-        "1.5": {
-          "linea": "1.5",
-          "cuotaOver": 1.26,
-          "probCasaOverPct": 72,
-          "cuotaUnder": 3.2,
-          "probCasaUnderPct": 28,
-          "tip": "O1.5",
-          "tipCuota": 1.26,
-          "tipProbPct": 72
-        },
-        "2.5": {
-          "linea": "2.5",
-          "cuotaOver": 1.89,
-          "probCasaOverPct": 49,
-          "cuotaUnder": 1.78,
-          "probCasaUnderPct": 51,
-          "tip": "U2.5",
-          "tipCuota": 1.78,
-          "tipProbPct": 52
-        }
-      }
-    },
-    {
-      "clave": "america-de-cali-vs-la-equidad",
-      "url": "/football/match/america-de-cali-vs-la-equidad/",
-      "liga": "Colombia: Colombia Cup",
-      "ligaUrl": null,
-      "local": "America de Cali",
-      "visitante": "Internacional de Bogota",
-      "fecha": "2026-11-10",
-      "hora": "17:30",
-      "kickoffIsoUtc": "2026-11-10T16:30:00.000Z",
-      "kickoffMs": 1794328200000,
-      "zonaHoraria": "Europe/Madrid",
-      "jugado": false,
-      "ordenDomCoincideSlug": false,
-      "confianzaEquipos": 100,
-      "capturadoEnUtc": "2026-11-10T07:32:14.489Z",
-      "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
-      "lineas": {
-        "1.5": {
-          "linea": "1.5",
-          "cuotaOver": 1.31,
-          "probCasaOverPct": 69,
-          "cuotaUnder": 2.92,
-          "probCasaUnderPct": 31,
-          "tip": "O1.5",
-          "tipCuota": 1.31,
-          "tipProbPct": 69
-        },
-        "2.5": {
-          "linea": "2.5",
-          "cuotaOver": 2.08,
-          "probCasaOverPct": 45,
-          "cuotaUnder": 1.69,
-          "probCasaUnderPct": 55,
-          "tip": "U2.5",
-          "tipCuota": 1.69,
-          "tipProbPct": 55
-        }
-      }
-    },
     {
       "clave": "cd-platense-municipal-vs-isidro-metapan",
       "url": "/football/match/cd-platense-municipal-vs-isidro-metapan/",
@@ -2364,28 +212,28 @@
       "jugado": false,
       "ordenDomCoincideSlug": false,
       "confianzaEquipos": 200,
-      "capturadoEnUtc": "2026-11-10T07:32:14.489Z",
+      "capturadoEnUtc": "2026-11-10T17:10:17.167Z",
       "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
       "lineas": {
         "1.5": {
           "linea": "1.5",
-          "cuotaOver": 1.26,
-          "probCasaOverPct": 72,
-          "cuotaUnder": 3.2,
-          "probCasaUnderPct": 28,
+          "cuotaOver": 1.2,
+          "probCasaOverPct": 75,
+          "cuotaUnder": 3.68,
+          "probCasaUnderPct": 25,
           "tip": "O1.5",
-          "tipCuota": 1.26,
-          "tipProbPct": 72
+          "tipCuota": 1.2,
+          "tipProbPct": 75
         },
         "2.5": {
           "linea": "2.5",
-          "cuotaOver": 1.89,
-          "probCasaOverPct": 49,
-          "cuotaUnder": 1.78,
-          "probCasaUnderPct": 51,
-          "tip": "U2.5",
-          "tipCuota": 1.78,
-          "tipProbPct": 52
+          "cuotaOver": 1.73,
+          "probCasaOverPct": 53,
+          "cuotaUnder": 1.95,
+          "probCasaUnderPct": 47,
+          "tip": "O2.5",
+          "tipCuota": 1.73,
+          "tipProbPct": 53
         }
       }
     },
@@ -2404,28 +252,28 @@
       "jugado": false,
       "ordenDomCoincideSlug": true,
       "confianzaEquipos": 200,
-      "capturadoEnUtc": "2026-11-10T07:32:14.489Z",
+      "capturadoEnUtc": "2026-11-10T17:10:17.167Z",
       "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
       "lineas": {
         "1.5": {
           "linea": "1.5",
-          "cuotaOver": 1.13,
-          "probCasaOverPct": 80,
-          "cuotaUnder": 4.6,
-          "probCasaUnderPct": 20,
+          "cuotaOver": 1.08,
+          "probCasaOverPct": 84,
+          "cuotaUnder": 5.7,
+          "probCasaUnderPct": 16,
           "tip": "O1.5",
-          "tipCuota": 1.13,
-          "tipProbPct": 80
+          "tipCuota": 1.08,
+          "tipProbPct": 84
         },
         "2.5": {
           "linea": "2.5",
-          "cuotaOver": 1.5,
-          "probCasaOverPct": 60,
-          "cuotaUnder": 2.28,
-          "probCasaUnderPct": 40,
+          "cuotaOver": 1.35,
+          "probCasaOverPct": 67,
+          "cuotaUnder": 2.74,
+          "probCasaUnderPct": 33,
           "tip": "O2.5",
-          "tipCuota": 1.5,
-          "tipProbPct": 60
+          "tipCuota": 1.35,
+          "tipProbPct": 67
         }
       }
     },
@@ -2444,27 +292,27 @@
       "jugado": false,
       "ordenDomCoincideSlug": false,
       "confianzaEquipos": 200,
-      "capturadoEnUtc": "2026-11-10T07:32:14.489Z",
+      "capturadoEnUtc": "2026-11-10T17:10:17.167Z",
       "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
       "lineas": {
         "1.5": {
           "linea": "1.5",
-          "cuotaOver": 1.31,
-          "probCasaOverPct": 69,
-          "cuotaUnder": 2.92,
-          "probCasaUnderPct": 31,
+          "cuotaOver": 1.3,
+          "probCasaOverPct": 70,
+          "cuotaUnder": 2.97,
+          "probCasaUnderPct": 30,
           "tip": "O1.5",
-          "tipCuota": 1.31,
-          "tipProbPct": 69
+          "tipCuota": 1.3,
+          "tipProbPct": 70
         },
         "2.5": {
           "linea": "2.5",
-          "cuotaOver": 2.09,
+          "cuotaOver": 2.08,
           "probCasaOverPct": 45,
-          "cuotaUnder": 1.68,
+          "cuotaUnder": 1.69,
           "probCasaUnderPct": 55,
           "tip": "U2.5",
-          "tipCuota": 1.68,
+          "tipCuota": 1.69,
           "tipProbPct": 55
         }
       }
@@ -2484,28 +332,228 @@
       "jugado": false,
       "ordenDomCoincideSlug": false,
       "confianzaEquipos": 200,
-      "capturadoEnUtc": "2026-11-10T07:32:14.489Z",
+      "capturadoEnUtc": "2026-11-10T17:10:17.167Z",
       "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
       "lineas": {
         "1.5": {
           "linea": "1.5",
-          "cuotaOver": 1.28,
+          "cuotaOver": 1.34,
+          "probCasaOverPct": 67,
+          "cuotaUnder": 2.78,
+          "probCasaUnderPct": 33,
+          "tip": "O1.5",
+          "tipCuota": 1.34,
+          "tipProbPct": 67
+        },
+        "2.5": {
+          "linea": "2.5",
+          "cuotaOver": 2.17,
+          "probCasaOverPct": 42,
+          "cuotaUnder": 1.59,
+          "probCasaUnderPct": 58,
+          "tip": "U2.5",
+          "tipCuota": 1.59,
+          "tipProbPct": 58
+        }
+      }
+    },
+    {
+      "clave": "india-vs-maldives",
+      "url": "/football/match/india-vs-maldives/",
+      "liga": "International: SAFF Championship",
+      "ligaUrl": null,
+      "local": "India",
+      "visitante": "Maldives",
+      "fecha": "2026-11-11",
+      "hora": "03:30",
+      "kickoffIsoUtc": "2026-11-11T02:30:00.000Z",
+      "kickoffMs": 1794364200000,
+      "zonaHoraria": "Europe/Madrid",
+      "jugado": false,
+      "ordenDomCoincideSlug": true,
+      "confianzaEquipos": 200,
+      "capturadoEnUtc": "2026-11-10T17:10:17.167Z",
+      "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
+      "lineas": {
+        "1.5": {
+          "linea": "1.5",
+          "cuotaOver": 1.09,
+          "probCasaOverPct": 84,
+          "cuotaUnder": 5.9,
+          "probCasaUnderPct": 16,
+          "tip": "O1.5",
+          "tipCuota": 1.09,
+          "tipProbPct": 84
+        },
+        "2.5": {
+          "linea": "2.5",
+          "cuotaOver": 1.35,
+          "probCasaOverPct": 67,
+          "cuotaUnder": 2.74,
+          "probCasaUnderPct": 33,
+          "tip": "O2.5",
+          "tipCuota": 1.35,
+          "tipProbPct": 67
+        }
+      }
+    },
+    {
+      "clave": "machida-zelvia-vs-vissel-kobe",
+      "url": "/football/match/machida-zelvia-vs-vissel-kobe/",
+      "liga": "Japan: League Cup Japan",
+      "ligaUrl": null,
+      "local": "Machida Zelvia",
+      "visitante": "Vissel Kobe",
+      "fecha": "2026-11-11",
+      "hora": "04:00",
+      "kickoffIsoUtc": "2026-11-11T03:00:00.000Z",
+      "kickoffMs": 1794366000000,
+      "zonaHoraria": "Europe/Madrid",
+      "jugado": false,
+      "ordenDomCoincideSlug": false,
+      "confianzaEquipos": 200,
+      "capturadoEnUtc": "2026-11-10T17:10:17.167Z",
+      "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
+      "lineas": {
+        "1.5": {
+          "linea": "1.5",
+          "cuotaOver": 1.27,
           "probCasaOverPct": 71,
-          "cuotaUnder": 3.08,
+          "cuotaUnder": 3.14,
           "probCasaUnderPct": 29,
           "tip": "O1.5",
-          "tipCuota": 1.28,
+          "tipCuota": 1.27,
           "tipProbPct": 71
         },
         "2.5": {
           "linea": "2.5",
-          "cuotaOver": 1.96,
-          "probCasaOverPct": 47,
-          "cuotaUnder": 1.72,
-          "probCasaUnderPct": 53,
+          "cuotaOver": 1.95,
+          "probCasaOverPct": 48,
+          "cuotaUnder": 1.78,
+          "probCasaUnderPct": 52,
           "tip": "U2.5",
-          "tipCuota": 1.72,
-          "tipProbPct": 53
+          "tipCuota": 1.78,
+          "tipProbPct": 52
+        }
+      }
+    },
+    {
+      "clave": "kashima-antlers-vs-yokohama-f-marinos",
+      "url": "/football/match/kashima-antlers-vs-yokohama-f-marinos/",
+      "liga": "Japan: League Cup Japan",
+      "ligaUrl": null,
+      "local": "Kashima Antlers",
+      "visitante": "Yokohama F.Marinos",
+      "fecha": "2026-11-11",
+      "hora": "04:00",
+      "kickoffIsoUtc": "2026-11-11T03:00:00.000Z",
+      "kickoffMs": 1794366000000,
+      "zonaHoraria": "Europe/Madrid",
+      "jugado": false,
+      "ordenDomCoincideSlug": false,
+      "confianzaEquipos": 200,
+      "capturadoEnUtc": "2026-11-10T17:10:17.167Z",
+      "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
+      "lineas": {
+        "1.5": {
+          "linea": "1.5",
+          "cuotaOver": 1.22,
+          "probCasaOverPct": 74,
+          "cuotaUnder": 3.5,
+          "probCasaUnderPct": 26,
+          "tip": "O1.5",
+          "tipCuota": 1.22,
+          "tipProbPct": 74
+        },
+        "2.5": {
+          "linea": "2.5",
+          "cuotaOver": 1.78,
+          "probCasaOverPct": 52,
+          "cuotaUnder": 1.95,
+          "probCasaUnderPct": 48,
+          "tip": "O2.5",
+          "tipCuota": 1.78,
+          "tipProbPct": 52
+        }
+      }
+    },
+    {
+      "clave": "kashiwa-reysol-vs-kawasaki-frontale",
+      "url": "/football/match/kashiwa-reysol-vs-kawasaki-frontale/",
+      "liga": "Japan: League Cup Japan",
+      "ligaUrl": null,
+      "local": "Kashiwa Reysol",
+      "visitante": "Kawasaki Frontale",
+      "fecha": "2026-11-11",
+      "hora": "04:00",
+      "kickoffIsoUtc": "2026-11-11T03:00:00.000Z",
+      "kickoffMs": 1794366000000,
+      "zonaHoraria": "Europe/Madrid",
+      "jugado": false,
+      "ordenDomCoincideSlug": false,
+      "confianzaEquipos": 200,
+      "capturadoEnUtc": "2026-11-10T17:10:17.167Z",
+      "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
+      "lineas": {
+        "1.5": {
+          "linea": "1.5",
+          "cuotaOver": 1.09,
+          "probCasaOverPct": 83,
+          "cuotaUnder": 5.3,
+          "probCasaUnderPct": 17,
+          "tip": "O1.5",
+          "tipCuota": 1.09,
+          "tipProbPct": 83
+        },
+        "2.5": {
+          "linea": "2.5",
+          "cuotaOver": 1.43,
+          "probCasaOverPct": 63,
+          "cuotaUnder": 2.46,
+          "probCasaUnderPct": 37,
+          "tip": "O2.5",
+          "tipCuota": 1.43,
+          "tipProbPct": 63
+        }
+      }
+    },
+    {
+      "clave": "cerezo-osaka-vs-urawa-red-diamonds",
+      "url": "/football/match/cerezo-osaka-vs-urawa-red-diamonds/",
+      "liga": "Japan: League Cup Japan",
+      "ligaUrl": null,
+      "local": "Cerezo Osaka",
+      "visitante": "Urawa Red Diamonds",
+      "fecha": "2026-11-11",
+      "hora": "04:30",
+      "kickoffIsoUtc": "2026-11-11T03:30:00.000Z",
+      "kickoffMs": 1794367800000,
+      "zonaHoraria": "Europe/Madrid",
+      "jugado": false,
+      "ordenDomCoincideSlug": false,
+      "confianzaEquipos": 200,
+      "capturadoEnUtc": "2026-11-10T17:10:17.167Z",
+      "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
+      "lineas": {
+        "1.5": {
+          "linea": "1.5",
+          "cuotaOver": 1.13,
+          "probCasaOverPct": 80,
+          "cuotaUnder": 4.6,
+          "probCasaUnderPct": 20,
+          "tip": "O1.5",
+          "tipCuota": 1.13,
+          "tipProbPct": 80
+        },
+        "2.5": {
+          "linea": "2.5",
+          "cuotaOver": 1.57,
+          "probCasaOverPct": 59,
+          "cuotaUnder": 2.29,
+          "probCasaUnderPct": 41,
+          "tip": "O2.5",
+          "tipCuota": 1.57,
+          "tipProbPct": 59
         }
       }
     },
@@ -2524,7 +572,7 @@
       "jugado": false,
       "ordenDomCoincideSlug": false,
       "confianzaEquipos": 200,
-      "capturadoEnUtc": "2026-11-10T07:32:14.489Z",
+      "capturadoEnUtc": "2026-11-10T17:10:17.167Z",
       "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
       "lineas": {
         "1.5": {
@@ -2550,6 +598,46 @@
       }
     },
     {
+      "clave": "chinese-taipei-vs-vietnam",
+      "url": "/football/match/chinese-taipei-vs-vietnam/",
+      "liga": "International: Friendly International",
+      "ligaUrl": "/football/friendlies/",
+      "local": "Chinese Taipei",
+      "visitante": "Vietnam",
+      "fecha": "2026-11-11",
+      "hora": "06:00",
+      "kickoffIsoUtc": "2026-11-11T05:00:00.000Z",
+      "kickoffMs": 1794373200000,
+      "zonaHoraria": "Europe/Madrid",
+      "jugado": false,
+      "ordenDomCoincideSlug": false,
+      "confianzaEquipos": 200,
+      "capturadoEnUtc": "2026-11-10T17:10:17.167Z",
+      "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
+      "lineas": {
+        "1.5": {
+          "linea": "1.5",
+          "cuotaOver": 1.05,
+          "probCasaOverPct": 88,
+          "cuotaUnder": 7.85,
+          "probCasaUnderPct": 12,
+          "tip": "O1.5",
+          "tipCuota": 1.05,
+          "tipProbPct": 88
+        },
+        "2.5": {
+          "linea": "2.5",
+          "cuotaOver": 1.28,
+          "probCasaOverPct": 74,
+          "cuotaUnder": 3.57,
+          "probCasaUnderPct": 26,
+          "tip": "O2.5",
+          "tipCuota": 1.28,
+          "tipProbPct": 74
+        }
+      }
+    },
+    {
       "clave": "germany-u19-vs-sweden-u19",
       "url": "/football/match/germany-u19-vs-sweden-u19/",
       "liga": "International: EURO U19",
@@ -2564,27 +652,27 @@
       "jugado": false,
       "ordenDomCoincideSlug": true,
       "confianzaEquipos": 200,
-      "capturadoEnUtc": "2026-11-10T07:32:14.489Z",
+      "capturadoEnUtc": "2026-11-10T17:10:17.167Z",
       "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
       "lineas": {
         "1.5": {
           "linea": "1.5",
-          "cuotaOver": 1.1,
+          "cuotaOver": 1.11,
           "probCasaOverPct": 82,
-          "cuotaUnder": 5.05,
+          "cuotaUnder": 4.95,
           "probCasaUnderPct": 18,
           "tip": "O1.5",
-          "tipCuota": 1.1,
+          "tipCuota": 1.11,
           "tipProbPct": 82
         },
         "2.5": {
           "linea": "2.5",
-          "cuotaOver": 1.46,
+          "cuotaOver": 1.47,
           "probCasaOverPct": 62,
-          "cuotaUnder": 2.38,
+          "cuotaUnder": 2.35,
           "probCasaUnderPct": 38,
           "tip": "O2.5",
-          "tipCuota": 1.46,
+          "tipCuota": 1.47,
           "tipProbPct": 62
         }
       }
@@ -2604,27 +692,27 @@
       "jugado": false,
       "ordenDomCoincideSlug": true,
       "confianzaEquipos": 100,
-      "capturadoEnUtc": "2026-11-10T07:32:14.489Z",
+      "capturadoEnUtc": "2026-11-10T17:10:17.167Z",
       "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
       "lineas": {
         "1.5": {
           "linea": "1.5",
-          "cuotaOver": 1.14,
+          "cuotaOver": 1.2,
           "probCasaOverPct": 79,
-          "cuotaUnder": 4.4,
+          "cuotaUnder": 4.65,
           "probCasaUnderPct": 21,
           "tip": "O1.5",
-          "tipCuota": 1.14,
+          "tipCuota": 1.2,
           "tipProbPct": 79
         },
         "2.5": {
           "linea": "2.5",
-          "cuotaOver": 1.53,
+          "cuotaOver": 1.61,
           "probCasaOverPct": 59,
-          "cuotaUnder": 2.21,
+          "cuotaUnder": 2.34,
           "probCasaUnderPct": 41,
           "tip": "O2.5",
-          "tipCuota": 1.53,
+          "tipCuota": 1.61,
           "tipProbPct": 59
         }
       }
@@ -2644,28 +732,148 @@
       "jugado": false,
       "ordenDomCoincideSlug": true,
       "confianzaEquipos": 200,
-      "capturadoEnUtc": "2026-11-10T07:32:14.489Z",
+      "capturadoEnUtc": "2026-11-10T17:10:17.167Z",
       "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
       "lineas": {
         "1.5": {
           "linea": "1.5",
-          "cuotaOver": 1.17,
-          "probCasaOverPct": 77,
-          "cuotaUnder": 4,
-          "probCasaUnderPct": 23,
+          "cuotaOver": 1.23,
+          "probCasaOverPct": 74,
+          "cuotaUnder": 3.42,
+          "probCasaUnderPct": 26,
           "tip": "O1.5",
-          "tipCuota": 1.17,
-          "tipProbPct": 77
+          "tipCuota": 1.23,
+          "tipProbPct": 74
         },
         "2.5": {
           "linea": "2.5",
-          "cuotaOver": 1.66,
-          "probCasaOverPct": 55,
-          "cuotaUnder": 2.05,
-          "probCasaUnderPct": 45,
+          "cuotaOver": 1.83,
+          "probCasaOverPct": 50,
+          "cuotaUnder": 1.83,
+          "probCasaUnderPct": 50,
           "tip": "O2.5",
-          "tipCuota": 1.66,
-          "tipProbPct": 55
+          "tipCuota": 1.83,
+          "tipProbPct": 50
+        }
+      }
+    },
+    {
+      "clave": "zeleziarne-podbrezova-vs-zlate-moravce",
+      "url": "/football/match/zeleziarne-podbrezova-vs-zlate-moravce/",
+      "liga": "Slovakia: Slovak Cup",
+      "ligaUrl": null,
+      "local": "Zeleziarne Podbrezova",
+      "visitante": "Zlate Moravce",
+      "fecha": "2026-11-11",
+      "hora": "09:00",
+      "kickoffIsoUtc": "2026-11-11T08:00:00.000Z",
+      "kickoffMs": 1794384000000,
+      "zonaHoraria": "Europe/Madrid",
+      "jugado": false,
+      "ordenDomCoincideSlug": true,
+      "confianzaEquipos": 200,
+      "capturadoEnUtc": "2026-11-10T17:10:17.167Z",
+      "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
+      "lineas": {
+        "1.5": {
+          "linea": "1.5",
+          "cuotaOver": 1.09,
+          "probCasaOverPct": 83,
+          "cuotaUnder": 5.35,
+          "probCasaUnderPct": 17,
+          "tip": "O1.5",
+          "tipCuota": 1.09,
+          "tipProbPct": 83
+        },
+        "2.5": {
+          "linea": "2.5",
+          "cuotaOver": 1.37,
+          "probCasaOverPct": 66,
+          "cuotaUnder": 2.66,
+          "probCasaUnderPct": 34,
+          "tip": "O2.5",
+          "tipCuota": 1.37,
+          "tipProbPct": 66
+        }
+      }
+    },
+    {
+      "clave": "gfa-rumilly-vallieres-vs-st-priest",
+      "url": "/football/match/gfa-rumilly-vallieres-vs-st-priest/",
+      "liga": "France: National 2 France",
+      "ligaUrl": null,
+      "local": "GFA Rumilly Vallieres",
+      "visitante": "St Priest",
+      "fecha": "2026-11-11",
+      "hora": "10:00",
+      "kickoffIsoUtc": "2026-11-11T09:00:00.000Z",
+      "kickoffMs": 1794387600000,
+      "zonaHoraria": "Europe/Madrid",
+      "jugado": false,
+      "ordenDomCoincideSlug": false,
+      "confianzaEquipos": 200,
+      "capturadoEnUtc": "2026-11-10T17:10:17.167Z",
+      "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
+      "lineas": {
+        "1.5": {
+          "linea": "1.5",
+          "cuotaOver": 1.14,
+          "probCasaOverPct": 79,
+          "cuotaUnder": 4.4,
+          "probCasaUnderPct": 21,
+          "tip": "O1.5",
+          "tipCuota": 1.14,
+          "tipProbPct": 79
+        },
+        "2.5": {
+          "linea": "2.5",
+          "cuotaOver": 1.57,
+          "probCasaOverPct": 58,
+          "cuotaUnder": 2.2,
+          "probCasaUnderPct": 42,
+          "tip": "O2.5",
+          "tipCuota": 1.57,
+          "tipProbPct": 58
+        }
+      }
+    },
+    {
+      "clave": "colombe-vs-victoria-united",
+      "url": "/football/match/colombe-vs-victoria-united/",
+      "liga": "Cameroon: Elite One Cameroon",
+      "ligaUrl": "/football/cameroon-1-division/",
+      "local": "Colombe",
+      "visitante": "Victoria United",
+      "fecha": "2026-11-11",
+      "hora": "11:00",
+      "kickoffIsoUtc": "2026-11-11T10:00:00.000Z",
+      "kickoffMs": 1794391200000,
+      "zonaHoraria": "Europe/Madrid",
+      "jugado": false,
+      "ordenDomCoincideSlug": true,
+      "confianzaEquipos": 200,
+      "capturadoEnUtc": "2026-11-10T17:10:17.167Z",
+      "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
+      "lineas": {
+        "1.5": {
+          "linea": "1.5",
+          "cuotaOver": 1.28,
+          "probCasaOverPct": 71,
+          "cuotaUnder": 3.08,
+          "probCasaUnderPct": 29,
+          "tip": "O1.5",
+          "tipCuota": 1.28,
+          "tipProbPct": 71
+        },
+        "2.5": {
+          "linea": "2.5",
+          "cuotaOver": 1.92,
+          "probCasaOverPct": 48,
+          "cuotaUnder": 1.76,
+          "probCasaUnderPct": 52,
+          "tip": "U2.5",
+          "tipCuota": 1.76,
+          "tipProbPct": 52
         }
       }
     },
@@ -2684,28 +892,28 @@
       "jugado": false,
       "ordenDomCoincideSlug": false,
       "confianzaEquipos": 100,
-      "capturadoEnUtc": "2026-11-10T07:32:14.489Z",
+      "capturadoEnUtc": "2026-11-10T17:10:17.167Z",
       "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
       "lineas": {
         "1.5": {
           "linea": "1.5",
-          "cuotaOver": 1.2,
-          "probCasaOverPct": 76,
-          "cuotaUnder": 3.72,
-          "probCasaUnderPct": 24,
+          "cuotaOver": 1.21,
+          "probCasaOverPct": 75,
+          "cuotaUnder": 3.58,
+          "probCasaUnderPct": 25,
           "tip": "O1.5",
-          "tipCuota": 1.2,
-          "tipProbPct": 76
+          "tipCuota": 1.21,
+          "tipProbPct": 75
         },
         "2.5": {
           "linea": "2.5",
-          "cuotaOver": 1.7,
-          "probCasaOverPct": 54,
-          "cuotaUnder": 1.99,
-          "probCasaUnderPct": 46,
+          "cuotaOver": 1.74,
+          "probCasaOverPct": 53,
+          "cuotaUnder": 1.94,
+          "probCasaUnderPct": 47,
           "tip": "O2.5",
-          "tipCuota": 1.7,
-          "tipProbPct": 54
+          "tipCuota": 1.74,
+          "tipProbPct": 53
         }
       }
     },
@@ -2724,58 +932,28 @@
       "jugado": false,
       "ordenDomCoincideSlug": true,
       "confianzaEquipos": 180,
-      "capturadoEnUtc": "2026-11-10T07:32:14.489Z",
+      "capturadoEnUtc": "2026-11-10T17:10:17.167Z",
       "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
       "lineas": {
         "1.5": {
           "linea": "1.5",
-          "cuotaOver": 1.45,
-          "probCasaOverPct": 64,
-          "cuotaUnder": 2.55,
-          "probCasaUnderPct": 36,
+          "cuotaOver": 1.39,
+          "probCasaOverPct": 65,
+          "cuotaUnder": 2.59,
+          "probCasaUnderPct": 35,
           "tip": "O1.5",
-          "tipCuota": 1.45,
-          "tipProbPct": 64
+          "tipCuota": 1.39,
+          "tipProbPct": 65
         },
         "2.5": {
           "linea": "2.5",
-          "cuotaOver": 2.36,
-          "probCasaOverPct": 39,
+          "cuotaOver": 2.31,
+          "probCasaOverPct": 40,
           "cuotaUnder": 1.52,
-          "probCasaUnderPct": 61,
+          "probCasaUnderPct": 60,
           "tip": "U2.5",
           "tipCuota": 1.52,
-          "tipProbPct": 61
-        }
-      }
-    },
-    {
-      "clave": "gfa-rumilly-vallieres-vs-st-priest",
-      "url": "/football/match/gfa-rumilly-vallieres-vs-st-priest/",
-      "liga": "France: National 2 France",
-      "ligaUrl": null,
-      "local": "GFA Rumilly Vallieres",
-      "visitante": "St Priest",
-      "fecha": "2026-11-11",
-      "hora": "11:00",
-      "kickoffIsoUtc": "2026-11-11T10:00:00.000Z",
-      "kickoffMs": 1794391200000,
-      "zonaHoraria": "Europe/Madrid",
-      "jugado": false,
-      "ordenDomCoincideSlug": false,
-      "confianzaEquipos": 200,
-      "capturadoEnUtc": "2026-11-10T07:32:14.489Z",
-      "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
-      "lineas": {
-        "2.5": {
-          "linea": "2.5",
-          "cuotaOver": 1.61,
-          "probCasaOverPct": 58,
-          "cuotaUnder": 2.25,
-          "probCasaUnderPct": 42,
-          "tip": "O2.5",
-          "tipCuota": 1.61,
-          "tipProbPct": 58
+          "tipProbPct": 60
         }
       }
     },
@@ -2794,28 +972,68 @@
       "jugado": false,
       "ordenDomCoincideSlug": false,
       "confianzaEquipos": 200,
-      "capturadoEnUtc": "2026-11-10T07:32:14.489Z",
+      "capturadoEnUtc": "2026-11-10T17:10:17.167Z",
       "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
       "lineas": {
         "1.5": {
           "linea": "1.5",
           "cuotaOver": 1.14,
-          "probCasaOverPct": 79,
-          "cuotaUnder": 4.4,
-          "probCasaUnderPct": 21,
+          "probCasaOverPct": 80,
+          "cuotaUnder": 4.45,
+          "probCasaUnderPct": 20,
           "tip": "O1.5",
           "tipCuota": 1.14,
-          "tipProbPct": 79
+          "tipProbPct": 80
         },
         "2.5": {
           "linea": "2.5",
-          "cuotaOver": 1.54,
+          "cuotaOver": 1.53,
           "probCasaOverPct": 60,
-          "cuotaUnder": 2.27,
+          "cuotaUnder": 2.28,
           "probCasaUnderPct": 40,
           "tip": "O2.5",
-          "tipCuota": 1.54,
+          "tipCuota": 1.53,
           "tipProbPct": 60
+        }
+      }
+    },
+    {
+      "clave": "aston-villa-women-vs-liverpool-fc-women",
+      "url": "/football/match/aston-villa-women-vs-liverpool-fc-women/",
+      "liga": "England: WSL Cup England",
+      "ligaUrl": null,
+      "local": "Aston Villa Women",
+      "visitante": "Liverpool FC Women",
+      "fecha": "2026-11-11",
+      "hora": "13:00",
+      "kickoffIsoUtc": "2026-11-11T12:00:00.000Z",
+      "kickoffMs": 1794398400000,
+      "zonaHoraria": "Europe/Madrid",
+      "jugado": false,
+      "ordenDomCoincideSlug": false,
+      "confianzaEquipos": 200,
+      "capturadoEnUtc": "2026-11-10T17:10:17.167Z",
+      "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
+      "lineas": {
+        "1.5": {
+          "linea": "1.5",
+          "cuotaOver": 1.19,
+          "probCasaOverPct": 76,
+          "cuotaUnder": 3.78,
+          "probCasaUnderPct": 24,
+          "tip": "O1.5",
+          "tipCuota": 1.19,
+          "tipProbPct": 76
+        },
+        "2.5": {
+          "linea": "2.5",
+          "cuotaOver": 1.71,
+          "probCasaOverPct": 54,
+          "cuotaUnder": 1.98,
+          "probCasaUnderPct": 46,
+          "tip": "O2.5",
+          "tipCuota": 1.71,
+          "tipProbPct": 54
         }
       }
     },
@@ -2834,28 +1052,28 @@
       "jugado": false,
       "ordenDomCoincideSlug": true,
       "confianzaEquipos": 200,
-      "capturadoEnUtc": "2026-11-10T07:32:14.489Z",
+      "capturadoEnUtc": "2026-11-10T17:10:17.167Z",
       "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
       "lineas": {
         "1.5": {
           "linea": "1.5",
-          "cuotaOver": 1.09,
-          "probCasaOverPct": 83,
-          "cuotaUnder": 5.4,
-          "probCasaUnderPct": 17,
+          "cuotaOver": 1.07,
+          "probCasaOverPct": 84,
+          "cuotaUnder": 5.75,
+          "probCasaUnderPct": 16,
           "tip": "O1.5",
-          "tipCuota": 1.09,
-          "tipProbPct": 83
+          "tipCuota": 1.07,
+          "tipProbPct": 84
         },
         "2.5": {
           "linea": "2.5",
-          "cuotaOver": 1.39,
-          "probCasaOverPct": 65,
-          "cuotaUnder": 2.59,
-          "probCasaUnderPct": 35,
+          "cuotaOver": 1.36,
+          "probCasaOverPct": 67,
+          "cuotaUnder": 2.7,
+          "probCasaUnderPct": 33,
           "tip": "O2.5",
-          "tipCuota": 1.39,
-          "tipProbPct": 65
+          "tipCuota": 1.36,
+          "tipProbPct": 67
         }
       }
     },
@@ -2874,7 +1092,7 @@
       "jugado": false,
       "ordenDomCoincideSlug": false,
       "confianzaEquipos": 200,
-      "capturadoEnUtc": "2026-11-10T07:32:14.489Z",
+      "capturadoEnUtc": "2026-11-10T17:10:17.167Z",
       "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
       "lineas": {
         "1.5": {
@@ -2914,28 +1132,28 @@
       "jugado": false,
       "ordenDomCoincideSlug": false,
       "confianzaEquipos": 200,
-      "capturadoEnUtc": "2026-11-10T07:32:14.489Z",
+      "capturadoEnUtc": "2026-11-10T17:10:17.167Z",
       "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
       "lineas": {
         "1.5": {
           "linea": "1.5",
-          "cuotaOver": 1.38,
-          "probCasaOverPct": 66,
-          "cuotaUnder": 2.63,
-          "probCasaUnderPct": 34,
+          "cuotaOver": 1.34,
+          "probCasaOverPct": 67,
+          "cuotaUnder": 2.78,
+          "probCasaUnderPct": 33,
           "tip": "O1.5",
-          "tipCuota": 1.38,
-          "tipProbPct": 66
+          "tipCuota": 1.34,
+          "tipProbPct": 67
         },
         "2.5": {
           "linea": "2.5",
-          "cuotaOver": 2.24,
-          "probCasaOverPct": 41,
-          "cuotaUnder": 1.55,
-          "probCasaUnderPct": 59,
+          "cuotaOver": 2.13,
+          "probCasaOverPct": 43,
+          "cuotaUnder": 1.61,
+          "probCasaUnderPct": 57,
           "tip": "U2.5",
-          "tipCuota": 1.55,
-          "tipProbPct": 59
+          "tipCuota": 1.61,
+          "tipProbPct": 57
         }
       }
     },
@@ -2954,28 +1172,28 @@
       "jugado": false,
       "ordenDomCoincideSlug": false,
       "confianzaEquipos": 200,
-      "capturadoEnUtc": "2026-11-10T07:32:14.489Z",
+      "capturadoEnUtc": "2026-11-10T17:10:17.167Z",
       "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
       "lineas": {
         "1.5": {
           "linea": "1.5",
-          "cuotaOver": 1.37,
-          "probCasaOverPct": 66,
-          "cuotaUnder": 2.66,
-          "probCasaUnderPct": 34,
+          "cuotaOver": 1.33,
+          "probCasaOverPct": 68,
+          "cuotaUnder": 2.81,
+          "probCasaUnderPct": 32,
           "tip": "O1.5",
-          "tipCuota": 1.37,
-          "tipProbPct": 66
+          "tipCuota": 1.33,
+          "tipProbPct": 68
         },
         "2.5": {
           "linea": "2.5",
-          "cuotaOver": 2.22,
-          "probCasaOverPct": 41,
-          "cuotaUnder": 1.56,
-          "probCasaUnderPct": 59,
+          "cuotaOver": 2.11,
+          "probCasaOverPct": 43,
+          "cuotaUnder": 1.62,
+          "probCasaUnderPct": 57,
           "tip": "U2.5",
-          "tipCuota": 1.56,
-          "tipProbPct": 59
+          "tipCuota": 1.62,
+          "tipProbPct": 57
         }
       }
     },
@@ -2994,7 +1212,7 @@
       "jugado": false,
       "ordenDomCoincideSlug": true,
       "confianzaEquipos": 200,
-      "capturadoEnUtc": "2026-11-10T07:32:14.489Z",
+      "capturadoEnUtc": "2026-11-10T17:10:17.167Z",
       "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
       "lineas": {
         "1.5": {
@@ -3034,7 +1252,7 @@
       "jugado": false,
       "ordenDomCoincideSlug": true,
       "confianzaEquipos": 200,
-      "capturadoEnUtc": "2026-11-10T07:32:14.489Z",
+      "capturadoEnUtc": "2026-11-10T17:10:17.167Z",
       "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
       "lineas": {
         "1.5": {
@@ -3074,28 +1292,28 @@
       "jugado": false,
       "ordenDomCoincideSlug": false,
       "confianzaEquipos": 200,
-      "capturadoEnUtc": "2026-11-10T07:32:14.489Z",
+      "capturadoEnUtc": "2026-11-10T17:10:17.167Z",
       "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
       "lineas": {
         "1.5": {
           "linea": "1.5",
-          "cuotaOver": 1.15,
-          "probCasaOverPct": 79,
-          "cuotaUnder": 4.25,
-          "probCasaUnderPct": 21,
+          "cuotaOver": 1.11,
+          "probCasaOverPct": 81,
+          "cuotaUnder": 4.85,
+          "probCasaUnderPct": 19,
           "tip": "O1.5",
-          "tipCuota": 1.15,
-          "tipProbPct": 79
+          "tipCuota": 1.11,
+          "tipProbPct": 81
         },
         "2.5": {
           "linea": "2.5",
-          "cuotaOver": 1.57,
-          "probCasaOverPct": 58,
-          "cuotaUnder": 2.2,
-          "probCasaUnderPct": 42,
+          "cuotaOver": 1.45,
+          "probCasaOverPct": 62,
+          "cuotaUnder": 2.41,
+          "probCasaUnderPct": 38,
           "tip": "O2.5",
-          "tipCuota": 1.57,
-          "tipProbPct": 58
+          "tipCuota": 1.45,
+          "tipProbPct": 62
         }
       }
     },
@@ -3114,7 +1332,7 @@
       "jugado": false,
       "ordenDomCoincideSlug": false,
       "confianzaEquipos": 200,
-      "capturadoEnUtc": "2026-11-10T07:32:14.489Z",
+      "capturadoEnUtc": "2026-11-10T17:10:17.167Z",
       "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
       "lineas": {
         "1.5": {
@@ -3154,7 +1372,7 @@
       "jugado": false,
       "ordenDomCoincideSlug": true,
       "confianzaEquipos": 200,
-      "capturadoEnUtc": "2026-11-10T07:32:14.489Z",
+      "capturadoEnUtc": "2026-11-10T17:10:17.167Z",
       "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
       "lineas": {
         "1.5": {
@@ -3194,7 +1412,7 @@
       "jugado": false,
       "ordenDomCoincideSlug": false,
       "confianzaEquipos": 200,
-      "capturadoEnUtc": "2026-11-10T07:32:14.489Z",
+      "capturadoEnUtc": "2026-11-10T17:10:17.167Z",
       "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
       "lineas": {
         "1.5": {
@@ -3220,6 +1438,46 @@
       }
     },
     {
+      "clave": "cd-fas-vs-inter-fa",
+      "url": "/football/match/cd-fas-vs-inter-fa/",
+      "liga": "El Salvador: Primera Division El Salvador",
+      "ligaUrl": null,
+      "local": "CD FAS",
+      "visitante": "Inter Santa Tecla",
+      "fecha": "2026-11-11",
+      "hora": "19:00",
+      "kickoffIsoUtc": "2026-11-11T18:00:00.000Z",
+      "kickoffMs": 1794420000000,
+      "zonaHoraria": "Europe/Madrid",
+      "jugado": false,
+      "ordenDomCoincideSlug": true,
+      "confianzaEquipos": 100,
+      "capturadoEnUtc": "2026-11-10T17:10:17.167Z",
+      "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
+      "lineas": {
+        "1.5": {
+          "linea": "1.5",
+          "cuotaOver": 1.24,
+          "probCasaOverPct": 73,
+          "cuotaUnder": 3.34,
+          "probCasaUnderPct": 27,
+          "tip": "O1.5",
+          "tipCuota": 1.24,
+          "tipProbPct": 73
+        },
+        "2.5": {
+          "linea": "2.5",
+          "cuotaOver": 1.81,
+          "probCasaOverPct": 51,
+          "cuotaUnder": 1.86,
+          "probCasaUnderPct": 49,
+          "tip": "O2.5",
+          "tipCuota": 1.81,
+          "tipProbPct": 51
+        }
+      }
+    },
+    {
       "clave": "cf-america-vs-toluca",
       "url": "/football/match/cf-america-vs-toluca/",
       "liga": "Mexico: Liga MX Femenil Mexico",
@@ -3234,7 +1492,7 @@
       "jugado": false,
       "ordenDomCoincideSlug": true,
       "confianzaEquipos": 200,
-      "capturadoEnUtc": "2026-11-10T07:32:14.489Z",
+      "capturadoEnUtc": "2026-11-10T17:10:17.167Z",
       "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
       "lineas": {
         "1.5": {
@@ -3274,28 +1532,28 @@
       "jugado": false,
       "ordenDomCoincideSlug": true,
       "confianzaEquipos": 200,
-      "capturadoEnUtc": "2026-11-10T07:32:14.489Z",
+      "capturadoEnUtc": "2026-11-10T17:10:17.167Z",
       "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
       "lineas": {
         "1.5": {
           "linea": "1.5",
-          "cuotaOver": 1.39,
-          "probCasaOverPct": 65,
-          "cuotaUnder": 2.59,
-          "probCasaUnderPct": 35,
+          "cuotaOver": 1.33,
+          "probCasaOverPct": 68,
+          "cuotaUnder": 2.83,
+          "probCasaUnderPct": 32,
           "tip": "O1.5",
-          "tipCuota": 1.39,
-          "tipProbPct": 65
+          "tipCuota": 1.33,
+          "tipProbPct": 68
         },
         "2.5": {
           "linea": "2.5",
-          "cuotaOver": 2.29,
-          "probCasaOverPct": 40,
-          "cuotaUnder": 1.53,
-          "probCasaUnderPct": 60,
+          "cuotaOver": 2.1,
+          "probCasaOverPct": 44,
+          "cuotaUnder": 1.63,
+          "probCasaUnderPct": 56,
           "tip": "U2.5",
-          "tipCuota": 1.53,
-          "tipProbPct": 60
+          "tipCuota": 1.63,
+          "tipProbPct": 56
         }
       }
     },
@@ -3314,27 +1572,27 @@
       "jugado": false,
       "ordenDomCoincideSlug": false,
       "confianzaEquipos": 200,
-      "capturadoEnUtc": "2026-11-10T07:32:14.489Z",
+      "capturadoEnUtc": "2026-11-10T17:10:17.167Z",
       "origen": "ratingbet.com (navegador real, zona horaria Europe/Madrid)",
       "lineas": {
         "1.5": {
           "linea": "1.5",
-          "cuotaOver": 1.12,
+          "cuotaOver": 1.11,
           "probCasaOverPct": 81,
           "cuotaUnder": 4.8,
           "probCasaUnderPct": 19,
           "tip": "O1.5",
-          "tipCuota": 1.12,
+          "tipCuota": 1.11,
           "tipProbPct": 81
         },
         "2.5": {
           "linea": "2.5",
-          "cuotaOver": 1.46,
+          "cuotaOver": 1.45,
           "probCasaOverPct": 62,
-          "cuotaUnder": 2.38,
+          "cuotaUnder": 2.41,
           "probCasaUnderPct": 38,
           "tip": "O2.5",
-          "tipCuota": 1.46,
+          "tipCuota": 1.45,
           "tipProbPct": 62
         }
       }
